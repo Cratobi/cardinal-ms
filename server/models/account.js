@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const jwt = require("jsonwebtoken")
-const _ = require("lodash")
 const bcrypt = require("bcryptjs")
+const _ = require("lodash")
 
 const AccountSchema = new mongoose.Schema({
   name: {
@@ -57,7 +57,7 @@ AccountSchema.methods.toJSON = function() {
 
 AccountSchema.methods.generateAuthToken = function() {
   const user = this
-  const access = "auth"
+  const access = "token"
   const token = jwt
     .sign({ _id: user._id.toHexString(), access }, "secret")
     .toString()
@@ -71,6 +71,7 @@ AccountSchema.methods.generateAuthToken = function() {
 
 AccountSchema.methods.removeToken = function(token) {
   const user = this
+  console.log(token)
 
   return user.update({
     $pull: {
@@ -92,7 +93,7 @@ AccountSchema.statics.findByToken = function(token) {
   return User.findOne({
     _id: decoded._id,
     "tokens.token": token,
-    "tokens.access": "auth"
+    "tokens.access": "token"
   })
 }
 

@@ -1,7 +1,7 @@
 const { Account } = require("../models/account")
 
 const authentication = (req, res, next) => {
-  const token = req.header("x-auth")
+  const token = req.header("token")
   Account.findByToken(token)
     .then(account => {
       !account ? Promise.reject() : null

@@ -12,9 +12,8 @@
     "mongoose": "^5.2.8"
   },
   "scripts": {
-    "start": "nodemon server/server",
-    "test": "nodemon mocha server/**/*.test.js",
-    "eject": "react-scripts eject"
+    "start": "nodemon server",
+    "test": "nodemon mocha /**/*.test.js"
   },
   "devDependencies": {
     "expect": "^23.5.0",

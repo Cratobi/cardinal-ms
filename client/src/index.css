@@ -84,6 +84,9 @@ article {
   height: 100vh;
   z-index: -1;
 }
+.hidden {
+  display: none;
+}
 /* --- Header --- */
 
 header {
