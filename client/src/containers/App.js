@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import axios from "axios"
+import { Route, Switch, withRouter } from "react-router-dom"
 import cookie from "js-cookie"
 
 import Header from "./Header/Header"
@@ -18,7 +19,7 @@ class App extends Component {
       method: "get",
       url: "http://localhost:3001/auth/",
       headers: {
-        "token": cookie.get("token")
+        token: cookie.get("token")
       }
     })
       .then(res => {
