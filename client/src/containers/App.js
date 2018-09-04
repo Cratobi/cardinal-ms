@@ -1,44 +1,65 @@
 import React, { Component } from "react"
-import axios from "axios"
+import { connect } from "react-redux"
+import { get } from "immutable"
 import { Route, Switch, withRouter } from "react-router-dom"
-import cookie from "js-cookie"
+import Axios from "axios"
+import Cookie from "js-cookie"
+import * as actions from "../store/actions/index"
 
 import Header from "./Header/Header"
 import Authentication from "./Authentication/Authentication"
+import Orders from "./Orders/Orders"
 import Content from "./Content/Content"
 
 class App extends Component {
-  state = {
-    init: {
-      as: 12
-    }
-  }
-  componentDidMount() {
-    // console.log(cookie.get("token"))
-    axios({
-      method: "get",
-      url: "http://localhost:3001/auth/",
-      headers: {
-        token: cookie.get("token")
-      }
-    })
-      .then(res => {
-        console.log("AUTO SIGN IN")
-      })
-      .catch(err => {
-        console.log("No Cookie")
-      })
-  }
+  // componentWillMount() {
+  //   if (!this.props.authorization) {
+  //     const token = Cookie.get("token")
 
+  //     token
+  //       ? Axios({
+  //           method: "get",
+  //           url: "http://localhost:3001/auth",
+  //           headers: {
+  //             token
+  //           }
+  //         })
+  //           .then(() => this.props.authenticate())
+  //           .catch(() => this.props.history.replace({ pathname: "/signin" }))
+  //       : this.props.history.replace({ pathname: "/signin" })
+  //   }
+  // }
   render() {
     return (
       <div>
-        {/* <Header /> */}
-        {/* <Content /> */}
-        <Authentication />
+        {this.props.history.location.pathname !== "/signin" ? <Header /> : null}
+        <Switch>
+          <Route path="/order" exact component={Orders} />
+          <Route path="/signin" component={Authentication} />
+          <Route path="/" exact component={Orders} />
+        </Switch>
       </div>
     )
   }
 }
 
-export default App
+const mapStateToProps = state => {
+  state = state.get("init")
+
+  return {
+    authorization: state.get("authorization")
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    authenticate: () => dispatch(actions.authenticate())
+  }
+}
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+)

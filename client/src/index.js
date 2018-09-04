@@ -10,22 +10,23 @@ import { BrowserRouter } from "react-router-dom"
 import thunk from "redux-thunk"
 
 import reducerReducer from "./store/reducers/reducer"
+import orderReducer from "./store/reducers/order"
 import registerServiceWorker from "./registerServiceWorker"
 
 const rootReducer = combineReducers({
-  reducer: reducerReducer
-  // draft: draftReducer,
-  // order: orderReducer
+  init: reducerReducer,
+  orders: orderReducer
 })
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-// const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 ReactDOM.render(
-  // <Provider store={store}>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  // </Provider>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 )
 registerServiceWorker()

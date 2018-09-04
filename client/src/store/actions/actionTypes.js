@@ -1,0 +1,2 @@
+export const AUTHENTICATE = "AUTHENTICATE"
+export const SAVE_ORDER_LIST = "SAVE_ORDER_LIST"

@@ -4,12 +4,23 @@ const _ = require("lodash")
 
 const { mongoose } = require("./db")
 const { Account } = require("./models/account")
+const { Order } = require("./models/order")
 const { authentication } = require("./middleware/authentication")
 
 // ------ INIT ------ //
 
 const app = express()
 app.use(bodyParse.json())
+
+// ------ ORDER ------ //
+
+app.get("/order", authentication, (req, res) => {
+  Order.fetchOrder()
+    .then(order_list => res.send({ order_list }))
+    .catch(() => {
+      res.status(400).send()
+    })
+})
 
 // ------ AUTHENTICATION ------ //
 
