@@ -1,11 +1,13 @@
-import React from "react";
+import React from "react"
+import { Link } from "react-router-dom"
 
 const header = props => {
   return (
     <header>
-      <span className="logo">
-        <b>Cardinal</b>
-      </span>
+      <Link to="/" className="logo">
+        <i className="fas fa-kiwi-bird" />
+        Cardinal MS
+      </Link>
       <span className="search">
         {/* <i className="fas fa-search search-icon" /> */}
         <input
@@ -86,7 +88,7 @@ const header = props => {
               <br />
               <div className="btn">
                 <button>SETTINGS</button>
-                <button>SIGN OUT</button>
+                <button onClick={props.handleUnauthenticate}>SIGN OUT</button>
               </div>
             </div>
           ) : null}
@@ -137,7 +139,7 @@ const header = props => {
         </span>
       </span>
     </header>
-  );
-};
+  )
+}
 
-export default header;
+export default header

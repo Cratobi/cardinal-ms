@@ -1,4 +1,9 @@
 import React, { Component } from "react"
+import Axios from "axios"
+import Cookie from "js-cookie"
+import { connect } from "react-redux"
+import { withRouter } from "react-router-dom"
+import * as actions from "../../store/actions/index"
 
 import HeaderLayout from "../../components/Layout/Header/Header"
 
@@ -10,9 +15,9 @@ class Header extends Component {
     notificationUnread: 4,
     searchQuery: ""
   }
-  handleSearchChange = event => {
+  handleSearchChange = e => {
     const state = this.state
-    state.searchQuery = event.target.value
+    state.searchQuery = e.target.value
     this.setState(state)
   }
   handleSearchFocus = () => {
@@ -36,6 +41,26 @@ class Header extends Component {
     state.notificationClick = !state.notificationClick
     this.setState(state)
   }
+  handleUnauthenticate = () => {
+    const token = Cookie.get("token")
+    if (token) {
+      Axios({
+        method: "delete",
+        url: "http://localhost:3001/auth/signout",
+        headers: {
+          token
+        }
+      })
+        .then(() => {
+          Cookie.remove("token")
+          this.props.unauthenticate()
+          this.props.history.push({ pathname: "/signin" })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }
   render() {
     return (
       <div>
@@ -50,10 +75,29 @@ class Header extends Component {
           handleNotificationClick={this.handleNotificationClick}
           notificationClick={this.state.notificationClick}
           notificationUnread={this.state.notificationUnread}
+          handleUnauthenticate={this.handleUnauthenticate}
         />
       </div>
     )
   }
 }
 
-export default Header
+const mapStateToProps = state => {
+  state = state.get("init")
+
+  return {
+    authorization: state.get("authorization")
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    unauthenticate: () => dispatch(actions.unauthenticate())
+  }
+}
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Header)
+)

@@ -32,20 +32,20 @@ class Authentication extends Component {
           .then(() => this.props.authenticate())
           .then(() => this.props.history.replace({ pathname: "/" }))
       } else {
-        const state = [...this.state]
-        this.state.render = true
+        const state = { ...this.state }
+        state.render = true
         this.setState(state)
       }
     }
   }
 
   handleUsernameChange = e => {
-    const state = [...this.state]
+    const state = { ...this.state }
     state.credential.username = e.target.value
     this.setState(state)
   }
   handlePasswordChange = e => {
-    const state = [...this.state]
+    const state = { ...this.state }
     state.credential.password = e.target.value
     this.setState(state)
   }

@@ -9,6 +9,11 @@ export const authenticate = () => {
     type: actionTypes.AUTHENTICATE
   }
 }
+export const unauthenticate = () => {
+  return {
+    type: actionTypes.UNAUTHENTICATE
+  }
+}
 
 // Middlewares
 
