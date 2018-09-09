@@ -1,62 +1,48 @@
 import React, { Component } from "react"
+import { connect } from "react-redux"
 import { get, getIn } from "immutable"
+import * as actions from "../../../store/actions/index"
 
 class Overview extends Component {
-  state = {
-    show_more: false,
-    buyer: "OKA",
-    order_no: "ASD234SDW-SDW",
-    style_no: "DEaudWSDW23243UHDa"
-  }
-  handleToggleMore = () => {
-    const state = { ...this.state }
-    state.show_more = !state.show_more
-    this.setState(state)
-  }
-
   render() {
     return (
       <div>
-        <div className="order-no">{this.state.order_no}</div>
+        <div className="order-no">{this.props.order.get("order_no")}</div>
         <div className="style-no">
-          <i class="fas fa-at" />
-          {this.state.style_no}
+          <i className="fas fa-at" />
+          {this.props.order.get("style_no")}
         </div>
         <table className="overview">
-          <tr>
-            <td>Shipment Date:</td>
-            <td>12/02/2012</td>
-          </tr>
-          <tr>
-            <td>Buyer:</td>
-            <td>{this.state.buyer}</td>
-          </tr>
-          <tr>
-            <td>Order no:</td>
-            <td>{this.state.order_no}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>Buyer:</td>
+              <td>{this.props.order.get("buyer")}</td>
+            </tr>
+            <tr>
+              <td>Shipment Date:</td>
+              <td>{this.props.order.get("shipment_date")}</td>
+            </tr>
+          </tbody>
         </table>
-        <button className="more-btn" onClick={this.handleToggleMore}>
+        <button className="more-btn" onClick={this.props.handleToggleMore}>
           Show more
           <i
             className={
-              this.state.show_more ? "fas fa-caret-up" : "fas fa-caret-down"
+              this.props.showMore ? "fas fa-caret-up" : "fas fa-caret-down"
             }
           />
         </button>
-        {this.state.show_more ? (
+        {this.props.showMore ? (
           <table className="overview">
             <tr>
-              <td>Shipment Date:</td>
-              <td>12/02/2012</td>
+              <td>Created By:</td>
+              <td>{this.props.order.get("createdBy")}</td>
             </tr>
             <tr>
-              <td>Buyer:</td>
-              <td>{this.state.buyer}</td>
-            </tr>
-            <tr>
-              <td>Order no:</td>
-              <td>{this.state.order_no}</td>
+              <td>Entry Date:</td>
+              <td>
+                {new Date(this.props.order.get("createdAt")).toDateString()}
+              </td>
             </tr>
           </table>
         ) : null}

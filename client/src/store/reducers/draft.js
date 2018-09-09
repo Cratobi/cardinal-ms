@@ -1,9 +1,8 @@
-import { fromJS, set } from "immutable"
+import { fromJS, getIn, set, setIn, toJS } from "immutable"
 
 const initialState = fromJS({
-  buyers: ["JBC", "RamJungle"],
-  orders: null,
-  order: null,
+  drafts: null,
+  metadata: null,
   tabledata: {
     table_measurments: {
       tablename: "measurments",
@@ -1326,14 +1325,201 @@ const initialState = fromJS({
   }
 })
 
+const sizeHeaderSyncer = (state, colindex, value) => {
+  const newstate = state.setIn(
+    [
+      "tabledata",
+      "table_colourandcompotision",
+      "tablebody",
+      0,
+      colindex + 1,
+      "cellData"
+    ],
+    value
+  )
+  return state.set("tabledata", newstate.get("tabledata"))
+}
+
+const compositionSyncer = (state, rowindex, colindex, value, prev_val) => {
+  const newstate_footer = state.updateIn(
+    [
+      "tabledata",
+      "table_colourandcompotision",
+      "tablebody",
+      9,
+      colindex - 1,
+      "cellData"
+    ],
+    old_val => +old_val + (+value - +prev_val)
+  )
+  const newstate_right = newstate_footer.updateIn(
+    [
+      "tabledata",
+      "table_colourandcompotision",
+      "tablebody",
+      rowindex,
+      12,
+      "cellData"
+    ],
+    old_val => +old_val + (+value - +prev_val)
+  )
+  const newstate_total = newstate_right.updateIn(
+    ["tabledata", "table_colourandcompotision", "tablebody", 9, 11, "cellData"],
+    old_val => +old_val + (+value - +prev_val)
+  )
+
+  return state.set("tabledata", newstate_total.get("tabledata"))
+}
+
+const accessoriesSyncer = (state, value, prev_val) => {
+  const newstate = state.updateIn(
+    ["tabledata", "table_accessoriesname", "tablebody", 22, 1, "cellData"],
+    old_val =>
+      "$ " + (Number(old_val.substr(1)) + (Number(value) - Number(prev_val)))
+  )
+
+  return state.set("tabledata", newstate.get("tabledata"))
+}
+
+const currencySyncer = (state, rowindex) => {
+  const consumption_total = state.getIn([
+    "tabledata",
+    "table_colourandcompotision",
+    "tablebody",
+    9,
+    11,
+    "cellData"
+  ])
+
+  if (rowindex === 2 || rowindex === 4) {
+    const currency_bodyconsumption = state.getIn([
+      "tabledata",
+      "table_currency",
+      "tablebody",
+      2,
+      1,
+      "cellData"
+    ])
+    const lycra_body_percent =
+      state.getIn([
+        "tabledata",
+        "table_currency",
+        "tablebody",
+        4,
+        1,
+        "cellData"
+      ]) / 100
+
+    const lycra_body =
+      Math.round(
+        (+consumption_total / 12) *
+          +currency_bodyconsumption *
+          +lycra_body_percent *
+          100
+      ) / 100
+
+    const newstate = state.setIn(
+      ["tabledata", "table_currency", "tablebody", 4, 2, "cellData"],
+      lycra_body
+    )
+
+    return state.set("tabledata", newstate.get("tabledata"))
+  } else if (rowindex === 3 || rowindex === 5) {
+    const currency_ribconsumption = state.getIn([
+      "tabledata",
+      "table_currency",
+      "tablebody",
+      3,
+      1,
+      "cellData"
+    ])
+    const lycra_rib_percent =
+      state.getIn([
+        "tabledata",
+        "table_currency",
+        "tablebody",
+        5,
+        1,
+        "cellData"
+      ]) / 100
+
+    const lycra_body =
+      Math.round(
+        (+consumption_total / 12) *
+          +currency_ribconsumption *
+          +lycra_rib_percent *
+          100
+      ) / 100
+
+    const newstate = state.setIn(
+      ["tabledata", "table_currency", "tablebody", 5, 2, "cellData"],
+      lycra_body
+    )
+
+    return state.set("tabledata", newstate.get("tabledata"))
+  }
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SAVE_BUYERS":
-      return state.set("buyers", fromJS(action.payload))
-    case "SAVE_ORDERS":
-      return state.set("orders", fromJS(action.payload))
-    case "SAVE_ORDER":
-      return state.set("order", fromJS(action.payload))
+    case "SAVE_DRAFTS":
+      return state.set("drafts", fromJS(action.payload))
+    case "SAVE_DRAFT_METADATA":
+      return state.set("metadata", fromJS(action.payload))
+    case "SAVE_DRAFT_TABLEDATA":
+      return state.set("tabledata", fromJS(action.payload))
+    case "RESET_DRAFT_TABLEDATA":
+      return state.set("tabledata", initialState.get("tabledata"))
+    case "SYNCTABLES":
+      const rowindex = Number(action.payload.rowindex)
+      const colindex = Number(action.payload.colindex)
+      const tablename = action.payload.tablename
+      const value = action.payload.value
+
+      const prev_val = state.getIn([
+        "tabledata",
+        "table_" + tablename,
+        "tablebody",
+        rowindex,
+        colindex,
+        "cellData"
+      ])
+
+      const newstate = state.setIn(
+        [
+          "tabledata",
+          "table_" + tablename,
+          "tablebody",
+          rowindex,
+          colindex,
+          "cellData"
+        ],
+        value
+      )
+
+      if (
+        tablename === "measurments" &&
+        rowindex === 0 &&
+        0 <= colindex <= 10
+      ) {
+        return sizeHeaderSyncer(newstate, colindex, value)
+      } else if (
+        tablename === "colourandcompotision" &&
+        1 <= rowindex <= 8 &&
+        2 <= colindex <= 11
+      ) {
+        return compositionSyncer(newstate, rowindex, colindex, value, prev_val)
+      } else if (
+        tablename === "accessoriesname" &&
+        0 <= rowindex <= 21 &&
+        colindex === 2
+      ) {
+        return accessoriesSyncer(newstate, value, prev_val)
+      } else if (tablename === "currency") {
+        return currencySyncer(newstate, rowindex)
+      } else {
+        return state.set("tabledata", newstate.get("tabledata"))
+      }
     default:
       return state
   }

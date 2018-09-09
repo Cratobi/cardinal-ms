@@ -6,11 +6,18 @@ import * as actions from "../../store/actions"
 
 import Overview from "./Overview/Overview"
 import PriceAndConsumtion from "./PriceAndConsumtion/PriceAndConsumtion"
-import OrderLayout from "../../components/Layout/Order/Order"
 
 class Order extends Component {
+  state = {
+    show_more: false
+  }
   componentWillMount() {
-    // this.props.fetchOrder()
+    this.props.fetchOrder(this.props.match.params.id)
+  }
+  handleToggleMore = () => {
+    const state = { ...this.state }
+    state.show_more = !state.show_more
+    this.setState(state)
   }
 
   render() {
@@ -23,16 +30,32 @@ class Order extends Component {
               to={`/order/${this.props.match.params.id}/overview`}
             >
               <li>
-                <i class="fas fa-chart-area" />
-                <span class="text">Overview</span>
+                <i className="fas fa-chart-area" />
+                <span className="text">Overview</span>
               </li>
             </NavLink>
             <NavLink
-              to={`/order/${this.props.match.params.id}/PriceAndConsumtion`}
+              to={`/order/${this.props.match.params.id}/priceandconsumtion`}
             >
               <li>
-                <i class="fas fa-hand-holding-usd" />
-                <span class="text">Price & Consumtion</span>
+                <i className="fas fa-hand-holding-usd" />
+                <span className="text">Price & Consumtion</span>
+              </li>
+            </NavLink>
+            <NavLink
+              to={`/order/${this.props.match.params.id}/woknitandaccess`}
+            >
+              <li>
+                <i className="fas fa-tshirt" />
+                <span className="text">WO-Knit & Access</span>
+              </li>
+            </NavLink>
+            <NavLink
+              to={`/order/${this.props.match.params.id}/knittingprogram`}
+            >
+              <li>
+                <i className="fas fa-industry" />
+                <span className="text">Knitting Program</span>
               </li>
             </NavLink>
           </ul>
@@ -49,12 +72,27 @@ class Order extends Component {
               />
             )}
           />
-          <Route path="/order/:id/overview" component={Overview} />
-          <Route
-            path="/order/:id/PriceAndConsumtion"
-            exact
-            component={PriceAndConsumtion}
-          />
+          {this.props.order ? (
+            <Route
+              path="/order/:id/overview"
+              render={() => (
+                <Overview
+                  showMore={this.state.show_more}
+                  handleToggleMore={this.handleToggleMore}
+                  order={this.props.order}
+                />
+              )}
+            />
+          ) : null}
+          {this.props.order ? (
+            <Route
+              path="/order/:id/priceandconsumtion"
+              exact
+              render={() => (
+                <PriceAndConsumtion order={this.props.order.get("tabledata")} />
+              )}
+            />
+          ) : null}
         </article>
       </main>
     )
@@ -63,13 +101,13 @@ class Order extends Component {
 
 const mapStateToProps = state => {
   return {
-    orders_list: state.getIn(["orders", "orders_list"])
+    order: state.getIn(["order", "order"])
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOrder: () => dispatch(actions.fetchOrder())
+    fetchOrder: id => dispatch(actions.fetchOrder(id))
   }
 }
 

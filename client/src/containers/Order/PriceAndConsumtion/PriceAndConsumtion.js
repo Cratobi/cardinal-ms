@@ -1,65 +1,46 @@
 import React, { Component } from "react"
+import { connect } from "react-redux"
 import { get, getIn } from "immutable"
+import * as actions from "../../../store/actions/index"
+
+import ConsumptionAndPricingLayout from "./../../../components/Layout/ConsumptionAndPricing/ConsumptionAndPricing"
 
 class PriceAndConsumtion extends Component {
-  state = {
-    show_more: false,
-    buyer: "OKA",
-    order_no: "ASD234SDW-SDW",
-    style_no: "DEaudWSDW23243UHDa"
-  }
-  handleToggleMore = () => {
-    const state = { ...this.state }
-    state.show_more = !state.show_more
-    this.setState(state)
-  }
-
   render() {
     return (
       <div>
-        <div className="order-no">{this.state.order_no}</div>
-        <div className="style-no">
-          <i class="fas fa-at" />
-          {this.state.style_no}
-        </div>
-        <table className="overview">
-          <tr>
-            <td>Shipment Date:</td>
-            <td>12/02/2012</td>
-          </tr>
-          <tr>
-            <td>Buyer:</td>
-            <td>{this.state.buyer}</td>
-          </tr>
-          <tr>
-            <td>Order no:</td>
-            <td>{this.state.order_no}</td>
-          </tr>
-        </table>
-        <button className="more-btn" onClick={this.handleToggleMore}>
-          Show more
-          <i
-            className={
-              this.state.show_more ? "fas fa-caret-up" : "fas fa-caret-down"
-            }
-          />
-        </button>
-        {this.state.show_more ? (
+        <div>
           <table className="overview">
             <tr>
-              <td>Shipment Date:</td>
-              <td>12/02/2012</td>
+              <td>Yarn Type:</td>
+              <td>COMBED COTTON</td>
             </tr>
             <tr>
-              <td>Buyer:</td>
-              <td>{this.state.buyer}</td>
+              <td>Construction:</td>
+              <td>100% CTN SINGLE JERSY</td>
             </tr>
             <tr>
-              <td>Order no:</td>
-              <td>{this.state.order_no}</td>
+              <td>Weight:</td>
+              <td>180 GSM</td>
+            </tr>
+            <tr>
+              <td>Self-Fabric:</td>
+              <td>150 Gram</td>
+            </tr>
+            <tr>
+              <td>Wastage:</td>
+              <td>Chest: 5</td>
+            </tr>
+            <tr>
+              <td>S. Allowance:</td>
+              <td>Length: 10</td>
             </tr>
           </table>
-        ) : null}
+        </div>
+        <ConsumptionAndPricingLayout
+          editability="false"
+          tabledata={this.props.order}
+        />
       </div>
     )
   }

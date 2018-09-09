@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 const _ = require("lodash")
 
-const OrderSchema = new mongoose.Schema({
+const DraftSchema = new mongoose.Schema({
   buyer: {
     type: String,
     // required: true,
@@ -15,7 +15,7 @@ const OrderSchema = new mongoose.Schema({
     trim: true,
     minlength: 1
   },
-  style_no: {
+  style_no: { 
     type: String,
     // required: true,
     trim: true,
@@ -31,13 +31,12 @@ const OrderSchema = new mongoose.Schema({
     default: new Date().getTime()
   },
   tabledata: {
-    type: Object,
-    default: null
+    type: Object
   }
 })
-OrderSchema.methods.toJSON = function() {
-  const order = this
-  return _.pick(order, [
+DraftSchema.methods.toJSON = function() {
+  const draft = this
+  return _.pick(draft, [
     "id",
     "buyer",
     "order_no",
@@ -48,15 +47,15 @@ OrderSchema.methods.toJSON = function() {
   ])
 }
 
-OrderSchema.statics.fetchOrders = function() {
-  const order = this
-  return order.find()
+DraftSchema.statics.fetchDrafts = function() {
+  const draft = this
+  return draft.find()
 }
-OrderSchema.statics.fetchOrder = function(id) {
-  const order = this
-  return order.findById(id)
+DraftSchema.statics.fetchDraft = function(id) {
+  const draft = this
+  return draft.findById(id)
 }
 
-const Order = mongoose.model("Order", OrderSchema)
+const Draft = mongoose.model("Draft", DraftSchema)
 
-module.exports = { Order }
+module.exports = { Draft }

@@ -11,11 +11,13 @@ import thunk from "redux-thunk"
 
 import reducerReducer from "./store/reducers/reducer"
 import orderReducer from "./store/reducers/order"
+import draftReducer from "./store/reducers/draft"
 import registerServiceWorker from "./registerServiceWorker"
 
 const rootReducer = combineReducers({
   init: reducerReducer,
-  orders: orderReducer
+  draft: draftReducer,
+  order: orderReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

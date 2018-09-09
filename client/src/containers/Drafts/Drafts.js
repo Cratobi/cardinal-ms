@@ -1,29 +1,29 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { get, getIn } from "immutable"
-import * as actions from "../../store/actions/index"
+import * as actions from "../../store/actions"
 
-import OrderLayout from "./../../components/Layout/Order/Order"
+import OrderLayout from "../../components/Layout/Order/Order"
 
 class Order extends Component {
   componentWillMount() {
-    this.props.fetchOrders()
+    this.props.fetchDrafts()
   }
 
   render() {
     return (
       <div className="container single-card">
-        <div className="title">ORDERS</div>
-        {this.props.orders ? (
+        <div className="title">DRAFTS</div>
+        {this.props.drafts ? (
           <div className="card card-holder">
-            {this.props.orders.map((data, index) => (
+            {this.props.drafts.map((data, index) => (
               <OrderLayout
                 key={data.get("id")}
                 id={data.get("id")}
                 buyer={data.get("buyer")}
                 orderNo={data.get("order_no")}
                 styleNo={data.get("style_no")}
-                path="/order/"
+                path="/draft/"
               />
             ))}
           </div>
@@ -37,13 +37,13 @@ class Order extends Component {
 
 const mapStateToProps = state => {
   return {
-    orders: state.getIn(["order", "orders"])
+    drafts: state.getIn(["draft", "drafts"])
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOrders: () => dispatch(actions.fetchOrders())
+    fetchDrafts: () => dispatch(actions.fetchDrafts())
   }
 }
 

@@ -5,6 +5,7 @@ const _ = require("lodash")
 const { mongoose } = require("./db")
 const { Account } = require("./models/account")
 const { Order } = require("./models/order")
+const { Draft } = require("./models/draft")
 const { authentication } = require("./middleware/authentication")
 
 // ------ INIT ------ //
@@ -14,11 +15,126 @@ app.use(bodyParse.json())
 
 // ------ ORDER ------ //
 
+// Provide all Orders
 app.get("/order", authentication, (req, res) => {
-  Order.fetchOrder()
-    .then(order_list => res.send({ order_list }))
+  Order.fetchOrders()
+    .then(data => res.send(data))
     .catch(() => {
       res.status(400).send()
+    })
+})
+
+// Provide Order
+app.get("/order/:id", authentication, (req, res) => {
+  const id = req.params.id
+
+  return Order.fetchOrder(id)
+    .then(data => {
+      res.send(data)
+    })
+    .catch(err => {
+      res.status(400).send(err)
+    })
+})
+
+// Publish Order
+app.post("/order/:id", authentication, (req, res) => {
+  const id = req.params.id
+
+  Draft.findById(id)
+    .then(order => {
+      let data = _.pick(order, [
+        "createdAt",
+        "createdBy",
+        "tabledata",
+        "buyer",
+        "order_no",
+        "style_no"
+      ])
+      order = new Order(data)
+
+      order
+        .save()
+        .then(data => {
+          Draft.findByIdAndRemove(id)
+            .then(() => {
+              res.send(data.id)
+            })
+            .catch(err => {
+              res.status(400).send(err)
+            })
+        })
+        .catch(err => {
+          res.status(400).send(err)
+        })
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(400).send(err)
+    })
+})
+
+// ------ DRAFT ------ //
+
+// Provide all Draft
+app.get("/draft", authentication, (req, res) => {
+  Draft.fetchDrafts()
+    .then(data => res.send(data))
+    .catch(() => {
+      res.status(400).send()
+    })
+})
+
+// Provide Draft
+app.get("/draft/:id", authentication, (req, res) => {
+  const id = req.params.id
+
+  return Draft.fetchDraft(id)
+    .then(data => {
+      res.send(data)
+    })
+    .catch(err => {
+      res.status(400).send(err)
+    })
+})
+
+// Add Draft
+app.post("/draft", authentication, (req, res) => {
+  Account.findOne({ username: "cratobi" })
+    .then(data => {
+      var body = _.pick(req.body.payload, [
+        "id",
+        "buyer",
+        "order_no",
+        "style_no"
+      ])
+      body.createdBy = data.username
+      var draft = new Draft(body)
+
+      draft
+        .save()
+        .then(data => res.send(data))
+        .catch(err => {
+          res.status(400).send(err)
+        })
+    })
+    .catch(err => {
+      res.status(400).send(err)
+    })
+})
+
+// Update Draft Tabledata
+app.post("/draft/:id", authentication, (req, res) => {
+  const id = req.params.id
+  const payload = req.body.payload
+  return Draft.findByIdAndUpdate(id, {
+    $set: { tabledata: payload }
+  })
+    .then(() => {
+      res.send()
+    })
+    .catch(err => {
+      res.status(400).send(err)
     })
 })
 
@@ -67,8 +183,8 @@ app.post("/auth/signup", (req, res) => {
     .then(token => {
       res.header("token", token).send(account)
     })
-    .catch(e => {
-      res.status(400).send(e)
+    .catch(err => {
+      res.status(400).send(err)
     })
 })
 
