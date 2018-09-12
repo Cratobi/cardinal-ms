@@ -98,7 +98,7 @@ export const sendDraftMetadta = (payload, router) => {
 export const sendDraftTabledata = payload => {
   return dispatch => {
     Axios({
-      method: "post",
+      method: "patch",
       url: `http://localhost:3001/draft/${payload.id}`,
       headers: {
         token: Cookie.get("token")
@@ -106,18 +106,35 @@ export const sendDraftTabledata = payload => {
       data: {
         payload: payload.tabledata
       }
+    }).catch(err => {
+      console.log(err)
     })
-      .then(() => {
-        payload.router.replace({ pathname: "/" })
-      })
-      .catch(err => {
-        console.log(err)
-      })
   }
 }
 
 export const onChange = payload => {
   return dispatch => {
     dispatch(syncTables(payload))
+  }
+}
+
+export const deleteDraft = (id, router) => {
+  return dispatch => {
+    Axios({
+      method: "delete",
+      url: `http://localhost:3001/draft/${id}`,
+      headers: {
+        token: Cookie.get("token")
+      },
+      data: null
+    })
+      .then(() => {
+        if (router) {
+          router.replace({ pathname: "/" })
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }

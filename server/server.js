@@ -1,4 +1,5 @@
 const express = require("express")
+var cors = require("cors")
 const bodyParse = require("body-parser")
 const _ = require("lodash")
 
@@ -6,17 +7,18 @@ const { mongoose } = require("./db")
 const { Account } = require("./models/account")
 const { Order } = require("./models/order")
 const { Draft } = require("./models/draft")
-const { authentication } = require("./middleware/authentication")
+const { auth } = require("./middleware/auth")
 
 // ------ INIT ------ //
 
 const app = express()
+app.use(cors())
 app.use(bodyParse.json())
 
 // ------ ORDER ------ //
 
 // Provide all Orders
-app.get("/order", authentication, (req, res) => {
+app.get("/order", auth, (req, res) => {
   Order.fetchOrders()
     .then(data => res.send(data))
     .catch(() => {
@@ -25,7 +27,7 @@ app.get("/order", authentication, (req, res) => {
 })
 
 // Provide Order
-app.get("/order/:id", authentication, (req, res) => {
+app.get("/order/:id", auth, (req, res) => {
   const id = req.params.id
 
   return Order.fetchOrder(id)
@@ -38,7 +40,7 @@ app.get("/order/:id", authentication, (req, res) => {
 })
 
 // Publish Order
-app.post("/order/:id", authentication, (req, res) => {
+app.post("/order/:id", auth, (req, res) => {
   const id = req.params.id
 
   Draft.findById(id)
@@ -77,7 +79,7 @@ app.post("/order/:id", authentication, (req, res) => {
 // ------ DRAFT ------ //
 
 // Provide all Draft
-app.get("/draft", authentication, (req, res) => {
+app.get("/draft", auth, (req, res) => {
   Draft.fetchDrafts()
     .then(data => res.send(data))
     .catch(() => {
@@ -86,7 +88,7 @@ app.get("/draft", authentication, (req, res) => {
 })
 
 // Provide Draft
-app.get("/draft/:id", authentication, (req, res) => {
+app.get("/draft/:id", auth, (req, res) => {
   const id = req.params.id
 
   return Draft.fetchDraft(id)
@@ -99,7 +101,7 @@ app.get("/draft/:id", authentication, (req, res) => {
 })
 
 // Add Draft
-app.post("/draft", authentication, (req, res) => {
+app.post("/draft", auth, (req, res) => {
   Account.findOne({ username: "cratobi" })
     .then(data => {
       var body = _.pick(req.body.payload, [
@@ -124,7 +126,7 @@ app.post("/draft", authentication, (req, res) => {
 })
 
 // Update Draft Tabledata
-app.post("/draft/:id", authentication, (req, res) => {
+app.patch("/draft/:id", auth, (req, res) => {
   const id = req.params.id
   const payload = req.body.payload
   return Draft.findByIdAndUpdate(id, {
@@ -138,10 +140,23 @@ app.post("/draft/:id", authentication, (req, res) => {
     })
 })
 
+// Delete Draft
+app.delete("/draft/:id", auth, (req, res) => {
+  const id = req.params.id
+
+  return Draft.findByIdAndRemove(id)
+    .then(() => {
+      res.send()
+    })
+    .catch(err => {
+      res.status(400).send(err)
+    })
+})
+
 // ------ AUTHENTICATION ------ //
 
 // Varify Token
-app.get("/auth", authentication, (req, res) => {
+app.get("/auth", auth, (req, res) => {
   res.send()
 })
 
@@ -161,7 +176,7 @@ app.post("/auth/signin", (req, res) => {
 })
 
 // Sign Out
-app.delete("/auth/signout", authentication, (req, res) => {
+app.delete("/auth/signout", auth, (req, res) => {
   req.account.removeToken(req.token).then(
     () => {
       res.status(200).send()

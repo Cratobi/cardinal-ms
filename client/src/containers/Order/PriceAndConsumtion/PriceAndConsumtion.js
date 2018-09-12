@@ -1,7 +1,4 @@
 import React, { Component } from "react"
-import { connect } from "react-redux"
-import { get, getIn } from "immutable"
-import * as actions from "../../../store/actions/index"
 
 import ConsumptionAndPricingLayout from "./../../../components/Layout/ConsumptionAndPricing/ConsumptionAndPricing"
 

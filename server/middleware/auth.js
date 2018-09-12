@@ -1,6 +1,6 @@
 const { Account } = require("../models/account")
 
-const authentication = (req, res, next) => {
+const auth = (req, res, next) => {
   const token = req.header("token")
   Account.findByToken(token)
     .then(account => {
@@ -14,4 +14,4 @@ const authentication = (req, res, next) => {
     })
 }
 
-module.exports = { authentication }
+module.exports = { auth }

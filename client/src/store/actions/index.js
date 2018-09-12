@@ -6,5 +6,6 @@ export {
   onChange,
   resetDraftTabledata,
   sendDraftMetadta,
-  sendDraftTabledata
+  sendDraftTabledata,
+  deleteDraft
 } from "./draft"

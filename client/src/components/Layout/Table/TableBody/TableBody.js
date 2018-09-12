@@ -1,4 +1,5 @@
 import React from "react"
+// eslint-disable-next-line
 import { get } from "immutable"
 
 const SelectOption = props => <option value={props.value}>{props.name}</option>
@@ -155,7 +156,9 @@ const tableBody = props => {
               suffix = <span className="span-suffix">{data.get("suffix")}</span>
               classname = "input-suffix"
             }
-            data.get("className") ? (classname = data.get("className")) : null
+            if (data.get("className")) {
+              return (classname = data.get("className"))
+            }
             // Return table column
 
             return (

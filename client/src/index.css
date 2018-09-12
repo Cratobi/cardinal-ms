@@ -1,3 +1,6 @@
+* {
+  transition: all, 0.1s;
+}
 header,
 div,
 a,
@@ -8,6 +11,9 @@ span {
 }
 a {
   text-decoration: none;
+}
+body {
+  font-size: 1rem;
 }
 /* clears the 'X' from Internet Explorer */
 input[type="search"]::-ms-clear {
@@ -31,6 +37,9 @@ input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   display: none;
 }
+.txt-center {
+  text-align: center;
+}
 /* input:focus::-webkit-input-placeholder {
   color: transparent !important;
 }
@@ -44,9 +53,15 @@ input:focus:-ms-input-placeholder {
   color: transparent !important;
 }  */
 
-.font-small {
-  font-size: 80% !important;
+.txt-small {
+  font-size: 80%;
 }
+.txt-title {
+  font-size: 160%;
+  font-weight: 700;
+  padding: 0.5rem;
+}
+
 body {
   font-family: "Lato";
   font-size: 16px;
@@ -58,10 +73,97 @@ body {
   /* margin-top: 4rem; */
   /* height: calc(100vh - 4rem); */
 }
+button,
+input[type="submit"] {
+  background-color: rgba(0, 0, 0, 0.158);
+  border-width: 0;
+  color: rgb(61, 61, 61);
+  font-weight: 600;
+  border-radius: 0.3rem;
+  padding: 0.6rem;
+  margin: 0 0.3rem;
+  user-select: none;
+  outline: none;
+}
+button:hover,
+input[type="submit"]:hover {
+  background-color: rgba(0, 0, 0, 0.192);
+}
+button:active,
+input[type="submit"]:active {
+  background-color: rgba(0, 0, 0, 0.192);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.151);
+}
+button.lighter,
+input[type="submit"].lighter {
+  color: rgb(156, 156, 156);
+  background-color: rgba(0, 0, 0, 0.055);
+}
+button.lighter:hover,
+input[type="submit"].lighter:hover {
+  background-color: rgba(0, 0, 0, 0.096);
+}
+button.lighter:active,
+input[type="submit"].lighter:active {
+  background-color: rgba(0, 0, 0, 0.096);
+}
+button.dark,
+input[type="submit"].dark {
+  color: rgb(255, 255, 255);
+  background-color: rgb(20, 20, 20);
+}
+button.dark:hover,
+input[type="submit"].dark:hover {
+  background-color: rgb(10, 10, 10);
+}
+button.dark:active,
+input[type="submit"].dark:active {
+  background-color: rgb(10, 10, 10);
+}
+.success {
+  color: rgb(43, 143, 18);
+  background-color: rgb(138, 238, 113);
+}
+.success:hover {
+  background-color: rgb(127, 231, 101);
+}
+.success:active {
+  background-color: rgb(127, 231, 101);
+}
+.caution {
+  color: rgb(255, 255, 255);
+  background-color: rgb(230, 0, 0);
+}
+.caution:hover {
+  background-color: rgb(216, 9, 9);
+}
+.caution:active {
+  background-color: rgb(216, 9, 9);
+}
 
+.p-t {
+  padding-top: 0.5rem;
+}
+.p-b {
+  padding-bottom: 0.5rem;
+}
+.p-l {
+  padding-left: 0.5rem;
+}
+.p-r {
+  padding-right: 0.5rem;
+}
+
+.f-l {
+  float: left;
+}
+.f-r {
+  float: right;
+}
 .container {
   display: flex;
   margin-top: 3.5rem;
+  width: 100vw;
   height: calc(100vh - 3.5rem);
   overflow-y: scroll;
 }
@@ -81,27 +183,78 @@ body {
 .container::-webkit-scrollbar-thumb:active {
   background: #161616;
 }
+.card {
+  display: flex;
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 1px 6px #0000003f;
+}
 .single-card {
   padding: 1rem;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
 }
+.card-header {
+  color: #868686;
+  width: 100%;
+  display: flex;
+  font-size: 90%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-self: center;
+  padding: 2rem;
+  padding-bottom: 1rem;
+}
+.card-footer {
+  width: 100%;
+  padding: 1rem;
+  padding-top: 4rem;
+}
+.anim span {
+  color: rgb(31, 31, 31);
+  animation-name: loading;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+.anim span:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.anim span:nth-child(3) {
+  animation-delay: 0.5s;
+}
+.anim span:nth-child(4) {
+  animation-delay: 0.7s;
+}
+
+@keyframes loading {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+.loading {
+  align-self: center;
+  user-select: none;
+}
+.txt-lighter {
+  color: rgba(0, 0, 0, 0.123);
+}
+
 .duel-card {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-between;
 }
-.title {
-  width: 100vw;
-  font-size: 1.3rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: #868686;
-  align-self: flex-start;
-  margin: 2rem;
-  margin-left: 15vw;
-}
+
 article.card {
   width: calc(80vw - 2rem);
   height: 80vh;
@@ -114,23 +267,26 @@ aside {
   width: 20vw;
   padding: 3rem 0;
 }
-.card {
-  background: #ffffff;
-  padding: 1.5rem;
-  border-radius: 15px;
-  box-sizing: border-box;
-  box-shadow: 0 1px 6px #0000003f;
-}
 .card-holder {
   display: flex;
-  width: fit-content;
   max-width: 75vw;
   min-width: 60vw;
   height: fit-content;
   flex-direction: row;
-  justify-content: space-evenly;
   padding-top: 3rem;
   flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.card-table-header {
+  width: 100%;
+  padding: 0 2rem;
+}
+.txt {
+  color: rgb(20, 20, 20);
+  font-weight: 600;
+}
+.card-table-header .txt {
+  padding-bottom: 0.3rem;
 }
 a.order-card {
   color: #000;
@@ -150,14 +306,11 @@ a.order-card {
   margin: 0.5rem;
   transition: all, 0.2s;
 }
-
 .order-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.199);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.301);
 }
 .order-card:active {
-  transform: scale(1.025);
-  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.281);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.267);
   /* box-shadow: 0 0 0 rgba(0, 0, 0, 0); */
   /* box-shadow: 0 1px 4px rgba(0, 0, 0, 0.377); */
 }
@@ -186,6 +339,22 @@ a.order-card {
   font-size: 0.7rem;
   padding-bottom: 0.5rem;
   align-self: flex-end;
+}
+.card-inner-btn {
+  background-color: rgb(236, 180, 180);
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.9rem;
+  position: absolute;
+  margin-top: -0.2rem;
+  margin-left: -2rem;
+  border-radius: 50%;
+  align-self: flex-end;
+  transition: all, 0.2s;
+  z-index: 5;
+}
+.card-inner-btn:hover {
+  background-color: rgb(230, 0, 0);
 }
 main {
   /* display: flex; */
@@ -599,53 +768,48 @@ ul.side-tab li .fas {
   z-index: 1;
 }
 
-/* --- Authentication Page --- */
+/* --- Auth Page --- */
 
-.authentication-container {
+.auth-container {
+  display: flex;
   width: 100vw;
   height: 100vh;
-  /* height: calc(100vh - 4rem); */
-  display: flex;
   align-items: center;
   justify-content: center;
 }
-.authentication-card {
-  width: 50vw !important;
-  font-size: 1rem;
-  display: flex;
+.auth-card {
+  max-width: 22rem;
   flex-direction: column;
   padding: 0;
-  box-shadow: 0 2px 10px #00000078;
 }
-.authentication-header {
+.auth-header {
   background-color: rgb(224, 224, 224);
   color: rgb(83, 83, 83);
   border-radius: 15px 15px 0 0;
   padding: 2.5rem;
   text-align: center;
+  user-select: none;
   box-shadow: inset 0 -10px 20px -10px rgba(0, 0, 0, 0.109);
 }
-.authentication-header > .title {
-  font-size: 1.6rem;
-  font-weight: bold;
-  padding-top: 0.6rem;
+.auth-header .txt-small {
+  color: rgb(155, 155, 155);
 }
-.authentication-form {
+
+.auth-card .alert {
+  background-color: rgb(219, 66, 66);
+  color: #ffffff;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+.auth-form {
   font-size: 1rem;
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
   border-radius: 10px;
 }
-.authentication-card > .alert {
-  background-color: rgb(219, 66, 66);
-  color: #ffffff;
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
-  text-align: center;
-  /* color: #fff; */
-}
-.authentication-form > input {
+.auth-form input {
   font-weight: bold;
   background-color: rgb(231, 231, 231);
   margin: 0.5rem 0;
@@ -653,16 +817,28 @@ ul.side-tab li .fas {
   border-width: 0;
   border-radius: 5px;
   outline: 0;
+  transition: all, 0.2s;
+}
+.auth-form input:focus {
+  background-color: rgb(218, 218, 218);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.123);
 }
 
-.authentication-form > .authentication-btn {
+/* This will remove the ugly yellow backgroud color after auto filling in Chrome  */
+input.autofill-color {
+  -webkit-box-shadow: inset 0 0 0px 1000px rgb(231, 231, 231);
+}
+input.autofill-color:focus {
+  -webkit-box-shadow: inset 0 0 0px 1000px rgb(218, 218, 218);
+}
+
+.auth-form > .btn-container {
   display: flex;
   justify-content: space-between;
   width: 100%;
   margin-top: 1rem;
 }
-.authentication-form > .authentication-btn > button,
-.authentication-form > .authentication-btn > input[type="submit"] {
+.auth-form > .btn-container button {
   background-color: transparent;
   color: rgb(83, 83, 83);
   font-weight: bold;
@@ -672,23 +848,19 @@ ul.side-tab li .fas {
   margin: 0 1rem;
   border-radius: 5px;
   outline: 0;
+  user-select: none;
 }
-.authentication-form > .authentication-btn > button:hover,
-.authentication-form > .authentication-btn > input[type="submit"]:hover {
+.auth-form > .btn-container button:hover {
   background-color: #00000010;
 }
-.authentication-form > .authentication-btn > button:active,
-.authentication-form > .authentication-btn > input[type="submit"]:active {
-  background-color: #0000002a;
+.auth-form > .btn-container button:active {
+  background-color: #00000018;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.151);
 }
-.authentication-form > .authentication-btn > button:disabled,
-.authentication-form > .authentication-btn > input[type="submit"]:disabled {
+.auth-form > .btn-container button:disabled {
   color: rgb(182, 182, 182);
 }
-.authentication-form > .authentication-btn > button:hover:disabled,
-.authentication-form
-  > .authentication-btn
-  > input[type="submit"]:hover:disabled {
+.auth-form > .btn-container button:hover:disabled {
   background-color: transparent;
 }
 

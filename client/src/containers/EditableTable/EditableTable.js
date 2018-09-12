@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+// eslint-disable-next-line
 import { get, getIn } from "immutable"
 import * as actions from "../../store/actions/index"
 

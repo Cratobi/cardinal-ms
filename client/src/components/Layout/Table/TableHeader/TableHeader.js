@@ -1,4 +1,5 @@
 import React from "react"
+// eslint-disable-next-line
 import { get } from "immutable"
 
 const tableHeader = props =>

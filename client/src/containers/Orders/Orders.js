@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+// eslint-disable-next-line
 import { get, getIn } from "immutable"
 import * as actions from "../../store/actions/index"
 
@@ -13,22 +14,39 @@ class Order extends Component {
   render() {
     return (
       <div className="container single-card">
-        <div className="title">ORDERS</div>
         {this.props.orders ? (
-          <div className="card card-holder">
-            {this.props.orders.map((data, index) => (
-              <OrderLayout
-                key={data.get("id")}
-                id={data.get("id")}
-                buyer={data.get("buyer")}
-                orderNo={data.get("order_no")}
-                styleNo={data.get("style_no")}
-                path="/order/"
-              />
-            ))}
-          </div>
+          !this.props.orders ? (
+            <h1 className="loading txt-lighter">Order's empty</h1>
+          ) : (
+            <div>
+              <div className="card-header">
+                <div className="txt-title">ORDERS</div>
+              </div>
+              <div className="card card-holder">
+                {this.props.orders.map((data, index) => (
+                  <OrderLayout
+                    key={data.get("id")}
+                    id={data.get("id")}
+                    buyer={data.get("buyer")}
+                    orderNo={data.get("order_no")}
+                    styleNo={data.get("style_no")}
+                    path="/order/"
+                  />
+                ))}
+              </div>
+            </div>
+          )
         ) : (
-          <h2>Loading...</h2>
+          <h2 className="loading txt-center">
+            Loading
+            <br />
+            <span className="anim">
+              <span>.</span>
+              <span>.</span>
+              <span>.</span>
+              <span>.</span>
+            </span>
+          </h2>
         )}
       </div>
     )

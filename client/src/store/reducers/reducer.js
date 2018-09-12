@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { fromJS, get, set } from "immutable"
 
 const initialState = fromJS({

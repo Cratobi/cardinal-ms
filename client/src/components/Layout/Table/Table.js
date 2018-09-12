@@ -1,5 +1,6 @@
 import React from "react"
 import TableHeader from "./TableHeader/TableHeader"
+// eslint-disable-next-line
 import { get } from "immutable"
 import TableBody from "./TableBody/TableBody"
 

@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+// eslint-disable-next-line
 import { get, getIn } from "immutable"
 import { NavLink, Route, Redirect, withRouter } from "react-router-dom"
 import * as actions from "../../store/actions"
