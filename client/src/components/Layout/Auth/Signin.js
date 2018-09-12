@@ -13,7 +13,7 @@ const Signin = props => {
           className="autofill-color"
           type="text"
           name="username"
-          placeholder="USERNAME"
+          placeholder=" USERNAME"
           onChange={props.handleChange}
           value={props.form.username}
         />
@@ -21,21 +21,25 @@ const Signin = props => {
           className="autofill-color"
           type="password"
           name="password"
-          placeholder="PASSWORD"
+          placeholder=" PASSWORD"
           autoComplete="true"
           onChange={props.handleChange}
           value={props.form.password}
         />
-        <input className="hidden" onClick={props.handleSubmit} type="submit" />
+        <input
+          className="hidden"
+          onClick={props.handleSubmitForm}
+          type="submit"
+        />
         <div className="btn-container">
           <button
             disabled={props.form.username ? false : true}
-            onClick={e => props.handleSubmitEmail(e)}
+            onClick={props.handleSubmitEmail}
           >
             HELP?
           </button>
           <button
-            onClick={e => props.handleSubmitForm(e)}
+            onClick={props.handleSubmitForm}
             disabled={props.form.username && props.form.password ? false : true}
           >
             SIGN IN

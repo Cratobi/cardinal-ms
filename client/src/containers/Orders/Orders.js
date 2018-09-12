@@ -7,18 +7,35 @@ import * as actions from "../../store/actions/index"
 import OrderLayout from "./../../components/Layout/Order/Order"
 
 class Order extends Component {
+  state = {
+    page: 1
+  }
   componentWillMount() {
     this.props.fetchOrders()
+  }
+  handleMoreBtn = () => {
+    const state = { ...this.state }
+    state.page = state.page + 1
+    this.setState(state)
+    this.props.fetchOrders(this.state.page)
+  }
+  handleScroll = () => {
+    let height = window.innerHeight
+    let scroll = document.body.scrollHeight
+    console.log(height, scroll)
+    // if (heightBound > window.scrollY) {
+    //   this.handleMoreBtn()
+    // }
   }
 
   render() {
     return (
-      <div className="container single-card">
+      <div onScroll={this.handleScroll} className="container single-card">
         {this.props.orders ? (
           !this.props.orders ? (
             <h1 className="loading txt-lighter">Order's empty</h1>
           ) : (
-            <div>
+            <div onScroll={this.handleScroll}>
               <div className="card-header">
                 <div className="txt-title">ORDERS</div>
               </div>
@@ -34,6 +51,7 @@ class Order extends Component {
                   />
                 ))}
               </div>
+              <button onClick={this.handleMoreBtn}>More</button>
             </div>
           )
         ) : (
@@ -61,7 +79,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOrders: () => dispatch(actions.fetchOrders())
+    fetchOrders: page => dispatch(actions.fetchOrders(page))
   }
 }
 

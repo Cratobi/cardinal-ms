@@ -15,7 +15,7 @@ const DraftSchema = new mongoose.Schema({
     trim: true,
     minlength: 1
   },
-  style_no: { 
+  style_no: {
     type: String,
     // required: true,
     trim: true,

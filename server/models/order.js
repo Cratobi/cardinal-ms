@@ -48,9 +48,14 @@ OrderSchema.methods.toJSON = function() {
   ])
 }
 
-OrderSchema.statics.fetchOrders = function() {
+OrderSchema.statics.fetchOrders = function(skips = 0) {
   const order = this
-  return order.find()
+  skips = skips * 10
+  return order
+    .find()
+    .sort({ createdAt: -1 })
+    .skip(skips)
+    .limit(10)
 }
 OrderSchema.statics.fetchOrder = function(id) {
   const order = this

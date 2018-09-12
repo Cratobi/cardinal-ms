@@ -19,7 +19,7 @@ app.use(bodyParse.json())
 
 // Provide all Orders
 app.get("/order", auth, (req, res) => {
-  Order.fetchOrders()
+  Order.fetchOrders(req.query.page)
     .then(data => res.send(data))
     .catch(() => {
       res.status(400).send()
@@ -163,16 +163,19 @@ app.get("/auth", auth, (req, res) => {
 // Sign In
 app.post("/auth/signin", (req, res) => {
   var body = _.pick(req.body, ["username", "password"])
-
-  Account.findByCredentials(body.username, body.password)
-    .then(account =>
-      account.generateAuthToken().then(token => {
-        res.header("token", token).send({ token })
+  if (body.username && body.password) {
+    Account.findByCredentials(body.username, body.password)
+      .then(account =>
+        account.generateAuthToken().then(token => {
+          res.header("token", token).send({ token })
+        })
+      )
+      .catch(err => {
+        res.status(400).send()
       })
-    )
-    .catch(() => {
-      res.status(400).send()
-    })
+  } else {
+    return res.status(400).send()
+  }
 })
 
 // Sign Out

@@ -35,7 +35,6 @@ class Auth extends Component {
   }
   handleSubmitSignin = e => {
     e.preventDefault()
-    console.log("sigin")
 
     Axios.post("http://localhost:3001/auth/signin", {
       username: this.state.form.username,

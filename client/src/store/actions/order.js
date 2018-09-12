@@ -16,6 +16,12 @@ export const saveOrders = payload => {
     payload
   }
 }
+export const addOrders = payload => {
+  return {
+    type: actionTypes.ADD_ORDERS,
+    payload
+  }
+}
 export const saveBuyers = payload => {
   return {
     type: actionTypes.SAVE_BUYERS,
@@ -25,6 +31,25 @@ export const saveBuyers = payload => {
 
 // Middlewares
 
+export const fetchOrders = (page = 0) => {
+  return dispatch => {
+    Axios({
+      method: "get",
+      url: `http://localhost:3001/order?page=${page}`,
+      headers: {
+        token: Cookie.get("token")
+      }
+    })
+      .then(res => {
+        page > 0
+          ? dispatch(addOrders(res.data))
+          : dispatch(saveOrders(res.data))
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+}
 export const fetchOrder = id => {
   return dispatch => {
     Axios({
@@ -54,24 +79,6 @@ export const publishOrder = (id, router) => {
       .then(res => {
         dispatch(fetchOrder(res.data))
         router.replace({ pathname: `/order/${res.data}` })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-}
-
-export const fetchOrders = () => {
-  return dispatch => {
-    Axios({
-      method: "get",
-      url: "http://localhost:3001/order",
-      headers: {
-        token: Cookie.get("token")
-      }
-    })
-      .then(res => {
-        dispatch(saveOrders(res.data))
       })
       .catch(err => {
         console.log(err)
