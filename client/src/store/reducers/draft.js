@@ -100,7 +100,7 @@ const initialState = fromJS({
           { editable: false, cellType: "number", cellData: "" },
           { editable: false, cellType: "number", cellData: "" },
           { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "text", cellData: "Total" }
+          { editable: false, cellType: "text", cellData: "Count" }
         ],
         [
           { editable: true, cellType: "text", cellData: "" },
@@ -227,7 +227,7 @@ const initialState = fromJS({
             editable: false,
             colspan: "2",
             cellType: "text",
-            cellData: "Total"
+            cellData: "Count"
           },
           { editable: false, cellType: "number", cellData: "" },
           { editable: false, cellType: "number", cellData: "" },
@@ -617,7 +617,7 @@ const initialState = fromJS({
             editable: false,
             colspan: "2",
             cellType: "text",
-            cellData: "Total cost of accessories"
+            cellData: "Count cost of accessories"
           },
           {
             editable: false,
@@ -646,7 +646,7 @@ const initialState = fromJS({
             editable: false,
             colspan: "2",
             cellType: "text",
-            cellData: "Total Yarn"
+            cellData: "Count Yarn"
           },
           { editable: true, cellType: "number", cellData: "" }
         ],
@@ -720,7 +720,7 @@ const initialState = fromJS({
           {
             editable: false,
             cellType: "text",
-            cellData: "Total yarn cost"
+            cellData: "Count yarn cost"
           },
           {
             editable: true,
@@ -1234,7 +1234,7 @@ const initialState = fromJS({
             editable: false,
             colspan: "2",
             cellType: "text",
-            cellData: "Total"
+            cellData: "Count"
           },
           {
             editable: true,

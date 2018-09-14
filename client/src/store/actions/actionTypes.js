@@ -6,6 +6,8 @@ export const SAVE_BUYERS = "SAVE_BUYERS"
 export const SAVE_ORDERS = "SAVE_ORDERS"
 export const ADD_ORDERS = "ADD_ORDERS"
 export const SAVE_ORDER = "SAVE_ORDER"
+export const SAVE_SEARCHED_RESULT = "SAVE_SEARCHED_RESULT"
+export const SAVE_ORDERS_COUNT = "SAVE_ORDERS_COUNT"
 
 export const SYNCTABLES = "SYNCTABLES"
 export const SAVE_DRAFT = "SAVE_DRAFTS"

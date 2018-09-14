@@ -1,5 +1,9 @@
 import React from "react"
 import { Link } from "react-router-dom"
+// eslint-disable-next-line
+import { get, size } from "immutable"
+
+import LoadingLayout from "../Loading/Loading"
 
 const header = props => {
   return (
@@ -16,58 +20,30 @@ const header = props => {
           placeholder="SEARCH"
           onChange={props.handleSearchChange}
           onFocus={props.handleSearchFocus}
-          onBlur={props.handleSearchFocus}
           value={props.searchQuery}
         />
         {props.searchEmpty && props.searchFocus ? (
           <div className="menu">
+            <span
+              className="transparent-backdrop"
+              onClick={props.handleSearchFocus}
+            />
             <div className="scrollable">
-              <div className="result">
-                XADADWA-AD0ADWA <span className="small"> - [style no]</span>
-              </div>
-              <div className="result">
-                CCAA-ADIADD <span className="small"> - [style no]</span>
-              </div>
-              <div className="result">
-                ADWADA <span className="small"> - [style no]</span>
-              </div>
-              <div className="result">
-                ADWADA <span className="small"> - [style no]</span>
-              </div>
-              <div className="result">
-                ADW23AF4W3R3FWAFF <span className="small"> - [style no]</span>
-              </div>
-              <div className="result">
-                ADW23AF4W3R3FWAFF <span className="small"> - [style no]</span>
-              </div>
-              <div className="result">
-                ADWADA <span className="small"> - [style no]</span>
-              </div>
-              <div className="result">
-                CCAA-ADIADD <span className="small"> - [style no]</span>
-              </div>
-              <div className="result">
-                CCAA-ADIADD <span className="small"> - [style no]</span>
-              </div>
-              <div className="result">
-                CCAA-ADIADDdADFADAWDAFD3
-                <span className="small"> - [style no]</span>
-              </div>
-              <div className="result">
-                CCAA-ADIADD <span className="small"> - [style no]</span>
-              </div>
-              <div className="result">
-                CCAA-ADIADD <span className="small"> - [style no]</span>
-              </div>
-              <div className="result">
-                CCAA-ADIADD <span className="small"> - [style no]</span>
-              </div>
-              <div className="result">
-                CCAA-ADIADD <span className="small"> - [style no]</span>
-              </div>
-              <div className="result">
-                CCAA-ADIADD <span className="small"> - [style no]</span>
-              </div>
+              {props.searchResult ? (
+                props.searchResult.map((order, index) => (
+                  <Link
+                    to={`order/${order.get("id")}/overview`}
+                    onClick={props.handleSearchFocus}
+                    className="result"
+                    key={index}
+                  >
+                    {order.get("order_no")}
+                    <span className="small"> - {order.get("style_no")}</span>
+                  </Link>
+                ))
+              ) : (
+                <LoadingLayout />
+              )}
             </div>
           </div>
         ) : null}

@@ -7,7 +7,7 @@ const { mongoose } = require("./db")
 const { Account } = require("./models/account")
 const { Order } = require("./models/order")
 const { Draft } = require("./models/draft")
-const { auth } = require("./middleware/auth")
+const { authenticate } = require("./middleware/authenticate")
 
 // ------ INIT ------ //
 
@@ -18,16 +18,57 @@ app.use(bodyParse.json())
 // ------ ORDER ------ //
 
 // Provide all Orders
-app.get("/order", auth, (req, res) => {
-  Order.fetchOrders(req.query.page)
-    .then(data => res.send(data))
+app.get("/order", authenticate, (req, res) => {
+  if (req.query.search) {
+  } else {
+    Order.fetchOrders(req.query.page)
+      .then(data => res.send(data))
+      .catch(() => {
+        res.status(400).send()
+      })
+  }
+})
+// Search Order
+app.get("/order/search", authenticate, (req, res) => {
+  let query = req.query.q
+  if (query.charAt(0) !== "@") {
+    Order.find({ order_no: { $regex: query, $options: "i" } })
+      .then(data => {
+        data = _.map(
+          data,
+          _.partialRight(_.pick, ["id", "order_no", "style_no"])
+        )
+        res.send(data)
+      })
+      .catch(() => {
+        res.status(400).send()
+      })
+  } else {
+    query = query.substr(1)
+    Order.find({ style_no: { $regex: query, $options: "i" } })
+      .then(data => {
+        data = _.map(
+          data,
+          _.partialRight(_.pick, ["id", "order_no", "style_no"])
+        )
+        res.send(data)
+      })
+      .catch(() => {
+        res.status(400).send()
+      })
+  }
+})
+
+app.get("/order/count", authenticate, (req, res) => {
+  Order.estimatedDocumentCount()
+    .then(count => res.send({ count }))
     .catch(() => {
       res.status(400).send()
     })
 })
 
 // Provide Order
-app.get("/order/:id", auth, (req, res) => {
+app.get("/order/:id", authenticate, (req, res) => {
   const id = req.params.id
 
   return Order.fetchOrder(id)
@@ -40,7 +81,7 @@ app.get("/order/:id", auth, (req, res) => {
 })
 
 // Publish Order
-app.post("/order/:id", auth, (req, res) => {
+app.post("/order/:id", authenticate, (req, res) => {
   const id = req.params.id
 
   Draft.findById(id)
@@ -79,7 +120,7 @@ app.post("/order/:id", auth, (req, res) => {
 // ------ DRAFT ------ //
 
 // Provide all Draft
-app.get("/draft", auth, (req, res) => {
+app.get("/draft", authenticate, (req, res) => {
   Draft.fetchDrafts()
     .then(data => res.send(data))
     .catch(() => {
@@ -88,7 +129,7 @@ app.get("/draft", auth, (req, res) => {
 })
 
 // Provide Draft
-app.get("/draft/:id", auth, (req, res) => {
+app.get("/draft/:id", authenticate, (req, res) => {
   const id = req.params.id
 
   return Draft.fetchDraft(id)
@@ -101,7 +142,7 @@ app.get("/draft/:id", auth, (req, res) => {
 })
 
 // Add Draft
-app.post("/draft", auth, (req, res) => {
+app.post("/draft", authenticate, (req, res) => {
   Account.findOne({ username: "cratobi" })
     .then(data => {
       var body = _.pick(req.body.payload, [
@@ -126,7 +167,7 @@ app.post("/draft", auth, (req, res) => {
 })
 
 // Update Draft Tabledata
-app.patch("/draft/:id", auth, (req, res) => {
+app.patch("/draft/:id", authenticate, (req, res) => {
   const id = req.params.id
   const payload = req.body.payload
   return Draft.findByIdAndUpdate(id, {
@@ -141,7 +182,7 @@ app.patch("/draft/:id", auth, (req, res) => {
 })
 
 // Delete Draft
-app.delete("/draft/:id", auth, (req, res) => {
+app.delete("/draft/:id", authenticate, (req, res) => {
   const id = req.params.id
 
   return Draft.findByIdAndRemove(id)
@@ -156,8 +197,8 @@ app.delete("/draft/:id", auth, (req, res) => {
 // ------ AUTHENTICATION ------ //
 
 // Varify Token
-app.get("/auth", auth, (req, res) => {
-  res.send()
+app.get("/auth", authenticate, (req, res) => {
+  res.send(req.user)
 })
 
 // Sign In
@@ -166,7 +207,7 @@ app.post("/auth/signin", (req, res) => {
   if (body.username && body.password) {
     Account.findByCredentials(body.username, body.password)
       .then(account =>
-        account.generateAuthToken().then(token => {
+        account.generateAuthToken("web").then(token => {
           res.header("token", token).send({ token })
         })
       )
@@ -179,7 +220,7 @@ app.post("/auth/signin", (req, res) => {
 })
 
 // Sign Out
-app.delete("/auth/signout", auth, (req, res) => {
+app.delete("/auth/signout", authenticate, (req, res) => {
   req.account.removeToken(req.token).then(
     () => {
       res.status(200).send()
@@ -197,7 +238,7 @@ app.post("/auth/signup", (req, res) => {
 
   account
     .save()
-    .then(() => account.generateAuthToken())
+    .then(() => account.generateAuthToken("web"))
     .then(token => {
       res.header("token", token).send(account)
     })

@@ -35,6 +35,10 @@ const OrderSchema = new mongoose.Schema({
     default: null
   }
 })
+OrderSchema.index({
+  order_no: "text",
+  style_no: "text"
+})
 OrderSchema.methods.toJSON = function() {
   const order = this
   return _.pick(order, [
@@ -50,12 +54,12 @@ OrderSchema.methods.toJSON = function() {
 
 OrderSchema.statics.fetchOrders = function(skips = 0) {
   const order = this
-  skips = skips * 10
+  skips = skips * 30
   return order
     .find()
     .sort({ createdAt: -1 })
     .skip(skips)
-    .limit(10)
+    .limit(30)
 }
 OrderSchema.statics.fetchOrder = function(id) {
   const order = this

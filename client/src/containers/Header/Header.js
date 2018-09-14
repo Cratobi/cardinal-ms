@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import Axios from "axios"
 import Cookie from "js-cookie"
+// eslint-disable-next-line
+import { getIn } from "immutable"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
 import * as actions from "../../store/actions/index"
@@ -19,6 +21,7 @@ class Header extends Component {
     const state = this.state
     state.searchQuery = e.target.value
     this.setState(state)
+    this.props.searchOrder(this.state.searchQuery)
   }
   handleSearchFocus = () => {
     const state = this.state
@@ -29,6 +32,7 @@ class Header extends Component {
   }
   handleAccountClick = () => {
     const state = this.state
+    state.searchFocus = false
     state.accountFocus = false
     state.notificationClick = false
     state.accountClick = !state.accountClick
@@ -36,6 +40,7 @@ class Header extends Component {
   }
   handleNotificationClick = () => {
     const state = this.state
+    state.searchFocus = false
     state.accountFocus = false
     state.accountClick = false
     state.notificationClick = !state.notificationClick
@@ -65,6 +70,7 @@ class Header extends Component {
     return (
       <div>
         <HeaderLayout
+          searchResult={this.props.search_result}
           searchQuery={this.state.searchQuery}
           searchEmpty={this.state.searchQuery ? true : false}
           searchFocus={this.state.searchFocus}
@@ -83,14 +89,14 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => {
-  state = state.get("init")
-
   return {
-    authorization: state.get("authorization")
+    authorization: state.getIn(["init", "authorization"]),
+    search_result: state.getIn(["order", "search_result"])
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
+    searchOrder: query => dispatch(actions.searchOrder(query)),
     unauthenticate: () => dispatch(actions.unauthenticate())
   }
 }

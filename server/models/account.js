@@ -55,9 +55,8 @@ AccountSchema.methods.toJSON = function() {
   return _.pick(userObject, ["username"])
 }
 
-AccountSchema.methods.generateAuthToken = function() {
+AccountSchema.methods.generateAuthToken = function(access) {
   const user = this
-  const access = "token"
   const token = jwt
     .sign({ _id: user._id.toHexString(), access }, "secret")
     .toString()
@@ -115,8 +114,8 @@ AccountSchema.pre("save", function(next) {
   const user = this
 
   user.isModified("password")
-    ? bcrypt.genSalt(10, (e, salt) => {
-        bcrypt.hash(user.password, salt, (e, hash) => {
+    ? bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(user.password, salt, (err, hash) => {
           user.password = hash
           next()
         })

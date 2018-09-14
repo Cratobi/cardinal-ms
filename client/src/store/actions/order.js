@@ -22,9 +22,21 @@ export const addOrders = payload => {
     payload
   }
 }
+export const saveOdersCount = payload => {
+  return {
+    type: actionTypes.SAVE_ORDERS_COUNT,
+    payload
+  }
+}
 export const saveBuyers = payload => {
   return {
     type: actionTypes.SAVE_BUYERS,
+    payload
+  }
+}
+export const saveSearchedResults = payload => {
+  return {
+    type: actionTypes.SAVE_SEARCHED_RESULT,
     payload
   }
 }
@@ -44,6 +56,40 @@ export const fetchOrders = (page = 0) => {
         page > 0
           ? dispatch(addOrders(res.data))
           : dispatch(saveOrders(res.data))
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+}
+
+export const searchOrder = query => {
+  return dispatch => {
+    Axios({
+      method: "get",
+      url: `http://localhost:3001/order/search?q=${query}`,
+      headers: {
+        token: Cookie.get("token")
+      }
+    })
+      .then(res => dispatch(saveSearchedResults(res.data)))
+      .catch(err => {
+        console.log(err)
+      })
+  }
+}
+
+export const fetchOrdersCount = () => {
+  return dispatch => {
+    Axios({
+      method: "get",
+      url: `http://localhost:3001/order/count`,
+      headers: {
+        token: Cookie.get("token")
+      }
+    })
+      .then(res => {
+        dispatch(saveOdersCount(res.data))
       })
       .catch(err => {
         console.log(err)

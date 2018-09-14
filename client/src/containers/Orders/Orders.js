@@ -11,6 +11,7 @@ class Order extends Component {
     page: 1
   }
   componentWillMount() {
+    this.props.fetchOrdersCount()
     this.props.fetchOrders()
   }
   handleMoreBtn = () => {
@@ -19,25 +20,20 @@ class Order extends Component {
     this.setState(state)
     this.props.fetchOrders(this.state.page)
   }
-  handleScroll = () => {
-    let height = window.innerHeight
-    let scroll = document.body.scrollHeight
-    console.log(height, scroll)
-    // if (heightBound > window.scrollY) {
-    //   this.handleMoreBtn()
-    // }
-  }
-
-  render() {
+  render() {  
     return (
       <div onScroll={this.handleScroll} className="container single-card">
-        {this.props.orders ? (
+         {this.props.orders ? (
           !this.props.orders ? (
             <h1 className="loading txt-lighter">Order's empty</h1>
           ) : (
             <div onScroll={this.handleScroll}>
               <div className="card-header">
-                <div className="txt-title">ORDERS</div>
+                <div className="txt-title order-title-centered">
+                  ORDERS
+                  <i className="fas fa-circle p-r" />
+                  <span className="p-l">{this.props.orders_count}</span>
+                </div>
               </div>
               <div className="card card-holder">
                 {this.props.orders.map((data, index) => (
@@ -50,8 +46,17 @@ class Order extends Component {
                     path="/order/"
                   />
                 ))}
+                {this.props.orders_count - 30 * this.state.page > 0 ? (
+                  <div className="card-footer txt-c">
+                    <button
+                      className="card-more-btn"
+                      onClick={this.handleMoreBtn}
+                    >
+                      See more
+                    </button>
+                  </div>
+                ) : null}
               </div>
-              <button onClick={this.handleMoreBtn}>More</button>
             </div>
           )
         ) : (
@@ -73,12 +78,14 @@ class Order extends Component {
 
 const mapStateToProps = state => {
   return {
+    orders_count: state.getIn(["order", "orders_count"]),
     orders: state.getIn(["order", "orders"])
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchOrdersCount: () => dispatch(actions.fetchOrdersCount()),
     fetchOrders: page => dispatch(actions.fetchOrders(page))
   }
 }

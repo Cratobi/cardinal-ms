@@ -5,6 +5,7 @@ import { get, getIn, size } from "immutable"
 import * as actions from "../../store/actions"
 
 import OrderLayout from "../../components/Layout/Order/Order"
+import LoadingLayout from "../../components/Layout/Loading/Loading"
 
 class Order extends Component {
   componentWillMount() {
@@ -42,16 +43,7 @@ class Order extends Component {
             <h1 className="loading txt-lighter">Draft's empty</h1>
           )
         ) : (
-          <h2 className="loading txt-center">
-            Loading
-            <br />
-            <span className="anim">
-              <span>.</span>
-              <span>.</span>
-              <span>.</span>
-              <span>.</span>
-            </span>
-          </h2>
+          <LoadingLayout />
         )}
       </div>
     )

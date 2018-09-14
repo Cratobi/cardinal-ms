@@ -1,5 +1,12 @@
 export { unauthenticate, authenticate, checkCookie } from "./actions"
-export { fetchOrder, fetchOrders, fetchBuyers, publishOrder } from "./order"
+export {
+  fetchOrder,
+  fetchOrders,
+  fetchBuyers,
+  fetchOrdersCount,
+  publishOrder,
+  searchOrder
+} from "./order"
 export {
   fetchDraft,
   fetchDrafts,
