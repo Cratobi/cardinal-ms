@@ -47,17 +47,17 @@ class Header extends Component {
     this.setState(state)
   }
   handleUnauthenticate = () => {
-    const token = Cookie.get("token")
+    const token = Cookie.get("x-auth")
     if (token) {
       Axios({
         method: "delete",
         url: "http://localhost:3001/auth/signout",
         headers: {
-          token
+          "x-auth": token
         }
       })
         .then(() => {
-          Cookie.remove("token")
+          Cookie.remove("x-auth")
           this.props.unauthenticate()
           this.props.history.push({ pathname: "/signin" })
         })

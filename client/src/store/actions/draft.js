@@ -41,7 +41,7 @@ export const fetchDrafts = () => {
       method: "get",
       url: "http://localhost:3001/draft",
       headers: {
-        token: Cookie.get("token")
+        token: Cookie.get("x-auth")
       }
     })
       .then(payload => {
@@ -58,7 +58,7 @@ export const fetchDraft = id => {
       method: "get",
       url: `http://localhost:3001/draft/${id}`,
       headers: {
-        token: Cookie.get("token")
+        token: Cookie.get("x-auth")
       }
     })
       .then(payload => {
@@ -79,7 +79,7 @@ export const sendDraftMetadta = (payload, router) => {
       method: "post",
       url: "http://localhost:3001/draft",
       headers: {
-        token: Cookie.get("token")
+        token: Cookie.get("x-auth")
       },
       data: {
         payload
@@ -101,7 +101,7 @@ export const sendDraftTabledata = payload => {
       method: "patch",
       url: `http://localhost:3001/draft/${payload.id}`,
       headers: {
-        token: Cookie.get("token")
+        token: Cookie.get("x-auth")
       },
       data: {
         payload: payload.tabledata
@@ -124,7 +124,7 @@ export const deleteDraft = (id, router) => {
       method: "delete",
       url: `http://localhost:3001/draft/${id}`,
       headers: {
-        token: Cookie.get("token")
+        token: Cookie.get("x-auth")
       },
       data: null
     })

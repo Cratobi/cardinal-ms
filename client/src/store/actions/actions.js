@@ -19,13 +19,13 @@ export const unauthenticate = () => {
 
 export const checkCookie = () => {
   return dispatch => {
-    const token = Cookie.get("token")
+    const token = Cookie.get("x-auth")
     if (token) {
       Axios({
         method: "get",
         url: "http://localhost:3001/auth",
         headers: {
-          token
+          "x-auth": token
         }
       })
         .then(() => {

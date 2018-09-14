@@ -70,7 +70,6 @@ AccountSchema.methods.generateAuthToken = function(access) {
 
 AccountSchema.methods.removeToken = function(token) {
   const user = this
-  console.log(token)
 
   return user.update({
     $pull: {

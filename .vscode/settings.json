@@ -1,6 +1,5 @@
 {
   "editor.parameterHints.cycle": true,
-  "editor.lineNumbers": "relative",
   "editor.cursorStyle": "block",
   "editor.cursorBlinking": "phase",
   "editor.multiCursorModifier": "ctrlCmd",

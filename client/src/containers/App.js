@@ -41,7 +41,7 @@ class App extends Component {
         this.props.location.pathname !== "/signup" &&
         this.props.location.pathname !== "/signup/"
       ) {
-        const token = Cookie.get("token")
+        const token = Cookie.get("x-auth")
 
         token
           ? Axios({
