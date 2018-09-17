@@ -2,7 +2,7 @@ const express = require("express")
 const _ = require("lodash")
 
 // Model
-const { Account } = require("../models/account")
+const { User } = require("../models/user")
 
 // Middleware
 const { authenticate } = require("../middleware/authenticate")
@@ -16,11 +16,11 @@ app.get("/auth", authenticate, (req, res) => {
 })
 // Sign In
 app.post("/auth/signin", (req, res) => {
-  var body = _.pick(req.body, ["username", "password"])
+  var body = _.pick(req.body, ["username", "password", "access", "system"])
   if (body.username && body.password) {
-    Account.findByCredentials(body.username, body.password)
-      .then(account =>
-        account.generateAuthToken("web").then(token => {
+    User.findByCredentials(body.username, body.password)
+      .then(user =>
+        user.generateAuthToken(body.access, body.system).then(token => {
           res.header("x-auth", token).send({ token })
         })
       )
@@ -33,7 +33,7 @@ app.post("/auth/signin", (req, res) => {
 })
 // Sign Out
 app.delete("/auth/signout", authenticate, (req, res) => {
-  req.account.removeToken(req.token).then(
+  req.user.removeToken(req.token).then(
     () => {
       res.status(200).send()
     },
@@ -45,14 +45,20 @@ app.delete("/auth/signout", authenticate, (req, res) => {
 
 // Sign Up
 app.post("/auth/signup", (req, res) => {
-  var body = _.pick(req.body, ["name", "username", "password"])
-  var account = new Account(body)
+  var body = _.pick(req.body, [
+    "name",
+    "username",
+    "password",
+    "admin",
+    "company"
+  ])
+  var user = new User(body)
 
-  account
+  user
     .save()
-    .then(() => account.generateAuthToken("web"))
+    .then(() => user.generateAuthToken("web"))
     .then(token => {
-      res.header("x-auth", token).send(account)
+      res.header("x-auth", token).send()
     })
     .catch(err => {
       res.status(400).send(err)

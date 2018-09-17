@@ -1,11 +1,12 @@
 import React, { Component } from "react"
-import Axios from "axios"
-import Cookie from "js-cookie"
+import { connect } from "react-redux"
 // eslint-disable-next-line
 import { getIn } from "immutable"
-import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
+import Cookie from "js-cookie"
+import Axios from "axios"
 import * as actions from "../../store/actions/index"
+import "./Header.css"
 
 import HeaderLayout from "../../components/Layout/Header/Header"
 
@@ -14,7 +15,7 @@ class Header extends Component {
     searchFocus: false,
     accountClick: false,
     notificationClick: false,
-    notificationUnread: 4,
+    notificationUnread: 5,
     searchQuery: ""
   }
   handleSearchChange = e => {
@@ -40,6 +41,7 @@ class Header extends Component {
   }
   handleNotificationClick = () => {
     const state = this.state
+    state.notificationUnread = 0
     state.searchFocus = false
     state.accountFocus = false
     state.accountClick = false
@@ -81,7 +83,6 @@ class Header extends Component {
           handleNotificationClick={this.handleNotificationClick}
           notificationClick={this.state.notificationClick}
           notificationUnread={this.state.notificationUnread}
-          handleUnauthenticate={this.handleUnauthenticate}
         />
       </div>
     )
@@ -96,8 +97,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    searchOrder: query => dispatch(actions.searchOrder(query)),
-    unauthenticate: () => dispatch(actions.unauthenticate())
+    searchOrder: query => dispatch(actions.searchOrder(query))
   }
 }
 

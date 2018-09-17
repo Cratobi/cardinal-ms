@@ -1,9 +1,9 @@
-const { Account } = require("../models/account")
+const { User } = require("../models/user")
 
 const authenticate = (req, res, next) => {
   const token = req.header("x-auth")
 
-  Account.findByToken(token)
+  User.findByToken(token)
     .then(user => {
       !user ? Promise.reject() : null
 

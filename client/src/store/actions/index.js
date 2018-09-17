@@ -1,4 +1,7 @@
-export { unauthenticate, authenticate, checkCookie } from "./actions"
+// AUthentication
+export { verifyToken, requestSignin } from "./authentication"
+
+// Order
 export {
   fetchOrder,
   fetchOrders,
@@ -7,6 +10,8 @@ export {
   publishOrder,
   searchOrder
 } from "./order"
+
+// Draft
 export {
   fetchDraft,
   fetchDrafts,

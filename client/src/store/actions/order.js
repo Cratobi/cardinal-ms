@@ -49,7 +49,7 @@ export const fetchOrders = (page = 0) => {
       method: "get",
       url: `http://localhost:3001/order?page=${page}`,
       headers: {
-        token: Cookie.get("x-auth")
+        "x-auth": Cookie.get("x-auth")
       }
     })
       .then(res => {
@@ -69,7 +69,7 @@ export const searchOrder = query => {
       method: "get",
       url: `http://localhost:3001/order/search?q=${query}`,
       headers: {
-        token: Cookie.get("x-auth")
+        "x-auth": Cookie.get("x-auth")
       }
     })
       .then(res => dispatch(saveSearchedResults(res.data)))
@@ -85,7 +85,7 @@ export const fetchOrdersCount = () => {
       method: "get",
       url: `http://localhost:3001/order/count`,
       headers: {
-        token: Cookie.get("x-auth")
+        "x-auth": Cookie.get("x-auth")
       }
     })
       .then(res => {
@@ -102,7 +102,7 @@ export const fetchOrder = id => {
       method: "get",
       url: `http://localhost:3001/order/${id}`,
       headers: {
-        token: Cookie.get("x-auth")
+        "x-auth": Cookie.get("x-auth")
       }
     })
       .then(res => {
@@ -119,7 +119,7 @@ export const publishOrder = (id, router) => {
       method: "post",
       url: `http://localhost:3001/order/${id}`,
       headers: {
-        token: Cookie.get("x-auth")
+        "x-auth": Cookie.get("x-auth")
       }
     })
       .then(res => {
@@ -138,7 +138,7 @@ export const fetchBuyers = () => {
       method: "get",
       url: "http://localhost:3001/buyers",
       headers: {
-        token: Cookie.get("x-auth")
+        "x-auth": Cookie.get("x-auth")
       }
     })
       .then(payload => {

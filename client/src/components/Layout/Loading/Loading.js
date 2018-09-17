@@ -3,8 +3,11 @@ import React from "react"
 const Loading = props => {
   return (
     <h2 className="loading txt-center">
-      Loading
-      <br />
+      {props.txt ? (
+        <div>
+          Loading <br />
+        </div>
+      ) : null}
       <span className="anim">
         <span>.</span>
         <span>.</span>

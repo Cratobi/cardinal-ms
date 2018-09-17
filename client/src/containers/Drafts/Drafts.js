@@ -43,7 +43,7 @@ class Order extends Component {
             <h1 className="loading txt-lighter">Draft's empty</h1>
           )
         ) : (
-          <LoadingLayout />
+          <LoadingLayout txt />
         )}
       </div>
     )

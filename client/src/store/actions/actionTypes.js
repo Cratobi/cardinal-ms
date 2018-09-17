@@ -1,17 +1,20 @@
-export const AUTHENTICATE = "AUTHENTICATE"
-export const UNAUTHENTICATE = "UNAUTHENTICATE"
+// Authentication
+export const RESET_STATE = "RESET_STATE"
 
+// Buyer
 export const SAVE_BUYERS = "SAVE_BUYERS"
 
-export const SAVE_ORDERS = "SAVE_ORDERS"
-export const ADD_ORDERS = "ADD_ORDERS"
-export const SAVE_ORDER = "SAVE_ORDER"
-export const SAVE_SEARCHED_RESULT = "SAVE_SEARCHED_RESULT"
-export const SAVE_ORDERS_COUNT = "SAVE_ORDERS_COUNT"
-
+// Draft
 export const SYNCTABLES = "SYNCTABLES"
 export const SAVE_DRAFT = "SAVE_DRAFTS"
 export const SAVE_DRAFTS = "SAVE_DRAFTS"
 export const SAVE_DRAFT_METADATA = "SAVE_DRAFT_METADATA"
 export const RESET_DRAFT_TABLEDATA = "RESET_DRAFT_TABLEDATA"
 export const SAVE_DRAFT_TABLEDATA = "SAVE_DRAFT_TABLEDATA"
+
+// Order
+export const SAVE_ORDERS = "SAVE_ORDERS"
+export const ADD_ORDERS = "ADD_ORDERS"
+export const SAVE_ORDER = "SAVE_ORDER"
+export const SAVE_SEARCHED_RESULT = "SAVE_SEARCHED_RESULT"
+export const SAVE_ORDERS_COUNT = "SAVE_ORDERS_COUNT"

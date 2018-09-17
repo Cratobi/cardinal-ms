@@ -1,8 +1,9 @@
 const express = require("express")
+const jwt = require("jsonwebtoken")
 const _ = require("lodash")
 
 // Models
-const { Account } = require("../models/account")
+const { User } = require("../models/user")
 const { Draft } = require("../models/draft")
 
 // Middleware
@@ -35,20 +36,23 @@ app.get("/draft/:id", authenticate, (req, res) => {
 
 // Add Draft
 app.post("/draft", authenticate, (req, res) => {
-  Account.findOne({ username: "cratobi" })
-    .then(data => {
+  const token = req.header("x-auth")
+  decoded = jwt.verify(token, "secret")
+
+  User.findById(decoded._id)
+    .then(user => {
       var body = _.pick(req.body.payload, [
         "id",
         "buyer",
         "order_no",
         "style_no"
       ])
-      body.createdBy = data.username
+      body.createdBy = { username: user.username, company: user.company }
       var draft = new Draft(body)
 
       draft
         .save()
-        .then(data => res.send(data))
+        .then(draft => res.send(draft))
         .catch(err => {
           res.status(400).send(err)
         })

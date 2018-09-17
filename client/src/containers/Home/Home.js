@@ -31,6 +31,10 @@ class Home extends Component {
         <br />
         <br />
         <br />
+        <div className="btn wide">Button</div>
+        <div className="btn">Button</div>
+        <div className="btn">Button</div>
+        <div className="btn">Button</div>
         <Link to="/order">
           <button>Orders</button>
         </Link>

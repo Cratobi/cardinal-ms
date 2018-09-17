@@ -6,25 +6,42 @@ const _ = require("lodash")
 const DraftSchema = new mongoose.Schema({
   buyer: {
     type: String,
-    // required: true,
-    minlength: 1
+    minlength: 1,
+    required: true
   },
   order_no: {
     type: String,
-    // required: true,
     trim: true,
-    minlength: 1
+    minlength: 1,
+    required: true
   },
   style_no: {
     type: String,
-    // required: true,
+    trim: true,
+    minlength: 1,
+    required: true
+  },
+  item: {
+    type: String,
+    trim: true,
+    minlength: 1
+  },
+  quantity: {
+    type: Number,
     trim: true,
     minlength: 1
   },
   createdBy: {
-    type: String,
-    // required: true,
-    minlength: 1
+    username: {
+      type: String,
+      required: true,
+      minlength: 1
+    },
+    company: {
+      type: String,
+      required: true,
+      minlength: 1
+    }
   },
   createdAt: {
     type: Number,

@@ -130,6 +130,7 @@ const tableBody = props => {
                     data-rowindex={rowindex}
                     data-colindex={colindex}
                     onChange={props.changeHandler}
+                    name={data.get("id")}
                     type={data.get("cellType")}
                     value={data.get("cellData")}
                   />

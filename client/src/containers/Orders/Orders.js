@@ -20,22 +20,22 @@ class Order extends Component {
     this.setState(state)
     this.props.fetchOrders(this.state.page)
   }
-  render() {  
+  render() {
     return (
       <div onScroll={this.handleScroll} className="container single-card">
-         {this.props.orders ? (
+        {this.props.orders ? (
           !this.props.orders ? (
             <h1 className="loading txt-lighter">Order's empty</h1>
           ) : (
             <div onScroll={this.handleScroll}>
-              <div className="card-header">
-                <div className="txt-title order-title-centered">
-                  ORDERS
-                  <i className="fas fa-circle p-r" />
-                  <span className="p-l">{this.props.orders_count}</span>
-                </div>
-              </div>
               <div className="card card-holder">
+                <div className="card-table-header">
+                  <div className="txt-title order-title-centered">
+                    ORDERS
+                    <i className="fas fa-circle p-r" />
+                    <span className="p-l">{this.props.orders_count}</span>
+                  </div>
+                </div>
                 {this.props.orders.map((data, index) => (
                   <OrderLayout
                     key={data.get("id")}
