@@ -123,8 +123,6 @@ input.search-input::placeholder {
 }
 
 .scrollable .search-result .txt-small {
-  background-color:
-  /* font-size: 90%; */
   padding-left: 10px;
   float: right;
   color: rgb(172, 172, 172);
@@ -173,11 +171,11 @@ header > .nav-btn {
 .account-menu .footer {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 @media (min-width: 768px) {
   .account-menu .footer {
-    display: flex;
+    justify-content: space-between;
   }
 }
 /* Notification */
