@@ -6,7 +6,6 @@ import { withRouter } from "react-router-dom"
 import Cookie from "js-cookie"
 import Axios from "axios"
 import * as actions from "../../store/actions/index"
-import "./Header.css"
 
 import HeaderLayout from "../../components/Layout/Header/Header"
 

@@ -2,7 +2,7 @@ import React from "react"
 
 const Loading = props => {
   return (
-    <h2 className="loading txt-center">
+    <h5 className={"loading txt-center" + props.center ? "loading-center" : ""}>
       {props.txt ? (
         <div>
           Loading <br />
@@ -14,7 +14,7 @@ const Loading = props => {
         <span>.</span>
         <span>.</span>
       </span>
-    </h2>
+    </h5>
   )
 }
 

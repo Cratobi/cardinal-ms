@@ -10,10 +10,20 @@ export const saveOrder = payload => {
     payload
   }
 }
+export const resetOrder = () => {
+  return {
+    type: actionTypes.RESET_ORDER
+  }
+}
 export const saveOrders = payload => {
   return {
     type: actionTypes.SAVE_ORDERS,
     payload
+  }
+}
+export const resetOrders = () => {
+  return {
+    type: actionTypes.RESET_ORDERS
   }
 }
 export const addOrders = payload => {
@@ -34,10 +44,20 @@ export const saveBuyers = payload => {
     payload
   }
 }
+export const resetBuyers = () => {
+  return {
+    type: actionTypes.RESET_BUYER
+  }
+}
 export const saveSearchedResults = payload => {
   return {
     type: actionTypes.SAVE_SEARCHED_RESULT,
     payload
+  }
+}
+export const resetSearchedResults = () => {
+  return {
+    type: actionTypes.RESET_SEARCHED_RESULT
   }
 }
 

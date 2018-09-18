@@ -4,13 +4,20 @@
   --on-primary: #ffffff;
   --secondary: #ffffff;
   --on-secondary: #ffffff;
-  --dark: #181818;
+  --dark: #252525;
+  --dark-deep: #111111;
   --on-dark: #ffffff;
+  --success: #8aee71;
+  --on-success: #2b8f12;
+  --success-deep: #70da56;
+  --success-transparent: #8aee7185;
   --background: #ffffff;
   --txt: #303030;
   --background-offset: #ececec;
+  --background-offset-deep: #d1d1d1;
   --txt-offset: #858585;
-  --txt-light: #757575;
+  --txt-light: #a3a3a3;
+  --txt-lighter: #cfcfcf;
 
   /* Device Size */
   --desktop-min: 1025px;

@@ -5,7 +5,10 @@ import { connect } from "react-redux"
 import { get, getIn, toJS } from "immutable"
 import * as actions from "../../store/actions/index"
 
+import SingleGridLayout from "../../components/Layout/SingleGrid/SingleGrid"
 import EditableTable from "../EditableTable/EditableTable"
+import LoadingLayout from "../../components/Layout/Loading/Loading"
+import Aux from "../../hoc/_Aux/_Aux"
 
 class Draft extends Component {
   componentWillMount() {
@@ -14,11 +17,10 @@ class Draft extends Component {
       : this.props.fetchDraft(this.props.match.params.id)
   }
   componentWillUnmount() {
-    this.props.resetDraftTabledata()
+    this.props.resetDraft()
     const payload = {
       id: this.props.metadata.get("id"),
       tabledata: this.props.tabledata.toJS()
-      // router: this.props.history
     }
 
     this.props.sendDraftTabledata(payload)
@@ -32,15 +34,13 @@ class Draft extends Component {
 
   render() {
     return this.props.metadata ? (
-      <div className="container single-card">
-        <div>
-          <div className="card-header">
-            <div className="txt-title">
-              {this.props.metadata.get("order_no")}
-            </div>
-            <div className="card-header-btn">
+      <SingleGridLayout
+        containerCSS=""
+        header={
+          <Aux>
+            <div className="draft-header-btns">
               <button
-                className="caution"
+                className="btn btn-caution"
                 onClick={() =>
                   this.props.deleteDraft(
                     this.props.metadata.get("id"),
@@ -51,39 +51,68 @@ class Draft extends Component {
                 <i className="fas fa-trash p-r" />
                 Delete Draft
               </button>
-              <button className="dark" onClick={this.handleSendDraftTabledata}>
-                <i className="fas fa-inbox p-r" />
-                Save to Draft
-              </button>
-            </div>
-          </div>
-          <div className="card card-holder">
-            <div className="card-table-header">
-              <div className="txt ">
-                Buyer: {this.props.metadata.get("buyer")}
-              </div>
-              <div className="txt ">
-                Style No: {this.props.metadata.get("style_no")}
-              </div>
-            </div>
-            <EditableTable tabledata={this.props.tabledata} />
-            <div className="card-footer">
-              <button className="success f-r" onClick={this.handlePublishOrder}>
-                <i className="fas fa-check p-r" />
-                Publish Order
-              </button>
               <button
-                className="lighter f-r"
+                className="btn btn-dark"
                 onClick={this.handleSendDraftTabledata}
               >
                 <i className="fas fa-inbox p-r" />
                 Save to Draft
               </button>
             </div>
-          </div>
-        </div>
-      </div>
-    ) : null
+            <div className="draft-header-metadata">
+              <p>
+                <span className="txt-prop">Shipment Date: </span>
+                {this.props.metadata.get("shipment_date")}
+              </p>
+              <p>
+                <span className="txt-prop">Order no: </span>
+                {this.props.metadata.get("order_no")}
+              </p>
+              <p>
+                <span className="txt-prop">Style no: </span>
+                {this.props.metadata.get("style_no")}
+              </p>
+              <p>
+                <span className="txt-prop">Item: </span>
+                {this.props.metadata.get("item")}
+              </p>
+              <p>
+                <span className="txt-prop">Quantity: </span>
+                {this.props.metadata.get("quantity")}
+              </p>
+              <p>
+                <span className="txt-prop">Order no: </span>
+                {this.props.metadata.get("order_no")}
+              </p>
+            </div>
+          </Aux>
+        }
+        headerCSS=" draft-header"
+        footer={
+          <Aux>
+            <button
+              className="btn btn-success f-r"
+              onClick={this.handlePublishOrder}
+            >
+              <i className="fas fa-check p-r" />
+              Publish Order
+            </button>
+            <button
+              className="btn btn-lighter f-r"
+              onClick={this.handleSendDraftTabledata}
+            >
+              <i className="fas fa-inbox p-r" />
+              Save to Draft
+            </button>
+          </Aux>
+        }
+        footerCSS=" draft-footer"
+      >
+        <EditableTable tabledata={this.props.tabledata} />
+      </SingleGridLayout>
+    ) : (
+      <LoadingLayout txt center />
+    )
   }
 }
 
@@ -101,7 +130,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(actions.sendDraftTabledata(payload)),
     publishOrder: (id, router) => dispatch(actions.publishOrder(id, router)),
     deleteDraft: (id, router) => dispatch(actions.deleteDraft(id, router)),
-    resetDraftTabledata: () => dispatch(actions.resetDraftTabledata())
+    resetDraft: () => dispatch(actions.resetDraft())
   }
 }
 

@@ -1,7 +1,8 @@
 import React from "react"
+import "./OrderCard.css"
 import { Link } from "react-router-dom"
 
-const header = props => {
+const OrderCard = props => {
   return (
     <span>
       <Link className="order-card" to={props.path + props.id}>
@@ -9,7 +10,7 @@ const header = props => {
         <div className="mid">
           <div className="order-no">{props.orderNo}</div>
           <div className="style-no" title={props.styleNo}>
-            {props.styleNo}
+            #{props.styleNo}
           </div>
         </div>
         <div className="buyer-name">{props.buyer}</div>
@@ -26,4 +27,4 @@ const header = props => {
   )
 }
 
-export default header
+export default OrderCard

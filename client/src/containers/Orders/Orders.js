@@ -1,10 +1,12 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 // eslint-disable-next-line
-import { get, getIn } from "immutable"
+import { get, getIn, size } from "immutable"
 import * as actions from "../../store/actions/index"
 
-import OrderLayout from "./../../components/Layout/Order/Order"
+import SingleGridLayout from "./../../components/Layout/SingleGrid/SingleGrid"
+import OrderCardLayout from "./../../components/Layout/OrderCard/OrderCard"
+import LoadingLayout from "../../components/Layout/Loading/Loading"
 
 class Order extends Component {
   state = {
@@ -14,64 +16,63 @@ class Order extends Component {
     this.props.fetchOrdersCount()
     this.props.fetchOrders()
   }
+  componentWillUnmount() {
+    this.props.resetOrders()
+  }
   handleMoreBtn = () => {
     const state = { ...this.state }
     state.page = state.page + 1
     this.setState(state)
     this.props.fetchOrders(this.state.page)
   }
+  // FLEX START
+  // containerCSS={
+  //   Math.ceil(this.props.orders_count / 30) === this.state.page &&
+  //   this.props.orders_count % 10 !== 0
+  //     ? " flex-j-start"
+  //     : ""
+  // }
+
   render() {
-    return (
-      <div onScroll={this.handleScroll} className="container single-card">
-        {this.props.orders ? (
-          !this.props.orders ? (
-            <h1 className="loading txt-lighter">Order's empty</h1>
-          ) : (
-            <div onScroll={this.handleScroll}>
-              <div className="card card-holder">
-                <div className="card-table-header">
-                  <div className="txt-title order-title-centered">
-                    ORDERS
-                    <i className="fas fa-circle p-r" />
-                    <span className="p-l">{this.props.orders_count}</span>
-                  </div>
-                </div>
-                {this.props.orders.map((data, index) => (
-                  <OrderLayout
-                    key={data.get("id")}
-                    id={data.get("id")}
-                    buyer={data.get("buyer")}
-                    orderNo={data.get("order_no")}
-                    styleNo={data.get("style_no")}
-                    path="/order/"
-                  />
-                ))}
-                {this.props.orders_count - 30 * this.state.page > 0 ? (
-                  <div className="card-footer txt-c">
-                    <button
-                      className="card-more-btn"
-                      onClick={this.handleMoreBtn}
-                    >
-                      See more
-                    </button>
-                  </div>
-                ) : null}
-              </div>
-            </div>
-          )
-        ) : (
-          <h2 className="loading txt-center">
-            Loading
-            <br />
-            <span className="anim">
-              <span>.</span>
-              <span>.</span>
-              <span>.</span>
-              <span>.</span>
-            </span>
-          </h2>
-        )}
-      </div>
+    return this.props.orders ? (
+      this.props.orders.size !== 0 ? (
+        <SingleGridLayout
+          containerCSS=""
+          headerCSS=" orders-header"
+          footerCSS=" flex-j-center"
+          header={
+            <h5 className="header-title">
+              ORDERS <i className="fas fa-circle p-r" />
+              <span className="p-l">{this.props.orders_count}</span>
+            </h5>
+          }
+          footer={
+            this.props.orders_count - 30 * this.state.page > 0 ? (
+              <button
+                className="btn btn-dark btn-more-custom"
+                onClick={this.handleMoreBtn}
+              >
+                See more
+              </button>
+            ) : null
+          }
+        >
+          {this.props.orders.map((order, index) => (
+            <OrderCardLayout
+              key={order.get("id")}
+              id={order.get("id")}
+              buyer={order.get("buyer")}
+              orderNo={order.get("order_no")}
+              styleNo={order.get("style_no")}
+              path="/order/"
+            />
+          ))}
+        </SingleGridLayout>
+      ) : (
+        <SingleGridLayout emptyTxt="There're no orders :(" />
+      )
+    ) : (
+      <LoadingLayout txt center />
     )
   }
 }
@@ -86,7 +87,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchOrdersCount: () => dispatch(actions.fetchOrdersCount()),
-    fetchOrders: page => dispatch(actions.fetchOrders(page))
+    fetchOrders: page => dispatch(actions.fetchOrders(page)),
+    resetOrders: page => dispatch(actions.resetOrders(page))
   }
 }
 

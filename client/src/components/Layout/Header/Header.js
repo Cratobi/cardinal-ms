@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 // eslint-disable-next-line
 import { get, size } from "immutable"
+import "./Header.css"
 
 import LoadingLayout from "../Loading/Loading"
 
@@ -22,7 +23,7 @@ const header = props => {
           value={props.searchQuery}
         />
         {props.searchEmpty && props.searchFocus ? (
-          <div className="search-menu">
+          <div className="menu-search">
             <span
               className="transparent-backdrop"
               onClick={props.handleSearchFocus}
@@ -56,15 +57,15 @@ const header = props => {
           <b className="hide-s p-l p-r">Xalcier</b>
         </span>
         {props.accountClick ? (
-          <div className="account-menu">
+          <div className="menu-account">
             <span
               className="transparent-backdrop"
               onClick={props.handleAccountClick}
             />
             <div className="txt-small m-b">Welcome</div>
             <span className="txt-large">Xalcier Alkamuro</span>
-            <div className="txt-emp m-l m-r f-r">ADMIN</div>
-            {/* <div className="txt-emp-dark m-l m-r f-r">ADMIN</div> */}
+            {/* <div className="txt-emp m-l m-r f-r">MODERATOR</div> */}
+            <div className="txt-emp txt-emp-dark m-l m-r f-r">ADMIN</div>
             <div className="footer p-t-1">
               <button className="btn btn-transparent">SETTINGS</button>
               <button
@@ -79,7 +80,7 @@ const header = props => {
         <span className="p-r hide-s" />
         <span
           onClick={props.handleNotificationClick}
-          className={`btn btn-chip ${
+          className={`btn btn-round ${
             props.notificationUnread !== 0 ? "btn-caution" : null
           }`}
         >

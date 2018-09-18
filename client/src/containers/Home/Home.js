@@ -31,15 +31,11 @@ class Home extends Component {
         <br />
         <br />
         <br />
-        <div className="btn wide">Button</div>
-        <div className="btn">Button</div>
-        <div className="btn">Button</div>
-        <div className="btn">Button</div>
         <Link to="/order">
-          <button>Orders</button>
+          <button className="btn btn-dark">Orders</button>
         </Link>
         <Link to="/draft">
-          <button>Drafts</button>
+          <button className="btn btn-dark">Drafts</button>
         </Link>
         <br />
         <br />
@@ -59,6 +55,7 @@ class Home extends Component {
           <input
             type="text"
             name="order_no"
+            className="search-input"
             placeholder="Order no"
             autoComplete="off"
             onChange={this.handleChange}
@@ -69,6 +66,7 @@ class Home extends Component {
           <input
             type="text"
             name="style_no"
+            className="search-input"
             placeholder="Style no"
             autoComplete="off"
             onChange={this.handleChange}
@@ -76,7 +74,7 @@ class Home extends Component {
           />
           <br />
           <br />
-          <input type="submit" value="Create Order" />
+          <input type="submit" className="btn" value="Create Order" />
           <br />
           <br />
         </form>

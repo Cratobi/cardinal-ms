@@ -1,0 +1,74 @@
+a.order-card {
+  color: #000;
+  text-decoration: none;
+}
+.order-card {
+  margin: 0 auto;
+  word-wrap: break-word;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 11rem;
+  height: 11rem;
+  background-color: #eeeeee;
+  padding: 0.8rem;
+  border-radius: 10px;
+  margin: 0.5rem;
+  transition: box-shadow var(--transition-time);
+  will-change: box-shadow;
+}
+.order-card:hover {
+  box-shadow: var(--elevation-4);
+}
+.order-card:active {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.267);
+}
+.order-card > .date {
+  font-size: 0.7rem;
+  font-weight: 600;
+  justify-self: flex-start;
+  padding: 0.5rem 0 0 0.2rem;
+}
+.order-card > .mid > .order-no {
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.4px;
+  padding-bottom: 0.5rem;
+}
+.order-card > .mid > .style-no {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 80%;
+  color: #5c5c5c;
+  font-size: 0.7rem;
+  letter-spacing: 0.5px;
+  align-self: flex-end;
+  white-space: nowrap;
+}
+.order-card > .buyer-name {
+  font-weight: 800;
+  color: rgb(179, 179, 179);
+  font-size: 0.75rem;
+  letter-spacing: 0.6px;
+  padding-bottom: 0.5rem;
+  align-self: flex-end;
+}
+
+@media (max-width: 768px) {
+  .order-card {
+    width: 8.5rem;
+    height: 8.5rem;
+  }
+  .order-card > .date {
+    font-size: 0.6rem;
+  }
+  .order-card > .mid > .order-no {
+    font-size: 0.9rem;
+  }
+  .order-card > .mid > .style-no {
+    font-size: 0.5rem;
+  }
+  .order-card > .buyer-name {
+    font-size: 0.55rem;
+  }
+}

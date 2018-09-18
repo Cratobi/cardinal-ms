@@ -13,7 +13,11 @@ class Order extends Component {
     show_more: false
   }
   componentWillMount() {
+    this.props.resetOrder()
     this.props.fetchOrder(this.props.match.params.id)
+  }
+  componentWillUnmount() {
+    this.props.resetOrder()
   }
   handleToggleMore = () => {
     const state = { ...this.state }
@@ -43,7 +47,7 @@ class Order extends Component {
                 <span className="text">Price & Consumtion</span>
               </li>
             </NavLink>
-            <NavLink
+            {/* <NavLink
               to={`/order/${this.props.match.params.id}/woknitandaccess`}
             >
               <li>
@@ -58,7 +62,7 @@ class Order extends Component {
                 <i className="fas fa-industry" />
                 <span className="text">Knitting Program</span>
               </li>
-            </NavLink>
+            </NavLink> */}
           </ul>
         </aside>
 
@@ -108,7 +112,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOrder: id => dispatch(actions.fetchOrder(id))
+    fetchOrder: id => dispatch(actions.fetchOrder(id)),
+    resetOrder: id => dispatch(actions.resetOrder(id))
   }
 }
 

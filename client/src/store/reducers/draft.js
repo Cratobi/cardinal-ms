@@ -2553,8 +2553,11 @@ const reducer = (state = initialState, action) => {
       return state.set("metadata", fromJS(action.payload))
     case "SAVE_DRAFT_TABLEDATA":
       return state.set("tabledata", fromJS(action.payload))
-    case "RESET_DRAFT_TABLEDATA":
+    case "RESET_DRAFT":
+      state = state.set("metadata", initialState.get("metadata"))
       return state.set("tabledata", initialState.get("tabledata"))
+    case "RESET_DRAFTS":
+      return state.set("drafts", initialState.get("drafts"))
     case "SYNCTABLES":
       const rowindex = Number(action.payload.rowindex)
       const colindex = Number(action.payload.colindex)
