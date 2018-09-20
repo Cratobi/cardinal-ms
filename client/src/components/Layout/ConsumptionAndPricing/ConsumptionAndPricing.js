@@ -2,47 +2,47 @@ import React from "react"
 // eslint-disable-next-line
 import { get } from "immutable"
 
-import TableLayout from "../Table/Table"
+import DataTable from "../DataTable/DataTable"
 
 const consumptionAndPricing = props => {
   return (
     <div>
-      <TableLayout
+      <DataTable
         editability="false"
         tableData={props.tabledata.get("table_measurments")}
       />
       <br />
-      <TableLayout
+      <DataTable
         editability="false"
         tableData={props.tabledata.get("table_colourandcompotision")}
       />
       <br />
-      <TableLayout
+      <DataTable
         editability="false"
         tableData={props.tabledata.get("table_extrafabric")}
       />
       <br />
-      <TableLayout
+      <DataTable
         editability="false"
         tableData={props.tabledata.get("table_fabricfinishprocess")}
       />
       <br />
-      <TableLayout
+      <DataTable
         editability="false"
         tableData={props.tabledata.get("table_garmentapplication")}
       />
       <br />
-      <TableLayout
+      <DataTable
         editability="false"
         tableData={props.tabledata.get("table_accessoriesname")}
       />
       <br />
-      <TableLayout
+      <DataTable
         editability="false"
         tableData={props.tabledata.get("table_currency")}
       />
       <br />
-      <TableLayout
+      <DataTable
         editability="false"
         tableData={props.tabledata.get("table_price")}
       />

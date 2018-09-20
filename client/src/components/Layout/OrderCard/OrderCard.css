@@ -14,7 +14,7 @@ a.order-card {
   padding: 0.8rem;
   border-radius: 10px;
   margin: 0.5rem;
-  transition: box-shadow var(--transition-time);
+  transition: box-shadow var(--transition);
   will-change: box-shadow;
 }
 .order-card:hover {

@@ -1,4 +1,5 @@
 .single-grid {
+  background-color: #fff;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
@@ -6,7 +7,7 @@
   padding-top: 6rem;
   overflow-x: hidden;
 }
-.order-cards-holder {
+.card-container {
   display: flex;
   max-width: 75vw;
   min-width: 60vw;
@@ -16,7 +17,7 @@
   justify-content: space-evenly;
 }
 
-.orders-header,
+.custom-card-container-orders .card-header,
 .drafts-header {
   color: #868686;
   display: flex;
@@ -24,43 +25,42 @@
   justify-content: space-between;
   align-self: center;
 }
-.orders-header .header-title,
+.custom-card-container-orders .card-header .header-title,
 .drafts-header .header-title {
   display: flex;
   align-items: center;
   margin-top: 0;
   margin-bottom: 1rem;
 }
-.orders-header .header-title .fas,
+.custom-card-container-orders .card-header .header-title .fas,
 .drafts-header .header-title .fas {
   color: rgb(206, 206, 206);
   font-size: 0.4rem;
   padding-left: 1rem;
 }
-.draft-header {
+.custom-card-container-draft .card-header {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
 }
-.draft-header .draft-header-btns {
-  width: auto;
-  align-self: flex-end;
-  display: flex;
-  justify-content: flex-end;
+.custom-card-container-draft .card-header .draft-header-btns {
+  width: 100%;
+  text-align: right;
 }
-.draft-header .draft-header-metadata {
+.custom-card-container-draft .card--header .draft-header-metadata {
   font-size: 0.9rem;
   font-weight: 500;
   padding-top: 2rem;
 }
-.draft-header .draft-header-metadata .txt-prop {
+.custom-card-container-draft .card-header .draft-header-metadata .txt-prop {
   font-weight: 800;
 }
-.draft-footer {
+.custom-card-container-draft .card-footer {
   justify-content: flex-end;
 }
+
 .card-footer .btn-more-custom {
   border-radius: 2rem;
   padding: 0.8rem 1.2rem;
@@ -77,14 +77,26 @@
     padding: 0;
     padding-top: 0;
   }
-  .order-cards-holder {
+  .card-container {
     min-width: 100vw;
     box-shadow: 0 0 0 #000000;
   }
-  .order-cards-header .header-title {
+  .custom-card-container-draft .order-cards-header .header-title {
     margin-bottom: 0;
   }
   .draft-footer {
     justify-content: center;
+  }
+  .custom-card-container-draft .card-header .draft-header-btns {
+    text-align: center;
+  }
+  .custom-card-container-draft .card-header .draft-header-btns .btn {
+    width: calc(50% - 1rem);
+  }
+  .custom-card-container-draft .card-footer {
+    justify-content: center;
+  }
+  .custom-card-container-draft .card-footer .btn {
+    width: calc(50% - 1rem);
   }
 }

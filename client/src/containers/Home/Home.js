@@ -10,7 +10,8 @@ class Home extends Component {
     draft_metadata: {
       buyer: "",
       order_no: "",
-      style_no: ""
+      style_no: "",
+      buyer: "H1Z1"
     }
   }
   handleChange = e => {

@@ -24,9 +24,7 @@ class Order extends Component {
     return this.props.drafts ? (
       this.props.drafts.size !== 0 ? (
         <SingleGridLayout
-          containerCSS=" flex-j-start"
-          headerCSS=" drafts-header"
-          footerCSS=""
+          CustomCSS="drafts"
           header={<h5 className="header-title"> DRAFT </h5>}
         >
           {this.props.drafts.map(draft => (

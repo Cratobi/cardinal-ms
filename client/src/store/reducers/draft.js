@@ -309,17 +309,71 @@ const initialState = fromJS({
             cellType: "text",
             cellData: "Composition"
           },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "text", cellData: "Count" }
+          {
+            id: "cnc_auto_1",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_2",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_3",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_4",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_5",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_6",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_7",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_8",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_9",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_10",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            editable: false,
+            cellType: "text",
+            cellData: "Count"
+          }
         ],
         [
           { id: "cnc_a_1", editable: true, cellType: "text", cellData: "" },
@@ -384,23 +438,16 @@ const initialState = fromJS({
             cellType: "number",
             cellData: ""
           },
-          { editable: false, cellType: "number", cellData: "" }
+          {
+            id: "cnc_auto_11",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          }
         ],
         [
-          { editable: false, cellType: "text", cellData: "ad23q" },
-          { editable: false, cellType: "text", cellData: "" },
-          {
-            id: "cnc_b_1",
-            editable: true,
-            cellType: "number",
-            cellData: ""
-          },
-          {
-            id: "cnc_b_2",
-            editable: true,
-            cellType: "number",
-            cellData: ""
-          },
+          { id: "cnc_b_1", editable: true, cellType: "text", cellData: "" },
+          { id: "cnc_b_2", editable: true, cellType: "text", cellData: "" },
           {
             id: "cnc_b_3",
             editable: true,
@@ -449,7 +496,24 @@ const initialState = fromJS({
             cellType: "number",
             cellData: ""
           },
-          { editable: false, cellType: "number", cellData: "" }
+          {
+            id: "cnc_b_11",
+            editable: true,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_b_12",
+            editable: true,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_12",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          }
         ],
         [
           { id: "cnc_c_1", editable: true, cellType: "text", cellData: "" },
@@ -514,7 +578,12 @@ const initialState = fromJS({
             cellType: "number",
             cellData: ""
           },
-          { editable: false, cellType: "number", cellData: "" }
+          {
+            id: "cnc_auto_13",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          }
         ],
         [
           { id: "cnc_d_1", editable: true, cellType: "text", cellData: "" },
@@ -579,7 +648,12 @@ const initialState = fromJS({
             cellType: "number",
             cellData: ""
           },
-          { editable: false, cellType: "number", cellData: "" }
+          {
+            id: "cnc_auto_14",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          }
         ],
         [
           { id: "cnc_e_1", editable: true, cellType: "text", cellData: "" },
@@ -644,7 +718,12 @@ const initialState = fromJS({
             cellType: "number",
             cellData: ""
           },
-          { editable: false, cellType: "number", cellData: "" }
+          {
+            id: "cnc_auto_15",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          }
         ],
         [
           { id: "cnc_f_1", editable: true, cellType: "text", cellData: "" },
@@ -709,7 +788,12 @@ const initialState = fromJS({
             cellType: "number",
             cellData: ""
           },
-          { editable: false, cellType: "number", cellData: "" }
+          {
+            id: "cnc_auto_16",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          }
         ],
         [
           { id: "cnc_g_1", editable: true, cellType: "text", cellData: "" },
@@ -774,7 +858,12 @@ const initialState = fromJS({
             cellType: "number",
             cellData: ""
           },
-          { editable: false, cellType: "number", cellData: "" }
+          {
+            id: "cnc_auto_17",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          }
         ],
         [
           { id: "cnc_h_1", editable: true, cellType: "text", cellData: "" },
@@ -839,7 +928,12 @@ const initialState = fromJS({
             cellType: "number",
             cellData: ""
           },
-          { editable: false, cellType: "number", cellData: "" }
+          {
+            id: "cnc_auto_18",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          }
         ],
         [
           {
@@ -848,17 +942,72 @@ const initialState = fromJS({
             cellType: "text",
             cellData: "Count"
           },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" },
-          { editable: false, cellType: "number", cellData: "" }
+          {
+            id: "cnc_auto_19",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_20",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_21",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_22",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_23",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_24",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_25",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_26",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_27",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_28",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "cnc_auto_29",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          }
         ]
       ]
     },
@@ -1741,6 +1890,7 @@ const initialState = fromJS({
             cellData: "Count cost of accessories"
           },
           {
+            id: "acc_auto_1",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -1822,7 +1972,12 @@ const initialState = fromJS({
             cellType: "number",
             cellData: ""
           },
-          { editable: false, cellType: "number", cellData: "" }
+          {
+            id: "cur_auto_1",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          }
         ],
         [
           {
@@ -1837,7 +1992,12 @@ const initialState = fromJS({
             cellType: "number",
             cellData: ""
           },
-          { editable: false, cellType: "number", cellData: "" }
+          {
+            id: "cur_auto_2",
+            editable: false,
+            cellType: "number",
+            cellData: ""
+          }
         ],
         [
           {
@@ -2555,6 +2715,8 @@ const reducer = (state = initialState, action) => {
       return state.set("tabledata", fromJS(action.payload))
     case "RESET_DRAFT":
       state = state.set("metadata", initialState.get("metadata"))
+      return state.set("tabledata", initialState.get("tabledata"))
+    case "RESET_DRAFT_TABLE":
       return state.set("tabledata", initialState.get("tabledata"))
     case "RESET_DRAFTS":
       return state.set("drafts", initialState.get("drafts"))

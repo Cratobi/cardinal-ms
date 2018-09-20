@@ -17,13 +17,15 @@ class Draft extends Component {
       : this.props.fetchDraft(this.props.match.params.id)
   }
   componentWillUnmount() {
-    this.props.resetDraft()
-    const payload = {
-      id: this.props.metadata.get("id"),
-      tabledata: this.props.tabledata.toJS()
-    }
+    if (this.props.metadata) {
+      const payload = {
+        id: this.props.metadata.get("id"),
+        tabledata: this.props.tabledata.toJS()
+      }
 
-    this.props.sendDraftTabledata(payload)
+      this.props.sendDraftTabledata(payload)
+    }
+    this.props.resetDraft()
   }
   handleSendDraftTabledata = () => {
     this.props.history.replace({ pathname: "/" })
@@ -35,7 +37,7 @@ class Draft extends Component {
   render() {
     return this.props.metadata ? (
       <SingleGridLayout
-        containerCSS=""
+        CustomCSS="draft"
         header={
           <Aux>
             <div className="draft-header-btns">
@@ -49,7 +51,7 @@ class Draft extends Component {
                 }
               >
                 <i className="fas fa-trash p-r" />
-                Delete Draft
+                Delete Draft &nbsp;
               </button>
               <button
                 className="btn btn-dark"
@@ -87,7 +89,6 @@ class Draft extends Component {
             </div>
           </Aux>
         }
-        headerCSS=" draft-header"
         footer={
           <Aux>
             <button
@@ -106,9 +107,8 @@ class Draft extends Component {
             </button>
           </Aux>
         }
-        footerCSS=" draft-footer"
       >
-        <EditableTable tabledata={this.props.tabledata} />
+        <EditableTable wide tabledata={this.props.tabledata} />
       </SingleGridLayout>
     ) : (
       <LoadingLayout txt center />

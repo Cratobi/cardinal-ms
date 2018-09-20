@@ -37,9 +37,7 @@ class Order extends Component {
     return this.props.orders ? (
       this.props.orders.size !== 0 ? (
         <SingleGridLayout
-          containerCSS=""
-          headerCSS=" orders-header"
-          footerCSS=" flex-j-center"
+          CustomCSS="orders"
           header={
             <h5 className="header-title">
               ORDERS <i className="fas fa-circle p-r" />

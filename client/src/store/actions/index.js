@@ -21,6 +21,7 @@ export {
   fetchDrafts,
   onChange,
   resetDraft,
+  resetDraftTable,
   resetDrafts,
   sendDraftMetadta,
   sendDraftTabledata,

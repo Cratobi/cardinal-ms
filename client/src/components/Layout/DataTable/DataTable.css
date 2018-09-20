@@ -1,0 +1,123 @@
+/* table.overview {
+  font-size: 1rem;
+  padding: 0;
+  padding-bottom: 1rem;
+} */
+/* table.overview tr {
+  padding: 5rem;
+} */
+/* table.overview tr td:nth-child(even) {
+  padding-left: 10vw;
+}
+table.overview td {
+  padding: 0.4rem 0;
+} */
+table.datatable {
+  font-size: 0.9rem;
+  width: 100%;
+  padding: 0;
+  margin: 0.2rem;
+}
+
+table.datatable th,
+table.datatable td {
+  border: 1px dashed #949494;
+}
+table.datatable th {
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  background-color: #949494;
+  color: #ffffff;
+  padding: 0.4rem 0;
+}
+table.datatable td {
+  font-weight: 600;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  box-sizing: content-box;
+}
+table.datatable td .filled-txt {
+  width: 100%;
+  height: 100%;
+  background-color: #f1f1f1;
+  padding: 0.3rem;
+}
+table.datatable td .auto-filled-txt {
+  background-color: #d1f0c5;
+}
+table.datatable td > input {
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+  padding: 0.3rem;
+  border-width: 0;
+  cursor: cell;
+  box-sizing: border-box;
+  outline: none;
+  transition: box-shadow var(--transition-short);
+}
+
+/* Input */
+
+table.datatable td > input:hover {
+  position: relative;
+  box-shadow: 0 0 0 0.2rem #bebebed0;
+  z-index: 2;
+}
+table.datatable td > input:focus {
+  box-shadow: inset 0 0 0 0.2rem #757575;
+  z-index: 1;
+}
+
+/* Selet input */
+
+table.datatable td > select {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  cursor: pointer;
+  outline: none;
+}
+table.datatable td > select:hover {
+  position: relative;
+  border-radius: 0;
+  box-shadow: 0 0 0 2px rgb(255, 255, 255), 0 0 0 5px #636363a1;
+  z-index: 1;
+}
+table.datatable td > select:focus {
+  position: relative;
+  border-radius: 0;
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgb(255, 255, 255), 0 0 0 5px rgb(65, 190, 92);
+  z-index: 2;
+}
+
+/* Remove number input arrow */
+table.datatable td > input[type="number"] {
+  -moz-appearance: textfield;
+}
+table.datatable td > input[type="number"]::-webkit-inner-spin-button,
+table.datatable td > input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  margin: 0;
+}
+table.datatable td > input[type="date"] {
+  width: 100%;
+  font-size: 2vw;
+  padding: 0px;
+  padding-left: 2px !important;
+  padding-right: 2px !important;
+  margin: 0;
+  border-width: 0;
+  -moz-appearance: textfield;
+}
+table.datatable td > input[type="date"]::-webkit-inner-spin-button,
+table.datatable td > input[type="date"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  margin: 0;
+}

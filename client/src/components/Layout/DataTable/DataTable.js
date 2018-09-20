@@ -1,19 +1,21 @@
 import React from "react"
-import TableHeader from "./TableHeader/TableHeader"
 // eslint-disable-next-line
 import { get } from "immutable"
-import TableBody from "./TableBody/TableBody"
 
-const tableLayout = props => {
+import Body from "./Body/Body"
+import Header from "./Header/Header"
+import "./DataTable.css"
+
+const dataTable = props => {
   return (
-    <table className="table table-data">
+    <table className="datatable">
       <thead>
         <tr>
-          <TableHeader headerData={props.tableData.get("tableheader")} />
+          <Header headerData={props.tableData.get("tableheader")} />
         </tr>
       </thead>
       <tbody>
-        <TableBody
+        <Body
           changeHandler={props.editability ? props.changeHandler : null}
           editability={props.editability}
           tableName={props.tableData.get("tablename")}
@@ -24,4 +26,4 @@ const tableLayout = props => {
   )
 }
 
-export default tableLayout
+export default dataTable

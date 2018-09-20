@@ -32,6 +32,11 @@ export const resetDraft = () => {
     type: actionTypes.RESET_DRAFT
   }
 }
+export const resetDraftTable = () => {
+  return {
+    type: actionTypes.RESET_DRAFT_TABLE
+  }
+}
 export const syncTables = data => {
   return {
     type: actionTypes.SYNCTABLES,
@@ -70,7 +75,7 @@ export const fetchDraft = id => {
         dispatch(saveDraftMetadata(payload.data))
         payload.data.tabledata
           ? dispatch(saveDraftTabledata(payload.data.tabledata))
-          : dispatch(resetDraft())
+          : dispatch(resetDraftTable())
       })
       .catch(err => {
         console.log(err)

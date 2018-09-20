@@ -25,7 +25,10 @@ const handleComposition = (state, rowindex, colindex, value, prev_val) => {
       colindex - 1,
       "cellData"
     ],
-    old_val => +old_val + (+value - +prev_val)
+    old_val => {
+      const new_val = +old_val + (+value - +prev_val)
+      return new_val !== 0 ? new_val : ""
+    }
   )
   state = state.updateIn(
     [
@@ -36,12 +39,19 @@ const handleComposition = (state, rowindex, colindex, value, prev_val) => {
       12,
       "cellData"
     ],
-    old_val => +old_val + (+value - +prev_val)
+    old_val => {
+      const new_val = +old_val + (+value - +prev_val)
+      return new_val !== 0 ? new_val : ""
+    }
   )
   state = state.updateIn(
     ["tabledata", "table_colourandcompotision", "tablebody", 9, 11, "cellData"],
-    old_val => +old_val + (+value - +prev_val)
+    old_val => {
+      const new_val = +old_val + (+value - +prev_val)
+      return new_val !== 0 ? new_val : ""
+    }
   )
+
   state = handleCurrency(state, 2)
   state = handleCurrency(state, 3)
   return state
@@ -98,7 +108,7 @@ const handleCurrency = (state, rowindex) => {
 
     state = state.setIn(
       ["tabledata", "table_currency", "tablebody", 4, 2, "cellData"],
-      lycra_body
+      lycra_body !== 0 ? lycra_body : ""
     )
 
     return state
@@ -121,7 +131,7 @@ const handleCurrency = (state, rowindex) => {
         "cellData"
       ]) / 100
 
-    const lycra_body =
+    const lycra_rib =
       Math.round(
         (+consumption_total / 12) *
           +currency_ribconsumption *
@@ -131,7 +141,7 @@ const handleCurrency = (state, rowindex) => {
 
     state = state.setIn(
       ["tabledata", "table_currency", "tablebody", 5, 2, "cellData"],
-      lycra_body
+      lycra_rib !== 0 ? lycra_rib : ""
     )
 
     return state

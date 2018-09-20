@@ -4,7 +4,10 @@ import { connect } from "react-redux"
 import { get, getIn } from "immutable"
 import * as actions from "../../store/actions/index"
 
-import TableLayout from "../../components/Layout/Table/Table"
+import DataTableLayout from "../../components/Layout/DataTable/DataTable"
+import "./EditableTable.css"
+import LoadingLayout from "../../components/Layout/Loading/Loading"
+// import Aux from "../../hoc/_Aux/_Aux"
 
 class Table extends Component {
   tableChangeHandler = e => {
@@ -19,60 +22,64 @@ class Table extends Component {
   render() {
     return (
       <div>
-        <br />
-        <br />
         {this.props.tabledata ? (
-          <div>
-            <TableLayout
+          <div
+            className={
+              "editableTable" + (this.props.wide ? " editableTable-wide" : "")
+            }
+          >
+            <DataTableLayout
               editability="true"
               changeHandler={e => this.tableChangeHandler(e)}
               tableData={this.props.tabledata.get("table_measurments")}
             />
             <br />
-            <TableLayout
+            <DataTableLayout
               editability="true"
               changeHandler={e => this.tableChangeHandler(e)}
               tableData={this.props.tabledata.get("table_colourandcompotision")}
             />
             <br />
-            <TableLayout
+            <DataTableLayout
               editability="true"
               changeHandler={e => this.tableChangeHandler(e)}
               tableData={this.props.tabledata.get("table_extrafabric")}
             />
             <br />
-            <TableLayout
+            <DataTableLayout
               editability="true"
               changeHandler={e => this.tableChangeHandler(e)}
               tableData={this.props.tabledata.get("table_fabricfinishprocess")}
             />
             <br />
-            <TableLayout
+            <DataTableLayout
               editability="true"
               changeHandler={e => this.tableChangeHandler(e)}
               tableData={this.props.tabledata.get("table_garmentapplication")}
             />
             <br />
-            <TableLayout
+            <DataTableLayout
               editability="true"
               changeHandler={e => this.tableChangeHandler(e)}
               tableData={this.props.tabledata.get("table_accessoriesname")}
             />
             <br />
-            <TableLayout
+            <DataTableLayout
               editability="true"
               changeHandler={e => this.tableChangeHandler(e)}
               tableData={this.props.tabledata.get("table_currency")}
             />
             <br />
+            {/* <DataTableLayout
+              editability="true"
+              changeHandler={e => this.tableChangeHandler(e)}
+              tableData={this.state.table_price}
+            />
+            <br /> */}
           </div>
         ) : (
-          <h1>Loading...</h1>
+          <LoadingLayout />
         )}
-        {/* <TableLayout
-        editability="true"
-        changeHandler={(e) => this.tableChangeHandler(e)} 
-        tableData={this.state.table_price}/><br /> */}
       </div>
     )
   }

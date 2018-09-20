@@ -8,17 +8,20 @@ const SingleGrid = props => {
     <div onScroll={props.handleScroll} className="container single-grid">
       {!props.emptyTxt ? (
         <Aux>
-          <div className={"card order-cards-holder " + props.containerCSS}>
+          <div
+            className={
+              "card card-container " +
+              (props.CustomCSS
+                ? "custom-card-container-" + props.CustomCSS
+                : "")
+            }
+          >
             {props.header ? (
-              <div className={"card-header" + props.headerCSS}>
-                {props.header}
-              </div>
+              <div className="card-header">{props.header}</div>
             ) : null}
             {props.children}
             {props.footer ? (
-              <div className={"card-footer" + props.footerCSS}>
-                {props.footer}
-              </div>
+              <div className="card-footer">{props.footer}</div>
             ) : null}
           </div>
         </Aux>

@@ -45,7 +45,8 @@ app.post("/draft", authenticate, (req, res) => {
         "id",
         "buyer",
         "order_no",
-        "style_no"
+        "style_no",
+        "buyer"
       ])
       body.createdBy = { username: user.username, company: user.company }
       var draft = new Draft(body)

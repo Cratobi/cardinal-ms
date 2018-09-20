@@ -5,74 +5,76 @@ import { get } from "immutable"
 const SelectOption = props => <option value={props.value}>{props.name}</option>
 
 const tableBody = props => {
-  const fabricfinishprocessOption = [
-    "Open dia",
-    "Tube dia",
-    "Peach finish",
-    "Brush",
-    "Tumble dry",
-    "Burnout",
-    "AOP",
-    "Enzyme",
-    "Silicon",
-    "Heat seat",
-    "Light brushed inside-peached outside",
-    "Light brush inside",
-    "Heavy peach outside",
-    "Inside Lt. brush",
-    "Topside peached"
-  ]
-  const garmentapplicationOption = [
-    "Print",
-    "Sequence",
-    "Embroidery",
-    "Wash",
-    "AOP",
-    "Re embo",
-    "Woven fabric"
-  ]
-  const accessoriesnameOption = [
-    "M. label",
-    "Size label",
-    "Bottom label",
-    "Batch label",
-    "Han tag",
-    "Flag label",
-    "Wash care label",
-    "Warning label",
-    "Price tag",
-    "Poly bag",
-    "Tissue papper",
-    "Leather badge",
-    "Security tag",
-    "Gum tag",
-    "Lock pin",
-    "Cartoon",
-    "PP belt",
-    "Hanger",
-    "Silica gel",
-    "Care label",
-    "Snap button",
-    "Ring button",
-    "Hang tag with price sticker",
-    "Snap (CAP)",
-    "Paper board",
-    "Blister poly",
-    "Elastic",
-    "Twill tape",
-    "Drawsting",
-    "Cartoon sticker",
-    "Smile label",
-    "Bangladesh label",
-    "Additional label",
-    "Eylat",
-    "Special label",
-    "Mesh",
-    "Chambray fabric",
-    "Herringbone tape",
-    "Satin tape",
-    "Gross grain tape"
-  ]
+  const processOptions = {
+    fabricfinishprocessOption: [
+      "Open dia",
+      "Tube dia",
+      "Peach finish",
+      "Brush",
+      "Tumble dry",
+      "Burnout",
+      "AOP",
+      "Enzyme",
+      "Silicon",
+      "Heat seat",
+      "Light brushed inside-peached outside",
+      "Light brush inside",
+      "Heavy peach outside",
+      "Inside Lt. brush",
+      "Topside peached"
+    ],
+    garmentapplicationOption: [
+      "Print",
+      "Sequence",
+      "Embroidery",
+      "Wash",
+      "AOP",
+      "Re embo",
+      "Woven fabric"
+    ],
+    accessoriesnameOption: [
+      "M. label",
+      "Size label",
+      "Bottom label",
+      "Batch label",
+      "Han tag",
+      "Flag label",
+      "Wash care label",
+      "Warning label",
+      "Price tag",
+      "Poly bag",
+      "Tissue papper",
+      "Leather badge",
+      "Security tag",
+      "Gum tag",
+      "Lock pin",
+      "Cartoon",
+      "PP belt",
+      "Hanger",
+      "Silica gel",
+      "Care label",
+      "Snap button",
+      "Ring button",
+      "Hang tag with price sticker",
+      "Snap (CAP)",
+      "Paper board",
+      "Blister poly",
+      "Elastic",
+      "Twill tape",
+      "Drawsting",
+      "Cartoon sticker",
+      "Smile label",
+      "Bangladesh label",
+      "Additional label",
+      "Eylat",
+      "Special label",
+      "Mesh",
+      "Chambray fabric",
+      "Herringbone tape",
+      "Satin tape",
+      "Gross grain tape"
+    ]
+  }
 
   return props.tableData.map((data, rowindex) => (
     <tr key={rowindex}>
@@ -94,11 +96,11 @@ const tableBody = props => {
                 const optionArray = (() => {
                   switch (props.tableName) {
                     case "fabricfinishprocess":
-                      return fabricfinishprocessOption
+                      return processOptions.fabricfinishprocessOption
                     case "garmentapplication":
-                      return garmentapplicationOption
+                      return processOptions.garmentapplicationOption
                     case "accessoriesname":
-                      return accessoriesnameOption
+                      return processOptions.accessoriesnameOption
                     default:
                       return null
                   }
@@ -132,10 +134,21 @@ const tableBody = props => {
                     onChange={props.changeHandler}
                     name={data.get("id")}
                     type={data.get("cellType")}
+                    title={data.get("cellData")}
                     value={data.get("cellData")}
                   />
                 )
               }
+            } else {
+              cellData = (
+                <div
+                  className={
+                    "filled-txt" + (data.get("id") ? " auto-filled-txt" : "")
+                  }
+                >
+                  {cellData}
+                </div>
+              )
             }
 
             // Handle colspan or rowspan
