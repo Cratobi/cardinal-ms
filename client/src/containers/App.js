@@ -17,26 +17,25 @@ import Drafts from "./Drafts/Drafts"
 
 class App extends Component {
   componentWillMount() {
-    if (!this.props.authorization) {
-      if (
-        this.props.location.pathname !== "/signup" &&
-        this.props.location.pathname !== "/signup/"
-      ) {
-        const token = Cookie.get("x-auth")
-
-        token
-          ? Axios({
-              method: "get",
-              url: "http://localhost:3001/auth",
-              headers: {
-                "x-auth": token
-              }
-            })
-              .then(() => this.props.authenticate())
-              .catch(() => this.props.history.replace({ pathname: "/signin" }))
-          : this.props.history.replace({ pathname: "/signin" })
-      }
-    }
+    // if (!this.props.authorization) {
+    //   if (
+    //     this.props.location.pathname !== "/signup" &&
+    //     this.props.location.pathname !== "/signup/"
+    //   ) {
+    //     const token = Cookie.get("x-auth")
+    //     token
+    //       ? Axios({
+    //           method: "get",
+    //           url: "http://localhost:3001/auth",
+    //           headers: {
+    //             "x-auth": token
+    //           }
+    //         })
+    //           .then(() => this.props.authenticate())
+    //           .catch(() => this.props.history.replace({ pathname: "/signin" }))
+    //       : this.props.history.replace({ pathname: "/signin" })
+    //   }
+    // }
   }
 
   render() {

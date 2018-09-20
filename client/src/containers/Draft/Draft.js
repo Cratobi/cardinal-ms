@@ -108,7 +108,7 @@ class Draft extends Component {
           </Aux>
         }
       >
-        <EditableTable wide tabledata={this.props.tabledata} />
+        <EditableTable tabledata={this.props.tabledata} />
       </SingleGridLayout>
     ) : (
       <LoadingLayout txt center />

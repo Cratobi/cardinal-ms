@@ -19,7 +19,7 @@ const SingleGrid = props => {
             {props.header ? (
               <div className="card-header">{props.header}</div>
             ) : null}
-            {props.children}
+            <div className="card-body">{props.children}</div>
             {props.footer ? (
               <div className="card-footer">{props.footer}</div>
             ) : null}

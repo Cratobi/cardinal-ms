@@ -53,22 +53,41 @@ a.order-card {
   padding-bottom: 0.5rem;
   align-self: flex-end;
 }
+.order-card .btn {
+  align-self: flex-end;
+  position: absolute;
+  margin-top: -0.1rem;
+  margin-left: 0rem;
+  /* align-self: flex-end; */
+  z-index: 5;
+}
+.order-card > .btn .btn.pk {
+  position: absolute;
+  opacity: 0.9;
+  margin: 0;
+  margin-top: 0.6rem;
+  margin-left: 
+  /* min-height: 2rem; */
+}
+.order-card .btn .pk:hover {
+  opacity: 1;
+}
 
 @media (max-width: 768px) {
   .order-card {
-    width: 8.5rem;
-    height: 8.5rem;
+    width: 10rem;
+    height: 10rem;
   }
   .order-card > .date {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
   }
   .order-card > .mid > .order-no {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
   .order-card > .mid > .style-no {
-    font-size: 0.5rem;
+    font-size: 0.8rem;
   }
   .order-card > .buyer-name {
-    font-size: 0.55rem;
+    font-size: 0.85rem;
   }
 }

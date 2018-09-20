@@ -23,11 +23,7 @@ class Table extends Component {
     return (
       <div>
         {this.props.tabledata ? (
-          <div
-            className={
-              "editableTable" + (this.props.wide ? " editableTable-wide" : "")
-            }
-          >
+          <div className="editableTable">
             <DataTableLayout
               editability="true"
               changeHandler={e => this.tableChangeHandler(e)}

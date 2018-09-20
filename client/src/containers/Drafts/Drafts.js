@@ -15,7 +15,8 @@ class Order extends Component {
   componentWillUnmount() {
     this.props.resetDrafts()
   }
-  handleDeleteDraftBtn = id => {
+  handleDeleteDraftBtn = (e, id) => {
+    e.preventDefault()
     this.props.deleteDraft(id)
     this.props.fetchDrafts()
   }
@@ -24,7 +25,7 @@ class Order extends Component {
     return this.props.drafts ? (
       this.props.drafts.size !== 0 ? (
         <SingleGridLayout
-          CustomCSS="drafts"
+          CustomCSS="orders"
           header={<h5 className="header-title"> DRAFT </h5>}
         >
           {this.props.drafts.map(draft => (
