@@ -11,6 +11,10 @@
   --on-success: #2b8f12;
   --success-deep: #70da56;
   --success-transparent: #8aee7185;
+  --caution: #e63f3f;
+  --on-caution: #ffffff;
+  --caution-deep: #e63f3f;
+  --caution-transparent: #e63f3f85;
   --background: #ffffff;
   --txt: #303030;
   --background-offset: #ececec;

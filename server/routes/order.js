@@ -79,35 +79,40 @@ app.post("/order/:id", authenticate, (req, res) => {
   const id = req.params.id
 
   Draft.findById(id)
-    .then(order => {
-      let data = _.pick(order, [
-        "createdAt",
-        "createdBy",
-        "tabledata",
+    .then(draft => {
+      console.log(
+        "\n ---------------------- \n",
+        draft.tabledata,
+        "\n ---------------------- \n"
+      )
+      draft = _.pick(draft, [
         "buyer",
         "order_no",
-        "style_no"
+        "style_no",
+        "item",
+        "quantity",
+        "createdBy",
+        "tabledata"
       ])
-      order = new Order(data)
+      order = new Order(draft)
 
       order
         .save()
-        .then(data => {
+        .then(order => {
           Draft.findByIdAndRemove(id)
             .then(() => {
-              res.send(data.id)
+              res.send(order.id)
             })
-            .catch(err => {
-              res.status(400).send(err)
+            .catch(() => {
+              res.status(400).send()
             })
         })
-        .catch(err => {
-          res.status(400).send(err)
+        .catch(() => {
+          res.status(400).send()
         })
     })
-    .catch(err => {
-      console.log(err)
-      res.status(400).send(err)
+    .catch(() => {
+      res.status(400).send()
     })
 })
 

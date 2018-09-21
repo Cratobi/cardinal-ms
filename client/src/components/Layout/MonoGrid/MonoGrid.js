@@ -1,11 +1,11 @@
 import React from "react"
-import "./SingleGrid.css"
+import "./MonoGrid.css"
 
 import Aux from "../../../hoc/_Aux/_Aux"
 
-const SingleGrid = props => {
+const MonoGrid = props => {
   return (
-    <div onScroll={props.handleScroll} className="container single-grid">
+    <div onScroll={props.handleScroll} className="container mono-grid">
       {!props.emptyTxt ? (
         <Aux>
           <div
@@ -32,4 +32,4 @@ const SingleGrid = props => {
   )
 }
 
-export default SingleGrid
+export default MonoGrid

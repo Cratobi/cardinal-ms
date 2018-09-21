@@ -5,7 +5,7 @@ import { connect } from "react-redux"
 import { get, getIn, toJS } from "immutable"
 import * as actions from "../../store/actions/index"
 
-import SingleGridLayout from "../../components/Layout/SingleGrid/SingleGrid"
+import MonoGridLayout from "../../components/Layout/MonoGrid/MonoGrid"
 import EditableTable from "../EditableTable/EditableTable"
 import LoadingLayout from "../../components/Layout/Loading/Loading"
 import Aux from "../../hoc/_Aux/_Aux"
@@ -36,7 +36,7 @@ class Draft extends Component {
 
   render() {
     return this.props.metadata ? (
-      <SingleGridLayout
+      <MonoGridLayout
         CustomCSS="draft"
         header={
           <Aux>
@@ -108,8 +108,8 @@ class Draft extends Component {
           </Aux>
         }
       >
-        <EditableTable tabledata={this.props.tabledata} />
-      </SingleGridLayout>
+        <EditableTable editable="true" tabledata={this.props.tabledata} />
+      </MonoGridLayout>
     ) : (
       <LoadingLayout txt center />
     )

@@ -57,8 +57,8 @@ export const fetchDrafts = () => {
       .then(payload => {
         dispatch(saveDrafts(payload.data))
       })
-      .catch(err => {
-        console.log(err)
+      .catch(() => {
+        console.log()
       })
   }
 }
@@ -77,8 +77,8 @@ export const fetchDraft = id => {
           ? dispatch(saveDraftTabledata(payload.data.tabledata))
           : dispatch(resetDraftTable())
       })
-      .catch(err => {
-        console.log(err)
+      .catch(() => {
+        console.log()
       })
   }
 }
@@ -99,8 +99,8 @@ export const sendDraftMetadta = (payload, router) => {
         dispatch(saveDraftMetadata(payload.data))
         router.replace({ pathname: "/draft/" + payload.data.id })
       })
-      .catch(err => {
-        console.log(err)
+      .catch(() => {
+        console.log()
       })
   }
 }
@@ -116,8 +116,8 @@ export const sendDraftTabledata = payload => {
       data: {
         payload: payload.tabledata
       }
-    }).catch(err => {
-      console.log(err)
+    }).catch(() => {
+      console.log()
     })
   }
 }
@@ -143,8 +143,8 @@ export const deleteDraft = (id, router) => {
           router.replace({ pathname: "/" })
         }
       })
-      .catch(err => {
-        console.log(err)
+      .catch(() => {
+        console.log()
       })
   }
 }

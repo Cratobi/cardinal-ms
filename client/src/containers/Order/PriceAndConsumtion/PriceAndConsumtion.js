@@ -1,13 +1,14 @@
 import React, { Component } from "react"
 
-import ConsumptionAndPricingLayout from "./../../../components/Layout/ConsumptionAndPricing/ConsumptionAndPricing"
+import ConsumptionAndPricingLayout from "../../../components/Layout/ConsumptionAndPricing/ConsumptionAndPricing"
+import Aux from "../../../hoc/_Aux/_Aux"
 
 class PriceAndConsumtion extends Component {
   render() {
     return (
-      <div>
-        <div>
-          <table className="overview">
+      <Aux>
+        <table className="extradata">
+          <tbody>
             <tr>
               <td>Yarn Type:</td>
               <td>COMBED COTTON</td>
@@ -32,13 +33,12 @@ class PriceAndConsumtion extends Component {
               <td>S. Allowance:</td>
               <td>Length: 10</td>
             </tr>
-          </table>
+          </tbody>
+        </table>
+        <div className="static-table">
+          <ConsumptionAndPricingLayout tabledata={this.props.tabledata} />
         </div>
-        <ConsumptionAndPricingLayout
-          editability="false"
-          tabledata={this.props.order}
-        />
-      </div>
+      </Aux>
     )
   }
 }

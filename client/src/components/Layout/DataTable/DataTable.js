@@ -8,7 +8,9 @@ import "./DataTable.css"
 
 const dataTable = props => {
   return (
-    <table className="datatable">
+    <table
+      className={`datatable ${!props.editability ? "static-datatable" : ""}`}
+    >
       <thead>
         <tr>
           <Header headerData={props.tableData.get("tableheader")} />
@@ -16,10 +18,11 @@ const dataTable = props => {
       </thead>
       <tbody>
         <Body
-          changeHandler={props.editability ? props.changeHandler : null}
+          changeHandler={props.changeHandler}
           editability={props.editability}
           tableName={props.tableData.get("tablename")}
           tableData={props.tableData.get("tablebody")}
+          wheel={props.wheel}
         />
       </tbody>
     </table>

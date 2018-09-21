@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { Link, withRouter } from "react-router-dom"
+// eslint-disable-next-line
+import { getIn, toJS } from "immutable"
 import * as actions from "../../store/actions/index"
 
 const BuyerOptions = props => <option value={props.value}>{props.value}</option>
@@ -8,7 +10,7 @@ const BuyerOptions = props => <option value={props.value}>{props.value}</option>
 class Home extends Component {
   state = {
     draft_metadata: {
-      buyer: "",
+      // buyer: "",
       order_no: "",
       style_no: "",
       buyer: "H1Z1"
@@ -21,7 +23,9 @@ class Home extends Component {
   }
   sendDraftMetadata = e => {
     e.preventDefault()
-    this.props.sendDraftMetadata(this.state.draft_metadata, this.props.history)
+    const draft = { ...this.state.draft_metadata }
+    draft.tabledata = this.props.tabledata.toJS()
+    this.props.sendDraftMetadata(draft, this.props.history)
   }
   render() {
     return (
@@ -86,7 +90,8 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    buyers: state.getIn(["order", "buyers"])
+    buyers: state.getIn(["order", "buyers"]),
+    tabledata: state.getIn(["draft", "tabledata"])
   }
 }
 const mapDispatchToProps = dispatch => {

@@ -1968,7 +1968,7 @@ const initialState = fromJS({
           {
             id: "cur_e_1",
             editable: true,
-            sufix: "%",
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1988,7 +1988,7 @@ const initialState = fromJS({
           {
             id: "cur_f_1",
             editable: true,
-            sufix: "%",
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },

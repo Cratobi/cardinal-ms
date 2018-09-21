@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { get, getIn, size } from "immutable"
 import * as actions from "../../store/actions"
 
-import SingleGridLayout from "../../components/Layout/SingleGrid/SingleGrid"
+import MonoGridLayout from "../../components/Layout/MonoGrid/MonoGrid"
 import OrderCardLayout from "./../../components/Layout/OrderCard/OrderCard"
 import LoadingLayout from "../../components/Layout/Loading/Loading"
 
@@ -24,7 +24,7 @@ class Order extends Component {
   render() {
     return this.props.drafts ? (
       this.props.drafts.size !== 0 ? (
-        <SingleGridLayout
+        <MonoGridLayout
           CustomCSS="orders"
           header={<h5 className="header-title"> DRAFT </h5>}
         >
@@ -39,9 +39,9 @@ class Order extends Component {
               path="/draft/"
             />
           ))}
-        </SingleGridLayout>
+        </MonoGridLayout>
       ) : (
-        <SingleGridLayout emptyTxt="There're no orders :(" />
+        <MonoGridLayout emptyTxt="There're no orders :(" />
       )
     ) : (
       <LoadingLayout txt center />

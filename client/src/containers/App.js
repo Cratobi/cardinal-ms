@@ -14,33 +14,34 @@ import Order from "./Order/Order"
 import Orders from "./Orders/Orders"
 import Draft from "./Draft/Draft"
 import Drafts from "./Drafts/Drafts"
+import Aux from "../hoc/_Aux/_Aux"
 
 class App extends Component {
   componentWillMount() {
     // if (!this.props.authorization) {
-    //   if (
-    //     this.props.location.pathname !== "/signup" &&
-    //     this.props.location.pathname !== "/signup/"
-    //   ) {
-    //     const token = Cookie.get("x-auth")
-    //     token
-    //       ? Axios({
-    //           method: "get",
-    //           url: "http://localhost:3001/auth",
-    //           headers: {
-    //             "x-auth": token
-    //           }
-    //         })
-    //           .then(() => this.props.authenticate())
-    //           .catch(() => this.props.history.replace({ pathname: "/signin" }))
-    //       : this.props.history.replace({ pathname: "/signin" })
-    //   }
+    if (
+      this.props.location.pathname !== "/signup" &&
+      this.props.location.pathname !== "/signup/"
+    ) {
+      const token = Cookie.get("x-auth")
+      token
+        ? Axios({
+            method: "get",
+            url: "http://localhost:3001/auth",
+            headers: {
+              "x-auth": token
+            }
+          })
+            // .then(() => console.log())
+            .catch(err => this.props.history.replace({ pathname: "/signin" }))
+        : this.props.history.replace({ pathname: "/signin" })
+    }
     // }
   }
 
   render() {
     return (
-      <div>
+      <Aux>
         {this.props.history.location.pathname !== "/signin" ? <Header /> : null}
         <Switch>
           <Route path="/" exact component={Home} />
@@ -51,7 +52,7 @@ class App extends Component {
           <Route path="/order" exact component={Orders} />
           <Route path="/order/:id" component={Order} />
         </Switch>
-      </div>
+      </Aux>
     )
   }
 }

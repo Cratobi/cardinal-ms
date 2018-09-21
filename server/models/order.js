@@ -35,25 +35,28 @@ const OrderSchema = new mongoose.Schema({
     username: {
       type: String,
       required: true,
-      minlength: 1
+      minlength: 1,
+      required: true
     },
     company: {
       type: String,
       required: true,
-      minlength: 1
+      minlength: 1,
+      required: true
     }
   },
   createdAt: {
     type: Number,
-    default: new Date().getTime()
+    default: new Date().getTime(),
+    required: true
   },
   tabledata: {
-    type: Object
+    type: Object,
+    required: true
   }
 })
 OrderSchema.index({
-  order_no: "text",
-  style_no: "text"
+  order_no: "text"
 })
 OrderSchema.methods.toJSON = function() {
   const order = this
@@ -62,9 +65,11 @@ OrderSchema.methods.toJSON = function() {
     "buyer",
     "order_no",
     "style_no",
-    "tabledata",
+    "item",
+    "quantity",
     "createdBy",
-    "createdAt"
+    "createdAt",
+    "tabledata"
   ])
 }
 

@@ -58,9 +58,11 @@ DraftSchema.methods.toJSON = function() {
     "buyer",
     "order_no",
     "style_no",
-    "tabledata",
+    "item",
+    "quantity",
     "createdBy",
-    "createdAt"
+    "createdAt",
+    "tabledata"
   ])
 }
 

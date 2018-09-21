@@ -41,25 +41,26 @@ app.post("/draft", authenticate, (req, res) => {
 
   User.findById(decoded._id)
     .then(user => {
-      var body = _.pick(req.body.payload, [
-        "id",
+      const payload = _.pick(req.body.payload, [
         "buyer",
         "order_no",
         "style_no",
-        "buyer"
+        "item",
+        "quantity",
+        "tabledata"
       ])
-      body.createdBy = { username: user.username, company: user.company }
-      var draft = new Draft(body)
+      payload.createdBy = { username: user.username, company: user.company }
+      draft = new Draft(payload)
 
       draft
         .save()
         .then(draft => res.send(draft))
-        .catch(err => {
-          res.status(400).send(err)
+        .catch(() => {
+          res.status(400).send()
         })
     })
-    .catch(err => {
-      res.status(400).send(err)
+    .catch(() => {
+      res.status(400).send()
     })
 })
 
@@ -73,8 +74,8 @@ app.patch("/draft/:id", authenticate, (req, res) => {
     .then(() => {
       res.send()
     })
-    .catch(err => {
-      res.status(400).send(err)
+    .catch(() => {
+      res.status(400).send()
     })
 })
 
@@ -86,8 +87,8 @@ app.delete("/draft/:id", authenticate, (req, res) => {
     .then(() => {
       res.send()
     })
-    .catch(err => {
-      res.status(400).send(err)
+    .catch(() => {
+      res.status(400).send()
     })
 })
 

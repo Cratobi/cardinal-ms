@@ -1,6 +1,7 @@
 import React from "react"
 // eslint-disable-next-line
 import { get } from "immutable"
+import Aux from "../../../../hoc/_Aux/_Aux"
 
 const SelectOption = props => <option value={props.value}>{props.name}</option>
 
@@ -85,8 +86,31 @@ const tableBody = props => {
             let cellData = data.get("cellData")
             let [colspan, rowspan, prefix, suffix, classname] = [null]
 
+            // Handle colspan or rowspan
+
+            if (data.get("colspan")) {
+              colspan = data.get("colspan")
+            }
+            if (data.get("rowspan")) {
+              rowspan = data.get("rowspan")
+            }
+
+            // Handle prefix or suffix
+
+            if (data.get("prefix")) {
+              prefix = <span className="span-prefix">{data.get("prefix")}</span>
+              classname = "input-prefix"
+            }
+            if (data.get("suffix")) {
+              suffix = <span className="span-suffix">{data.get("suffix")}</span>
+              classname = "input-suffix"
+            }
+            if (data.get("className")) {
+              return (classname = data.get("className"))
+            }
+
             // Handle editable
-            if (props.editability === "true" && data.get("editable")) {
+            if (props.editability === true && data.get("editable")) {
               // Handle Select element
               if (data.get("cellType") === "select") {
                 let options = null
@@ -126,17 +150,22 @@ const tableBody = props => {
                 // Handle input element
 
                 cellData = (
-                  <input
-                    className={classname}
-                    data-tablename={props.tableName}
-                    data-rowindex={rowindex}
-                    data-colindex={colindex}
-                    onChange={props.changeHandler}
-                    name={data.get("id")}
-                    type={data.get("cellType")}
-                    title={data.get("cellData")}
-                    value={data.get("cellData")}
-                  />
+                  <Aux>
+                    {/* {prefix} */}
+                    <input
+                      className={classname}
+                      data-tablename={props.tableName}
+                      data-rowindex={rowindex}
+                      data-colindex={colindex}
+                      onChange={props.changeHandler}
+                      name={data.get("id")}
+                      type={data.get("cellType")}
+                      title={data.get("cellData")}
+                      value={data.get("cellData")}
+                      // onWheel={e => props.wheel(e)} // To control horizental scroll by default
+                    />
+                    {/* {suffix} */}
+                  </Aux>
                 )
               }
             } else {
@@ -145,33 +174,13 @@ const tableBody = props => {
                   className={
                     "filled-txt" + (data.get("id") ? " auto-filled-txt" : "")
                   }
+                  // onWheel={e => props.wheel(e)} // To control horizental scroll by default
                 >
+                  {prefix}
                   {cellData}
+                  {suffix}
                 </div>
               )
-            }
-
-            // Handle colspan or rowspan
-
-            if (data.get("colspan")) {
-              colspan = data.get("colspan")
-            }
-            if (data.get("rowspan")) {
-              rowspan = data.get("rowspan")
-            }
-
-            // Handle prefix or suffix
-
-            if (data.get("prefix")) {
-              prefix = <span className="span-prefix">{data.get("prefix")}</span>
-              classname = "input-prefix"
-            }
-            if (data.get("suffix")) {
-              suffix = <span className="span-suffix">{data.get("suffix")}</span>
-              classname = "input-suffix"
-            }
-            if (data.get("className")) {
-              return (classname = data.get("className"))
             }
             // Return table column
 
@@ -182,9 +191,7 @@ const tableBody = props => {
                 rowSpan={rowspan}
                 key={colindex}
               >
-                {prefix}
                 {cellData}
-                {suffix}
               </td>
             )
           })

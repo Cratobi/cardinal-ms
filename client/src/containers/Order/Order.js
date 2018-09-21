@@ -7,6 +7,7 @@ import * as actions from "../../store/actions"
 
 import Overview from "./Overview/Overview"
 import PriceAndConsumtion from "./PriceAndConsumtion/PriceAndConsumtion"
+import "./Order.css"
 
 class Order extends Component {
   state = {
@@ -27,9 +28,9 @@ class Order extends Component {
 
   render() {
     return (
-      <main className="container duel-card">
-        <aside>
-          <ul className="side-tab">
+      <main className="container bi-grid">
+        <aside className="side-tab">
+          <ul>
             <NavLink
               activeClassName="active"
               to={`/order/${this.props.match.params.id}/overview`}
@@ -65,8 +66,7 @@ class Order extends Component {
             </NavLink> */}
           </ul>
         </aside>
-
-        <article className="card overview-card">
+        <article className="card card-body">
           <Route
             path="/order/:id"
             exact
@@ -94,7 +94,9 @@ class Order extends Component {
               path="/order/:id/priceandconsumtion"
               exact
               render={() => (
-                <PriceAndConsumtion order={this.props.order.get("tabledata")} />
+                <PriceAndConsumtion
+                  tabledata={this.props.order.get("tabledata")}
+                />
               )}
             />
           ) : null}

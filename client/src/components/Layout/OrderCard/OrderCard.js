@@ -14,7 +14,6 @@ const OrderCard = props => {
             className="btn btn-caution btn-round"
             onClick={event => props.handleDeleteDraftBtn(event, props.id)}
           >
-            <div className="btn btn-caution btn-chip pk">DEL</div>
             <i className="fas fa-trash p-r" />
           </button>
         ) : null}

@@ -1,17 +1,3 @@
-/* table.overview {
-  font-size: 1rem;
-  padding: 0;
-  padding-bottom: 1rem;
-} */
-/* table.overview tr {
-  padding: 5rem;
-} */
-/* table.overview tr td:nth-child(even) {
-  padding-left: 10vw;
-}
-table.overview td {
-  padding: 0.4rem 0;
-} */
 table.datatable {
   font-size: 0.9rem;
   width: 100%;
@@ -21,7 +7,7 @@ table.datatable {
 
 table.datatable th,
 table.datatable td {
-  border: 1px dashed #949494;
+  border: 1px solid #949494;
 }
 table.datatable th {
   font-size: 0.8rem;
@@ -32,19 +18,12 @@ table.datatable th {
 }
 table.datatable td {
   font-weight: 600;
-  height: 0;
+  min-width: 1rem;
+  height: 0.5rem;
+  min-height: 0.5rem;
   padding: 0;
   margin: 0;
   box-sizing: content-box;
-}
-table.datatable td .filled-txt {
-  width: 100%;
-  height: 100%;
-  background-color: #f1f1f1;
-  padding: 0.3rem;
-}
-table.datatable td .auto-filled-txt {
-  background-color: #d1f0c5;
 }
 table.datatable td > input {
   background-color: #ffffff;
@@ -57,6 +36,43 @@ table.datatable td > input {
   outline: none;
   transition: box-shadow var(--transition-short);
 }
+/* table.static-datatable td {
+} */
+table.datatable td .filled-txt {
+  background-color: var(--background-offset);
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0.5rem;
+}
+table.datatable td .auto-filled-txt {
+  background-color: #d6e96a;
+}
+table.datatable td.input-prefix .filled-txt {
+  /* width: calc(100% - 2rem); */
+  background-color: transparent;
+  /* background-color: blue; */
+  /* display: inline-block; */
+  /* margin-left: -1px; */
+}
+table.datatable td.input-prefix .span-prefix {
+  color: var(--txt-offset);
+  font-size: 0.8rem;
+  padding-right: 0.5rem;
+  font-weight: 800;
+}
+
+/* .span-prefix {
+  color: rgb(163, 163, 163);
+  padding: 2px 0.5vw;
+  margin-right: -1vw;
+  position: absolute;
+  z-index: 3;
+  box-sizing: border-box;
+}
+.span-prefix + input {
+  display: none;
+  padding-left: 2.5vw !important;
+} */
 
 /* Input */
 
