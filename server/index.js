@@ -1,11 +1,12 @@
 require("./db/mongoose") // Database
 
 const express = require("express") // Express Framework
-var cors = require("cors") // Top Enable Cross-Origin
+const subdomain = require("express-subdomain")
+const cors = require("cors") // Top Enable Cross-Origin
 const bodyParse = require("body-parser") // To parse JSON
 const _ = require("lodash") // Utility Library
 
-// Routes
+// Routes\
 const authentication = require("./routes/authentication")
 const buyer = require("./routes/buyer")
 const order = require("./routes/order")
@@ -16,8 +17,18 @@ const app = express() // Express Init
 // Middlewares
 app.use(cors(), bodyParse.json())
 
+app.use(subdomain("api", authentication))
+app.use(express.static(__dirname + "/public"))
+
 // Routes
-app.use(authentication, buyer, draft, order)
+// app.use(authentication, buyer, draft, order)
+
+// app.use(authentication, buyer, draft, order)
+
+app.get("/", (req, res) => {
+  res.send("Wildcard")
+  // res.render("index")
+})
 
 // Server Config
 app.listen(3001, () => {

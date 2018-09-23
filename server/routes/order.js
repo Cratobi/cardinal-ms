@@ -12,7 +12,7 @@ const { authenticate } = require("../middleware/authenticate")
 const app = express.Router()
 
 // Provide all Orders
-app.get("/order", authenticate, (req, res) => {
+app.get("/api/order", authenticate, (req, res) => {
   if (req.query.search) {
   } else {
     Order.fetchOrders(req.query.page)
@@ -23,7 +23,7 @@ app.get("/order", authenticate, (req, res) => {
   }
 })
 // Search Order
-app.get("/order/search", authenticate, (req, res) => {
+app.get("/api/order/search", authenticate, (req, res) => {
   let query = req.query.q
   if (query.charAt(0) !== "@") {
     Order.find({ order_no: { $regex: query, $options: "i" } })
@@ -53,7 +53,7 @@ app.get("/order/search", authenticate, (req, res) => {
   }
 })
 
-app.get("/order/count", authenticate, (req, res) => {
+app.get("/api/order/count", authenticate, (req, res) => {
   Order.estimatedDocumentCount()
     .then(count => res.send({ count }))
     .catch(() => {
@@ -62,7 +62,7 @@ app.get("/order/count", authenticate, (req, res) => {
 })
 
 // Provide Order
-app.get("/order/:id", authenticate, (req, res) => {
+app.get("/api/order/:id", authenticate, (req, res) => {
   const id = req.params.id
 
   return Order.fetchOrder(id)
@@ -75,7 +75,7 @@ app.get("/order/:id", authenticate, (req, res) => {
 })
 
 // Publish Order
-app.post("/order/:id", authenticate, (req, res) => {
+app.post("/api/order/:id", authenticate, (req, res) => {
   const id = req.params.id
 
   Draft.findById(id)
