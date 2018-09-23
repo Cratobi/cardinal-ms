@@ -1,5 +1,4 @@
-import Axios from "axios"
-import Cookie from "js-cookie"
+import Axios from "../../axios-instance"
 import * as actionTypes from "./actionTypes"
 
 // Dispatchers
@@ -49,10 +48,7 @@ export const fetchDrafts = () => {
   return dispatch => {
     Axios({
       method: "get",
-      url: "http://localhost:3001/draft",
-      headers: {
-        "x-auth": Cookie.get("x-auth")
-      }
+      url: "/draft"
     })
       .then(payload => {
         dispatch(saveDrafts(payload.data))
@@ -66,10 +62,7 @@ export const fetchDraft = id => {
   return dispatch => {
     Axios({
       method: "get",
-      url: `http://localhost:3001/draft/${id}`,
-      headers: {
-        "x-auth": Cookie.get("x-auth")
-      }
+      url: `/draft/${id}`
     })
       .then(payload => {
         dispatch(saveDraftMetadata(payload.data))
@@ -87,10 +80,7 @@ export const sendDraftMetadta = (payload, router) => {
   return dispatch => {
     Axios({
       method: "post",
-      url: "http://localhost:3001/draft",
-      headers: {
-        "x-auth": Cookie.get("x-auth")
-      },
+      url: "/draft",
       data: {
         payload
       }
@@ -109,10 +99,7 @@ export const sendDraftTabledata = payload => {
   return dispatch => {
     Axios({
       method: "patch",
-      url: `http://localhost:3001/draft/${payload.id}`,
-      headers: {
-        "x-auth": Cookie.get("x-auth")
-      },
+      url: `/draft/${payload.id}`,
       data: {
         payload: payload.tabledata
       }
@@ -132,10 +119,7 @@ export const deleteDraft = (id, router) => {
   return dispatch => {
     Axios({
       method: "delete",
-      url: `http://localhost:3001/draft/${id}`,
-      headers: {
-        "x-auth": Cookie.get("x-auth")
-      },
+      url: `/draft/${id}`,
       data: null
     })
       .then(() => {

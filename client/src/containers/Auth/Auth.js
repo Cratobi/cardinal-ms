@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import Axios from "axios"
+import Axios from "../../axios-auth"
 import Cookie from "js-cookie"
 
 import SigninLayout from "../../components/Layout/Auth/Signin"
@@ -36,7 +36,7 @@ class Auth extends Component {
   handleSubmitSignin = e => {
     e.preventDefault()
 
-    Axios.post("http://localhost:3001/auth/signin", {
+    Axios.post("/auth/signin", {
       username: this.state.form.username,
       password: this.state.form.password
     })

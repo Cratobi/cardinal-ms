@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { getIn } from "immutable"
 import { withRouter } from "react-router-dom"
 import Cookie from "js-cookie"
-import Axios from "axios"
+import Axios from "../../axios-instance"
 import * as actions from "../../store/actions/index"
 
 import HeaderLayout from "../../components/Layout/Header/Header"
@@ -48,14 +48,10 @@ class Header extends Component {
     this.setState(state)
   }
   handleUnauthenticate = () => {
-    const token = Cookie.get("x-auth")
-    if (token) {
+    if (Cookie.get("x-auth")) {
       Axios({
         method: "delete",
-        url: "http://localhost:3001/auth/signout",
-        headers: {
-          "x-auth": token
-        }
+        url: "/auth/signout"
       })
         .then(() => {
           Cookie.remove("x-auth")

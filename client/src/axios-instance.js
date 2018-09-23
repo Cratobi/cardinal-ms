@@ -1,19 +1,22 @@
-import axios from "axios"
+import Axios from "axios"
+import Cookie from "js-cookie"
 
-const token = Cookie.get("x-auth")
-
-const instance = axios.create({
-  baseURL: "http://localhost:3001",
+const instance = Axios.create({
+  baseURL: "http://api.cardinal.com",
   headers: {
-    "x-auth": token,
-    withCredentials: false
+    "x-auth": Cookie.get("x-auth")
   }
 })
-// const instance = axios.create({
-//   baseURL: "https://cardinal-ms.herokuapp.com",
+// const instance = Axios.create({
+//   baseURL: "https://api.cardinal-ms.herokuapp.com",
 //   headers: {
-//     "x-auth": token,
-//     withCredentials: false
+//     "x-auth": Cookie.get("x-auth")
+//   }
+// })
+// const instance = Axios.create({
+//   baseURL: "http://localhost:3001",
+//   headers: {
+//     "x-auth": Cookie.get("x-auth")
 //   }
 // })
 

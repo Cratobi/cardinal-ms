@@ -3,9 +3,9 @@ import { connect } from "react-redux"
 // eslint-disable-next-line
 import { get } from "immutable"
 import { Route, Switch, withRouter } from "react-router-dom"
-import "./App.css"
-import Axios from "axios"
+import Axios from "../axios-instance"
 import Cookie from "js-cookie"
+import "./App.css"
 
 import Authentication from "./Authentication/Authentication"
 import Header from "./Header/Header"
@@ -27,10 +27,7 @@ class App extends Component {
       token
         ? Axios({
             method: "get",
-            url: "http://localhost:3001/auth",
-            headers: {
-              "x-auth": token
-            }
+            url: "/auth"
           })
             // .then(() => console.log())
             .catch(err => this.props.history.replace({ pathname: "/signin" }))
@@ -51,6 +48,7 @@ class App extends Component {
           <Route path="/draft/:id" exact component={Draft} />
           <Route path="/order" exact component={Orders} />
           <Route path="/order/:id" component={Order} />
+          <Route>{<div>ops</div>}</Route>
         </Switch>
       </Aux>
     )

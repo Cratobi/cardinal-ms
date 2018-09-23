@@ -1,4 +1,4 @@
-import Axios from "axios"
+import Axios from "../../axios-instance"
 import Cookie from "js-cookie"
 import * as actionTypes from "./actionTypes"
 
@@ -19,14 +19,10 @@ export const unauthenticate = () => {
 
 export const checkCookie = () => {
   return dispatch => {
-    const token = Cookie.get("x-auth")
-    if (token) {
+    if (Cookie.get("x-auth")) {
       Axios({
         method: "get",
-        url: "http://localhost:3001/auth",
-        headers: {
-          "x-auth": token
-        }
+        url: "/auth"
       })
         .then(() => {
           dispatch(authenticate())

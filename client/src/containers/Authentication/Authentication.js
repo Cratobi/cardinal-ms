@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import Axios from "axios"
+import Axios from "../../axios-auth"
 import Cookie from "js-cookie"
 import browserDetect from "browser-detect"
 
@@ -52,7 +52,7 @@ class Authentication extends Component {
     }
 
     if (!token) {
-      Axios.post("http://localhost:3001/auth/signin", {
+      Axios.post("/auth/signin", {
         username: this.state.form.username,
         password: this.state.form.password,
         access,
