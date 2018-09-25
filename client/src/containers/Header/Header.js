@@ -71,10 +71,10 @@ class Header extends Component {
                 Save Change
               </div>
             }
-            handleSettingsModal={this.handleSettingsModal}
+            handleModalClose={this.handleSettingsModal}
           >
             <div className="setting-title m-l-1">Account setting</div>
-            <form className="setting-menu">
+            <form className="modal-menu">
               <div className="form-inline-input">
                 <label className="form-label">Name:</label>
                 <input
