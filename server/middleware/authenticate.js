@@ -7,8 +7,11 @@ const authenticate = (req, res, next) => {
     .then(user => {
       !user ? Promise.reject() : null
 
-      req.user = user
-      req.token = token
+      req.userData = {
+        username: user.username,
+        name: user.name,
+        power: user.power
+      }
       next()
     })
     .catch(e => {

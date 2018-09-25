@@ -1,5 +1,6 @@
 // Authentication
 export const RESET_STATE = "RESET_STATE"
+export const SAVEUSER = "SAVEUSER"
 
 // Buyer
 export const SAVE_BUYERS = "SAVE_BUYERS"

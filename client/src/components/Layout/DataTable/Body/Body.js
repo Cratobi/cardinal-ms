@@ -1,7 +1,6 @@
-import React from "react"
+import React, { Fragment } from "react"
 // eslint-disable-next-line
 import { get } from "immutable"
-import Aux from "../../../../hoc/_Aux/_Aux"
 
 const SelectOption = props => <option value={props.value}>{props.name}</option>
 
@@ -150,7 +149,7 @@ const tableBody = props => {
                 // Handle input element
 
                 cellData = (
-                  <Aux>
+                  <Fragment>
                     {/* {prefix} */}
                     <input
                       className={classname}
@@ -165,7 +164,7 @@ const tableBody = props => {
                       // onWheel={e => props.wheel(e)} // To control horizental scroll by default
                     />
                     {/* {suffix} */}
-                  </Aux>
+                  </Fragment>
                 )
               }
             } else {

@@ -7,7 +7,6 @@ import * as actions from "../../store/actions/index"
 import DataTableLayout from "../../components/Layout/DataTable/DataTable"
 import "./EditableTable.css"
 import LoadingLayout from "../../components/Layout/Loading/Loading"
-// import Aux from "../../hoc/_Aux/_Aux"
 
 class Table extends Component {
   tableChangeHandler = e => {
@@ -19,11 +18,11 @@ class Table extends Component {
     })
   }
 
-  wheel = e => {
-    let delta = Math.max(-1, Math.min(1, e.wheelDelta || -e.detail))
-    e.currentTarget.scrollLeft = e.currentTarget.scrollLeft + e.deltaY / 10
-    e.preventDefault()
-  }
+  // wheel = e => {
+  //   let d  elta = Math.max(-1, Math.min(1, e.wheelDelta || -e.detail))
+  //   e.currentTarget.scrollLeft = e.currentTarget.scrollLeft + e.deltaY / 10
+  //   e.preventDefault()
+  // }
 
   render() {
     return (

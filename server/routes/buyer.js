@@ -29,8 +29,8 @@ app.get("/buyer/:id", authenticate, (req, res) => {
     .then(data => {
       res.send(data)
     })
-    .catch(err => {
-      res.status(400).send(err)
+    .catch(() => {
+      res.status(400).send()
     })
 })
 
@@ -73,7 +73,6 @@ app.post("/buyer", authenticate, (req, res) => {
       res.status(400).send()
     })
 })
-
 // Delete Buyer
 app.delete("/buyer/:id", authenticate, (req, res) => {
   const id = req.params.id
@@ -82,8 +81,8 @@ app.delete("/buyer/:id", authenticate, (req, res) => {
     .then(() => {
       res.send()
     })
-    .catch(err => {
-      res.status(400).send(err)
+    .catch(() => {
+      res.status(400).send()
     })
 })
 

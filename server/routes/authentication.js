@@ -12,7 +12,7 @@ const app = express.Router()
 
 // Varify Token
 app.get("/auth", authenticate, (req, res) => {
-  res.send(req.user)
+  res.send(req.userData)
 })
 // Sign In
 app.post("/auth/signin", (req, res) => {
@@ -24,23 +24,16 @@ app.post("/auth/signin", (req, res) => {
           res.header("x-auth", token).send({ token })
         })
       )
-      .catch(err => {
-        res.status(400).send()
-      })
+      .catch(() => res.status(400).send())
   } else {
     return res.status(400).send()
   }
 })
 // Sign Out
 app.delete("/auth/signout", authenticate, (req, res) => {
-  req.user.removeToken(req.token).then(
-    () => {
-      res.status(200).send()
-    },
-    () => {
-      res.status(400).send()
-    }
-  )
+  User.removeToken(req.token)
+    .then(() => res.send())
+    .catch(() => res.status(400).send())
 })
 
 // Sign Up
@@ -60,8 +53,8 @@ app.post("/auth/signup", (req, res) => {
     .then(token => {
       res.header("x-auth", token).send()
     })
-    .catch(err => {
-      res.status(400).send(err)
+    .catch(() => {
+      res.status(400).send()
     })
 })
 

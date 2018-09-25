@@ -53,21 +53,6 @@ a.order-card {
   padding-bottom: 0.5rem;
   align-self: flex-end;
 }
-.order-card .btn {
-  background-color: #b3b3b3;
-  color: #ffffff;
-  align-self: flex-end;
-  position: absolute;
-  margin-top: -0.1rem;
-  margin-left: 0.1rem;
-  /* align-self: flex-end; */
-  z-index: 5;
-}
-.order-card .btn:hover {
-  background-color: var(--caution-deep);
-  color: var(--on-caution);
-  z-index: 5;
-}
 @media (max-width: 768px) {
   .order-card {
     width: 10rem;

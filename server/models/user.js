@@ -80,7 +80,7 @@ UserSchema.methods.generateAuthToken = function(access, system) {
   })
 }
 
-UserSchema.methods.removeToken = function(token) {
+UserSchema.statics.removeToken = function(token) {
   const user = this
 
   return user.update({
@@ -102,8 +102,8 @@ UserSchema.statics.findByToken = function(token) {
 
   return User.findOne({
     _id: decoded._id,
-    "accessTokens.token": token,
-    "accessTokens.access": "token"
+    "accessTokens.token": token
+    // "accessTokens.access": "web"
   })
 }
 

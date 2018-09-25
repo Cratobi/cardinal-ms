@@ -1,77 +1,66 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import { connect } from "react-redux"
 // eslint-disable-next-line
-import { get } from "immutable"
+import { getIn } from "immutable"
 import { Route, Switch, withRouter } from "react-router-dom"
-import Axios from "../axios-instance"
 import Cookie from "js-cookie"
 import "./App.css"
+import * as actions from "../store/actions"
 
 import Authentication from "./Authentication/Authentication"
+import Signout from "./SignOut/SignOut"
+import Reload from "../components/reload/reload"
 import Header from "./Header/Header"
 import Home from "./Home/Home"
 import Order from "./Order/Order"
 import Orders from "./Orders/Orders"
 import Draft from "./Draft/Draft"
 import Drafts from "./Drafts/Drafts"
-import Aux from "../hoc/_Aux/_Aux"
+
+const RouteWithHeader = ({ component: Component, ...rest }) => (
+  <div>
+    <Header />
+    <Route {...rest} render={props => <Component {...props} />} />
+  </div>
+)
 
 class App extends Component {
   componentWillMount() {
-    // if (!this.props.authorization) {
-    if (
-      this.props.location.pathname !== "/signup" &&
-      this.props.location.pathname !== "/signup/"
-    ) {
-      const token = Cookie.get("x-auth")
-      token
-        ? Axios({
-            method: "get",
-            url: "/auth"
-          })
-            // .then(() => console.log())
-            .catch(err => this.props.history.replace({ pathname: "/signin" }))
-        : this.props.history.replace({ pathname: "/signin" })
-    }
-    // }
+    Cookie.get("x-auth")
+      ? this.props.auth(this.props.history)
+      : this.props.history.replace({ pathname: "/signin" })
   }
 
   render() {
     return (
-      <Aux>
-        {this.props.history.location.pathname !== "/signin" ? <Header /> : null}
+      <Fragment>
         <Switch>
-          <Route path="/" exact component={Home} />
           <Route path="/signin" exact component={Authentication} />
-          <Route path="/orders" exact component={Orders} />
-          <Route path="/draft" exact component={Drafts} />
-          <Route path="/draft/:id" exact component={Draft} />
-          <Route path="/order" exact component={Orders} />
-          <Route path="/order/:id" component={Order} />
+          <Route path="/signup" exact component={Authentication} />
+          <Route path="/signout" exact component={Signout} />
+          <Route path="/reload" exact component={Reload} />
+          <RouteWithHeader path="/" exact component={Home} />
+          <RouteWithHeader path="/orders" exact component={Orders} />
+          <RouteWithHeader path="/draft" exact component={Drafts} />
+          <RouteWithHeader path="/draft/:id" exact component={Draft} />
+          <RouteWithHeader path="/order" exact component={Orders} />
+          <RouteWithHeader path="/order/:id" component={Order} />
           <Route>{<div>ops</div>}</Route>
         </Switch>
-      </Aux>
+      </Fragment>
     )
-  }
-}
-
-const mapStateToProps = state => {
-  state = state.get("init")
-
-  return {
-    authorization: state.get("authorization")
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    // authentication: () => dispatch(actions.authentication())
+    auth: router => dispatch(actions.auth(router))
   }
 }
 
 export default withRouter(
   connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
   )(App)
 )

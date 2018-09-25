@@ -1,12 +1,11 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 
 import ConsumptionAndPricingLayout from "../../../components/Layout/ConsumptionAndPricing/ConsumptionAndPricing"
-import Aux from "../../../hoc/_Aux/_Aux"
 
 class PriceAndConsumtion extends Component {
   render() {
     return (
-      <Aux>
+      <Fragment>
         <table className="extradata">
           <tbody>
             <tr>
@@ -38,7 +37,7 @@ class PriceAndConsumtion extends Component {
         <div className="static-table">
           <ConsumptionAndPricingLayout tabledata={this.props.tabledata} />
         </div>
-      </Aux>
+      </Fragment>
     )
   }
 }

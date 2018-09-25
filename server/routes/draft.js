@@ -13,7 +13,7 @@ const { authenticate } = require("../middleware/authenticate")
 const app = express.Router()
 
 // Provide all Draft
-app.get("/api/draft", authenticate, (req, res) => {
+app.get("/draft", authenticate, (req, res) => {
   Draft.fetchDrafts()
     .then(data => res.send(data))
     .catch(() => {
@@ -22,19 +22,19 @@ app.get("/api/draft", authenticate, (req, res) => {
 })
 
 // Provide Draft
-app.get("/api/draft/:id", authenticate, (req, res) => {
+app.get("/draft/:id", authenticate, (req, res) => {
   const id = req.params.id
   return Draft.fetchDraft(id)
     .then(data => {
       res.send(data)
     })
-    .catch(err => {
-      res.status(400).send(err)
+    .catch(() => {
+      res.status(400).send()
     })
 })
 
 // Add Draft
-app.post("/api/draft", authenticate, (req, res) => {
+app.post("/draft", authenticate, (req, res) => {
   const token = req.header("x-auth")
   decoded = jwt.verify(token, "secret")
 
@@ -64,7 +64,7 @@ app.post("/api/draft", authenticate, (req, res) => {
 })
 
 // Update Draft Tabledata
-app.patch("/api/draft/:id", authenticate, (req, res) => {
+app.patch("/draft/:id", authenticate, (req, res) => {
   const id = req.params.id
   const payload = req.body.payload
   return Draft.findByIdAndUpdate(id, {
@@ -79,7 +79,7 @@ app.patch("/api/draft/:id", authenticate, (req, res) => {
 })
 
 // Delete Draft
-app.delete("/api/draft/:id", authenticate, (req, res) => {
+app.delete("/draft/:id", authenticate, (req, res) => {
   const id = req.params.id
 
   return Draft.findByIdAndRemove(id)

@@ -1,11 +1,8 @@
-import React from "react"
-
-// HOC
-import Aux from "../../../hoc/_Aux/_Aux"
+import React, { Fragment } from "react"
 
 const Signin = props => {
   return (
-    <Aux>
+    <Fragment>
       <div className="auth-header">
         <div className="txt-small">Cardinal Management System</div>
         <div className="txt-title">FLAXEN GROUP</div>
@@ -50,7 +47,7 @@ const Signin = props => {
           </button>
         </div>
       </form>
-    </Aux>
+    </Fragment>
   )
 }
 

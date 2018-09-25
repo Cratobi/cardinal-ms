@@ -17,13 +17,13 @@ export const resetDrafts = () => {
 export const saveDraftMetadata = payload => {
   return {
     type: actionTypes.SAVE_DRAFT_METADATA,
-    payload: payload
+    payload
   }
 }
 export const saveDraftTabledata = payload => {
   return {
     type: actionTypes.SAVE_DRAFT_TABLEDATA,
-    payload: payload
+    payload
   }
 }
 export const resetDraft = () => {

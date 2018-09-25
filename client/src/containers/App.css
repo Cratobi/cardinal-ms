@@ -16,6 +16,7 @@ a {
 }
 input {
   border-width: 0;
+  outline: none;
 }
 /* clears the 'X' from Internet Explorer */
 input[type="search"]::-ms-clear {
@@ -203,7 +204,11 @@ h6 {
   background-color: var(--background-offset-deep);
   box-shadow: 0 0 0 0.2rem #00000015;
 }
-
+.btn-small {
+  font-size: 0.6rem;
+  padding: 0.5rem;
+  margin: 0.2rem;
+}
 .btn-chip {
   line-height: 0;
   min-width: 2rem;
@@ -211,8 +216,18 @@ h6 {
   display: inline-flex;
   justify-content: center;
   border-radius: 99rem;
-  padding: 0.6rem 0.6rem;
+  padding: 0.6rem 0.4rem;
   align-items: center;
+}
+.btn-chip span + .fas {
+  padding: 0 0.3rem;
+}
+.btn-chip-small {
+  font-size: 0.6rem;
+  min-width: 1.6rem;
+  min-height: 1.6rem;
+  padding: 0.5rem;
+  margin: 0.2rem;
 }
 .btn-round {
   line-height: 0;
@@ -485,14 +500,22 @@ main {
 /* article {
   width: calc(80vw - 2rem);
 } */
-.transparent-backdrop {
-  background-color: transparent;
+.backdrop {
+  background-color: #000000;
+  background-color: var(--dark-transparent);
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   z-index: -1;
+}
+.backdrop-transparent {
+  background-color: transparent;
+}
+.backdrop-menu {
+  height: calc(100vh - 3.9rem);
+  top: 3.9rem;
 }
 .hidden {
   display: none;
@@ -660,4 +683,43 @@ button.more-btn > .fas {
   margin-left: -1vw;
   z-index: 3;
   box-sizing: border-box;
+}
+
+/* Input */
+.form-inline-input {
+  font-size: 1rem;
+  font-weight: 700;
+  /* display: inline; */
+  /* width: 15rem; */
+  /* padding: 0.5rem 1rem; */
+  /* margin: 0.5rem 0; */
+}
+input.form-input {
+  font-size: 1rem;
+  font-weight: 700;
+  /* display: inline; */
+  /* width: 15rem; */
+  background-color: #ffffff8f;
+  color: #1b1b1b;
+  border: 1px solid #0000006e;
+  border-radius: 0.2rem;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+}
+label.form-label {
+  color: #0000006e;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+.form-inline-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-inline-input .form-label {
+  margin-right: 1rem;
+}
+input.form-input:disabled {
+  color: #777777;
+  background-color: #aaaaaa8f;
 }

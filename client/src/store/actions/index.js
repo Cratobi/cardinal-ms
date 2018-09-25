@@ -1,5 +1,5 @@
 // AUthentication
-export { verifyToken, requestSignin } from "./authentication"
+export { auth, verifyToken, requestSignin } from "./auth"
 
 // Order
 export {

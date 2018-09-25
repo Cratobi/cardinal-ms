@@ -2,15 +2,15 @@
 import { fromJS, get, set } from "immutable"
 
 const initialState = fromJS({
-  authorization: false
+  userInfo: null
 })
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "AUTHENTICATE":
       return state.set("authorization", true)
-    case "UNAUTHENTICATE":
-      return state.set("authorization", false)
+    case "SAVEUSER":
+      return state.set("userInfo", fromJS(action.payload))
     case "USER_LOGOUT":
       const { routing } = state
       return (state = { routing })

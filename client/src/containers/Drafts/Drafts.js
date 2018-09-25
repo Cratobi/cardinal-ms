@@ -15,11 +15,6 @@ class Order extends Component {
   componentWillUnmount() {
     this.props.resetDrafts()
   }
-  handleDeleteDraftBtn = (e, id) => {
-    e.preventDefault()
-    this.props.deleteDraft(id)
-    this.props.fetchDrafts()
-  }
 
   render() {
     return this.props.drafts ? (
@@ -35,7 +30,6 @@ class Order extends Component {
               buyer={draft.get("buyer")}
               orderNo={draft.get("order_no")}
               styleNo={draft.get("style_no")}
-              handleDeleteDraftBtn={this.handleDeleteDraftBtn}
               path="/draft/"
             />
           ))}
@@ -58,8 +52,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchDrafts: () => dispatch(actions.fetchDrafts()),
-    resetDrafts: () => dispatch(actions.resetDrafts()),
-    deleteDraft: id => dispatch(actions.deleteDraft(id))
+    resetDrafts: () => dispatch(actions.resetDrafts())
   }
 }
 

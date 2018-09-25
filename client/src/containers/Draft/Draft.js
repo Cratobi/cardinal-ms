@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import { withRouter } from "react-router-dom"
 import { connect } from "react-redux"
 // eslint-disable-next-line
@@ -8,7 +8,6 @@ import * as actions from "../../store/actions/index"
 import MonoGridLayout from "../../components/Layout/MonoGrid/MonoGrid"
 import EditableTable from "../EditableTable/EditableTable"
 import LoadingLayout from "../../components/Layout/Loading/Loading"
-import Aux from "../../hoc/_Aux/_Aux"
 
 class Draft extends Component {
   componentWillMount() {
@@ -39,7 +38,7 @@ class Draft extends Component {
       <MonoGridLayout
         CustomCSS="draft"
         header={
-          <Aux>
+          <Fragment>
             <div className="draft-header-btns">
               <button
                 className="btn btn-caution"
@@ -87,10 +86,10 @@ class Draft extends Component {
                 {this.props.metadata.get("order_no")}
               </p>
             </div>
-          </Aux>
+          </Fragment>
         }
         footer={
-          <Aux>
+          <Fragment>
             <button
               className="btn btn-success f-r"
               onClick={this.handlePublishOrder}
@@ -105,7 +104,7 @@ class Draft extends Component {
               <i className="fas fa-inbox p-r" />
               Save to Draft
             </button>
-          </Aux>
+          </Fragment>
         }
       >
         <EditableTable editable="true" tabledata={this.props.tabledata} />

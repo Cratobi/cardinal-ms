@@ -23,6 +23,7 @@ class Authentication extends Component {
     const token = Cookie.get("x-auth")
 
     if (token) {
+      // return window.location.reload(true)
       return this.props.history.replace({ pathname: "/" })
     }
   }
@@ -60,7 +61,7 @@ class Authentication extends Component {
       })
         .then(res => {
           Cookie.set("x-auth", res.data.token).then(
-            this.props.history.replace({ pathname: "/" })
+            this.props.history.replace({ pathname: "/reload" })
           )
         })
         .catch(() => {

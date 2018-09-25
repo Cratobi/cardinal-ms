@@ -1,14 +1,13 @@
-import React from "react"
+import React, { Fragment } from "react"
 // eslint-disable-next-line
 import { get } from "immutable"
 import "./ConsumptionAndPricing.css"
 
 import DataTable from "../DataTable/DataTable"
-import Aux from "../../../hoc/_Aux/_Aux"
 
 const consumptionAndPricing = props => {
   return (
-    <Aux>
+    <Fragment>
       <DataTable
         editability={false}
         tableData={props.tabledata.get("table_measurments")}
@@ -48,7 +47,7 @@ const consumptionAndPricing = props => {
         editability={false}
         tableData={props.tabledata.get("table_price")}
       />
-    </Aux>
+    </Fragment>
   )
 }
 

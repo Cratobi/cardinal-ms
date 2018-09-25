@@ -1,13 +1,11 @@
-import React from "react"
+import React, { Fragment } from "react"
 import "./MonoGrid.css"
-
-import Aux from "../../../hoc/_Aux/_Aux"
 
 const MonoGrid = props => {
   return (
     <div onScroll={props.handleScroll} className="container mono-grid">
       {!props.emptyTxt ? (
-        <Aux>
+        <Fragment>
           <div
             className={
               "card card-container " +
@@ -24,7 +22,7 @@ const MonoGrid = props => {
               <div className="card-footer">{props.footer}</div>
             ) : null}
           </div>
-        </Aux>
+        </Fragment>
       ) : (
         <h5 className="loading txt-lighter">{props.emptyTxt}</h5>
       )}
