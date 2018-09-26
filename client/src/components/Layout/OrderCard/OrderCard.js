@@ -1,11 +1,12 @@
-import React, { Fragment } from "react"
+import React from "react"
+import { CSSTransition } from "react-transition-group"
 import "./OrderCard.css"
 import { Link } from "react-router-dom"
 
 const OrderCard = props => {
   return (
-    <Fragment>
-      <Link className="order-card" to={props.path + props.id}>
+    <CSSTransition in={true} timeout={500} appear={true} classNames="slide-up">
+      <Link className="order-card anim" to={props.path + props.id}>
         <div className="date">10/03/201</div>
         <div className="mid">
           <div className="order-no">{props.orderNo}</div>
@@ -15,7 +16,7 @@ const OrderCard = props => {
         </div>
         <div className="buyer-name">{props.buyer}</div>
       </Link>
-    </Fragment>
+    </CSSTransition>
   )
 }
 

@@ -44,7 +44,7 @@ export const auth = router => {
       url: "/auth"
     })
       .then(res => dispatch(saveUser(res.data)))
-      .catch(router.replace({ pathname: "/signin" }))
+      .catch(() => router.replace({ pathname: "/signin" }))
   }
 }
 

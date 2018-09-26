@@ -1,14 +1,16 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import { connect } from "react-redux"
 // eslint-disable-next-line
 import { get, getIn } from "immutable"
 import { NavLink, Route, Redirect, withRouter } from "react-router-dom"
+import { CSSTransition } from "react-transition-group"
 import * as actions from "../../store/actions"
 
 import Overview from "./Overview/Overview"
 import PriceAndConsumtion from "./PriceAndConsumtion/PriceAndConsumtion"
+import LoadingLayout from "../../components/Layout/Loading/Loading"
 import "./Order.css"
-
+ 
 class Order extends Component {
   state = {
     show_more: false
@@ -27,28 +29,43 @@ class Order extends Component {
   }
 
   render() {
+    // this.props.order ? (
+    // <CSSTransition
+    //   in={this.props.order ? true : false}
+    //   timeout={500}
+    //   classNames="fade"
+    //   unmountOnExit
+    // >
     return (
-      <main className="container bi-grid">
-        <aside className="side-tab">
-          <ul>
-            <NavLink
-              activeClassName="active"
-              to={`/order/${this.props.match.params.id}/overview`}
+      <Fragment>
+        {!this.props.order ? <LoadingLayout txt /> : null}
+        <main className="container bi-grid">
+          <aside className="side-tab">
+            <CSSTransition
+              in={this.props.order ? true : false}
+              timeout={500}
+              classNames="slide-right"
+              unmountOnExit
             >
-              <li>
-                <i className="fas fa-chart-area" />
-                <span className="text">Overview</span>
-              </li>
-            </NavLink>
-            <NavLink
-              to={`/order/${this.props.match.params.id}/priceandconsumtion`}
-            >
-              <li>
-                <i className="fas fa-hand-holding-usd" />
-                <span className="text">Price & Consumtion</span>
-              </li>
-            </NavLink>
-            {/* <NavLink
+              <ul>
+                <NavLink
+                  activeClassName="active"
+                  to={`/order/${this.props.match.params.id}/overview`}
+                >
+                  <li>
+                    <i className="fas fa-chart-area" />
+                    <span className="text">Overview</span>
+                  </li>
+                </NavLink>
+                <NavLink
+                  to={`/order/${this.props.match.params.id}/priceandconsumtion`}
+                >
+                  <li>
+                    <i className="fas fa-hand-holding-usd" />
+                    <span className="text">Price & Consumtion</span>
+                  </li>
+                </NavLink>
+                {/* <NavLink
               to={`/order/${this.props.match.params.id}/woknitandaccess`}
             >
               <li>
@@ -64,45 +81,54 @@ class Order extends Component {
                 <span className="text">Knitting Program</span>
               </li>
             </NavLink> */}
-          </ul>
-        </aside>
-        <article className="card card-body">
-          <Route
-            path="/order/:id"
-            exact
-            render={() => (
-              <Redirect
+              </ul>
+            </CSSTransition>
+          </aside>
+          <CSSTransition
+            in={this.props.order ? true : false}
+            timeout={500}
+            classNames="slide-up"
+            unmountOnExit
+          >
+            <article className="card card-body">
+              <Route
+                path="/order/:id"
                 exact
-                to={`/order/${this.props.match.params.id}/overview`}
+                render={() => (
+                  <Redirect
+                    exact
+                    to={`/order/${this.props.match.params.id}/overview`}
+                  />
+                )}
               />
-            )}
-          />
-          {this.props.order ? (
-            <Route
-              path="/order/:id/overview"
-              render={() => (
-                <Overview
-                  showMore={this.state.show_more}
-                  handleToggleMore={this.handleToggleMore}
-                  order={this.props.order}
-                />
-              )}
-            />
-          ) : null}
-          {this.props.order ? (
-            <Route
-              path="/order/:id/priceandconsumtion"
-              exact
-              render={() => (
-                <PriceAndConsumtion
-                  tabledata={this.props.order.get("tabledata")}
-                />
-              )}
-            />
-          ) : null}
-        </article>
-      </main>
+              <Route
+                path="/order/:id/overview"
+                render={() => (
+                  <Overview
+                    showMore={this.state.show_more}
+                    handleToggleMore={this.handleToggleMore}
+                    order={this.props.order}
+                  />
+                )}
+              />
+              <Route
+                path="/order/:id/priceandconsumtion"
+                exact
+                render={() => (
+                  <PriceAndConsumtion
+                    tabledata={this.props.order.get("tabledata")}
+                  />
+                )}
+              />
+            </article>
+          </CSSTransition>
+        </main>
+      </Fragment>
     )
+    // ) : (
+    // </CSSTransition>
+    //   <LoadingLayout txt />
+    // )
   }
 }
 
@@ -115,7 +141,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchOrder: id => dispatch(actions.fetchOrder(id)),
-    resetOrder: id => dispatch(actions.resetOrder(id))
+    resetOrder: () => dispatch(actions.resetOrder())
   }
 }
 

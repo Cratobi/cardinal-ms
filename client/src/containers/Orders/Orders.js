@@ -57,7 +57,7 @@ class Order extends Component {
         >
           {this.props.orders.map((order, index) => (
             <OrderCardLayout
-              key={order.get("id")}
+            key={order.get("id")}
               id={order.get("id")}
               buyer={order.get("buyer")}
               orderNo={order.get("order_no")}
@@ -86,7 +86,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchOrdersCount: () => dispatch(actions.fetchOrdersCount()),
     fetchOrders: page => dispatch(actions.fetchOrders(page)),
-    resetOrders: page => dispatch(actions.resetOrders(page))
+    resetOrders: () => dispatch(actions.resetOrders())
   }
 }
 

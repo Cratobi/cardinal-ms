@@ -4,8 +4,11 @@ import { connect } from "react-redux"
 import { getIn } from "immutable"
 import { Route, Switch, withRouter } from "react-router-dom"
 import Cookie from "js-cookie"
-import "./App.css"
 import * as actions from "../store/actions"
+
+// Styles
+import "./App.css"
+import "../components/style/Animation.css"
 
 import Authentication from "./Authentication/Authentication"
 import Signout from "./SignOut/SignOut"
@@ -18,10 +21,10 @@ import Draft from "./Draft/Draft"
 import Drafts from "./Drafts/Drafts"
 
 const RouteWithHeader = ({ component: Component, ...rest }) => (
-  <div>
+  <Fragment>
     <Header />
     <Route {...rest} render={props => <Component {...props} />} />
-  </div>
+  </Fragment>
 )
 
 class App extends Component {
@@ -33,21 +36,19 @@ class App extends Component {
 
   render() {
     return (
-      <Fragment>
-        <Switch>
-          <Route path="/signin" exact component={Authentication} />
-          <Route path="/signup" exact component={Authentication} />
-          <Route path="/signout" exact component={Signout} />
-          <Route path="/reload" exact component={Reload} />
-          <RouteWithHeader path="/" exact component={Home} />
-          <RouteWithHeader path="/orders" exact component={Orders} />
-          <RouteWithHeader path="/draft" exact component={Drafts} />
-          <RouteWithHeader path="/draft/:id" exact component={Draft} />
-          <RouteWithHeader path="/order" exact component={Orders} />
-          <RouteWithHeader path="/order/:id" component={Order} />
-          <Route>{<div>ops</div>}</Route>
-        </Switch>
-      </Fragment>
+      <Switch>
+        <Route path="/signin" exact component={Authentication} />
+        <Route path="/signup" exact component={Authentication} />
+        <Route path="/signout" exact component={Signout} />
+        <Route path="/reload" exact component={Reload} />
+        <RouteWithHeader path="/" exact component={Home} />
+        <RouteWithHeader path="/orders" exact component={Orders} />
+        <RouteWithHeader path="/draft" exact component={Drafts} />
+        <RouteWithHeader path="/draft/:id" exact component={Draft} />
+        <RouteWithHeader path="/order" exact component={Orders} />
+        <RouteWithHeader path="/order/:id" component={Order} />
+        <Route>{<div>ops</div>}</Route>
+      </Switch>
     )
   }
 }

@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import { connect } from "react-redux"
 import { Link, withRouter } from "react-router-dom"
 // eslint-disable-next-line
@@ -9,6 +9,7 @@ import "react-day-picker/lib/style.css"
 import * as actions from "../../store/actions/index"
 import dateFnsFormat from "date-fns/format"
 import dateFnsParse from "date-fns/parse"
+import { CSSTransition } from "react-transition-group"
 
 import ModalLayout from "../../components/Layout/Modal/Modal"
 
@@ -20,12 +21,12 @@ class Home extends Component {
     new_buyer: "",
     draft_metadata: {
       // buyer: "",
+      buyer: "H1Z1",
       order_no: "",
       shipment_date: new Date(),
       style_no: "",
       item: "",
-      quantity: "",
-      buyer: "H1Z1"
+      quantity: ""
     }
   }
   handleChange = e => {
@@ -43,7 +44,6 @@ class Home extends Component {
     state.draft_metadata.shipment_date = date
     this.setState(state)
   }
-  onChange = date => this.setState({ date })
 
   sendDraftMetadata = e => {
     e.preventDefault()
@@ -69,7 +69,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
+      <Fragment>
         <br />
         <br />
         <br />
@@ -85,13 +85,35 @@ class Home extends Component {
         <button className="btn btn-success" onClick={this.handleDraftModal}>
           Add Order
         </button>
+        {/*  */}
         <br />
         <br />
         <br />
         <br />
-        {this.state.draftModal ? (
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <Link to="/order">
+          <button className="btn btn-dark">Orders</button>
+        </Link>
+        {/*  */}
+        <CSSTransition
+          in={this.state.draftModal}
+          timeout={500}
+          classNames="anim-modal"
+          unmountOnExit
+        >
           <ModalLayout
+            key="1"
             tittle="ADD ORDER"
+            modalState={this.state.draftModal}
             footer={
               <div onClick={this.sendDraftMetadata} className="btn btn-success">
                 Create Order
@@ -196,8 +218,8 @@ class Home extends Component {
               <input type="submit" className="hidden" value="Create Order" />
             </form>
           </ModalLayout>
-        ) : null}
-      </div>
+        </CSSTransition>
+      </Fragment>
     )
   }
 }

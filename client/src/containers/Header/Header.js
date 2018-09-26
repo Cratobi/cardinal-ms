@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 // eslint-disable-next-line
 import { get, getIn } from "immutable"
 import { withRouter } from "react-router-dom"
+import { CSSTransition } from "react-transition-group"
 import * as actions from "../../store/actions/index"
 
 import HeaderLayout from "../../components/Layout/Header/Header"
@@ -60,7 +61,12 @@ class Header extends Component {
   render() {
     return this.props.userInfo ? (
       <Fragment>
-        {this.state.settingsModal ? (
+        <CSSTransition
+          in={this.state.settingsModal}
+          timeout={500}
+          classNames="anim-modal"
+          unmountOnExit
+        >
           <ModalLayout
             tittle="SETTINGS"
             footer={
@@ -121,7 +127,7 @@ class Header extends Component {
               </div> */}
             </form>
           </ModalLayout>
-        ) : null}
+        </CSSTransition>
         {/* <ModalLayout
           tittle="Password"
           footer={

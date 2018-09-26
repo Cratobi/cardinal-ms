@@ -35,7 +35,7 @@
   margin-left: 0.8rem;
   border-radius: 99px;
   cursor: pointer;
-  transition: all, 0.4s;
+  transition: background-color var(--transition);
 }
 .bi-grid aside ul li:hover {
   background-color: rgb(245, 245, 245);
@@ -80,14 +80,6 @@
   margin-left: 0;
   z-index: 0;
 }
-/* .card {
-  width: calc(80vw - 2rem);
-  height: 80vh;
-  min-height: fit-content;
-  padding: 2rem;
-  padding-top: 3rem;
-  margin: 2rem 0;
-} */
 
 .card-body .order-no {
   font-size: 2rem;
@@ -126,7 +118,7 @@
   box-sizing: border-box;
 }
 .bi-grid article .static-table::-webkit-scrollbar {
-  height: 8px;
+  height: 10px;
 }
 .bi-grid article .static-table::-webkit-scrollbar-track {
   border-radius: 0.4rem;
@@ -140,16 +132,62 @@
 }
 
 @media (max-width: 768px) {
-  .bi-grid article.card-body {
-    font-size: 0.8rem;
-  }
   .bi-grid article.card-body .static-datatable {
     font-size: 90% !important;
   }
-  .bi-grid {
-    grid-template-columns: 12vw 88vw;
-  }
   .bi-grid aside ul li .text {
+    right: 2px;
     display: none;
+  }
+  .bi-grid {
+    background-color: #f3f3f3;
+    grid-template-columns: auto;
+    grid-template-rows: 15vh auto;
+    grid-auto-flow: row;
+  }
+  .bi-grid::-webkit-scrollbar {
+    width: 0;
+  }
+  .bi-grid aside ul {
+    position: relative;
+    right: 0;
+    bottom: 30px;
+    float: left;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  .bi-grid aside ul a {
+    color: initial;
+    text-decoration: none;
+  }
+  .bi-grid aside ul li {
+    font-size: 1.4rem;
+    padding: 0.8rem 1.2rem;
+    margin: 0;
+    display: inline;
+  }
+  .bi-grid aside ul .active li {
+    color: #be3a3f;
+  }
+  .bi-grid aside ul .active li:before {
+    display: none;
+  }
+  .bi-grid article.card {
+    width: 100vw;
+    height: auto;
+    min-height: fit-content;
+    margin: 0;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: var(--elevation-0);
+  }
+  .bi-grid article .static-table {
+    border-width: 0;
+    margin: 0;
+  }
+  .bi-grid article .static-table::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
 }

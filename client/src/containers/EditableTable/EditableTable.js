@@ -43,40 +43,55 @@ class Table extends Component {
               wheel={this.wheel}
             />
             <br />
-            <DataTableLayout
-              editability={true}
-              changeHandler={e => this.tableChangeHandler(e)}
-              tableData={this.props.tabledata.get("table_extrafabric")}
-              wheel={this.wheel}
-            />
+            <div className="inline-table-conatiner">
+              <DataTableLayout
+                editability={true}
+                changeHandler={e => this.tableChangeHandler(e)}
+                tableData={this.props.tabledata.get(
+                  "table_fabricfinishprocess"
+                )}
+                wheel={this.wheel}
+              />
+              <DataTableLayout
+                editability={true}
+                changeHandler={e => this.tableChangeHandler(e)}
+                tableData={this.props.tabledata.get("table_extrafabric")}
+                wheel={this.wheel}
+              />
+            </div>
             <br />
-            <DataTableLayout
-              editability={true}
-              changeHandler={e => this.tableChangeHandler(e)}
-              tableData={this.props.tabledata.get("table_fabricfinishprocess")}
-              wheel={this.wheel}
-            />
-            <br />
-            <DataTableLayout
-              editability={true}
-              changeHandler={e => this.tableChangeHandler(e)}
-              tableData={this.props.tabledata.get("table_garmentapplication")}
-              wheel={this.wheel}
-            />
-            <br />
-            <DataTableLayout
-              editability={true}
-              changeHandler={e => this.tableChangeHandler(e)}
-              tableData={this.props.tabledata.get("table_accessoriesname")}
-              wheel={this.wheel}
-            />
-            <br />
-            <DataTableLayout
-              editability={true}
-              changeHandler={e => this.tableChangeHandler(e)}
-              tableData={this.props.tabledata.get("table_currency")}
-              wheel={this.wheel}
-            />
+            <div className="inline-table-conatiner">
+              <div>
+                <DataTableLayout
+                  editability={true}
+                  changeHandler={e => this.tableChangeHandler(e)}
+                  tableData={this.props.tabledata.get(
+                    "table_garmentapplication"
+                  )}
+                  wheel={this.wheel}
+                />
+                <br />
+                <DataTableLayout
+                  editability={true}
+                  changeHandler={e => this.tableChangeHandler(e)}
+                  tableData={this.props.tabledata.get("table_accessoriesname")}
+                  wheel={this.wheel}
+                />
+              </div>
+              <br />
+              <DataTableLayout
+                editability={true}
+                changeHandler={e => this.tableChangeHandler(e)}
+                tableData={this.props.tabledata.get("table_currency")}
+                wheel={this.wheel}
+              />
+              <DataTableLayout
+                editability={true}
+                changeHandler={e => this.tableChangeHandler(e)}
+                tableData={this.props.tabledata.get("table_accessoriesname")}
+                wheel={this.wheel}
+              />
+            </div>
             <br />
             {/* <DataTableLayout
               editability={true}

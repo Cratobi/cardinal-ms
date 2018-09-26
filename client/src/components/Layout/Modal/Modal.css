@@ -12,17 +12,7 @@
 }
 /* Custom Scrollbar */
 .modal-container::-webkit-scrollbar {
-  width: 7px;
-}
-.modal-container::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
-.modal-container::-webkit-scrollbar-thumb {
-  background: #474747;
-  border-radius: 10px 0 0 10px;
-}
-.modal-container::-webkit-scrollbar-thumb:active {
-  background: #292929;
+  width: 0px;
 }
 .modal {
   height: fit-content;
@@ -52,10 +42,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2rem;
+  margin: 0 2rem;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
-  border-bottom: 1px solid #55555561;
+  border-bottom: 2px solid #e7e7e7;
 }
 /* Footer */
 .modal .modal-footer {
@@ -63,7 +53,7 @@
   justify-content: flex-end;
   align-items: center;
   padding: 0 3rem;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
 }
 .modal .modal-footer .btn {
   display: flex;

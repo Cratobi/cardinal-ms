@@ -1,14 +1,20 @@
-import React, { Fragment } from "react"
+import React from "react"
+import { CSSTransition } from "react-transition-group"
 import "./MonoGrid.css"
 
 const MonoGrid = props => {
   return (
     <div onScroll={props.handleScroll} className="container mono-grid">
       {!props.emptyTxt ? (
-        <Fragment>
+        <CSSTransition
+          in={true}
+          timeout={500}
+          appear={true}
+          classNames="slide-up"
+        >
           <div
             className={
-              "card card-container " +
+              "anim card card-container " +
               (props.CustomCSS
                 ? "custom-card-container-" + props.CustomCSS
                 : "")
@@ -22,7 +28,7 @@ const MonoGrid = props => {
               <div className="card-footer">{props.footer}</div>
             ) : null}
           </div>
-        </Fragment>
+        </CSSTransition>
       ) : (
         <h5 className="loading txt-lighter">{props.emptyTxt}</h5>
       )}

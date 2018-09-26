@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom"
 import { connect } from "react-redux"
 // eslint-disable-next-line
 import { get, getIn, toJS } from "immutable"
+import { CSSTransition } from "react-transition-group"
 import * as actions from "../../store/actions/index"
 
 import MonoGridLayout from "../../components/Layout/MonoGrid/MonoGrid"
@@ -107,7 +108,14 @@ class Draft extends Component {
           </Fragment>
         }
       >
-        <EditableTable editable="true" tabledata={this.props.tabledata} />
+        <CSSTransition
+          in={this.props.tabledata ? true : false}
+          timeout={500}
+          classNames="slide-up"
+          unmountOnExit
+        >
+          <EditableTable editable="true" tabledata={this.props.tabledata} />
+        </CSSTransition>
       </MonoGridLayout>
     ) : (
       <LoadingLayout txt center />

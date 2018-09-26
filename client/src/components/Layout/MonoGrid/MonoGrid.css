@@ -1,7 +1,5 @@
 .mono-grid {
-  background-color: #fff;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  display: flex;
   justify-content: center;
   padding: 1rem;
   padding-top: 5rem;
@@ -90,72 +88,6 @@
   width: 100%;
   justify-content: center;
 }
-.custom-card-container-draft .card-body .editable-table {
-  background: #fff;
-  background-color: var(--background);
-  width: 96vw;
-  border: 0.5rem solid var(--background);
-  padding: 0.5rem;
-  border-radius: 10px;
-  box-shadow: var(--elevation-3);
-  overflow-x: scroll;
-  transition: box-shadow var(--transition);
-}
-.custom-card-container-draft .card-body .editable-table:hover {
-  box-shadow: var(--elevation-12);
-}
-.custom-card-container-draft .card-body .editable-table::-webkit-scrollbar {
-  height: 8px;
-}
-.custom-card-container-draft
-  .card-body
-  .editable-table::-webkit-scrollbar-track {
-  border-radius: 0.4rem;
-}
-.custom-card-container-draft
-  .card-body
-  .editable-table::-webkit-scrollbar-thumb {
-  background: #222222;
-  border-radius: 0.4rem;
-}
-.custom-card-container-draft
-  .card-body
-  .editable-table::-webkit-scrollbar-thumb:active {
-  background: #161616;
-}
-.custom-card-container-draft .card-body .editable-table .auto-filled-txt {
-  min-width: 100%;
-  max-width: 5rem;
-  border: 0.2rem solid transparent;
-  padding: 0.2rem;
-  display: flex;
-  align-items: center;
-  overflow-x: scroll;
-}
-.custom-card-container-draft
-  .card-body
-  .editable-table
-  .auto-filled-txt::-webkit-scrollbar {
-  height: 2px;
-}
-.custom-card-container-draft
-  .card-body
-  .editable-table
-  .auto-filled-txt::-webkit-scrollbar-track {
-  border-radius: 99px;
-}
-.custom-card-container-draft
-  .card-body
-  .editable-table
-  .auto-filled-txt::-webkit-scrollbar-thumb {
-  background: #2222226e;
-  border-radius: 9px;
-}
-.custom-card-container-draft
-  .card-body
-  .editable-table::-webkit-scrollbar-thumb:active {
-  background: #161616;
-}
 
 @media (max-width: 768px) {
   .mono-grid {
@@ -189,13 +121,5 @@
   }
   .custom-card-container-draft .card-footer .btn {
     width: calc(50% - 1rem);
-  }
-  .custom-card-container-draft .card-body .editable-table {
-    width: calc(100vw - 0.8rem);
-    border: 0.4rem solid var(--background);
-    box-shadow: none;
-  }
-  .custom-card-container-draft .card-body .editable-table:hover {
-    box-shadow: initial;
   }
 }

@@ -1,11 +1,12 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 // eslint-disable-next-line
 import { get } from "immutable"
+import { CSSTransition } from "react-transition-group"
 
 class Overview extends Component {
   render() {
     return (
-      <div>
+      <Fragment>
         <div className="order-no">{this.props.order.get("order_no")}</div>
         <div className="style-no">
           <i className="fas fa-at" />
@@ -31,7 +32,13 @@ class Overview extends Component {
             }
           />
         </button>
-        {this.props.showMore ? (
+
+        <CSSTransition
+          in={this.props.showMore}
+          timeout={500}
+          classNames="slide-down"
+          unmountOnExit
+        >
           <table className="overview">
             <tr>
               <td>Created By:</td>
@@ -44,8 +51,8 @@ class Overview extends Component {
               </td>
             </tr>
           </table>
-        ) : null}
-      </div>
+        </CSSTransition>
+      </Fragment>
     )
   }
 }

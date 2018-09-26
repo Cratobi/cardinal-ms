@@ -3,10 +3,10 @@ import { fromJS, set, update, size, get, toJS } from "immutable"
 
 const initialState = fromJS({
   buyers: ["JBC", "RamJungle"],
-  orders_count: null,
   search_result: null,
-  orders: null,
-  order: null
+  order: null,
+  orders_count: null,
+  orders: null
 })
 
 const reducer = (state = initialState, action) => {
