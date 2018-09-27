@@ -10,7 +10,7 @@ import Overview from "./Overview/Overview"
 import PriceAndConsumtion from "./PriceAndConsumtion/PriceAndConsumtion"
 import LoadingLayout from "../../components/Layout/Loading/Loading"
 import "./Order.css"
- 
+
 class Order extends Component {
   state = {
     show_more: false
@@ -29,13 +29,6 @@ class Order extends Component {
   }
 
   render() {
-    // this.props.order ? (
-    // <CSSTransition
-    //   in={this.props.order ? true : false}
-    //   timeout={500}
-    //   classNames="fade"
-    //   unmountOnExit
-    // >
     return (
       <Fragment>
         {!this.props.order ? <LoadingLayout txt /> : null}
@@ -125,10 +118,6 @@ class Order extends Component {
         </main>
       </Fragment>
     )
-    // ) : (
-    // </CSSTransition>
-    //   <LoadingLayout txt />
-    // )
   }
 }
 

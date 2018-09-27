@@ -140,6 +140,7 @@
     display: none;
   }
   .bi-grid {
+    height: fit-content;
     background-color: #f3f3f3;
     grid-template-columns: auto;
     grid-template-rows: 15vh auto;
@@ -150,8 +151,8 @@
   }
   .bi-grid aside ul {
     position: relative;
-    right: 0;
-    bottom: 30px;
+    right: -20px;
+    bottom: 25px;
     float: left;
     list-style-type: none;
     margin: 0;
@@ -164,7 +165,6 @@
   .bi-grid aside ul li {
     font-size: 1.4rem;
     padding: 0.8rem 1.2rem;
-    margin: 0;
     display: inline;
   }
   .bi-grid aside ul .active li {

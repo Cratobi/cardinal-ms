@@ -35,15 +35,13 @@ class Table extends Component {
               tableData={this.props.tabledata.get("table_measurments")}
               wheel={this.wheel}
             />
-            <br />
             <DataTableLayout
               editability={true}
               changeHandler={e => this.tableChangeHandler(e)}
               tableData={this.props.tabledata.get("table_colourandcompotision")}
               wheel={this.wheel}
             />
-            <br />
-            <div className="inline-table-conatiner">
+            <div className="inline-datatable-conatiner">
               <DataTableLayout
                 editability={true}
                 changeHandler={e => this.tableChangeHandler(e)}
@@ -59,8 +57,7 @@ class Table extends Component {
                 wheel={this.wheel}
               />
             </div>
-            <br />
-            <div className="inline-table-conatiner">
+            <div className="inline-datatable-conatiner">
               <div>
                 <DataTableLayout
                   editability={true}
@@ -70,7 +67,6 @@ class Table extends Component {
                   )}
                   wheel={this.wheel}
                 />
-                <br />
                 <DataTableLayout
                   editability={true}
                   changeHandler={e => this.tableChangeHandler(e)}
@@ -78,7 +74,6 @@ class Table extends Component {
                   wheel={this.wheel}
                 />
               </div>
-              <br />
               <DataTableLayout
                 editability={true}
                 changeHandler={e => this.tableChangeHandler(e)}
@@ -92,14 +87,12 @@ class Table extends Component {
                 wheel={this.wheel}
               />
             </div>
-            <br />
             {/* <DataTableLayout
               editability={true}
               changeHandler={e => this.tableChangeHandler(e)}
               tableData={this.state.table_price}
               wheel={this.wheel}
-            />
-            <br /> */}
+            /> */}
           </div>
         ) : (
           <LoadingLayout />

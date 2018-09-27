@@ -12,41 +12,40 @@ const consumptionAndPricing = props => {
         editability={false}
         tableData={props.tabledata.get("table_measurments")}
       />
-      <br />
       <DataTable
         editability={false}
         tableData={props.tabledata.get("table_colourandcompotision")}
       />
-      <br />
-      <DataTable
-        editability={false}
-        tableData={props.tabledata.get("table_extrafabric")}
-      />
-      <br />
-      <DataTable
-        editability={false}
-        tableData={props.tabledata.get("table_fabricfinishprocess")}
-      />
-      <br />
-      <DataTable
-        editability={false}
-        tableData={props.tabledata.get("table_garmentapplication")}
-      />
-      <br />
-      <DataTable
-        editability={false}
-        tableData={props.tabledata.get("table_accessoriesname")}
-      />
-      <br />
-      <DataTable
-        editability={false}
-        tableData={props.tabledata.get("table_currency")}
-      />
-      <br />
-      <DataTable
-        editability={false}
-        tableData={props.tabledata.get("table_price")}
-      />
+      <div className="inline-datatable-conatiner">
+        <DataTable
+          editability={false}
+          tableData={props.tabledata.get("table_fabricfinishprocess")}
+        />
+        <DataTable
+          editability={false}
+          tableData={props.tabledata.get("table_extrafabric")}
+        />
+      </div>
+      <div className="inline-datatable-conatiner">
+        <div>
+          <DataTable
+            editability={false}
+            tableData={props.tabledata.get("table_garmentapplication")}
+          />
+          <DataTable
+            editability={false}
+            tableData={props.tabledata.get("table_accessoriesname")}
+          />
+        </div>
+        <DataTable
+          editability={false}
+          tableData={props.tabledata.get("table_currency")}
+        />
+        <DataTable
+          editability={false}
+          tableData={props.tabledata.get("table_price")}
+        />
+      </div>
     </Fragment>
   )
 }

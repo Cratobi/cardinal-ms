@@ -46,6 +46,7 @@
 .custom-card-container-draft .card-body .editable-table .auto-filled-txt {
   min-width: 100%;
   max-width: 5rem;
+  height: 100%;
   border: 0.2rem solid transparent;
   padding: 0.2rem;
   display: flex;
