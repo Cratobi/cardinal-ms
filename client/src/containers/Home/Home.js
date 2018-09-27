@@ -51,9 +51,9 @@ class Home extends Component {
     draft.tabledata = this.props.tabledata.toJS()
     this.props.sendDraftMetadata(draft, this.props.history)
   }
-  handleDraftModal = () => {
+  handleDraftModal = action => {
     const state = this.state
-    state.draftModal = !state.draftModal
+    state.draftModal = action
     this.setState(state)
   }
   parseDate = (str, format, locale) => {
@@ -82,28 +82,12 @@ class Home extends Component {
         </Link>
         <br />
         <br />
-        <button className="btn btn-success" onClick={this.handleDraftModal}>
+        <button
+          className="btn btn-success"
+          onClick={() => this.handleDraftModal(true)}
+        >
           Add Order
         </button>
-        {/*  */}
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <Link to="/order">
-          <button className="btn btn-dark">Orders</button>
-        </Link>
-        {/*  */}
         <CSSTransition
           in={this.state.draftModal}
           timeout={500}
