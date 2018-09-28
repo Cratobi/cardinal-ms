@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react"
+import React, { Component } from "react"
 import { connect } from "react-redux"
 import { Link, withRouter } from "react-router-dom"
 // eslint-disable-next-line
@@ -14,7 +14,7 @@ import "./Home.css"
 
 import ModalLayout from "../../components/Layout/Modal/Modal"
 import OrderCards from "../Orders/OrderCards"
-import LoadingLayout from "../../components/Layout/Loading/HomeOrderLoading"
+import CardLoadingLayout from "../../components/Layout/Loading/CardLoading"
 
 const BuyerOptions = props => <option value={props.value}>{props.value}</option>
 
@@ -113,7 +113,7 @@ class Home extends Component {
           {this.props.orders ? (
             <OrderCards orders={this.props.orders} />
           ) : (
-            <LoadingLayout />
+            <CardLoadingLayout orders={20} />
           )}
         </div>
 

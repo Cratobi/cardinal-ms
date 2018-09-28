@@ -1,13 +1,12 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 // eslint-disable-next-line
-import { get, getIn, size } from "immutable"
+import { getIn, size } from "immutable"
 import * as actions from "../../store/actions/index"
 
 import OrderCards from "./OrderCards"
 
 import MonoGridLayout from "./../../components/Layout/MonoGrid/MonoGrid"
-import OrderCardLayout from "./../../components/Layout/OrderCard/OrderCard"
 import LoadingLayout from "../../components/Layout/Loading/Loading"
 
 class Order extends Component {

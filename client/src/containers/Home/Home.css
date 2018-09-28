@@ -23,16 +23,14 @@
   align-items: center;
 }
 .home-cards-container {
-  width: 100vw;
   height: 10rem;
   display: grid;
   grid-template-rows: 1fr;
   grid-auto-flow: column;
   padding-left: 0.15rem;
   overflow-x: scroll;
-  box-sizing: border-box;
   transform: translate(0, 1.5rem);
-  transition: all var(--transition);
+  transition: transform var(--transition);
 }
 .home-cards-container:hover {
   transform: translate(0, 0);
@@ -53,14 +51,12 @@
     overflow-y: scroll;
   }
   .home-cards-container {
-    width: 100vw;
     height: fit-content;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    overflow: scroll;
-    box-sizing: border-box;
+    overflow-y: scroll;
     transform: translate(0, 0);
   }
 }

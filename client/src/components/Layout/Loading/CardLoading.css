@@ -1,0 +1,29 @@
+.loading-order-card {
+  background-color: #f1f1f1;
+  background: linear-gradient(
+    to bottom,
+    #f1f1f1 0%,
+    #f1f1f1 30%,
+    #e2e2e2 50%,
+    #f1f1f1 70%,
+    #f1f1f1 100%
+  );
+  box-shadow: var(--elevation-0);
+  animation-delay: 1s;
+  animation: gradientAnimation 2s ease infinite;
+  background-size: 100% 150%;
+}
+.loading-order-card:hover {
+  box-shadow: var(--elevation-0);
+}
+.loading-order-card:active {
+  box-shadow: var(--elevation-0);
+}
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0 200%;
+  }
+  100% {
+    background-position: 0 -100%;
+  }
+}
