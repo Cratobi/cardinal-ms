@@ -17,6 +17,17 @@ a.order-card {
   transition: box-shadow var(--transition);
   will-change: box-shadow;
 }
+.order-cards-small .order-card {
+  width: 9.5rem;
+  height: 9.5rem;
+  margin: 0.2rem;
+}
+.order-card > .mid > .order-cards-small .order-no {
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.4px;
+  padding-top: 1rem;
+}
 .order-card:hover {
   box-shadow: var(--elevation-4);
 }
@@ -31,9 +42,12 @@ a.order-card {
 }
 .order-card > .mid > .order-no {
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 0.9rem;
   letter-spacing: 0.4px;
   padding-top: 1rem;
+}
+.order-cards-small .order-no {
+  font-size: 0.8rem !important;
 }
 .order-card > .mid > .style-no {
   text-overflow: ellipsis;

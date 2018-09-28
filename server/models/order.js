@@ -73,8 +73,14 @@ OrderSchema.methods.toJSON = function() {
   ])
 }
 
-OrderSchema.statics.fetchOrders = function(skips = 0) {
+OrderSchema.statics.fetchOrders = function(skips = 0, recent) {
   const order = this
+  if (recent === "true") {
+    return order
+      .find()
+      .sort({ createdAt: -1 })
+      .limit(20)
+  }
   skips = skips * 30
   return order
     .find()

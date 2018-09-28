@@ -15,7 +15,7 @@ const app = express.Router()
 app.get("/order", authenticate, (req, res) => {
   if (req.query.search) {
   } else {
-    Order.fetchOrders(req.query.page)
+    Order.fetchOrders(req.query.page, req.query.recent)
       .then(data => res.send(data))
       .catch(() => {
         res.status(400).send()

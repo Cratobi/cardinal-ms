@@ -62,11 +62,11 @@ export const resetSearchedResults = () => {
 
 // Middlewares
 
-export const fetchOrders = (page = 0) => {
+export const fetchOrders = (page = 0, recent = false) => {
   return dispatch => {
     Axios({
       method: "get",
-      url: `/order?page=${page}`
+      url: `/order?page=${page}&recent=${recent ? true : false}`
     })
       .then(res => {
         page > 0

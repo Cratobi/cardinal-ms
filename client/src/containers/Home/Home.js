@@ -10,8 +10,10 @@ import * as actions from "../../store/actions/index"
 import dateFnsFormat from "date-fns/format"
 import dateFnsParse from "date-fns/parse"
 import { CSSTransition } from "react-transition-group"
+import "./Home.css"
 
 import ModalLayout from "../../components/Layout/Modal/Modal"
+import OrderCards from "../Orders/OrderCards"
 
 const BuyerOptions = props => <option value={props.value}>{props.value}</option>
 
@@ -28,6 +30,12 @@ class Home extends Component {
       item: "",
       quantity: ""
     }
+  }
+  componentWillMount() {
+    this.props.fetchOrders(null, true)
+  }
+  componentWillUnmount() {
+    this.props.resetOrders()
   }
   handleChange = e => {
     const state = { ...this.state }
@@ -69,25 +77,50 @@ class Home extends Component {
 
   render() {
     return (
-      <Fragment>
-        <br />
-        <br />
-        <br />
-        <br />
-        <Link to="/order">
-          <button className="btn btn-dark">Orders</button>
-        </Link>
-        <Link to="/draft">
-          <button className="btn btn-dark">Drafts</button>
-        </Link>
-        <br />
-        <br />
-        <button
-          className="btn btn-success"
-          onClick={() => this.handleDraftModal(true)}
-        >
-          Add Order
-        </button>
+      <div className="container home-container">
+        <div className="home-mm">
+          <h4>FLAXEN GROUP</h4>
+          <span className="txt-light"> - beta 2.0 - </span>
+        </div>
+        <div className="home-cards-header">
+          <span className="recent-txt">
+            <span className="txt">Recent Orders</span>
+            <i className="fas fa-circle small-icon hide-s p-r" />
+            <Link className="txt txt-link" to="/order">
+              see all orders
+            </Link>
+          </span>
+          <Link className="btn btn-dark btn-chip btn hide-l" to="/order">
+            <span className="p-r">All orders</span>
+            <i class="fas fa-file-contract" />
+          </Link>
+          <span className="d-flex">
+            <Link className="btn btn-dark btn-chip" to="/draft">
+              <span className="p-r">Draft</span>
+              <i class="fas fa-inbox" />
+            </Link>
+            <button
+              className="btn btn-chip btn-success"
+              onClick={() => this.handleDraftModal(true)}
+            >
+              <span className="p-r">Add order</span>
+              <i class="fas fa-plus" />
+            </button>
+          </span>
+        </div>
+        <div className="home-cards-container order-cards-small">
+          <CSSTransition
+            in={this.props.orders ? true : false}
+            timeout={500}
+            classNames="slide-down"
+            unmountOnExit
+          >
+            <OrderCards orders={this.props.orders} />
+          </CSSTransition>
+        </div>
+
+        {/* MODAL */}
+
         <CSSTransition
           in={this.state.draftModal}
           timeout={500}
@@ -203,19 +236,23 @@ class Home extends Component {
             </form>
           </ModalLayout>
         </CSSTransition>
-      </Fragment>
+      </div>
     )
   }
 }
 
 const mapStateToProps = state => {
   return {
+    orders: state.getIn(["order", "orders"]),
+    orders_count: state.getIn(["order", "orders_count"]),
     buyers: state.getIn(["order", "buyers"]),
     tabledata: state.getIn(["draft", "tabledata"])
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
+    fetchOrders: (page, recent) => dispatch(actions.fetchOrders(page, recent)),
+    resetOrders: () => dispatch(actions.resetOrders()),
     fetchBuyers: () => dispatch(actions.fetchBuyers()),
     sendDraftMetadata: (payload, router) =>
       dispatch(actions.sendDraftMetadta(payload, router))
