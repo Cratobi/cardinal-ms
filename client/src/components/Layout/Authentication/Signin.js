@@ -1,4 +1,5 @@
 import React, { Fragment } from "react"
+import { CSSTransition } from "react-transition-group"
 
 const Signin = props => {
   return (
@@ -7,7 +8,16 @@ const Signin = props => {
         <div className="txt-small">Cardinal Management System</div>
         <div className="txt-title">FLAXEN GROUP</div>
       </div>
-      {props.alert ? <div className="alert">{props.alert}</div> : null}
+      <CSSTransition
+        in={props.alert !== "" ? true : false}
+        timeout={500}
+        classNames="outside"
+        unmountOnExit
+      >
+        <div className="alert">{props.alert}</div>
+      </CSSTransition>
+
+      {/* {props.alert ? <div className="alert">{props.alert}</div> : null} */}
       <form className="auth-form" method="post" onSubmit={props.handleSubmit}>
         <input
           className="autofill-color"

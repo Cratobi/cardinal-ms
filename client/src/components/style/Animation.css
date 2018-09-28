@@ -20,6 +20,31 @@
   opacity: 0;
   transition: opacity var(--transition-long);
 }
+/* Outside */
+.outside-appear {
+  transform: scale(1, 0);
+}
+.outside-appear.outside-appear-active {
+  transform: scale(1, 1);
+  transform-origin: top;
+  transition: transform var(--transition-long);
+}
+.outside-enter {
+  transform: scale(1, 0);
+}
+.outside-enter.outside-enter-active {
+  transform: scale(1, 1);
+  transform-origin: top;
+  transition: transform var(--transition-long);
+}
+.outside-exit {
+  transform: scale(1, 1);
+}
+.outside-exit.outside-exit-active {
+  transform: scale(1, 0);
+  transform-origin: top;
+  transition: transform var(--transition-long);
+}
 /* Slide to Up*/
 .slide-up-appear {
   opacity: 0;

@@ -42,6 +42,10 @@ class Authentication extends Component {
   }
   handleSubmitSignin = e => {
     e.preventDefault()
+    const state = { ...this.state }
+    state.alert = ""
+    this.setState(state)
+
     const token = Cookie.get("x-auth")
     // const browserDetect = browserDetect()
 
@@ -65,7 +69,6 @@ class Authentication extends Component {
           )
         })
         .catch(() => {
-          const state = { ...this.state }
           state.alert = "Your username or password is wrong!"
           if (this._isMounted) {
             return this.setState(state)
