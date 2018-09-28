@@ -1,4 +1,5 @@
 const express = require("express")
+const jwt = require("jsonwebtoken")
 const _ = require("lodash")
 
 // Models
@@ -77,14 +78,19 @@ app.get("/order/:id", authenticate, (req, res) => {
 // Publish Order
 app.post("/order/:id", authenticate, (req, res) => {
   const id = req.params.id
+  // const token = req.header("x-auth")
+  // decoded = jwt.verify(token, "secret")
+
+  // User.findById(decoded._id)
+  //   .then(user => {
+
+  //   })
+  //   .catch(() => {
+  //     res.status(400).send()
+  //   })
 
   Draft.findById(id)
     .then(draft => {
-      console.log(
-        "\n ---------------------- \n",
-        draft.tabledata,
-        "\n ---------------------- \n"
-      )
       draft = _.pick(draft, [
         "buyer",
         "order_no",
@@ -92,6 +98,7 @@ app.post("/order/:id", authenticate, (req, res) => {
         "item",
         "quantity",
         "createdBy",
+        "company",
         "tabledata"
       ])
       order = new Order(draft)

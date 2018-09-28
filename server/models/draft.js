@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 const _ = require("lodash")
 
+const Schema = mongoose.Schema
+
 const DraftSchema = new mongoose.Schema({
   buyer: {
     type: String,
@@ -32,16 +34,13 @@ const DraftSchema = new mongoose.Schema({
     minlength: 1
   },
   createdBy: {
-    username: {
-      type: String,
-      required: true,
-      minlength: 1
-    },
-    company: {
-      type: String,
-      required: true,
-      minlength: 1
-    }
+    type: Schema.ObjectId,
+    required: true
+  },
+  company: {
+    type: String,
+    required: true,
+    minlength: 1
   },
   createdAt: {
     type: Number,
@@ -61,14 +60,15 @@ DraftSchema.methods.toJSON = function() {
     "item",
     "quantity",
     "createdBy",
+    "company",
     "createdAt",
     "tabledata"
   ])
 }
 
-DraftSchema.statics.fetchDrafts = function() {
+DraftSchema.statics.fetchDrafts = function(userId) {
   const draft = this
-  return draft.find()
+  return draft.find({ createdBy: userId })
 }
 DraftSchema.statics.fetchDraft = function(id) {
   const draft = this

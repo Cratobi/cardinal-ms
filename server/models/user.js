@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema({
   },
   username: {
     type: String,
+    lowercase: true,
     minlength: 5,
     trim: true,
     unique: true,

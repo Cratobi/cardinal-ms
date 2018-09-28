@@ -14,6 +14,7 @@ import "./Home.css"
 
 import ModalLayout from "../../components/Layout/Modal/Modal"
 import OrderCards from "../Orders/OrderCards"
+import LoadingLayout from "../../components/Layout/Loading/HomeOrderLoading"
 
 const BuyerOptions = props => <option value={props.value}>{props.value}</option>
 
@@ -92,31 +93,28 @@ class Home extends Component {
           </span>
           <Link className="btn btn-dark btn-chip btn hide-l" to="/order">
             <span className="p-r">All orders</span>
-            <i class="fas fa-file-contract" />
+            <i className="  fas fa-file-contract" />
           </Link>
           <span className="d-flex">
             <Link className="btn btn-dark btn-chip" to="/draft">
               <span className="p-r">Draft</span>
-              <i class="fas fa-inbox" />
+              <i className="fas fa-inbox" />
             </Link>
             <button
               className="btn btn-chip btn-success"
               onClick={() => this.handleDraftModal(true)}
             >
               <span className="p-r">Add order</span>
-              <i class="fas fa-plus" />
+              <i className="fas fa-plus" />
             </button>
           </span>
         </div>
         <div className="home-cards-container order-cards-small">
-          <CSSTransition
-            in={this.props.orders ? true : false}
-            timeout={500}
-            classNames="slide-down"
-            unmountOnExit
-          >
+          {this.props.orders ? (
             <OrderCards orders={this.props.orders} />
-          </CSSTransition>
+          ) : (
+            <LoadingLayout />
+          )}
         </div>
 
         {/* MODAL */}

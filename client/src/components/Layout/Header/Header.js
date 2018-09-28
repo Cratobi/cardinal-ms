@@ -101,10 +101,17 @@ const header = props => {
           />
           <div className="anim menu-account">
             <div className="txt-small m-b">Welcome</div>
-            <span className="txt-large">{props.userInfo.get("name")}</span>
-            {/* <div className="txt-emp m-l m-r f-r">MODERATOR</div> */}
-            <div className="txt-emp txt-emp-dark m-l m-r f-r">
-              {props.userInfo.get("power").toUpperCase()}
+            <div className="name-container">
+              <div>
+                <span className="txt-large">{props.userInfo.get("name")}</span>
+                <span className="hide-l txt-light p-l">
+                  ({props.userInfo.get("username")})
+                </span>
+              </div>
+              {/* <div className="txt-emp m-l m-r f-r">MODERATOR</div> */}
+              <div className="txt-emp txt-emp-dark m-l m-r">
+                {props.userInfo.get("power").toUpperCase()}
+              </div>
             </div>
             <div className="footer p-t-1">
               <button

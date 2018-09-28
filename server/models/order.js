@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 const _ = require("lodash")
 
+const Schema = mongoose.Schema
+
 const OrderSchema = new mongoose.Schema({
   buyer: {
     type: String,
@@ -32,18 +34,13 @@ const OrderSchema = new mongoose.Schema({
     minlength: 1
   },
   createdBy: {
-    username: {
-      type: String,
-      required: true,
-      minlength: 1,
-      required: true
-    },
-    company: {
-      type: String,
-      required: true,
-      minlength: 1,
-      required: true
-    }
+    type: Schema.ObjectId,
+    required: true
+  },
+  company: {
+    type: String,
+    required: true,
+    minlength: 1
   },
   createdAt: {
     type: Number,
@@ -68,6 +65,7 @@ OrderSchema.methods.toJSON = function() {
     "item",
     "quantity",
     "createdBy",
+    "company",
     "createdAt",
     "tabledata"
   ])

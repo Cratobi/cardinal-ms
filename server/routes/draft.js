@@ -14,8 +14,17 @@ const app = express.Router()
 
 // Provide all Draft
 app.get("/draft", authenticate, (req, res) => {
-  Draft.fetchDrafts()
-    .then(data => res.send(data))
+  const token = req.header("x-auth")
+  decoded = jwt.verify(token, "secret")
+
+  User.findById(decoded._id)
+    .then(user => {
+      Draft.fetchDrafts(user._id)
+        .then(data => res.send(data))
+        .catch(() => {
+          res.status(400).send()
+        })
+    })
     .catch(() => {
       res.status(400).send()
     })
@@ -24,9 +33,20 @@ app.get("/draft", authenticate, (req, res) => {
 // Provide Draft
 app.get("/draft/:id", authenticate, (req, res) => {
   const id = req.params.id
+  const token = req.header("x-auth")
+  decoded = jwt.verify(token, "secret")
+
   return Draft.fetchDraft(id)
-    .then(data => {
-      res.send(data)
+    .then(draft => {
+      User.findById(decoded._id)
+        .then(user => {
+          const createdBy = JSON.stringify(draft.createdBy)
+          const userId = JSON.stringify(user._id)
+          createdBy === userId ? res.send(draft) : res.status(402).send()
+        })
+        .catch(() => {
+          res.status(400).send()
+        })
     })
     .catch(() => {
       res.status(400).send()
@@ -48,7 +68,9 @@ app.post("/draft", authenticate, (req, res) => {
         "quantity",
         "tabledata"
       ])
-      payload.createdBy = { username: user.username, company: user.company }
+      payload.createdBy = user._id
+      payload.company = user.company
+
       draft = new Draft(payload)
 
       draft
