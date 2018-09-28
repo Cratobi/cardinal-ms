@@ -14,6 +14,7 @@ class Order extends Component {
     page: 1
   }
   componentWillMount() {
+    this.props.resetOrders()
     this.props.fetchOrdersCount()
     this.props.fetchOrders()
   }

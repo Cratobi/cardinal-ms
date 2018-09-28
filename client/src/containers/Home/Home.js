@@ -35,9 +35,6 @@ class Home extends Component {
   componentWillMount() {
     this.props.fetchOrders(null, true)
   }
-  componentWillUnmount() {
-    this.props.resetOrders()
-  }
   handleChange = e => {
     const state = { ...this.state }
     state[e.target.name] = e.target.value
