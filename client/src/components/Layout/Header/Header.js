@@ -113,6 +113,13 @@ const header = props => {
                 {props.userInfo.get("power").toUpperCase()}
               </div>
             </div>
+            <button
+              className="btn btn-offset m-t-1"
+              onClick={props.handleControlModal}
+            >
+              <i className="fas fa-user-cog p-r" />
+              Control Pannel
+            </button>
             <div className="footer p-t-1">
               <button
                 className="btn btn-transparent"

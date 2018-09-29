@@ -16,6 +16,7 @@ class Header extends Component {
     notificationClick: false,
     notificationUnread: 5,
     searchQuery: "",
+    controlModal: false,
     settingsModal: false
   }
   handleSearchChange = e => {
@@ -34,7 +35,6 @@ class Header extends Component {
   handleAccountClick = () => {
     const state = this.state
     state.searchFocus = false
-    state.accountFocus = false
     state.notificationClick = false
     state.accountClick = !state.accountClick
     this.setState(state)
@@ -43,7 +43,6 @@ class Header extends Component {
     const state = this.state
     state.notificationUnread = 0
     state.searchFocus = false
-    state.accountFocus = false
     state.accountClick = false
     state.notificationClick = !state.notificationClick
     this.setState(state)
@@ -51,10 +50,17 @@ class Header extends Component {
   handleSettingsModal = () => {
     const state = this.state
     state.searchFocus = false
-    state.accountFocus = false
     state.accountClick = false
     state.notificationClick = false
     state.settingsModal = !state.settingsModal
+    this.setState(state)
+  }
+  handleControlModal = () => {
+    const state = this.state
+    state.searchFocus = false
+    state.accountClick = false
+    state.notificationClick = false
+    state.controlModal = !state.controlModal
     this.setState(state)
   }
 
@@ -70,11 +76,19 @@ class Header extends Component {
           <ModalLayout
             tittle="SETTINGS"
             footer={
-              <div
-                onClick={this.handleSettingsModal}
-                className="btn btn-success"
-              >
-                Save Change
+              <div className="form-inline-input">
+                <input
+                  type="password"
+                  name="password"
+                  className="form-input"
+                  placeholder="Password"
+                />
+                <div
+                  onClick={this.handleSettingsModal}
+                  className="btn btn-success m-l-1"
+                >
+                  Save Change
+                </div>
               </div>
             }
             handleModalClose={this.handleSettingsModal}
@@ -148,6 +162,98 @@ class Header extends Component {
             </div>
           </form>
         </ModalLayout> */}
+        <CSSTransition
+          in={this.state.controlModal}
+          timeout={500}
+          classNames="anim-modal"
+          unmountOnExit
+        >
+          {/* CONTROL PANNEL MODAL */}
+          <ModalLayout
+            tittle="CONTROL PANNEL"
+            // footer={
+            // <div onClick={this.handleControlModal} className="btn btn-success">
+            //   Save Change
+            // </div>
+            // }
+            handleModalClose={this.handleControlModal}
+          >
+            <div className="setting-title d-flex flex-a-baseline m-l-1">
+              Buyer
+              <div
+                onClick={this.handleSettingsModal}
+                className="btn btn-round btn-transparent"
+              >
+                <i className="fas fa-sliders-h" />
+              </div>
+            </div>
+            <form className="modal-menu">
+              <div className="form-inline-input">
+                <label className="form-label">Buyer Name:</label>
+                <input
+                  type="text"
+                  className="form-input"
+                  name="name"
+                  placeholder="e.g. JBC"
+                />
+              </div>
+              <div className="form-inline-input">
+                <label className="form-label">Buyer Company:</label>
+                <select
+                  name="buyer-company"
+                  className="form-select"
+                  // onChange={this.handleFormChange}
+                  placeholder="e.g. JBC"
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    Choose Company
+                  </option>
+                  <option value="" disabled>
+                    H1Z1
+                  </option>
+                  {/* {this.props.buyers
+                    ? this.props.buyers.map((data, index) => (
+                        <BuyerOptions value={data} key={index} />
+                      ))
+                    : null} */}
+                </select>
+              </div>
+              <div className="m-t-1 m-b-1" />
+              <input
+                type="submit"
+                className="btn btn-dark"
+                value=" Add Buyer"
+              />
+            </form>
+            <div className="setting-title d-flex flex-a-baseline m-l-1">
+              Company
+              <div
+                onClick={this.handleSettingsModal}
+                className="btn btn-round btn-transparent"
+              >
+                <i className="fas fa-sliders-h" />
+              </div>
+            </div>
+            <form className="modal-menu">
+              <div className="form-inline-input">
+                <label className="form-label">Company Name:</label>
+                <input
+                  type="text"
+                  className="form-input"
+                  name="name"
+                  placeholder="e.g. H1Z1"
+                />
+              </div>
+              <div className="m-t-1 m-b-1" />
+              <input
+                type="submit"
+                className="btn btn-dark"
+                value=" Add Company"
+              />
+            </form>
+          </ModalLayout>
+        </CSSTransition>
         <HeaderLayout
           userInfo={this.props.userInfo}
           searchResult={this.props.search_result}
@@ -162,7 +268,7 @@ class Header extends Component {
           handleAccountClick={this.handleAccountClick}
           handleNotificationClick={this.handleNotificationClick}
           handleSettingsModal={this.handleSettingsModal}
-          // handleSignout={this.props.handleSignout}
+          handleControlModal={this.handleControlModal}
         />
       </Fragment>
     ) : null
