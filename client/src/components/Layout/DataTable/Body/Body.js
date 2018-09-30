@@ -81,12 +81,18 @@ const tableBody = props => {
       {props.tableData
         ? data.map((data, colindex) => {
             // Init
-
             let cellData = data.get("cellData")
-            let [colspan, rowspan, prefix, suffix, classname] = [null]
+            let [
+              colspan,
+              rowspan,
+              prefix,
+              suffix,
+              inputPrefix,
+              inputSuffix,
+              classname
+            ] = [null]
 
             // Handle colspan or rowspan
-
             if (data.get("colspan")) {
               colspan = data.get("colspan")
             }
@@ -97,12 +103,25 @@ const tableBody = props => {
             // Handle prefix or suffix
 
             if (data.get("prefix")) {
-              prefix = <span className="span-prefix">{data.get("prefix")}</span>
+              const sign = data.get("prefix")
+              prefix = <span className="span-prefix">{sign}</span>
+              inputPrefix = (
+                <span
+                  className={`span-input-prefix${
+                    sign === "BDT" ? "-long" : ""
+                  }`}
+                >
+                  {sign}
+                </span>
+              )
               classname = "input-prefix"
             }
             if (data.get("suffix")) {
               suffix = <span className="span-suffix">{data.get("suffix")}</span>
-              classname = "input-suffix"
+              inputSuffix = (
+                <span className="span-input-suffix">{data.get("suffix")}</span>
+              )
+              classname = [classname, "input-suffix"].join(" ")
             }
             if (data.get("className")) {
               return (classname = data.get("className"))
@@ -150,20 +169,21 @@ const tableBody = props => {
 
                 cellData = (
                   <Fragment>
-                    {/* {prefix} */}
-                    <input
-                      className={classname}
-                      data-tablename={props.tableName}
-                      data-rowindex={rowindex}
-                      data-colindex={colindex}
-                      onChange={props.changeHandler}
-                      name={data.get("id")}
-                      type={data.get("cellType")}
-                      title={data.get("cellData")}
-                      value={data.get("cellData")}
-                      // onWheel={e => props.wheel(e)} // To control horizental scroll by default
-                    />
-                    {/* {suffix} */}
+                    <div className="input-container">
+                      {inputPrefix}
+                      <input
+                        className={classname}
+                        data-tablename={props.tableName}
+                        data-rowindex={rowindex}
+                        data-colindex={colindex}
+                        onChange={props.changeHandler}
+                        name={data.get("id")}
+                        type={data.get("cellType")}
+                        title={data.get("cellData")}
+                        value={data.get("cellData")}
+                      />
+                      {inputSuffix}
+                    </div>
                   </Fragment>
                 )
               }
@@ -184,12 +204,7 @@ const tableBody = props => {
             // Return table column
 
             return (
-              <td
-                className={classname}
-                colSpan={colspan}
-                rowSpan={rowspan}
-                key={colindex}
-              >
+              <td colSpan={colspan} rowSpan={rowspan} key={colindex}>
                 {cellData}
               </td>
             )

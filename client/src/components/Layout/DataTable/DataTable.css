@@ -1,8 +1,7 @@
 table.datatable {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   width: 100%;
   padding: 0;
-  /* margin: 1.5rem 0; */
   margin-bottom: 1.5rem;
 }
 .inline-datatable-conatiner {
@@ -11,68 +10,87 @@ table.datatable {
   grid-auto-flow: column;
   grid-gap: 1.5rem;
 }
-table.datatable th,
-table.datatable td {
+.datatable th,
+.datatable td {
   border: 1px solid #949494;
 }
-table.datatable th {
+.datatable th {
   font-size: 0.8rem;
   letter-spacing: 1px;
   background-color: #949494;
   color: #ffffff;
   padding: 0.4rem 0;
 }
-table.datatable td {
+.datatable td {
   font-weight: 600;
-  min-width: 0.8rem;
-  height: 0.4rem;
-  min-height: 0.4rem;
+  min-width: 1rem;
+  height: 2rem;
   padding: 0;
   margin: 0;
   box-sizing: content-box;
 }
-table.datatable td .filled-txt {
+
+.filled-txt {
   background-color: var(--background-offset);
+  height: 100%;
+  width: 100%;
   min-width: 1rem;
   min-height: 1rem;
   padding: 0.5rem;
 }
-table.static-datatable td .filled-txt {
+.static-datatable .filled-txt {
   min-width: 1rem;
   min-height: 2rem;
 }
-table.datatable td .auto-filled-txt {
+.auto-filled-txt {
   background-color: #e0f0ad;
 }
-table.datatable td.input-prefix .filled-txt {
-  /* width: calc(100% - 2rem); */
-  background-color: transparent;
-  /* background-color: blue; */
-  /* display: inline-block; */
-  /* margin-left: -1px; */
-}
-table.datatable td.input-prefix .span-prefix {
+.span-prefix {
   color: var(--txt-offset);
-  font-size: 0.7rem;
-  padding-right: 0.5rem;
-  font-weight: 800;
-}
-
-/* .span-prefix {
-  color: rgb(163, 163, 163);
-  padding: 2px 0.5vw;
-  margin-right: -1vw;
-  position: absolute;
+  font-size: 0.9rem;
+  padding-right: 0.2rem;
+  font-weight: 700;
   z-index: 3;
-  box-sizing: border-box;
 }
-.span-prefix + input {
-  display: none;
-  padding-left: 2.5vw !important;
-} */
+.span-suffix {
+  color: var(--txt-offset);
+  font-size: 0.9rem;
+  padding: 0 0.3rem;
+  padding-left: 0.2rem;
+  font-weight: 700;
+  z-index: 3;
+}
+.span-input-prefix {
+  color: var(--txt-offset);
+  font-size: 0.9rem;
+  padding: 0 0.3rem;
+  margin-right: -1.1rem;
+  font-weight: 700;
+  z-index: 3;
+}
+.span-input-prefix-long {
+  color: var(--txt-offset);
+  font-size: 0.9rem;
+  padding: 0 0.3rem;
+  margin-right: -2.4rem;
+  font-weight: 700;
+  z-index: 3;
+}
+.span-input-prefix-long + .input-prefix {
+  padding-left: 2.3rem !important;
+}
+.span-input-suffix {
+  color: var(--txt-offset);
+  font-size: 0.9rem;
+  padding: 0 0.3rem;
+  padding-left: 0.2rem;
+  margin-left: -1.2rem;
+  font-weight: 700;
+  z-index: 3;
+}
 
 /* Input */
-table.datatable td > input {
+table.datatable td input {
   background-color: #ffffff;
   width: 100%;
   height: 100%;
@@ -83,20 +101,40 @@ table.datatable td > input {
   outline: none;
   transition: box-shadow 100ms;
 }
-table.datatable td > input:hover {
+table.datatable td input:hover {
   position: relative;
   border-radius: 0.1rem;
   box-shadow: 0 0 0 0.2rem #797979;
   z-index: 2;
 }
-table.datatable td > input:focus {
+table.datatable td input:focus {
   box-shadow: inset 0 0 0 0.2rem #d1d1d1;
   z-index: 1;
 }
 
+/* Prefix and Suffix */
+.input-container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.input-prefix {
+  padding-left: 1.2rem !important;
+  width: calc(100% - 1rem);
+  min-width: 2rem;
+}
+.input-suffix {
+  padding-right: 1.2rem !important;
+  width: calc(100% - 1rem);
+  min-width: 2rem;
+}
+
 /* Selet input */
 
-table.datatable td > select {
+.datatable td select {
   width: 100%;
   height: 100%;
   margin: 0;
@@ -105,13 +143,13 @@ table.datatable td > select {
   cursor: pointer;
   outline: none;
 }
-table.datatable td > select:hover {
+.datatable td select:hover {
   position: relative;
   border-radius: 0;
   box-shadow: 0 0 0 0.2rem #636363a1;
   z-index: 1;
 }
-table.datatable td > select:focus {
+.datatable td select:focus {
   position: relative;
   border-radius: 0;
   background: #ffffff;
@@ -120,16 +158,16 @@ table.datatable td > select:focus {
 }
 
 /* Remove number input arrow */
-table.datatable td > input[type="number"] {
+.datatable td input[type="number"] {
   -moz-appearance: textfield;
 }
-table.datatable td > input[type="number"]::-webkit-inner-spin-button,
-table.datatable td > input[type="number"]::-webkit-outer-spin-button {
+.datatable td input[type="number"]::-webkit-inner-spin-button,
+.datatable td input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: textfield;
   margin: 0;
 }
-table.datatable td > input[type="date"] {
+.datatable td input[type="date"] {
   width: 100%;
   font-size: 2vw;
   padding: 0px;
@@ -139,8 +177,8 @@ table.datatable td > input[type="date"] {
   border-width: 0;
   -moz-appearance: textfield;
 }
-table.datatable td > input[type="date"]::-webkit-inner-spin-button,
-table.datatable td > input[type="date"]::-webkit-outer-spin-button {
+.datatable td input[type="date"]::-webkit-inner-spin-button,
+.datatable td input[type="date"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: textfield;
   margin: 0;

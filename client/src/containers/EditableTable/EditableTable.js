@@ -18,12 +18,6 @@ class Table extends Component {
     })
   }
 
-  // wheel = e => {
-  //   let d  elta = Math.max(-1, Math.min(1, e.wheelDelta || -e.detail))
-  //   e.currentTarget.scrollLeft = e.currentTarget.scrollLeft + e.deltaY / 10
-  //   e.preventDefault()
-  // }
-
   render() {
     return (
       <div>
@@ -48,13 +42,11 @@ class Table extends Component {
                 tableData={this.props.tabledata.get(
                   "table_fabricfinishprocess"
                 )}
-                wheel={this.wheel}
               />
               <DataTableLayout
                 editability={true}
                 changeHandler={e => this.tableChangeHandler(e)}
                 tableData={this.props.tabledata.get("table_extrafabric")}
-                wheel={this.wheel}
               />
             </div>
             <div className="inline-datatable-conatiner">
@@ -65,34 +57,24 @@ class Table extends Component {
                   tableData={this.props.tabledata.get(
                     "table_garmentapplication"
                   )}
-                  wheel={this.wheel}
                 />
                 <DataTableLayout
                   editability={true}
                   changeHandler={e => this.tableChangeHandler(e)}
                   tableData={this.props.tabledata.get("table_accessoriesname")}
-                  wheel={this.wheel}
                 />
               </div>
               <DataTableLayout
                 editability={true}
                 changeHandler={e => this.tableChangeHandler(e)}
                 tableData={this.props.tabledata.get("table_currency")}
-                wheel={this.wheel}
               />
               <DataTableLayout
                 editability={true}
                 changeHandler={e => this.tableChangeHandler(e)}
-                tableData={this.props.tabledata.get("table_accessoriesname")}
-                wheel={this.wheel}
+                tableData={this.props.tabledata.get("table_price")}
               />
             </div>
-            {/* <DataTableLayout
-              editability={true}
-              changeHandler={e => this.tableChangeHandler(e)}
-              tableData={this.state.table_price}
-              wheel={this.wheel}
-            /> */}
           </div>
         ) : (
           <LoadingLayout />

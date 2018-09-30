@@ -1,12 +1,7 @@
 // eslint-disable-next-line
 import { fromJS, getIn, set, setIn, toJS } from "immutable"
 
-import {
-  handleSizeHeader,
-  handleComposition,
-  handleAccessories,
-  handleCurrency
-} from "./handlers/handleStateSync"
+import * as syncHandlers from "./handlers/handleStateSync"
 
 const initialState = fromJS({
   drafts: null,
@@ -1336,6 +1331,7 @@ const initialState = fromJS({
           {
             id: "gap_a_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1357,6 +1353,7 @@ const initialState = fromJS({
           {
             id: "gap_b_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1378,6 +1375,7 @@ const initialState = fromJS({
           {
             id: "gap_c_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1399,6 +1397,7 @@ const initialState = fromJS({
           {
             id: "gap_d_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1430,6 +1429,7 @@ const initialState = fromJS({
           {
             id: "acc_a_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1451,6 +1451,7 @@ const initialState = fromJS({
           {
             id: "acc_b_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1472,6 +1473,7 @@ const initialState = fromJS({
           {
             id: "acc_c_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1493,6 +1495,7 @@ const initialState = fromJS({
           {
             id: "acc_d_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1514,6 +1517,7 @@ const initialState = fromJS({
           {
             id: "acc_e_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1535,6 +1539,7 @@ const initialState = fromJS({
           {
             id: "acc_f_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1556,6 +1561,7 @@ const initialState = fromJS({
           {
             id: "acc_g_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1577,6 +1583,7 @@ const initialState = fromJS({
           {
             id: "acc_h_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1598,6 +1605,7 @@ const initialState = fromJS({
           {
             id: "acc_i_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1619,6 +1627,7 @@ const initialState = fromJS({
           {
             id: "acc_j_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1640,6 +1649,7 @@ const initialState = fromJS({
           {
             id: "acc_k_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1661,6 +1671,7 @@ const initialState = fromJS({
           {
             id: "acc_l_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1682,6 +1693,7 @@ const initialState = fromJS({
           {
             id: "acc_m_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1703,6 +1715,7 @@ const initialState = fromJS({
           {
             id: "acc_n_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1724,6 +1737,7 @@ const initialState = fromJS({
           {
             id: "acc_o_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1745,6 +1759,7 @@ const initialState = fromJS({
           {
             id: "acc_p_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1766,6 +1781,7 @@ const initialState = fromJS({
           {
             id: "acc_q_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1787,6 +1803,7 @@ const initialState = fromJS({
           {
             id: "acc_r_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1808,6 +1825,7 @@ const initialState = fromJS({
           {
             id: "acc_s_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1829,6 +1847,7 @@ const initialState = fromJS({
           {
             id: "acc_t_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1850,6 +1869,7 @@ const initialState = fromJS({
           {
             id: "acc_u_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1871,6 +1891,7 @@ const initialState = fromJS({
           {
             id: "acc_v_2",
             editable: true,
+            suffix: "%",
             cellType: "number",
             cellData: ""
           },
@@ -1908,11 +1929,12 @@ const initialState = fromJS({
             editable: false,
             colspan: "2",
             cellType: "text",
-            cellData: "Exchange Rate (BDT)"
+            cellData: "Exchange Rate"
           },
           {
             id: "cur_a_1",
             editable: true,
+            prefix: "BDT",
             cellType: "number",
             cellData: ""
           }
@@ -2045,8 +2067,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_a_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2073,8 +2094,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_b_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2101,8 +2121,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_c_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2129,8 +2148,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_d_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2157,8 +2175,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_e_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2185,8 +2202,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_f_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2213,8 +2229,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_g_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2241,8 +2256,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_h_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2265,8 +2279,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_i_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2289,8 +2302,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_j_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2317,8 +2329,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_k_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2345,8 +2356,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_l_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2373,8 +2383,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_m_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2401,8 +2410,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_n_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2425,8 +2433,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_o_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2453,8 +2460,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_p_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2481,8 +2487,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_q_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2509,8 +2514,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_r_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2537,8 +2541,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_s_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2565,8 +2568,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_t_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2593,8 +2595,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_u_3",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2608,15 +2609,13 @@ const initialState = fromJS({
             cellData: "Count"
           },
           {
-            id: "prc_v_1",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
-            id: "prc_v_2",
-            editable: true,
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2704,7 +2703,30 @@ const initialState = fromJS({
     }
   }
 })
-// ASK
+
+const getPreviousValue = (state, tablename, rowindex, colindex) =>
+  state.getIn([
+    "tabledata",
+    "table_" + tablename,
+    "tablebody",
+    rowindex,
+    colindex,
+    "cellData"
+  ])
+
+const setNewValue = (state, tablename, rowindex, colindex, value) =>
+  state.setIn(
+    [
+      "tabledata",
+      "table_" + tablename,
+      "tablebody",
+      rowindex,
+      colindex,
+      "cellData"
+    ],
+    value
+  )
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "SAVE_DRAFTS":
@@ -2724,52 +2746,52 @@ const reducer = (state = initialState, action) => {
       const rowindex = Number(action.payload.rowindex)
       const colindex = Number(action.payload.colindex)
       const tablename = action.payload.tablename
-      const value = action.payload.value
-
-      const prev_val = state.getIn([
-        "tabledata",
-        "table_" + tablename,
-        "tablebody",
-        rowindex,
-        colindex,
-        "cellData"
-      ])
-
-      const newstate = state.setIn(
-        [
-          "tabledata",
-          "table_" + tablename,
-          "tablebody",
-          rowindex,
-          colindex,
-          "cellData"
-        ],
-        value
-      )
+      let value = action.payload.value
 
       if (
         tablename === "measurments" &&
         rowindex === 0 &&
         0 <= colindex <= 10
       ) {
-        return handleSizeHeader(newstate, colindex, value)
-      } else if (
+        state = setNewValue(state, tablename, rowindex, colindex, value)
+        return syncHandlers.handleSizeHeader(state, colindex, value)
+      }
+      if (
         tablename === "colourandcompotision" &&
         1 <= rowindex <= 8 &&
         2 <= colindex <= 11
       ) {
-        return handleComposition(newstate, rowindex, colindex, value, prev_val)
-      } else if (
+        const prev_val = getPreviousValue(state, tablename, rowindex, colindex)
+        state = setNewValue(state, tablename, rowindex, colindex, value)
+        return syncHandlers.handleComposition(
+          state,
+          rowindex,
+          colindex,
+          value,
+          prev_val
+        )
+      }
+      if (
         tablename === "accessoriesname" &&
         0 <= rowindex <= 21 &&
         colindex === 2
       ) {
-        return handleAccessories(newstate, value, prev_val)
-      } else if (tablename === "currency") {
-        return handleCurrency(newstate, rowindex)
-      } else {
-        return state.set("tabledata", newstate.get("tabledata"))
+        const prev_val = getPreviousValue(state, tablename, rowindex, colindex)
+        state = setNewValue(state, tablename, rowindex, colindex, value)
+        return syncHandlers.handleAccessories(state, value, prev_val)
       }
+      if (tablename === "currency") {
+        state = setNewValue(state, tablename, rowindex, colindex, value)
+        return syncHandlers.handleCurrency(state, rowindex)
+      }
+      if (tablename === "price") {
+        // state = setNewValue(state, tablename, rowindex, colindex, value)
+        state = setNewValue(state, tablename, rowindex, colindex, value)
+        return syncHandlers.handlePrice(state, rowindex)
+      }
+
+      state = setNewValue(state, tablename, rowindex, colindex, value)
+      return state.set("tabledata", state.get("tabledata"))
     default:
       return state
   }

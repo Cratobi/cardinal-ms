@@ -54,6 +54,7 @@ const handleComposition = (state, rowindex, colindex, value, prev_val) => {
 
   state = handleCurrency(state, 2)
   state = handleCurrency(state, 3)
+  state = handlePrice(state, "fullUpdate")
   return state
 }
 
@@ -61,9 +62,24 @@ const handleComposition = (state, rowindex, colindex, value, prev_val) => {
 const handleAccessories = (state, value, prev_val) => {
   state = state.updateIn(
     ["tabledata", "table_accessoriesname", "tablebody", 22, 1, "cellData"],
-    old_val =>
-      "$ " + (Number(old_val.substr(1)) + (Number(value) - Number(prev_val)))
-  )
+    old_val => {
+      old_val = parseFloat(old_val)
+      value = parseFloat(value)
+      prev_val = parseFloat(prev_val)
+
+      if (isNaN(old_val)) {
+        old_val = 0
+      }
+      if (isNaN(value)) {
+        value = 0
+      }
+      if (isNaN(prev_val)) {
+        prev_val = 0
+      }
+      const new_val = old_val + (value - prev_val)
+      return new_val !== 0 ? new_val.toFixed(2) : ""
+    }
+  ) // parseFloat
 
   return state
 }
@@ -148,9 +164,74 @@ const handleCurrency = (state, rowindex) => {
   }
 }
 
+// PRICE
+
+const handlePrice = (state, rowindex) => {
+  const consumption_total = state.getIn([
+    "tabledata",
+    "table_colourandcompotision",
+    "tablebody",
+    9,
+    11,
+    "cellData"
+  ])
+  const costPerPcs = row => {
+    const particular_value = state.getIn([
+      "tabledata",
+      "table_price",
+      "tablebody",
+      row,
+      2,
+      "cellData"
+    ])
+    const old_per_pcs = state.getIn([
+      "tabledata",
+      "table_price",
+      "tablebody",
+      row,
+      3,
+      "cellData"
+    ])
+
+    const perPcs = (particular_value, consumption_total) => {
+      let per_pcs = (
+        parseFloat(particular_value) / parseFloat(consumption_total)
+      ).toFixed(2)
+
+      return per_pcs
+    }
+
+    let per_pcs = perPcs(particular_value, consumption_total)
+
+    if (isNaN(per_pcs)) {
+      per_pcs = ""
+    }
+
+    if (old_per_pcs !== per_pcs) {
+      state = state.setIn(
+        ["tabledata", "table_price", "tablebody", row, 3, "cellData"],
+        per_pcs
+      )
+    }
+  }
+
+  if (rowindex === "fullUpdate") {
+    let row
+    for (row = 0; row <= 20; row++) {
+      console.log(row)
+      costPerPcs(row)
+    }
+  } else {
+    costPerPcs(rowindex)
+  }
+
+  return state
+}
+
 export {
   handleSizeHeader,
   handleComposition,
   handleAccessories,
-  handleCurrency
+  handleCurrency,
+  handlePrice
 }

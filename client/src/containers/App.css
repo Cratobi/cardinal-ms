@@ -764,16 +764,6 @@ button.more-btn > .fas {
   position: relative;
   top: 1px;
 }
-.auto-filled {
-  background: rgba(238, 242, 21, 0.371);
-}
-.span-suffix {
-  padding: 2px 0.5vw;
-  position: absolute;
-  margin-left: -1vw;
-  z-index: 3;
-  box-sizing: border-box;
-}
 
 /* Input */
 .form-inline-input {
