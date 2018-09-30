@@ -23,15 +23,24 @@
   align-items: center;
 }
 .home-cards-container {
-  height: 10rem;
   display: grid;
   grid-template-rows: 1fr;
   grid-auto-flow: column;
+  padding-top: 1.5rem;
   padding-left: 0.15rem;
   justify-content: start;
   overflow-x: scroll;
-  transform: translate(0, 1.5rem);
+  transform: translate(0, 1rem);
   transition: transform var(--transition);
+}
+.home-cards-container .order-card {
+  transition: transform var(--transition);
+}
+.home-cards-container .order-card:hover {
+  transform: translate(0, -0.5rem);
+}
+.home-cards-container .order-card:active {
+  transform: translate(0, -1rem);
 }
 .home-cards-container:hover {
   transform: translate(0, 0);

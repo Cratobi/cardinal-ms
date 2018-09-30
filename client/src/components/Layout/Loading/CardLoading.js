@@ -5,7 +5,6 @@ import { CSSTransition } from "react-transition-group"
 const Cards = orders => {
   let ok = []
   for (let i = 1; i <= orders; i++) {
-    console.log(i)
     ok.push(<div key={i} className="order-card loading-order-card anim" />)
   }
   return ok

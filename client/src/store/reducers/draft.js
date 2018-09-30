@@ -2060,13 +2060,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_a_2",
-            editable: true,
+            id: "prc_auto_1",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_2",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2087,13 +2088,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_b_2",
-            editable: true,
+            id: "prc_auto_3",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_4",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2114,13 +2116,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_c_2",
-            editable: true,
+            id: "prc_auto_5",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_6",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2141,13 +2144,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_d_2",
-            editable: true,
+            id: "prc_auto_7",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_8",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2168,13 +2172,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_e_2",
-            editable: true,
+            id: "prc_auto_9",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_10",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2195,13 +2200,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_f_2",
-            editable: true,
+            id: "prc_auto_11",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_12",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2222,13 +2228,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_g_2",
-            editable: true,
+            id: "prc_auto_13",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_14",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2249,13 +2256,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_h_2",
-            editable: true,
+            id: "prc_auto_15",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_16",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2272,13 +2280,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_i_2",
-            editable: true,
+            id: "prc_auto_17",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_18",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2295,13 +2304,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_j_2",
-            editable: true,
+            id: "prc_auto_19",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_20",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2322,13 +2332,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_k_2",
-            editable: true,
+            id: "prc_auto_21",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_22",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2349,13 +2360,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_l_2",
-            editable: true,
+            id: "prc_auto_23",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_24",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2376,13 +2388,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_m_2",
-            editable: true,
+            id: "prc_auto_25",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_26",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2403,13 +2416,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_n_2",
-            editable: true,
+            id: "prc_auto_27",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_28",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2426,13 +2440,14 @@ const initialState = fromJS({
             cellData: ""
           },
           {
-            id: "prc_o_2",
-            editable: true,
+            id: "prc_auto_29",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_30",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2460,6 +2475,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
+            id: "prc_auto_31",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2487,6 +2503,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
+            id: "prc_auto_32",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2514,6 +2531,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
+            id: "prc_auto_33",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2541,6 +2559,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
+            id: "prc_auto_33",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2568,6 +2587,7 @@ const initialState = fromJS({
             cellData: ""
           },
           {
+            id: "prc_auto_34",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2583,18 +2603,19 @@ const initialState = fromJS({
           {
             id: "prc_u_1",
             editable: true,
+            suffix: "%",
+            cellType: "number",
+            cellData: ""
+          },
+          {
+            id: "prc_auto_35",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
-            id: "prc_u_2",
-            editable: true,
-            prefix: "$",
-            cellType: "number",
-            cellData: ""
-          },
-          {
+            id: "prc_auto_36",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2609,12 +2630,14 @@ const initialState = fromJS({
             cellData: "Count"
           },
           {
+            id: "prc_auto_37",
             editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
           },
           {
+            id: "prc_auto_38",
             editable: false,
             prefix: "$",
             cellType: "number",
@@ -2640,8 +2663,8 @@ const initialState = fromJS({
             cellData: "Difference"
           },
           {
-            id: "prc_w_2",
-            editable: true,
+            id: "prc_auto_39",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2666,8 +2689,8 @@ const initialState = fromJS({
             cellData: "Difference"
           },
           {
-            id: "prc_x_2",
-            editable: true,
+            id: "prc_auto_40",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2692,8 +2715,8 @@ const initialState = fromJS({
             cellData: "Difference"
           },
           {
-            id: "prc_y_2",
-            editable: true,
+            id: "prc_auto_41",
+            editable: false,
             prefix: "$",
             cellType: "number",
             cellData: ""
@@ -2782,12 +2805,20 @@ const reducer = (state = initialState, action) => {
       }
       if (tablename === "currency") {
         state = setNewValue(state, tablename, rowindex, colindex, value)
-        return syncHandlers.handleCurrency(state, rowindex)
+        return syncHandlers.handleCurrency(state, rowindex, value)
       }
       if (tablename === "price") {
-        // state = setNewValue(state, tablename, rowindex, colindex, value)
+        const prev_val = getPreviousValue(state, tablename, rowindex, colindex)
+
         state = setNewValue(state, tablename, rowindex, colindex, value)
-        return syncHandlers.handlePrice(state, rowindex)
+        state = syncHandlers.handlePrice(
+          state,
+          rowindex,
+          colindex,
+          value,
+          prev_val
+        )
+        return state
       }
 
       state = setNewValue(state, tablename, rowindex, colindex, value)

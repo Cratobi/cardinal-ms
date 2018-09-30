@@ -32,6 +32,8 @@ table.datatable {
 
 .filled-txt {
   background-color: var(--background-offset);
+  display: flex;
+  align-items: center;
   height: 100%;
   width: 100%;
   min-width: 1rem;
@@ -63,20 +65,26 @@ table.datatable {
 .span-input-prefix {
   color: var(--txt-offset);
   font-size: 0.9rem;
-  padding: 0 0.3rem;
-  margin-right: -1.1rem;
+  padding-left: 0.3rem;
+  margin-right: -0.8rem;
   font-weight: 700;
   z-index: 3;
+}
+.span-input-prefix + .input-prefix {
+  padding: 0 !important;
+  padding-left: 1.1rem !important;
 }
 .span-input-prefix-long {
   color: var(--txt-offset);
   font-size: 0.9rem;
-  padding: 0 0.3rem;
-  margin-right: -2.4rem;
+  padding-left: 0.3rem;
+  margin-right: -2rem;
   font-weight: 700;
+  box-sizing: border-box;
   z-index: 3;
 }
 .span-input-prefix-long + .input-prefix {
+  padding: 0 !important;
   padding-left: 2.3rem !important;
 }
 .span-input-suffix {
