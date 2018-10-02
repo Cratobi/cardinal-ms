@@ -1,83 +1,49 @@
 const express = require("express")
-const jwt = require("jsonwebtoken")
 const _ = require("lodash")
 
 // Models
-const { Buyer } = require("../models/buyer")
-const { User } = require("../models/user")
+const { Company } = require("../models/company")
 
 // Middleware
 const { authenticate } = require("../middleware/authenticate")
+const { authenticateAdmin } = require("../middleware/authenticateAdmin")
 
 // Express > Router
 const app = express.Router()
 
 // Provide all buyers
 app.get("/buyer", authenticate, (req, res) => {
-  Buyer.fetchBuyers()
-    .then(data => res.send(data))
-    .catch(() => {
-      res.status(400).send()
-    })
-})
-
-// Provide buyer
-app.get("/buyer/:id", authenticate, (req, res) => {
-  const id = req.params.id
-
-  return Buyer.fetchBuyer(id)
-    .then(data => {
-      res.send(data)
-    })
+  return Company.fetchBuyers(req.userData.company)
+    .then(data => res.send(data.buyers))
     .catch(() => {
       res.status(400).send()
     })
 })
 
 // Add Buyer
-app.post("/buyer", authenticate, (req, res) => {
-  const body = _.pick(req.body, ["name"])
-  const token = req.header("x-auth")
-  decoded = jwt.verify(token, "secret")
+app.post("/buyer", authenticateAdmin, (req, res) => {
+  const payload = _.pick(req.body, ["company", "name"])
+  console.log(payload)
 
-  Buyer.findOne({ name: body.name })
-    .then(buyer => {
-      User.findById(decoded._id).then(user => {
-        if (buyer) {
-          buyer.company.map(company => {
-            company !== user.company
-              ? Buyer.findByIdAndUpdate(buyer.id, {
-                  $push: { company: user.company }
-                })
-                  .then(() => {
-                    res.send()
-                  })
-                  .catch(() => {
-                    res.status(400).send()
-                  })
-              : res.status(400).send()
-          })
-        } else {
-          body.company = [user.company]
-          const buyer = new Buyer(body)
-          return buyer
-            .save()
-            .then(() => res.send("from me"))
-            .catch(() => {
-              res.status(400).send()
-            })
-        }
-      })
+  return Company.findOneAndUpdate(
+    { name: payload.company },
+    {
+      $push: { buyers: payload.name }
+    }
+  )
+    .then(() => {
+      res.send()
     })
     .catch(() => {
       res.status(400).send()
     })
 })
+
 // Delete Buyer
-app.delete("/buyer/:id", authenticate, (req, res) => {
+app.delete("/buyer/:id", authenticateAdmin, (req, res) => {
   const id = req.params.id
 
-  return Buyer.findByIdAndRemove(id)
+  return Company.findByIdAndRemove(id)
     .then(() => {
       res.send()
     })

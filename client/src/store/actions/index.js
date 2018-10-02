@@ -1,6 +1,16 @@
 // AUthentication
 export { auth, verifyToken, requestSignin } from "./auth"
 
+// Buyer & Company
+export {
+  addCompany,
+  addBuyer,
+  fetchCompanies,
+  resetCompanies,
+  fetchBuyers,
+  resetBuyers
+} from "./buyer"
+
 // Order
 export {
   fetchOrder,
@@ -8,8 +18,6 @@ export {
   fetchOrders,
   fetchOrdersCount,
   resetOrders,
-  fetchBuyers,
-  resetBuyers,
   publishOrder,
   searchOrder,
   resetSearchedResult

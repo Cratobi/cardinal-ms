@@ -1,20 +1,15 @@
 // eslint-disable-next-line
-import { fromJS, set, update, size, get, toJS } from "immutable"
+import { fromJS, set, update, get } from "immutable"
 
 const initialState = fromJS({
-  buyers: ["JBC", "RamJungle"],
   search_result: null,
   order: null,
   orders_count: null,
   orders: null
 })
 
-const reducer = (state = initialState, action) => {
+const orderReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SAVE_BUYERS":
-      return state.set("buyers", fromJS(action.payload))
-    case "RESET_BUYER":
-      return state.set("buyers", initialState.get("buyers"))
     case "SAVE_ORDERS":
       return state.set("orders", fromJS(action.payload))
     case "SAVE_ORDERS_COUNT":
@@ -39,4 +34,4 @@ const reducer = (state = initialState, action) => {
   }
 }
 
-export default reducer
+export default orderReducer

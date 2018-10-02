@@ -81,9 +81,7 @@ export const sendDraftMetadta = (payload, router) => {
     Axios({
       method: "post",
       url: "/draft",
-      data: {
-        payload
-      }
+      data: payload
     })
       .then(payload => {
         dispatch(saveDraftMetadata(payload.data))
@@ -100,9 +98,7 @@ export const sendDraftTabledata = payload => {
     Axios({
       method: "patch",
       url: `/draft/${payload.id}`,
-      data: {
-        payload: payload.tabledata
-      }
+      data: payload
     }).catch(() => {
       console.log()
     })

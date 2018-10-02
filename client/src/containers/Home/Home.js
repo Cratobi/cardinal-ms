@@ -16,14 +16,13 @@ import ModalLayout from "../../components/Layout/Modal/Modal"
 import OrderCards from "../Orders/OrderCards"
 import CardLoadingLayout from "../../components/Layout/Loading/CardLoading"
 
-const BuyerOptions = props => <option value={props.value}>{props.value}</option>
+const SelectOption = props => <option value={props.value}>{props.name}</option>
 
 class Home extends Component {
   state = {
     draftModal: false,
     new_buyer: "",
     draft_metadata: {
-      // buyer: "",
       buyer: "H1Z1",
       order_no: "",
       shipment_date: new Date(),
@@ -34,6 +33,7 @@ class Home extends Component {
   }
   componentWillMount() {
     this.props.fetchOrders(null, true)
+    this.props.fetchBuyers()
   }
   handleChange = e => {
     const state = { ...this.state }
@@ -57,7 +57,12 @@ class Home extends Component {
     draft.tabledata = this.props.tabledata.toJS()
     this.props.sendDraftMetadata(draft, this.props.history)
   }
-  handleDraftModal = action => {
+  handleOrderModal = action => {
+    if (action === true) {
+      this.props.fetchBuyers()
+    } else {
+      this.props.resetBuyers()
+    }
     const state = this.state
     state.draftModal = action
     this.setState(state)
@@ -99,7 +104,7 @@ class Home extends Component {
             </Link>
             <button
               className="btn btn-chip btn-success"
-              onClick={() => this.handleDraftModal(true)}
+              onClick={() => this.handleOrderModal(true)}
             >
               <span className="p-r">Add order</span>
               <i className="fas fa-plus" />
@@ -131,7 +136,7 @@ class Home extends Component {
                 Create Order
               </div>
             }
-            handleModalClose={this.handleDraftModal}
+            handleModalClose={() => this.handleOrderModal(false)}
           >
             <form className="modal-menu" onSubmit={this.sendDraftMetadata}>
               <div className="form-inline-input">
@@ -151,20 +156,25 @@ class Home extends Component {
             <form className="modal-menu" onSubmit={this.sendDraftMetadata}>
               <div className="form-inline-input">
                 <label className="form-label">Buyer:</label>
+
                 <select
-                  name="buyer"
+                  name="company"
                   className="form-select"
-                  onChange={this.handleFormChange}
+                  onChange={this.handleChange}
                   defaultValue=""
                 >
                   <option value="" disabled>
-                    Choose buyer
+                    Choose Buyer
                   </option>
-                  {this.props.buyers
-                    ? this.props.buyers.map((data, index) => (
-                        <BuyerOptions value={data} key={index} />
-                      ))
-                    : null}
+                  {this.props.buyers ? (
+                    this.props.buyers.map((data, index) => (
+                      <SelectOption key={index} value={data} name={data} />
+                    ))
+                  ) : (
+                    <option value="" disabled>
+                      Loading...
+                    </option>
+                  )}
                 </select>
               </div>
               <div className="form-inline-input">
@@ -240,7 +250,7 @@ const mapStateToProps = state => {
   return {
     orders: state.getIn(["order", "orders"]),
     orders_count: state.getIn(["order", "orders_count"]),
-    buyers: state.getIn(["order", "buyers"]),
+    buyers: state.getIn(["buyer", "buyers"]),
     tabledata: state.getIn(["draft", "tabledata"])
   }
 }
@@ -249,6 +259,7 @@ const mapDispatchToProps = dispatch => {
     fetchOrders: (page, recent) => dispatch(actions.fetchOrders(page, recent)),
     resetOrders: () => dispatch(actions.resetOrders()),
     fetchBuyers: () => dispatch(actions.fetchBuyers()),
+    resetBuyers: () => dispatch(actions.resetBuyers()),
     sendDraftMetadata: (payload, router) =>
       dispatch(actions.sendDraftMetadta(payload, router))
   }

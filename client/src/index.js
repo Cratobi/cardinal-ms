@@ -10,12 +10,14 @@ import { BrowserRouter } from "react-router-dom"
 import thunk from "redux-thunk"
 
 import authReducer from "./store/reducers/auth"
+import buyerReducer from "./store/reducers/buyer"
 import orderReducer from "./store/reducers/order"
 import draftReducer from "./store/reducers/draft"
 import registerServiceWorker from "./registerServiceWorker"
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  buyer: buyerReducer,
   draft: draftReducer,
   order: orderReducer
 })

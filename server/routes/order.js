@@ -23,6 +23,7 @@ app.get("/order", authenticate, (req, res) => {
       })
   }
 })
+
 // Search Order
 app.get("/order/search", authenticate, (req, res) => {
   let query = req.query.q
@@ -54,6 +55,7 @@ app.get("/order/search", authenticate, (req, res) => {
   }
 })
 
+// Provide number of orders
 app.get("/order/count", authenticate, (req, res) => {
   Order.estimatedDocumentCount()
     .then(count => res.send({ count }))
@@ -78,16 +80,6 @@ app.get("/order/:id", authenticate, (req, res) => {
 // Publish Order
 app.post("/order/:id", authenticate, (req, res) => {
   const id = req.params.id
-  // const token = req.header("x-auth")
-  // decoded = jwt.verify(token, "secret")
-
-  // User.findById(decoded._id)
-  //   .then(user => {
-
-  //   })
-  //   .catch(() => {
-  //     res.status(400).send()
-  //   })
 
   Draft.findById(id)
     .then(draft => {

@@ -20,7 +20,8 @@ const header = props => {
             <input
               type="search"
               className="search-input"
-              placeholder="SEARCH"
+              placeholder="SEARCH (Coming soon)"
+              disabled
               onChange={props.handleSearchChange}
               onFocus={props.handleSearchFocus}
               value={props.searchQuery}
@@ -113,17 +114,19 @@ const header = props => {
                 {props.userInfo.get("power").toUpperCase()}
               </div>
             </div>
-            <button
-              className="btn btn-offset m-t-1"
-              onClick={props.handleControlModal}
-            >
-              <i className="fas fa-user-cog p-r" />
-              Control Pannel
-            </button>
+            {props.userInfo.power === "admin" ? (
+              <button
+                className="btn btn-offset m-t-1"
+                onClick={props.handleControlModalOpen}
+              >
+                <i className="fas fa-user-cog p-r" />
+                Control Pannel
+              </button>
+            ) : null}
             <div className="footer p-t-1">
               <button
                 className="btn btn-transparent"
-                onClick={props.handleSettingsModal}
+                onClick={props.handleSettingsModalOpen}
               >
                 SETTINGS
               </button>

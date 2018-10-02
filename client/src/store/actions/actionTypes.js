@@ -3,7 +3,10 @@ export const RESET_STATE = "RESET_STATE"
 export const SAVEUSER = "SAVEUSER"
 
 // Buyer
+export const SAVE_COMPANIES = "SAVE_COMPANIES"
+export const RESET_COMPANIES = "RESET_COMPANIES"
 export const SAVE_BUYERS = "SAVE_BUYERS"
+export const RESET_BUYER = "RESET_BUYER"
 
 // Draft
 export const SYNCTABLES = "SYNCTABLES"
@@ -16,7 +19,6 @@ export const SAVE_DRAFT_METADATA = "SAVE_DRAFT_METADATA"
 export const SAVE_DRAFT_TABLEDATA = "SAVE_DRAFT_TABLEDATA"
 
 // Order
-export const RESET_BUYER = "RESET_BUYER"
 export const SAVE_ORDERS = "SAVE_ORDERS"
 export const ADD_ORDERS = "ADD_ORDERS"
 export const RESET_ORDERS = "RESET_ORDERS"

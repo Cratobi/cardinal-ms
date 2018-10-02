@@ -131,8 +131,6 @@ const tableBody = props => {
             if (props.editability === true && data.get("editable")) {
               // Handle Select element
               if (data.get("cellType") === "select") {
-                let options = null
-
                 // Select array corresponding to table name
 
                 const optionArray = (() => {
@@ -148,9 +146,6 @@ const tableBody = props => {
                   }
                 })()
 
-                options = optionArray.map((data, index) => (
-                  <SelectOption key={index} value={data} name={data} />
-                ))
                 cellData = (
                   <select
                     className={classname}
@@ -161,7 +156,9 @@ const tableBody = props => {
                     value={data.get("cellData")}
                   >
                     <option value="" />
-                    {options}
+                    {optionArray.map((data, index) => (
+                      <SelectOption key={index} value={data} name={data} />
+                    ))}
                   </select>
                 )
               } else {

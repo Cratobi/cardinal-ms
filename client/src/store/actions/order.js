@@ -37,17 +37,6 @@ export const saveOdersCount = payload => {
     payload
   }
 }
-export const saveBuyers = payload => {
-  return {
-    type: actionTypes.SAVE_BUYERS,
-    payload
-  }
-}
-export const resetBuyers = () => {
-  return {
-    type: actionTypes.RESET_BUYER
-  }
-}
 export const saveSearchedResults = payload => {
   return {
     type: actionTypes.SAVE_SEARCHED_RESULT,
@@ -129,21 +118,6 @@ export const publishOrder = (id, router) => {
       .then(res => {
         dispatch(fetchOrder(res.data))
         router.replace({ pathname: `/order/${res.data}` })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-}
-
-export const fetchBuyers = () => {
-  return dispatch => {
-    Axios({
-      method: "get",
-      url: "/buyers"
-    })
-      .then(payload => {
-        dispatch(saveBuyers(payload.data.buyers))
       })
       .catch(err => {
         console.log(err)

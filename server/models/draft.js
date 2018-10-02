@@ -1,6 +1,4 @@
 const mongoose = require("mongoose")
-const jwt = require("jsonwebtoken")
-const bcrypt = require("bcryptjs")
 const _ = require("lodash")
 
 const Schema = mongoose.Schema
@@ -70,6 +68,7 @@ DraftSchema.statics.fetchDrafts = function(userId) {
   const draft = this
   return draft.find({ createdBy: userId })
 }
+
 DraftSchema.statics.fetchDraft = function(id) {
   const draft = this
   return draft.findById(id)

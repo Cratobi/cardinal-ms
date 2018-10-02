@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import { fromJS, getIn, set, setIn, toJS } from "immutable"
+import { fromJS, getIn, set, setIn } from "immutable"
 
 import * as syncHandlers from "./handlers/handleStateSync"
 
@@ -2750,7 +2750,7 @@ const setNewValue = (state, tablename, rowindex, colindex, value) =>
     value
   )
 
-const reducer = (state = initialState, action) => {
+const draftReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SAVE_DRAFTS":
       return state.set("drafts", fromJS(action.payload))
@@ -2828,4 +2828,4 @@ const reducer = (state = initialState, action) => {
   }
 }
 
-export default reducer
+export default draftReducer
