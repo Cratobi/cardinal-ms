@@ -6,17 +6,36 @@ import { CSSTransition } from "react-transition-group"
 import "./Header.css"
 
 // import LoadingLayout from "../Loading/Loading"
-
 const header = props => {
+  let power = props.userInfo.get("power")
+  power = power === "mod" ? "Moderator" : power === "admin" ? "Admin" : "User"
+
   return (
     <Fragment>
       <header>
         <Fragment>
-          <Link to="/" className="logo">
-            <span className="hide-l">CMS</span>
-            <span className="hide-s">Cardinal</span>
-          </Link>
-          <span className="search">
+          {/* Logo */}
+          <span className="logo">
+            <CSSTransition
+              in={props.backBtn}
+              timeout={500}
+              classNames="slide-right"
+              unmountOnExit
+            >
+              <Link to="/" className="btn back-btn">
+                <i className="fas fa-home m-r" />
+                Home
+              </Link>
+            </CSSTransition>
+            <span className="logo-txt">
+              <span className="hide-l">CMS</span>
+              <span className="hide-s">
+                <i className="fas fa-dove m-r" /> Cardinal
+              </span>
+            </span>
+          </span>
+          {/* Search Input */}
+          {/* <span className="search">
             <input
               type="search"
               className="search-input"
@@ -26,40 +45,51 @@ const header = props => {
               onFocus={props.handleSearchFocus}
               value={props.searchQuery}
             />
-          </span>
+          </span> */}
+
+          {/* Right Buttons */}
           <span className="nav-btn">
             <span
-              onClick={props.handleAccountClick}
-              className="btn btn-chip m-r"
+              onClick={() => props.handleMenuNotification(true)}
+              className={`btn btn-custom-notification ${
+                props.notificationUnread !== 0 ? "btn-caution" : ""
+              } ${
+                props.notificationMenu ? "btn-custom-notification-active" : ""
+              }`}
             >
-              <span className="hide-s p-l p-r">
-                {props.userInfo.get("username")}
-              </span>
-              <i className="fas fa-user-tie" />
+              <i className="fas fa-bell" />
+              <b>{props.notificationUnread}</b>
             </span>
             <span className="p-r hide-s" />
             <span
-              onClick={props.handleNotificationClick}
-              className={`btn btn-round ${
-                props.notificationUnread !== 0 ? "btn-caution" : null
+              onClick={() => props.handleAccountMenu(!props.accountMenu)}
+              className={`btn btn-custom-account m-r ${
+                props.accountMenu ? "btn-custom-account-active" : ""
               }`}
             >
-              {props.notificationUnread !== 0 ? (
-                props.notificationUnread >= 10 ? (
-                  <b>!</b>
-                ) : (
-                  <b>{props.notificationUnread}</b>
-                )
-              ) : (
-                <i className="fas fa-bell" />
-              )}
+              <span>
+                <i className="fas fa-user" />
+                <span className="hide-s p-l p-r">
+                  {props.userInfo.get("username")}
+                </span>
+              </span>
+              <CSSTransition
+                in={props.accountMenu}
+                timeout={500}
+                classNames="rotate-180"
+              >
+                <i className="fas fa-angle-down" />
+              </CSSTransition>
             </span>
           </span>
         </Fragment>
       </header>
+
+      {/* Menus */}
+
       {/* <CSSTransition
         in={props.searchEmpty && props.searchFocus ? true : false}
-        timeout={140}
+        timeout={500}
         classNames="menu-down"
         unmountOnExit
       >
@@ -89,48 +119,45 @@ const header = props => {
           </div> */}
       {/* </div>
       </CSSTransition> */}
+      {props.accountMenu || props.notificationMenu ? (
+        <div
+          className="backdrop backdrop-transparent backdrop-menu"
+          onClick={() => props.handleAccountMenu(false)}
+        />
+      ) : null}
       <CSSTransition
-        in={props.accountClick}
-        timeout={140}
-        classNames="anim-menu-down"
+        in={props.accountMenu}
+        timeout={500}
+        classNames="anim-menu"
         unmountOnExit
       >
         <div>
-          <div
-            className="backdrop backdrop-transparent backdrop-menu"
-            onClick={props.handleAccountClick}
-          />
           <div className="anim menu-account">
-            <div className="txt-small m-b">Welcome</div>
-            <div className="name-container">
+            <div className="user-info-container">
               <div>
-                <span className="txt-large">{props.userInfo.get("name")}</span>
-                <span className="hide-l txt-light p-l">
-                  ({props.userInfo.get("username")})
-                </span>
-              </div>
-              {/* <div className="txt-emp m-l m-r f-r">MODERATOR</div> */}
-              <div className="txt-emp txt-emp-dark m-l m-r">
-                {props.userInfo.get("power").toUpperCase()}
+                <div className="txt name">{props.userInfo.get("name")}</div>
+                <div className="txt-light p-l">- {power}</div>
               </div>
             </div>
-            {props.userInfo.power === "admin" ? (
-              <button
-                className="btn btn-offset m-t-1"
-                onClick={props.handleControlModalOpen}
-              >
-                <i className="fas fa-user-cog p-r" />
-                Control Pannel
-              </button>
-            ) : null}
-            <div className="footer p-t-1">
+            <div className="footer">
+              {props.userInfo.get("power") === "admin" ? (
+                <button
+                  className="btn btn-transparent"
+                  onClick={() => props.handleModalDashboard(true)}
+                >
+                  <i className="fas fa-tachometer-alt" />
+                  DASHBOARD
+                </button>
+              ) : null}
               <button
                 className="btn btn-transparent"
-                onClick={props.handleSettingsModalOpen}
+                onClick={() => props.handleModalSettings(true)}
               >
+                <i className="fas fa-cog" />
                 SETTINGS
               </button>
               <Link to="/signout" className="btn btn-transparent backdrop-menu">
+                <i className="fas fa-sign-out-alt" />
                 SIGN OUT
               </Link>
             </div>
@@ -138,19 +165,21 @@ const header = props => {
         </div>
       </CSSTransition>
       <CSSTransition
-        in={props.notificationClick}
-        timeout={140}
-        classNames="anim-menu-right"
+        in={props.notificationMenu}
+        timeout={500}
+        classNames="anim-menu"
         unmountOnExit
       >
         <div>
-          <div
-            className="backdrop backdrop-transparent backdrop-menu"
-            onClick={props.handleNotificationClick}
-          />
           <div className="anim menu-notification">
             <h6 className="p-l-1">Notification</h6>
             <div className="scrollable">
+              <div className="card">Coming soon</div>
+              <div className="card">Coming soon</div>
+              <div className="card">Coming soon</div>
+              <div className="card">Coming soon</div>
+              <div className="card">Coming soon</div>
+              <div className="card">Coming soon</div>
               <div className="card">Coming soon</div>
               <div className="card">Coming soon</div>
               <div className="card">Coming soon</div>

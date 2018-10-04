@@ -20,6 +20,34 @@
   opacity: 0;
   transition: opacity var(--transition-long);
 }
+/* Rotate 180 */
+.rotate-180-appear {
+  transform: rotate(180deg);
+}
+.rotate-180-appear.rotate-180-appear-active {
+  transform: rotate(0deg);
+  transition: transform var(--transition-long);
+}
+.rotate-180-enter {
+  transform: rotate(0deg);
+}
+.rotate-180-enter.rotate-180-enter-active {
+  transform: rotate(180deg);
+  transition: transform var(--transition-long);
+}
+.rotate-180-enter-done {
+  transform: rotate(180deg);
+}
+.rotate-180-exit {
+  transform: rotate(180deg);
+}
+.rotate-180-exit.rotate-180-exit-active {
+  transform: rotate(0);
+  transition: transform var(--transition-long);
+}
+.rotate-180-exit-done {
+  transform: rotate(0deg);
+}
 /* Outside */
 .outside-appear {
   transform: scale(1, 0);
@@ -158,58 +186,27 @@
   transition: transform var(--transition-long), opacity var(--transition-long);
 }
 
-/* Menu Down*/
-.anim-menu-down-enter .anim {
+/* Menu */
+.anim-menu-enter .anim {
   opacity: 0.5;
   transform: translateY(-100%);
-  z-index: 1;
 }
 
-.anim-menu-down-enter.anim-menu-down-enter-active .anim {
+.anim-menu-enter.anim-menu-enter-active .anim {
   opacity: 1;
   transform: translateY(0);
   transition: transform var(--transition-short), opacity var(--transition-short);
-  z-index: 0;
 }
 
-.anim-menu-down-exiting .anim {
+.anim-menu-exiting .anim {
   opacity: 1;
   transform: translateY(0);
-  z-index: -1;
 }
-.anim-menu-down-exit.anim-menu-down-exit-active .anim {
+.anim-menu-exit.anim-menu-exit-active .anim {
   opacity: 0.5;
   transform: translateY(-100%);
   transition: transform var(--transition-short), opacity var(--transition-short);
-  z-index: 0;
 }
-
-/* Menu Right*/
-.anim-menu-right-enter .anim {
-  opacity: 0.5;
-  transform: translateX(100%);
-  z-index: 1;
-}
-
-.anim-menu-right-enter.anim-menu-right-enter-active .anim {
-  opacity: 1;
-  transform: translateX(0);
-  transition: transform var(--transition-short), opacity var(--transition-short);
-  z-index: 0;
-}
-
-.anim-menu-right-exiting .anim-menu-anim {
-  opacity: 1;
-  transform: translateX(0);
-  z-index: -1;
-}
-.anim-menu-right-exit.anim-menu-right-exit-active .anim {
-  opacity: 0.5;
-  transform: translateX(100%);
-  transition: transform var(--transition-short), opacity var(--transition-short);
-  z-index: 0;
-}
-
 /* Modal */
 .anim-modal-enter .anim {
   opacity: 0;

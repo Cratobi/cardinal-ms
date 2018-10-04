@@ -18,15 +18,15 @@ class Header extends Component {
       company: "",
       new_buyer: ""
     },
+    accountMenu: false,
+    notificationMenu: false,
     searchFocus: false,
-    accountClick: false,
-    notificationClick: false,
     notificationUnread: 5,
     searchQuery: "",
-    controlModal: false,
+    dashboardModal: false,
     settingsModal: false
   }
-
+  // Menu
   handleSearchChange = e => {
     const state = this.state
     state.searchQuery = e.target.value
@@ -35,60 +35,45 @@ class Header extends Component {
   }
   handleSearchFocus = () => {
     const state = this.state
-    state.accountClick = false
-    state.notificationClick = false
+    state.accountMenu = false
+    state.notificationMenu = false
     state.searchFocus = !state.searchFocus
     this.setState(state)
   }
-  handleAccountClick = () => {
+  handleAccountMenu = actions => {
     const state = this.state
     state.searchFocus = false
-    state.notificationClick = false
-    state.accountClick = !state.accountClick
+    state.notificationMenu = false
+    state.accountMenu = actions
     this.setState(state)
   }
-  handleNotificationClick = () => {
+  handleMenuNotification = actions => {
     const state = this.state
     state.notificationUnread = 0
     state.searchFocus = false
-    state.accountClick = false
-    state.notificationClick = !state.notificationClick
+    state.accountMenu = false
+    state.notificationMenu = actions
     this.setState(state)
   }
-  handleSettingsModalOpen = () => {
+  // Modals
+  handleModalSettings = action => {
     const state = this.state
     state.searchFocus = false
-    state.accountClick = false
-    state.notificationClick = false
-    state.settingsModal = true
+    state.accountMenu = false
+    state.notificationMenu = false
+    state.settingsModal = action
     this.setState(state)
   }
-  handleSettingsModalClose = () => {
+  handleModalDashboard = action => {
     const state = this.state
     state.searchFocus = false
-    state.accountClick = false
-    state.notificationClick = false
-    state.settingsModal = false
-    this.setState(state)
-  }
-  handleControlModalOpen = () => {
-    const state = this.state
-    state.searchFocus = false
-    state.accountClick = false
-    state.notificationClick = false
-    state.controlModal = true
-    this.setState(state)
-    this.props.fetchCompanies()
-  }
-  handleControlModalClose = () => {
-    const state = this.state
-    state.searchFocus = false
-    state.accountClick = false
-    state.notificationClick = false
-    state.controlModal = false
+    state.accountMenu = false
+    state.notificationMenu = false
+    state.dashboardModal = action
     this.setState(state)
     this.props.resetCompanies()
   }
+  // Forms
   handleFormChange = e => {
     const state = { ...this.state }
     state.form[e.target.name] = e.target.value
@@ -128,6 +113,26 @@ class Header extends Component {
   render() {
     return this.props.userInfo ? (
       <Fragment>
+        {/* Header Bar */}
+        <HeaderLayout
+          userInfo={this.props.userInfo}
+          searchResult={this.props.search_result}
+          searchQuery={this.state.searchQuery}
+          searchEmpty={this.state.searchQuery ? true : false}
+          searchFocus={this.state.searchFocus}
+          accountMenu={this.state.accountMenu}
+          notificationMenu={this.state.notificationMenu}
+          notificationUnread={this.state.notificationUnread}
+          backBtn={this.props.history.location.pathname !== "/"}
+          // Handlers
+          handleSearchChange={this.handleSearchChange}
+          handleSearchFocus={this.handleSearchFocus}
+          handleAccountMenu={this.handleAccountMenu}
+          handleMenuNotification={this.handleMenuNotification}
+          handleModalSettings={this.handleModalSettings}
+          handleModalDashboard={this.handleModalDashboard}
+        />
+        {/* Modals */}
         <CSSTransition
           in={this.state.settingsModal}
           timeout={500}
@@ -146,14 +151,14 @@ class Header extends Component {
                   placeholder="Password"
                 />
                 <div
-                  onClick={this.handleSettingsModalClose}
+                  onClick={() => this.handleModalSettings(false)}
                   className="btn btn-success m-l-1"
                 >
                   Save Change
                 </div>
               </div>
             }
-            handleModalClose={this.handleSettingsModalClose}
+            handleModalClose={() => this.handleModalSettings(false)}
           >
             <div className="setting-title m-l-1">
               Account setting (Coming soon)
@@ -192,53 +197,21 @@ class Header extends Component {
                   disabled
                 />
               </div>
-              {/* <div className="form-inline-input">
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="Password"
-                />
-                <input
-                  type="submit"
-                  className="btn btn-dark"
-                  disabled
-                  Value="Change"
-                />
-              </div> */}
             </form>
           </ModalLayout>
         </CSSTransition>
-        {/* <ModalLayout
-          tittle="Password"
-          footer={
-            <div className="btn btn-success">
-              Save Change
-              <i className="fas fa-check" />
-            </div>
-          }
-        >
-          <form>
-            <div className="form-inline-input">
-              <label className="form-label">Password: </label>
-              <input
-                type="text"
-                className="form-input"
-                placeholder="Password"
-              />
-            </div>
-          </form>
-        </ModalLayout> */}
-        {this.props.userInfo.power === "admin" ? (
+
+        {this.props.userInfo.get("power") === "admin" ? (
           <CSSTransition
-            in={this.state.controlModal}
+            in={this.state.dashboardModal}
             timeout={500}
             classNames="anim-modal"
             unmountOnExit
           >
             {/* CONTROL PANNEL MODAL */}
             <ModalLayout
-              tittle="CONTROL PANNEL"
-              handleModalClose={this.handleControlModalClose}
+              tittle="DASHBOARD"
+              handleModalClose={() => this.handleModalDashboard(false)}
             >
               <div className="setting-title d-flex flex-a-baseline m-l-1">
                 Buyer
@@ -316,24 +289,6 @@ class Header extends Component {
             </ModalLayout>
           </CSSTransition>
         ) : null}
-        <HeaderLayout
-          userInfo={this.props.userInfo}
-          searchResult={this.props.search_result}
-          searchQuery={this.state.searchQuery}
-          searchEmpty={this.state.searchQuery ? true : false}
-          searchFocus={this.state.searchFocus}
-          accountClick={this.state.accountClick}
-          notificationClick={this.state.notificationClick}
-          notificationUnread={this.state.notificationUnread}
-          handleSearchChange={this.handleSearchChange}
-          handleSearchFocus={this.handleSearchFocus}
-          handleAccountClick={this.handleAccountClick}
-          handleNotificationClick={this.handleNotificationClick}
-          handleSettingsModalOpen={this.handleSettingsModalOpen}
-          handleSettingsModalClose={this.handleSettingsModalClose}
-          handleControlModalOpen={this.handleControlModalOpen}
-          handleControlModalClose={this.handleControlModalClose}
-        />
       </Fragment>
     ) : null
   }

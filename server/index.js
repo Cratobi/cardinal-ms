@@ -28,6 +28,13 @@ app.use(express.static(__dirname + "/public"))
 app.get("/", (req, res) => {
   res.sendFile("index.html", { root: public })
 })
+// const public = path.resolve(__dirname, "public")
+
+// app.use(express.static(public))
+
+// app.get("*", function(req, res) {
+//   res.sendfile(path.resolve(public, "index.html"))
+// })
 
 // Server Config
 const port = process.env.PORT || 80
