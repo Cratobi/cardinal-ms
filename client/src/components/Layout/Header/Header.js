@@ -29,9 +29,7 @@ const header = props => {
             </CSSTransition>
             <span className="logo-txt">
               <span className="hide-l">CMS</span>
-              <span className="hide-s">
-                <i className="fas fa-dove m-r" /> Cardinal
-              </span>
+              <span className="hide-s">CARDINAL</span>
             </span>
           </span>
           {/* Search Input */}
@@ -60,7 +58,7 @@ const header = props => {
               <i className="fas fa-bell" />
               <b>{props.notificationUnread}</b>
             </span>
-            <span className="p-r hide-s" />
+            <span className="p-r-1" />
             <span
               onClick={() => props.handleAccountMenu(!props.accountMenu)}
               className={`btn btn-custom-account m-r ${

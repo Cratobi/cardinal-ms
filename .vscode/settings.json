@@ -1,8 +1,0 @@
-{
-  "editor.parameterHints.cycle": true,
-  "editor.cursorStyle": "block",
-  "editor.cursorBlinking": "phase",
-  "editor.multiCursorModifier": "ctrlCmd",
-  "editor.renderWhitespace": "boundary",
-  "breadcrumbs.enabled": true
-}
