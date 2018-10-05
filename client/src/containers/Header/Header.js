@@ -40,7 +40,7 @@ class Header extends Component {
     state.searchFocus = !state.searchFocus
     this.setState(state)
   }
-  handleAccountMenu = actions => {
+  handleMenuAccount = actions => {
     const state = this.state
     state.searchFocus = false
     state.notificationMenu = false
@@ -65,12 +65,13 @@ class Header extends Component {
     this.setState(state)
   }
   handleModalDashboard = action => {
-    const state = this.state
-    state.searchFocus = false
-    state.accountMenu = false
-    state.notificationMenu = false
-    state.dashboardModal = action
-    this.setState(state)
+    this.setState({
+      searchFocus: false,
+      accountMenu: false,
+      notificationMenu: false,
+      dashboardModal: action
+    })
+
     this.props.resetCompanies()
   }
   // Forms
@@ -82,16 +83,17 @@ class Header extends Component {
   handleNewCompany = e => {
     e.preventDefault()
 
-    const payload = {
+    this.props.addCompany({
       name: this.state.form.new_company
-    }
-    this.props.addCompany(payload)
+    })
 
-    this.handleControlModalClose()
-    this.handleAccountClick()
-    const state = { ...this.state }
-    state.form.new_company = ""
-    this.setState(state)
+    this.handleModalControl(false)
+    this.handleMenuAccount(false)
+    this.setState({
+      form: {
+        new_company: ""
+      }
+    })
     this.props.fetchCompanies()
   }
   handleNewBuyer = e => {
@@ -102,12 +104,14 @@ class Header extends Component {
       name: this.state.form.new_buyer
     })
 
-    this.handleControlModalClose()
+    this.handleModalControl(false)
     this.handleAccountClick()
-    const state = { ...this.state }
-    state.form.company = ""
-    state.form.new_buyer = ""
-    this.setState(state)
+    this.setState({
+      form: {
+        company: "",
+        new_buyer: ""
+      }
+    })
   }
 
   render() {
@@ -127,7 +131,7 @@ class Header extends Component {
           // Handlers
           handleSearchChange={this.handleSearchChange}
           handleSearchFocus={this.handleSearchFocus}
-          handleAccountMenu={this.handleAccountMenu}
+          handleMenuAccount={this.handleMenuAccount}
           handleMenuNotification={this.handleMenuNotification}
           handleModalSettings={this.handleModalSettings}
           handleModalDashboard={this.handleModalDashboard}
@@ -158,12 +162,15 @@ class Header extends Component {
                 </div>
               </div>
             }
-            handleModalClose={() => this.handleModalSettings(false)}
+            handleModal={this.handleModalSettings}
           >
-            <div className="setting-title m-l-1">
-              Account setting (Coming soon)
+            <div className="body-header">
+              <span className="txt-ligher" />
             </div>
-            <form className="modal-menu">
+            <div className="body-header d-flex flex-j-between flex-a-baseline">
+              <span className="txt txt-ligher">Account setting</span>
+            </div>
+            <form className="body-content">
               <div className="form-inline-input">
                 <label className="form-label">Name:</label>
                 <input
@@ -211,15 +218,15 @@ class Header extends Component {
             {/* CONTROL PANNEL MODAL */}
             <ModalLayout
               tittle="DASHBOARD"
-              handleModalClose={() => this.handleModalDashboard(false)}
+              handleModal={this.handleModalDashboard}
             >
-              <div className="setting-title d-flex flex-a-baseline m-l-1">
-                Buyer
+              <div className="body-header d-flex flex-j-between flex-a-baseline">
+                <span className="txt txt-ligher">Buyer</span>
                 <div className="btn btn-round btn-transparent">
                   <i className="fas fa-sliders-h" />
                 </div>
               </div>
-              <form className="modal-menu" onSubmit={this.handleNewBuyer}>
+              <form className="body-content" onSubmit={this.handleNewBuyer}>
                 <div className="form-inline-input">
                   <label className="form-label">Buyer Name:</label>
                   <input
@@ -254,20 +261,22 @@ class Header extends Component {
                     )}
                   </select>
                 </div>
-                <div className="m-t-1 m-b-1" />
-                <input
-                  type="submit"
-                  className="btn btn-dark"
-                  value=" Add Buyer"
-                />
+                <div className="body-content-footer">
+                  <input
+                    type="submit"
+                    className="btn btn-dark"
+                    value="Add Buyer"
+                  />
+                </div>
               </form>
-              <div className="setting-title d-flex flex-a-baseline m-l-1">
-                Company
+              <div className="p-t-1 p-b-1 m-t-1" />
+              <div className="body-header d-flex flex-j-between flex-a-baseline">
+                <span className="txt txt-ligher">Company</span>
                 <div className="btn btn-round btn-transparent">
                   <i className="fas fa-sliders-h" />
                 </div>
               </div>
-              <form className="modal-menu" onSubmit={this.handleNewCompany}>
+              <form className="body-content" onSubmit={this.handleNewCompany}>
                 <div className="form-inline-input">
                   <label className="form-label">Company Name:</label>
                   <input
@@ -279,12 +288,13 @@ class Header extends Component {
                     value={this.state.form.new_company}
                   />
                 </div>
-                <div className="m-t-1 m-b-1" />
-                <input
-                  type="submit"
-                  className="btn btn-dark"
-                  value=" Add Company"
-                />
+                <div className="body-content-footer">
+                  <input
+                    type="submit"
+                    className="btn btn-dark"
+                    value=" Add Company"
+                  />
+                </div>
               </form>
             </ModalLayout>
           </CSSTransition>

@@ -136,24 +136,9 @@ class Home extends Component {
                 Create Order
               </div>
             }
-            handleModalClose={() => this.handleOrderModal(false)}
+            handleModal={() => this.handleOrderModal(false)}
           >
-            <form className="modal-menu" onSubmit={this.sendDraftMetadata}>
-              <div className="form-inline-input">
-                <label className="form-label">Add a Buyer:</label>
-                <input
-                  type="text"
-                  name="new_buyer"
-                  className="form-input"
-                  placeholder="e.g. JBC"
-                  autoComplete="off"
-                  onChange={this.handleChange}
-                  value={this.state.new_buyer}
-                />
-                <input type="submit" className="btn btn-dark" value="Add" />
-              </div>
-            </form>
-            <form className="modal-menu" onSubmit={this.sendDraftMetadata}>
+            <form onSubmit={this.sendDraftMetadata}>
               <div className="form-inline-input">
                 <label className="form-label">Buyer:</label>
 

@@ -60,7 +60,7 @@ const header = props => {
             </span>
             <span className="p-r-1" />
             <span
-              onClick={() => props.handleAccountMenu(!props.accountMenu)}
+              onClick={() => props.handleMenuAccount(!props.accountMenu)}
               className={`btn btn-custom-account m-r ${
                 props.accountMenu ? "btn-custom-account-active" : ""
               }`}
@@ -120,71 +120,67 @@ const header = props => {
       {props.accountMenu || props.notificationMenu ? (
         <div
           className="backdrop backdrop-transparent backdrop-menu"
-          onClick={() => props.handleAccountMenu(false)}
+          onClick={() => props.handleMenuAccount(false)}
         />
       ) : null}
       <CSSTransition
         in={props.accountMenu}
-        timeout={500}
+        timeout={140}
         classNames="anim-menu"
         unmountOnExit
       >
-        <div>
-          <div className="anim menu-account">
-            <div className="user-info-container">
-              <div>
-                <div className="txt name">{props.userInfo.get("name")}</div>
-                <div className="txt-light p-l">- {power}</div>
-              </div>
+        <div className="menu menu-account">
+          <div className="user-info-container">
+            <div>
+              <div className="txt name">{props.userInfo.get("name")}</div>
+              <div className="txt-light p-l">- {power}</div>
             </div>
-            <div className="footer">
-              {props.userInfo.get("power") === "admin" ? (
-                <button
-                  className="btn btn-transparent"
-                  onClick={() => props.handleModalDashboard(true)}
-                >
-                  <i className="fas fa-tachometer-alt" />
-                  DASHBOARD
-                </button>
-              ) : null}
+          </div>
+          <div className="footer">
+            {props.userInfo.get("power") === "admin" ? (
               <button
                 className="btn btn-transparent"
-                onClick={() => props.handleModalSettings(true)}
+                onClick={() => props.handleModalDashboard(true)}
               >
-                <i className="fas fa-cog" />
-                SETTINGS
+                <i className="fas fa-tachometer-alt" />
+                DASHBOARD
               </button>
-              <Link to="/signout" className="btn btn-transparent backdrop-menu">
-                <i className="fas fa-sign-out-alt" />
-                SIGN OUT
-              </Link>
-            </div>
+            ) : null}
+            <button
+              className="btn btn-transparent"
+              onClick={() => props.handleModalSettings(true)}
+            >
+              <i className="fas fa-cog" />
+              SETTINGS
+            </button>
+            <Link to="/signout" className="btn btn-transparent backdrop-menu">
+              <i className="fas fa-sign-out-alt" />
+              SIGN OUT
+            </Link>
           </div>
         </div>
       </CSSTransition>
       <CSSTransition
         in={props.notificationMenu}
-        timeout={500}
+        timeout={140}
         classNames="anim-menu"
         unmountOnExit
       >
-        <div>
-          <div className="anim menu-notification">
-            <h6 className="p-l-1">Notification</h6>
-            <div className="scrollable">
-              <div className="card">Coming soon</div>
-              <div className="card">Coming soon</div>
-              <div className="card">Coming soon</div>
-              <div className="card">Coming soon</div>
-              <div className="card">Coming soon</div>
-              <div className="card">Coming soon</div>
-              <div className="card">Coming soon</div>
-              <div className="card">Coming soon</div>
-              <div className="card">Coming soon</div>
-              <div className="card">Coming soon</div>
-              <div className="card">Coming soon</div>
-              <div className="card">Coming soon</div>
-            </div>
+        <div className="menu menu-notification">
+          <h6 className="p-l-1">Notification</h6>
+          <div className="scrollable">
+            <div className="card">Coming soon</div>
+            <div className="card">Coming soon</div>
+            <div className="card">Coming soon</div>
+            <div className="card">Coming soon</div>
+            <div className="card">Coming soon</div>
+            <div className="card">Coming soon</div>
+            <div className="card">Coming soon</div>
+            <div className="card">Coming soon</div>
+            <div className="card">Coming soon</div>
+            <div className="card">Coming soon</div>
+            <div className="card">Coming soon</div>
+            <div className="card">Coming soon</div>
           </div>
         </div>
       </CSSTransition>

@@ -187,22 +187,22 @@
 }
 
 /* Menu */
-.anim-menu-enter .anim {
+.anim-menu-enter {
   opacity: 0.5;
   transform: translateY(-100%);
 }
 
-.anim-menu-enter.anim-menu-enter-active .anim {
+.anim-menu-enter.anim-menu-enter-active {
   opacity: 1;
   transform: translateY(0);
   transition: transform var(--transition-short), opacity var(--transition-short);
 }
 
-.anim-menu-exiting .anim {
+.anim-menu-exiting {
   opacity: 1;
   transform: translateY(0);
 }
-.anim-menu-exit.anim-menu-exit-active .anim {
+.anim-menu-exit.anim-menu-exit-active {
   opacity: 0.5;
   transform: translateY(-100%);
   transition: transform var(--transition-short), opacity var(--transition-short);

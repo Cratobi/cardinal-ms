@@ -4,15 +4,14 @@ import "./Modal.css"
 const OrderCard = props => {
   return (
     <div className="modal-container">
-      <div className="backdrop" onClick={() => props.handleModalClose(false)} />
+      <div className="backdrop" onClick={() => props.handleModal(false)} />
       <div className="card modal anim">
         <div className="modal-header">
-          <b className="txt-bolder">{props.tittle}</b>
+          <b className="txt txt-small">{props.tittle}</b>
           <div
-            className="btn btn-chip btn-dark btn-chip-small"
-            onClick={() => props.handleModalClose(false)}
+            className="btn btn-round btn-transparent "
+            onClick={() => props.handleModal(false)}
           >
-            <span>Close</span>
             <i className="fas fa-times" />
           </div>
         </div>
