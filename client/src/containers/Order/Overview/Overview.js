@@ -2,11 +2,12 @@ import React, { Component, Fragment } from "react"
 // eslint-disable-next-line
 import { get } from "immutable"
 import { CSSTransition } from "react-transition-group"
+import "./Overview.css"
 
 class Overview extends Component {
   render() {
     return (
-      <Fragment>
+      <div className="overview">
         <div className="order-no">{this.props.order.get("order_no")}</div>
         <div className="style-no">
           <i className="fas fa-at" />
@@ -15,22 +16,36 @@ class Overview extends Component {
         <table className="overview">
           <tbody>
             <tr>
+              <td>Shipment Date:</td>
+              <td>{this.props.order.get("shipment_date")}</td>
+            </tr>
+            <tr>
               <td>Buyer:</td>
               <td>{this.props.order.get("buyer")}</td>
             </tr>
             <tr>
-              <td>Shipment Date:</td>
-              <td>{this.props.order.get("shipment_date")}</td>
+              <td>Item:</td>
+              <td>{this.props.order.get("item")}</td>
+            </tr>
+            <tr>
+              <td>Quantity:</td>
+              <td>{this.props.order.get("quantity")}</td>
             </tr>
           </tbody>
         </table>
         <button className="more-btn" onClick={this.props.handleToggleMore}>
           Show more
-          <i
-            className={
-              this.props.showMore ? "fas fa-caret-up" : "fas fa-caret-down"
-            }
-          />
+          <CSSTransition
+            in={this.props.showMore}
+            timeout={500}
+            classNames="rotate-180"
+          >
+            <i
+              className={`fas fa-caret-down${
+                this.props.showMore ? " rotate-180" : ""
+              }`}
+            />
+          </CSSTransition>
         </button>
 
         <CSSTransition
@@ -40,6 +55,10 @@ class Overview extends Component {
           unmountOnExit
         >
           <table className="overview">
+            <tr>
+              <td>Order Id:</td>
+              <td>{this.props.order.get("id")}</td>
+            </tr>
             <tr>
               <td>Created By:</td>
               <td>{this.props.order.get("createdBy")}</td>
@@ -52,7 +71,7 @@ class Overview extends Component {
             </tr>
           </table>
         </CSSTransition>
-      </Fragment>
+      </div>
     )
   }
 }

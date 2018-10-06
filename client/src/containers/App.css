@@ -466,15 +466,17 @@ h6 {
 
 .container {
   margin-top: 3.8rem;
-  width: 100vw;
-  height: calc(100vh - 3.8rem);
+  width: calc(100vw - 0.2rem);
+  margin-right: 0.2rem;
+  height: calc(100vh - 3.5rem);
+  margin-top: 3.5;
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
 .container::-webkit-scrollbar {
-  width: 15px;
-  /* height: 15px; */
+  width: 1rem;
+  height: 1rem;
 }
 .container::-webkit-scrollbar-track {
   background-color: #dadada;
@@ -482,22 +484,22 @@ h6 {
   border-radius: 10px;
 }
 .container::-webkit-scrollbar-thumb {
-  background: #222222;
-  border-radius: 15px;
+  background-color: #424242;
+  border-radius: 1rem;
   border: 3px solid #ffffff;
 }
 .container::-webkit-scrollbar-thumb:active {
-  background: #161616;
+  background-color: #383838;
 }
 .card {
-  background: var(--background);
+  background-color: var(--background);
   display: flex;
   padding: 1.5rem;
   border-radius: 0.35rem;
   box-shadow: var(--elevation-2);
 }
 .card-header {
-  font-size: 90%;
+  font-size: 0.6rem;
   width: 100%;
   padding: 2rem;
 }
@@ -752,28 +754,6 @@ input.autofill-color:focus {
 }
 .auth-form > .btn-container button:hover:disabled {
   background-color: transparent;
-}
-
-button.more-btn {
-  text-align: left;
-  font-weight: 600;
-  color: #f7c4c6;
-  background-color: transparent;
-  border-width: 0;
-  outline: 0;
-  padding: 0;
-  padding-top: 2rem;
-  /* padding-left: 0.5rem; */
-  margin-bottom: 1rem;
-  transition: all, 0.5s;
-}
-button.more-btn:hover {
-  color: #e79a9d;
-}
-button.more-btn > .fas {
-  margin-left: 0.5rem;
-  position: relative;
-  top: 1px;
 }
 
 /* Input */

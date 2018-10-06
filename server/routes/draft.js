@@ -38,7 +38,7 @@ app.get("/draft/:id", authenticate, (req, res) => {
 
 // Add Draft
 app.post("/draft", authenticate, (req, res) => {
-  const payload = _.pick(req.body.payload, [
+  const payload = _.pick(req.body, [
     "buyer",
     "order_no",
     "style_no",

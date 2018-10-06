@@ -1,14 +1,13 @@
 .bi-grid {
   display: grid;
-  grid-template-columns: 18vw 82vw;
+  grid-template-columns: 10rem auto;
   justify-items: stretch;
   align-items: stretch;
-  place-content: stretch;
-  grid-gap: 1rem;
+  grid-gap: 0.5rem;
   box-sizing: border-box;
 }
 .bi-grid aside {
-  padding-top: 4rem;
+  padding-top: 3.5rem;
   box-sizing: border-box;
 }
 
@@ -17,7 +16,6 @@
   position: fixed;
   float: left;
   list-style-type: none;
-  margin: 0;
   padding: 0;
 }
 .bi-grid aside ul a {
@@ -25,23 +23,19 @@
   text-decoration: none;
 }
 .bi-grid aside ul li {
+  font-size: 0.8rem;
+  width: 100%;
   display: flex;
-  align-items: center;
-  font-size: 1rem;
+  align-items: baseline;
   font-weight: 700;
   color: #797979;
-  margin: 1rem 0;
-  padding: 0.8rem 1rem;
-  margin-left: 0.8rem;
-  border-radius: 99px;
+  margin: 0.8rem 0;
+  padding: 1rem;
   cursor: pointer;
-  transition: background-color var(--transition);
+  transition: background-color var(--transition), border var(--transition);
 }
 .bi-grid aside ul li:hover {
-  background-color: rgb(245, 245, 245);
-}
-.bi-grid aside ul li:active {
-  background-color: rgb(235, 235, 235);
+  background-color: #f5f5f5;
 }
 .bi-grid aside ul li .text {
   display: block;
@@ -52,70 +46,43 @@
   white-space: nowrap;
 }
 .bi-grid aside ul .active li {
+  background-color: #f5f5f5;
   color: #4e4e4e;
-  font-weight: 700;
+  border-left: 0.3rem solid #f15858;
 }
-.bi-grid aside ul .active li:before {
-  content: "";
-  color: #f1484edc;
-  border-right: 4px solid #be3a3f;
-  padding: 1rem 0;
-  border-radius: 0 5px 5px 0;
-
-  position: absolute;
-  left: 0;
-}
-.bi-grid aside ul li .fas {
-  position: relative;
-  right: 2px;
-  margin-right: -0.465rem;
-  border-radius: 50%;
-  z-index: 1;
-}
-
 .bi-grid article.card-body {
+  width: calc(100% - 9rem);
   font-size: 1rem;
   flex-direction: column;
-  margin: 2rem 3rem;
-  margin-left: 0;
+  padding: 4rem;
+  margin: 2rem 2.5rem;
   z-index: 0;
 }
-
-.card-body .order-no {
-  font-size: 2rem;
-  font-weight: 700;
-  padding-bottom: 0.5rem;
-}
-.card-body .style-no {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: rgb(153, 153, 153);
-  padding-bottom: 2rem;
-}
-.style-no .fas {
-  padding-right: 0.2rem;
-}
-
 .bi-grid article table.extradata {
-  margin: 1rem;
   margin-bottom: 2rem;
 }
-.bi-grid article table.extradata tr {
-  padding: 5rem;
-}
-.bi-grid article table.extradata tr td:nth-child(even) {
-  padding-left: 10vw;
-}
 .bi-grid article table.extradata td {
-  padding: 0.4rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.6rem;
+  padding-left: 4rem;
+}
+.bi-grid article table.extradata tr td:first-child {
+  color: #747474;
+  padding-left: 0;
 }
 
 .bi-grid article .static-table {
-  width: 100%;
+  width: calc(100% + 6rem);
+  margin: 0 -3rem;
+  /* border: 0.5rem solid var(--background); */
+  border: 0.3rem solid #dfdfdf;
+  border-radius: 0.6rem;
+  padding: 1rem;
   overflow-x: scroll;
-  border: 0.5rem solid var(--background);
-  padding: 0.5rem;
-  box-sizing: border-box;
+}
+.bi-grid article .static-table table {
+  min-width: 100%;
 }
 .bi-grid article .static-table::-webkit-scrollbar {
   height: 10px;
@@ -128,7 +95,7 @@
   border-radius: 0.4rem;
 }
 .bi-grid article .static-table::-webkit-scrollbar-thumb:active {
-  background: #161616;
+  background: #cecece;
 }
 
 @media (max-width: 768px) {

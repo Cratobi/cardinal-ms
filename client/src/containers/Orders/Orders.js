@@ -34,10 +34,10 @@ class Order extends Component {
         <MonoGridLayout
           CustomCSS="orders"
           header={
-            <h5 className="header-title">
+            <div className="header-title">
               ORDERS <i className="fas fa-circle small-icon" />
               <span className="txt-bold">{this.props.orders_count}</span>
-            </h5>
+            </div>
           }
           footer={
             this.props.orders_count - 30 * this.state.page > 0 ? (

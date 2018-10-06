@@ -1,9 +1,282 @@
-// eslint-disable-next-line
-import { fromJS, getIn, set, setIn } from "immutable"
+var Benchmark = require("benchmark")
+var { fromJS, setIn } = require("immutable")
 
-import * as syncHandlers from "./handlers/handleStateSync"
+var suite = new Benchmark.Suite()
 
-const initialState = fromJS({
+const JSObj = fromJS({
+  table_measurments: {
+    tablename: "measurments",
+    tableheader: null,
+    tablebody: [
+      [
+        { editable: false, cellType: "text", cellData: "Size" },
+        {
+          id: "mes_a_1",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_a_2",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_a_3",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_a_4",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_a_5",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_a_6",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_a_7",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_a_8",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_a_9",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_a_10",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        }
+      ],
+      [
+        {
+          editable: false,
+          cellType: "text",
+          cellData: "Body length"
+        },
+        {
+          id: "mes_b_1",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_b_2",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_b_3",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_b_4",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_b_5",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_b_6",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_b_7",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_b_8",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_b_9",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_b_10",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        }
+      ],
+      [
+        {
+          editable: false,
+          cellType: "text",
+          cellData: "Sleeve length"
+        },
+        {
+          id: "mes_c_1",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_c_2",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_c_3",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_c_4",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_c_5",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_c_6",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_c_7",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_c_8",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_c_9",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_c_10",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        }
+      ],
+      [
+        {
+          id: "mes_d_1",
+          editable: true,
+          cellType: "type",
+          cellData: "1/2 Chest"
+        },
+        {
+          id: "mes_d_2",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_d_3",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_d_4",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_d_5",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_d_6",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_d_7",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_d_8",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_d_9",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_d_10",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        },
+        {
+          id: "mes_d_11",
+          editable: true,
+          cellType: "number",
+          cellData: ""
+        }
+      ]
+    ]
+  }
+})
+const IMObj = fromJS({
   drafts: null,
   metadata: null,
   tabledata: {
@@ -1236,20 +1509,6 @@ const initialState = fromJS({
           {
             id: "exf_g_5",
             editable: true,
-            cellType: "number",
-            cellData: ""
-          }
-        ],
-        [
-          {
-            editable: false,
-            colspan: 4,
-            cellType: "text",
-            cellData: "G. Total"
-          },
-          {
-            id: "exf_auto_1",
-            editable: false,
             cellType: "number",
             cellData: ""
           }
@@ -2740,106 +2999,23 @@ const initialState = fromJS({
     }
   }
 })
-
-const getPreviousValue = (state, tablename, rowindex, colindex) =>
-  state.getIn([
-    "tabledata",
-    "table_" + tablename,
-    "tablebody",
-    rowindex,
-    colindex,
-    "cellData"
-  ])
-
-const setNewValue = (state, tablename, rowindex, colindex, value) =>
-  state.setIn(
-    [
-      "tabledata",
-      "table_" + tablename,
-      "tablebody",
-      rowindex,
-      colindex,
-      "cellData"
-    ],
-    value
-  )
-
-const draftReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "SAVE_DRAFTS":
-      return state.set("drafts", fromJS(action.payload))
-    case "SAVE_DRAFT_METADATA":
-      return state.set("metadata", fromJS(action.payload))
-    case "SAVE_DRAFT_TABLEDATA":
-      return state.set("tabledata", fromJS(action.payload))
-    case "RESET_DRAFT":
-      state = state.set("metadata", initialState.get("metadata"))
-      return state.set("tabledata", initialState.get("tabledata"))
-    case "RESET_DRAFT_TABLE":
-      return state.set("tabledata", initialState.get("tabledata"))
-    case "RESET_DRAFTS":
-      return state.set("drafts", initialState.get("drafts"))
-    case "SYNCTABLES":
-      const rowindex = Number(action.payload.rowindex)
-      const colindex = Number(action.payload.colindex)
-      const tablename = action.payload.tablename
-      let value = action.payload.value
-
-      if (
-        tablename === "measurments" &&
-        rowindex === 0 &&
-        0 <= colindex <= 10
-      ) {
-        state = setNewValue(state, tablename, rowindex, colindex, value)
-        return syncHandlers.handleSizeHeader(state, colindex, value)
-      }
-      if (
-        tablename === "colourandcompotision" &&
-        1 <= rowindex <= 8 &&
-        2 <= colindex <= 11
-      ) {
-        const prev_val = getPreviousValue(state, tablename, rowindex, colindex)
-        state = setNewValue(state, tablename, rowindex, colindex, value)
-        return syncHandlers.handleComposition(
-          state,
-          rowindex,
-          colindex,
-          value,
-          prev_val
-        )
-      }
-      if (
-        tablename === "accessoriesname" &&
-        0 <= rowindex <= 21 &&
-        colindex === 2
-      ) {
-        const prev_val = getPreviousValue(state, tablename, rowindex, colindex)
-        state = setNewValue(state, tablename, rowindex, colindex, value)
-        return syncHandlers.handleAccessories(state, value, prev_val)
-      }
-      if (tablename === "currency") {
-        state = setNewValue(state, tablename, rowindex, colindex, value)
-        return syncHandlers.handleCurrency(state, rowindex, value)
-      }
-      if (tablename === "price") {
-        const prev_val = getPreviousValue(state, tablename, rowindex, colindex)
-
-        state = setNewValue(state, tablename, rowindex, colindex, value)
-        state = syncHandlers.handlePrice(
-          state,
-          rowindex,
-          colindex,
-          value,
-          prev_val
-        )
-        return state
-      }
-
-      state = setNewValue(state, tablename, rowindex, colindex, value)
-      return state.set("tabledata", state.get("tabledata"))
-    default:
-      return state
-  }
-}
-
-export default draftReducer
+// add tests
+suite
+  .add("Accessing Immutable Object", function() {
+    IMObj.getIn(
+      ["tabledata", "table_measurments", "tablebody[6][5]", "cellData"],
+      "asd"
+    )
+  })
+  .add("Accessing Javascript Object", function() {
+    JSObj.getIn(["table_measurments", "tablebody[6][5]", "cellData"], "asd")
+  })
+  // add listeners
+  .on("cycle", function(event) {
+    console.log(String(event.target))
+  })
+  .on("complete", function() {
+    console.log("Fastest is " + this.filter("fastest").map("name"))
+  })
+  // run async
+  .run({ async: true })

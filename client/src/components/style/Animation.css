@@ -21,6 +21,9 @@
   transition: opacity var(--transition-long);
 }
 /* Rotate 180 */
+.rotate-180 {
+  transform: rotate(180deg);
+}
 .rotate-180-appear {
   transform: rotate(180deg);
 }
@@ -74,6 +77,11 @@
   transition: transform var(--transition-long);
 }
 /* Slide to Up*/
+.animation-slide-up {
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform var(--transition-long), opacity var(--transition-long);
+}
 .slide-up-appear {
   opacity: 0;
   transform: translateY(20px);

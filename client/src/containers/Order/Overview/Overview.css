@@ -1,0 +1,44 @@
+/* table.overview {
+  width: 50%;
+} */
+.overview .order-no {
+  font-size: 2rem;
+  font-weight: 700;
+  padding-bottom: 0.5rem;
+}
+.overview .style-no {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999999;
+  padding-bottom: 2rem;
+}
+.overview .style-no .fas {
+  padding-right: 0.2rem;
+}
+
+table.overview td {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.6rem;
+  padding-left: 4rem;
+}
+table.overview td:first-child {
+  color: #747474;
+  padding-left: 0;
+}
+.overview button.more-btn {
+  text-align: left;
+  font-weight: 600;
+  color: #f15858;
+  background-color: transparent;
+  border-width: 0;
+  outline: 0;
+  padding: 0.5rem;
+  padding-left: 0;
+  margin: 0.5rem 0;
+}
+.overview button.more-btn > .fas {
+  margin-left: 0.5rem;
+  position: relative;
+  top: 1px;
+}

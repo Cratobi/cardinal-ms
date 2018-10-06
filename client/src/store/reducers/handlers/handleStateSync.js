@@ -179,9 +179,45 @@ const handleCurrency = (state, rowindex, value) => {
 
 const handlePrice = (state, rowindex, colindex, value, prev_val) => {
   // Confusing values
-  const SF = 31.257125
-  const QT = 292.304
-  const TF = 292.332
+  const SF = () => {
+    const consumption_total = state.getIn([
+      "tabledata",
+      "table_colourandcompotision",
+      "tablebody",
+      9,
+      11,
+      "cellData"
+    ])
+    const sf = state.getIn([
+      "tabledata",
+      "extradata",
+      "self_fabric_matching_body"
+    ])
+    return ((consumption_total / 12) * sf) / 1000
+  }
+  const TF = () => {
+    const consumption_total = state.getIn([
+      "tabledata",
+      "table_colourandcompotision",
+      "tablebody",
+      9,
+      11,
+      "cellData"
+    ])
+    return (consumption_total / 12) * 0.98555732
+  }
+  const QT = () => {
+    const q_total = +state.getIn([
+      "tabledata",
+      "table_extrafabric",
+      "tablebody",
+      7,
+      1,
+      "cellData"
+    ])
+
+    return TF() + q_total
+  }
 
   // Calculates Particular PerPcs
   const particularPerPcs = (state, row, col = 3) => {
@@ -256,9 +292,8 @@ const handlePrice = (state, rowindex, colindex, value, prev_val) => {
           1,
           "cellData"
         ])
-        return addCommas(
-          (parseFloat(count_yarn) * parseFloat(value)).toFixed(0)
-        )
+        return (parseFloat(count_yarn) * parseFloat(value)).toFixed(0)
+
       case 1:
         return (
           (QT - SF) *
