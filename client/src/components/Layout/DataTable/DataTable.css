@@ -15,18 +15,21 @@ table.datatable {
   border: 1px solid #949494;
 }
 .datatable th {
-  font-size: 0.8rem;
+  font-size: 1rem;
   letter-spacing: 1px;
   background-color: #949494;
   color: #ffffff;
-  padding: 0.4rem 0;
+  padding: 0.6rem 1rem;
+  white-space: nowrap;
 }
 .datatable td {
+  font-size: 0.9rem;
   font-weight: 600;
   min-width: 1rem;
   height: 2rem;
   padding: 0;
   margin: 0;
+  white-space: nowrap;
   box-sizing: content-box;
 }
 
@@ -71,7 +74,6 @@ table.datatable {
   z-index: 3;
 }
 .span-input-prefix + .input-prefix {
-  padding: 0 !important;
   padding-left: 1.1rem !important;
 }
 .span-input-prefix-long {
@@ -84,7 +86,6 @@ table.datatable {
   z-index: 3;
 }
 .span-input-prefix-long + .input-prefix {
-  padding: 0 !important;
   padding-left: 2.3rem !important;
 }
 .span-input-suffix {
@@ -104,6 +105,7 @@ table.datatable td input {
   height: 100%;
   padding: 0.3rem;
   border-width: 0;
+  /* text-align: right; */
   cursor: cell;
   box-sizing: border-box;
   outline: none;
@@ -116,6 +118,7 @@ table.datatable td input:hover {
   z-index: 2;
 }
 table.datatable td input:focus {
+  text-align: left;
   box-shadow: inset 0 0 0 0.2rem #d1d1d1;
   z-index: 1;
 }

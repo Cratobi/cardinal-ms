@@ -2,21 +2,81 @@
 import { getIn, setIn } from 'immutable'
 
 // Add Commas
-const addCommas = num => {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+const addCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+// 2 Dec
+
+const loop = (start, end, Func) => {
+  let i
+  for (i = start; i <= end; i++) {
+    Func(i)
+  }
+  return null
+}
+const loopFor = (array, Func) => {
+  let i
+  for (i = 0; i <= array.length; i++) {
+    Func(array[i])
+  }
+  return null
+}
+const Round = num => {
+  num = Math.round(num * 100) / 100
+  if (isNaN(num)) num = 0
+
+  return num
+}
+const toFloat = num => {
+  num = parseFloat(num)
+  if (isNaN(num)) num = 0
+
+  num = Math.round(num * 100) / 100
+  if (isNaN(num)) num = 0
+
+  return num
+}
+const toFloatRound = num => {
+  num = parseFloat(num)
+
+  if (isNaN(num)) num = 0
+  num = Math.round(num * 100) / 100
+  if (isNaN(num)) num = 0
+
+  return num
+}
+const NaNChecker = num => {
+  if (isNaN(num)) num = 0
+
+  return num
+}
+const infinityChecker = num => {
+  if (!isFinite(num)) num = ''
+
+  return num
+}
+const emptifier = num => {
+  if (num === 0) num = ''
+
+  return num
 }
 
-const getCellData = (state, tablename, rowindex, colindex) =>
-  +state.getIn([
-    'tabledata',
-    'table_' + tablename,
-    'tablebody',
-    rowindex,
-    colindex,
-    'cellData',
-  ])
-const setCellData = (state, tablename, rowindex, colindex, value) =>
-  state.setIn(
+const getCellData = (state, tablename, rowindex, colindex) => {
+  let cellData = toFloat(
+    state.getIn([
+      'tabledata',
+      'table_' + tablename,
+      'tablebody',
+      rowindex,
+      colindex,
+      'cellData',
+    ]),
+  )
+
+  return cellData
+}
+const setCellData = (state, tablename, rowindex, colindex, value) => {
+  value = emptifier(value)
+
+  state = state.setIn(
     [
       'tabledata',
       'table_' + tablename,
@@ -27,6 +87,8 @@ const setCellData = (state, tablename, rowindex, colindex, value) =>
     ],
     value,
   )
+  return state
+}
 const updateCellData = (state, tablename, rowindex, colindex, updateFunc) =>
   state.updateIn(
     [
@@ -38,18 +100,78 @@ const updateCellData = (state, tablename, rowindex, colindex, updateFunc) =>
       'cellData',
     ],
     old_val => {
-      let new_val = updateFunc(+old_val)
-      console.log(new_val)
-      if (new_val !== 0) {
+      old_val = toFloat(old_val)
+      let new_val = updateFunc(old_val)
+
+      if (new_val === 0) {
         new_val = ''
       }
+      new_val = new_val
+
       return new_val
     },
   )
 
+const addToOldValue = (old_val, value, prev_val) => {
+  prev_val = toFloat(prev_val)
+  value = toFloat(value)
+
+  let new_val = old_val + (value - prev_val)
+  new_val = Round(new_val)
+  return new_val
+}
 // Some Presets
 const getComposition__Total = state =>
   getCellData(state, 'colourandcompotision', 9, 11)
+
+const getPrice__Value = (state, rowindex, colindex = 2) =>
+  getCellData(state, 'price', rowindex, colindex)
+
+const getPrice__Price = (state, rowindex) =>
+  getCellData(state, 'price', rowindex, 1)
+
+// Confusing values
+const R22 = state => {
+  let SFBM = toFloat(
+    state.getIn(['tabledata', 'extradata', 'self_fabric_matching_body']),
+  )
+  // For Test
+  SFBM = 150
+
+  let r22 = ((getComposition__Total(state) / 12) * SFBM) / 1000
+
+  // Test
+  r22 = 31
+
+  return r22
+}
+const S22 = state => {
+  let s22 = (getComposition__Total(state) / 12) * 0.98555732
+  NaNChecker(s22)
+
+  // Test
+  s22 = 292
+  return s22
+}
+const R33 = state => {
+  let q_total = toFloat(
+    state.getIn([
+      'tabledata',
+      'table_extrafabric',
+      'tablebody',
+      7,
+      1,
+      'cellData',
+    ]),
+  )
+  // For Test
+  q_total = 150
+
+  let r33 = (S22(state) + q_total) / 1000
+  r33 = 292
+
+  return r33
+}
 
 // Will update "Size" table's header taking value from Measurement Table
 const composition__CloneSizeHeader = (state, colindex, value) => {
@@ -59,138 +181,399 @@ const composition__CloneSizeHeader = (state, colindex, value) => {
 
 // Will update "Composition" table's right, bottom and total cells
 const composition__SumTotal = (state, rowindex, colindex, value, prev_val) => {
-  const updateButtomRow = old_val => old_val + (+value - +prev_val)
+  const bottomRowFunc = old_val => addToOldValue(old_val, value, prev_val)
+  const sideRowFunc = old_val => addToOldValue(old_val, value, prev_val)
+  const totalFunc = old_val => addToOldValue(old_val, value, prev_val)
 
   state = updateCellData(
     state,
     'colourandcompotision',
     9,
     colindex - 1,
-    updateButtomRow,
+    bottomRowFunc,
   )
+  state = updateCellData(
+    state,
+    'colourandcompotision',
+    rowindex,
+    12,
+    sideRowFunc,
+  )
+  state = updateCellData(state, 'colourandcompotision', 9, 11, totalFunc)
 
-  state = state.updateIn(
-    [
-      'tabledata',
-      'table_colourandcompotision',
-      'tablebody',
-      rowindex,
-      12,
-      'cellData',
-    ],
-    old_val => {
-      const new_val = +old_val + (+value - +prev_val)
-      return new_val !== 0 ? new_val : ''
-    },
+  state = currency__BodyConsumptionAndLycra(state)
+  state = currency__RibConsumptionAndLycra(state)
+  loopFor(
+    [9, 10, 11, 12, 13, 14],
+    rowindex => (state = price__Value(state, rowindex)),
   )
-  state = state.updateIn(
-    ['tabledata', 'table_colourandcompotision', 'tablebody', 9, 11, 'cellData'],
-    old_val => {
-      const new_val = +old_val + (+value - +prev_val)
-      return new_val !== 0 ? new_val : ''
-    },
-  )
-
-  state = currency__All(state, 2)
-  state = currency__All(state, 3)
-  // state = price_All(state, 'fullUpdate')
+  state = price__PerPcs__All(state)
   return state
 }
 
-// accessories__SumPrice
-const accessories__SumPrice = (state, value, prev_val) => {
-  state = state.updateIn(
-    ['tabledata', 'table_accessoriesname', 'tablebody', 22, 1, 'cellData'],
-    old_val => {
-      old_val = parseFloat(old_val)
-      value = parseFloat(value)
-      prev_val = parseFloat(prev_val)
-
-      if (isNaN(old_val)) {
-        old_val = 0
-      }
-      if (isNaN(value)) {
-        value = 0
-      }
-      if (isNaN(prev_val)) {
-        prev_val = 0
-      }
-      const new_val = old_val + (value - prev_val)
-      return new_val !== 0 ? new_val.toFixed(2) : ''
-    },
-  ) // parseFloat
+// accessories__SumPriceTotal
+const accessories__SumPriceTotal = (state, value, prev_val) => {
+  const totalFunc = old_val => addToOldValue(old_val, value, prev_val)
+  state = updateCellData(state, 'accessoriesname', 22, 1, totalFunc)
 
   return state
 }
 
 // Will calculate and update "Currency" table's value
-const currency__All = (state, rowindex, value) => {
-  if (rowindex === 2 || rowindex === 4) {
-    let lyca_body =
-      Math.round(
-        (((getComposition__Total(state) / 12) *
-          getCellData(state, 'currency', rowindex, 1) *
-          getCellData(state, 'currency', 4, 1)) /
-          100) *
-          100,
-      ) / 100
-    if (lyca_body === 0) {
-      lyca_body = ''
-    }
+const currency__TotalYarn = state => {
+  const currencyLycraBody = getCellData(state, 'currency', 4, 2)
+  const currencyLycraRib = getCellData(state, 'currency', 5, 2)
 
-    state = setCellData(state, 'currency', 4, 2, lyca_body)
+  const totalYarn = R33(state) - currencyLycraBody - currencyLycraRib
 
-    return state
-  } else if (rowindex === 3 || rowindex === 5) {
-    let lyca_rib =
-      Math.round(
-        (((getComposition__Total(state) / 12) *
-          getCellData(state, rowindex, 1) *
-          getCellData(state, 5, 1)) /
-          100) *
-          100,
-      ) / 100
+  state = setCellData(
+    state,
+    'currency',
+    1,
+    1,
+    infinityChecker(Round(totalYarn)),
+  )
+  state = price__Value(state, 0)
 
-    if (lyca_rib === 0) {
-      lyca_rib = ''
-    }
+  return state
+}
+const currency__BodyConsumptionAndLycra = state => {
+  const compositionTotal = getComposition__Total(state)
+  const bodyLycraPercent = getCellData(state, 'currency', 4, 1) / 100
 
-    state = setCellData(state, 'currency', 5, 2, lyca_rib)
+  const bodyConsumption = ((R33(state) - R22(state)) / compositionTotal) * 12
+  const bodyLycra = (compositionTotal / 12) * bodyConsumption * bodyLycraPercent
 
-    return state
-  } else {
-    state = setCellData(state, 'currency', rowindex, 1, value)
-    return state
-  }
+  state = setCellData(
+    state,
+    'currency',
+    2,
+    1,
+    infinityChecker(Round(bodyConsumption)),
+  )
+  state = setCellData(state, 'currency', 4, 2, Round(bodyLycra))
+  state = currency__TotalYarn(state)
+  state = price__Value(state, 4)
+  state = price__PerPcs(state, 4)
+
+  return state
+}
+const currency__RibConsumptionAndLycra = state => {
+  const compositionTotal = getComposition__Total(state)
+  const ribLycraPercent = getCellData(state, 'currency', 5, 1) / 100
+
+  const ribConsumption = (R22(state) / compositionTotal) * 12
+  const ribLycra = (compositionTotal / 12) * ribConsumption * ribLycraPercent
+
+  state = setCellData(
+    state,
+    'currency',
+    3,
+    1,
+    infinityChecker(Round(ribConsumption)),
+  )
+  state = setCellData(state, 'currency', 5, 2, Round(ribLycra))
+  state = currency__TotalYarn(state)
+  state = price__Value(state, 4)
+  state = price__PerPcs(state, 4)
+
+  return state
 }
 
 // PRICE
-// const price_All = (state, rowindex, colindex, value, prev_val) => {
-//   // Confusing values
-//   const SF = () => {
-//     const sf = state.getIn([
-//       'tabledata',
-//       'extradata',
-//       'self_fabric_matching_body',
-//     ])
-//     return ((getComposition__Total(state) / 12) * sf) / 1000
+const price__PerPcs = (state, rowindex, colindex = 3) => {
+  const priceValue = getPrice__Value(state, rowindex, colindex - 1)
+
+  if (rowindex !== 22 && rowindex !== 23 && rowindex !== 24) {
+    const compositionTotal = getComposition__Total(state)
+
+    let perPcs = priceValue / compositionTotal
+    perPcs = toFloatRound(perPcs)
+    perPcs = infinityChecker(perPcs)
+    state = setCellData(state, 'price', rowindex, colindex, perPcs)
+    loop(22, 24, rowindex => (state = price__PerPcs(state, rowindex)))
+  } else {
+    const pricePrice = getCellData(state, 'price', rowindex, 1)
+    const pricePerPcsTotal = getCellData(state, 'price', 21, 2)
+
+    let differnece = pricePrice - pricePerPcsTotal
+    differnece = toFloatRound(differnece)
+    state = setCellData(state, 'price', rowindex, 3, differnece)
+    return state
+  }
+  return state
+}
+const price__PerPcs__All = state => {
+  const compositionTotal = getComposition__Total(state)
+  const pricePerPcsTotal = getCellData(state, 'price', 21, 2)
+
+  loop(0, 20, rowindex => {
+    const priceValue = getPrice__Value(state, rowindex)
+
+    let perPcs = priceValue / compositionTotal
+    perPcs = toFloatRound(perPcs)
+    state = setCellData(state, 'price', rowindex, 3, perPcs)
+  })
+
+  loop(22, 24, rowindex => {
+    const pricePrice = getCellData(state, 'price', rowindex, 1)
+
+    let differnece = pricePrice - pricePerPcsTotal
+    differnece = toFloatRound(differnece)
+    state = setCellData(state, 'price', rowindex, 3, differnece)
+    return state
+  })
+
+  return state
+}
+
+// Calculates Particular Values
+const price__Value = (state, rowindex) => {
+  const exchangeRate = getCellData(state, 'currency', 0, 1)
+  const pricePrice = getPrice__Price(state, rowindex)
+
+  let priceValue = 0
+
+  switch (rowindex) {
+    case 0:
+      const totalYarn = getCellData(state, 'currency', 1, 1)
+      priceValue = totalYarn * pricePrice
+      break
+    case 1:
+      priceValue = (R33(state) - R22(state)) * (pricePrice / exchangeRate)
+      break
+    case 2:
+      priceValue = R22(state) * (pricePrice / exchangeRate)
+      break
+    case 3:
+    case 5:
+      priceValue = R33(state) * (pricePrice / exchangeRate)
+      break
+    case 4:
+      const lycraBody = getCellData(state, 'currency', 4, 2)
+      const lycraRib = getCellData(state, 'currency', 5, 2)
+      priceValue = lycraBody + lycraRib * (pricePrice / exchangeRate)
+      break
+    case 6:
+    case 7:
+      priceValue = pricePrice * (R33(state) / exchangeRate)
+      break
+    case 8:
+      const raqQuantity = getCellData(state, 'currency', 6, 1)
+      priceValue =
+        pricePrice * ((S22(state) - R22(state) + raqQuantity) / exchangeRate)
+      break
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+    case 18:
+    case 19:
+      const compositionTotal = getComposition__Total(state)
+      priceValue = pricePrice * (compositionTotal / 12)
+      break
+
+    // no default
+  }
+  priceValue = Round(priceValue)
+  priceValue = infinityChecker(priceValue)
+  priceValue = emptifier(priceValue)
+
+  state = setCellData(state, 'price', rowindex, 2, priceValue)
+  state = price_Commotion(state)
+  state = price_Total(state)
+
+  return state
+}
+
+const price_Commotion = state => {
+  const buyingCommotionPercent = getCellData(state, 'price', 20, 1) / 100
+
+  let priceValueCommotion = 0
+  loop(0, 19, rowindex => {
+    priceValueCommotion += NaNChecker(getCellData(state, 'price', rowindex, 2))
+  })
+
+  priceValueCommotion -= priceValueCommotion * (1 - buyingCommotionPercent)
+  priceValueCommotion = Round(priceValueCommotion)
+
+  state = setCellData(state, 'price', 20, 2, priceValueCommotion)
+  return state
+}
+
+const price_Total = (state, rowindex) => {
+  let priceValueTotal = 0
+
+  loop(0, 20, rowindex => {
+    priceValueTotal += NaNChecker(getCellData(state, 'price', rowindex, 2))
+  })
+
+  priceValueTotal = Round(priceValueTotal)
+  state = setCellData(state, 'price', 21, 1, priceValueTotal)
+  state = price__PerPcs(state, 21, 2)
+
+  return state
+  // let per_pcs_total = toFloat(
+  //   state.getIn(['tabledata', 'table_price', 'tablebody', 21, 2, 'cellData']),
+  // )
+
+  // for (let row = 22; row <= 24; row++) {
+  //   let color_price = toFloat(
+  //     state.getIn(
+  //       ['tabledata', 'table_price', 'tablebody', row, 1, 'cellData'],
+  //       per_pcs_total,
+  //     ),
+  //   )
+  //   const color_price_difference = isNaN(color_price)
+  //     ? `(${per_pcs_total})`
+  //     : (color_price - per_pcs_total).toFixed(2)
+
+  //   state = state.setIn(
+  //     ['tabledata', 'table_price', 'tablebody', row, 3, 'cellData'],
+  //     color_price_difference,
+  //   )
+
+  // priceValue = Round(priceValue)
+  // priceValue = infinityChecker(priceValue)
+  // priceValue = emptifier(priceValue)
+
+  // state = setCellData(state, 'price', rowindex, 2, priceValue)
+  // return state
+}
+
+// Calculates Price Difference
+// const price_Difference = state => {
+//   let per_pcs_total = toFloat(
+//     state.getIn(['tabledata', 'table_price', 'tablebody', 21, 2, 'cellData']),
+//   )
+
+//   for (let row = 22; row <= 24; row++) {
+//     let color_price = toFloat(
+//       state.getIn(
+//         ['tabledata', 'table_price', 'tablebody', row, 1, 'cellData'],
+//         per_pcs_total,
+//       ),
+//     )
+//     const color_price_difference = isNaN(color_price)
+//       ? `(${per_pcs_total})`
+//       : (color_price - per_pcs_total).toFixed(2)
+
+//     state = state.setIn(
+//       ['tabledata', 'table_price', 'tablebody', row, 3, 'cellData'],
+//       color_price_difference,
+//     )
 //   }
-//   const TF = () => {
-//     return (getComposition__Total(state) / 12) * 0.98555732
-//   }
-//   const QT = () => {
-//     const q_total = +state.getIn([
+
+//   return state
+// }
+
+//   // Calculates Value Total
+//   const particularValueTotal = state => {
+//     let sum_particular_value = 0
+//     for (let row = 0; row <= 19; row++) {
+//       let particular_value = toFloat(
+//         state.getIn([
+//           'tabledata',
+//           'table_price',
+//           'tablebody',
+//           row,
+//           2,
+//           'cellData',
+//         ]),
+//       )
+
+//       sum_particular_value += particular_value
+//     }
+
+//     const buying_commotion = +state.getIn([
 //       'tabledata',
-//       'table_extrafabric',
+//       'table_price',
 //       'tablebody',
-//       7,
+//       20,
 //       1,
 //       'cellData',
 //     ])
+//     let sum_particular_value_commotion =
+//       sum_particular_value - sum_particular_value * (1 - buying_commotion / 100)
+//     let sum_particular_value_total =
+//       sum_particular_value + sum_particular_value_commotion
 
-//     return TF() + q_total
+//     sum_particular_value_commotion =
+//       sum_particular_value_commotion !== 0
+//         ? sum_particular_value_commotion.toFixed(2)
+//         : ''
+
+//     sum_particular_value_total =
+//       sum_particular_value_total !== 0
+//         ? sum_particular_value_total.toFixed(2)
+//         : ''
+
+//     state = state.setIn(
+//       ['tabledata', 'table_price', 'tablebody', 20, 2, 'cellData'],
+//       sum_particular_value_commotion,
+//     )
+//     state = state.setIn(
+//       ['tabledata', 'table_price', 'tablebody', 21, 1, 'cellData'],
+//       sum_particular_value_total,
+//     )
+//     state = particularPerPcs(state, 21, 2)
+
+//     return state
 //   }
 
+//   if (rowindex === 'fullUpdate') {
+//     let row
+//     for (row = 0; row <= 21; row++) {
+//       state = particularPerPcs(state, row)
+//       return state
+//     }
+//   } else {
+//     const old_particular_value = state.getIn([
+//       'tabledata',
+//       'table_price',
+//       'tablebody',
+//       rowindex,
+//       2,
+//       'cellData',
+//     ])
+
+//     let particular_value = particularValue(state, rowindex)
+//     if (isNaN(particular_value)) {
+//       particular_value = ''
+//     }
+
+//     if (
+//       prev_val !== particular_value &&
+//       [15, 16, 17, 18, 19, 21, 22, 23].filter(row => rowindex === row)
+//         .length === 0 &&
+//       colindex !== 2
+//     ) {
+//       state = state.setIn(
+//         ['tabledata', 'table_price', 'tablebody', rowindex, 2, 'cellData'],
+//         particular_value,
+//       )
+//     } else if (colindex === 2) {
+//       state = state.setIn(
+//         ['tabledata', 'table_price', 'tablebody', rowindex, 2, 'cellData'],
+//         value,
+//       )
+//     }
+
+//     state = particularValueTotal(state, particular_value, old_particular_value)
+//     state = particularPerPcs(state, rowindex)
+//     state = priceDifference(state)
+//     return state
+//   }
+
+//   return state
+// }
+
+// const price_All = (state, rowindex, colindex, value, prev_val) => {
 //   // Calculates Particular PerPcs
 //   const particularPerPcs = (state, row, col = 3) => {
 //     const particular_value = getCellData(state, 'price', row, col - 1)
@@ -199,17 +582,13 @@ const currency__All = (state, rowindex, value) => {
 
 //     const perPcs = (particular_value, composition__Total) => {
 //       let per_pcs = (
-//         parseFloat(particular_value) / parseFloat(composition__Total)
+//         toFloat(particular_value) / toFloat(composition__Total)
 //       ).toFixed(2)
 
 //       return per_pcs
 //     }
 
 //     let per_pcs = perPcs(particular_value, composition__Total)
-
-//     if (isNaN(per_pcs)) {
-//       per_pcs = ''
-//     }
 
 //     if (old_per_pcs !== per_pcs) {
 //       state = state.setIn(
@@ -243,19 +622,19 @@ const currency__All = (state, rowindex, value) => {
 //           1,
 //           'cellData',
 //         ])
-//         return (parseFloat(count_yarn) * parseFloat(value)).toFixed(0)
+//         return (toFloat(count_yarn) * toFloat(value)).toFixed(0)
 
 //       case 1:
 //         return (
-//           (QT - SF) *
-//           (parseFloat(value) / parseFloat(exchange_rate))
+//           (R33 - R22) *
+//           (toFloat(value) / exchangeRate)
 //         ).toFixed(2)
 //       case 2:
-//         return (SF * (parseFloat(value) / parseFloat(exchange_rate))).toFixed(2)
+//         return (R22 * (toFloat(value) / toFloat(exchange_rate))).toFixed(2)
 //       case 3:
-//         return (QT * (parseFloat(value) / parseFloat(exchange_rate))).toFixed(2)
+//         return (R33 * (toFloat(value) / toFloat(exchange_rate))).toFixed(2)
 //       case 4:
-//         const lyca_body = state.getIn([
+//         const lycra_body = state.getIn([
 //           'tabledata',
 //           'table_currency',
 //           'tablebody',
@@ -263,7 +642,7 @@ const currency__All = (state, rowindex, value) => {
 //           2,
 //           'cellData',
 //         ])
-//         const lyca_rib = state.getIn([
+//         const lycra_rib = state.getIn([
 //           'tabledata',
 //           'table_currency',
 //           'tablebody',
@@ -273,14 +652,14 @@ const currency__All = (state, rowindex, value) => {
 //         ])
 
 //         return (
-//           (lyca_body + lyca_rib) *
-//           (parseFloat(value) / parseFloat(exchange_rate))
+//           (lycra_body + lycra_rib) *
+//           (toFloat(value) / toFloat(exchange_rate))
 //         ).toFixed(2)
 //       case 5:
-//         return ((QT * parseFloat(value)) / parseFloat(exchange_rate)).toFixed(2)
+//         return ((R33 * toFloat(value)) / toFloat(exchange_rate)).toFixed(2)
 //       case 6:
 //       case 7:
-//         return (parseFloat(value) * (QT / parseFloat(exchange_rate))).toFixed(2)
+//         return (toFloat(value) * (R33 / toFloat(exchange_rate))).toFixed(2)
 //       case 8:
 //         const aop_quantity = state.getIn([
 //           'tabledata',
@@ -292,8 +671,8 @@ const currency__All = (state, rowindex, value) => {
 //         ])
 
 //         return (
-//           parseFloat(value) *
-//           ((TF - SF + parseFloat(aop_quantity)) / parseFloat(exchange_rate))
+//           toFloat(value) *
+//           ((S22(state) - R22 + toFloat(aop_quantity)) / toFloat(exchange_rate))
 //         ).toFixed(2)
 //       case 9:
 //       case 10:
@@ -310,22 +689,18 @@ const currency__All = (state, rowindex, value) => {
 //           'cellData',
 //         ])
 
-//         return (
-//           parseFloat(value) *
-//           (parseFloat(composition__Total) / 12)
-//         ).toFixed(2)
+//         return (toFloat(value) * (toFloat(composition__Total) / 12)).toFixed(2)
 //       // no default
 //     }
 //   }
 //   // Calculates Price Difference
 //   const priceDifference = state => {
-//     let per_pcs_total = parseFloat(
+//     let per_pcs_total = toFloat(
 //       state.getIn(['tabledata', 'table_price', 'tablebody', 21, 2, 'cellData']),
 //     )
-//     per_pcs_total = isNaN(per_pcs_total) ? 0 : per_pcs_total
 
 //     for (let row = 22; row <= 24; row++) {
-//       let color_price = parseFloat(
+//       let color_price = toFloat(
 //         state.getIn(
 //           ['tabledata', 'table_price', 'tablebody', row, 1, 'cellData'],
 //           per_pcs_total,
@@ -348,7 +723,7 @@ const currency__All = (state, rowindex, value) => {
 //   const particularValueTotal = state => {
 //     let sum_particular_value = 0
 //     for (let row = 0; row <= 19; row++) {
-//       let particular_value = parseFloat(
+//       let particular_value = toFloat(
 //         state.getIn([
 //           'tabledata',
 //           'table_price',
@@ -358,7 +733,6 @@ const currency__All = (state, rowindex, value) => {
 //           'cellData',
 //         ]),
 //       )
-//       particular_value = isNaN(particular_value) ? 0 : particular_value
 
 //       sum_particular_value += particular_value
 //     }
@@ -447,11 +821,17 @@ const currency__All = (state, rowindex, value) => {
 // }
 
 export {
+  // additional Fuctions
+  loopFor,
+  // Primary Functions
   getCellData,
   setCellData,
   composition__CloneSizeHeader,
   composition__SumTotal,
-  accessories__SumPrice,
-  currency__All,
+  accessories__SumPriceTotal,
+  currency__BodyConsumptionAndLycra,
+  currency__RibConsumptionAndLycra,
+  price__PerPcs,
+  price__Value,
   // price_All,
 }

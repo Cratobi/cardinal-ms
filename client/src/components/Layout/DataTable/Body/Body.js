@@ -81,7 +81,7 @@ const tableBody = props => {
       {props.tableData
         ? data.map((data, colindex) => {
             // Init
-            let CellData = data.get("CellData")
+            let cellData = data.get("cellData")
             let [
               colspan,
               rowspan,
@@ -146,14 +146,14 @@ const tableBody = props => {
                   }
                 })()
 
-                CellData = (
+                cellData = (
                   <select
                     className={classname}
                     data-tablename={props.tableName}
                     data-rowindex={rowindex}
                     data-colindex={colindex}
                     onChange={props.changeHandler}
-                    value={data.get("CellData")}
+                    value={data.get("cellData")}
                   >
                     <option value="" />
                     {optionArray.map((data, index) => (
@@ -164,7 +164,7 @@ const tableBody = props => {
               } else {
                 // Handle input element
 
-                CellData = (
+                cellData = (
                   <Fragment>
                     <div className="input-container">
                       {inputPrefix}
@@ -176,8 +176,8 @@ const tableBody = props => {
                         onChange={props.changeHandler}
                         name={data.get("id")}
                         type={data.get("CellDataType")}
-                        title={data.get("CellData")}
-                        value={data.get("CellData")}
+                        title={data.get("cellData")}
+                        value={data.get("cellData")}
                       />
                       {inputSuffix}
                     </div>
@@ -185,7 +185,7 @@ const tableBody = props => {
                 )
               }
             } else {
-              CellData = (
+              cellData = (
                 <div
                   className={
                     "filled-txt" + (data.get("id") ? " auto-filled-txt" : "")
@@ -193,7 +193,7 @@ const tableBody = props => {
                   // onWheel={e => props.wheel(e)} // To control horizental scroll by default
                 >
                   {prefix}
-                  {CellData}
+                  {cellData}
                   {suffix}
                 </div>
               )
@@ -202,7 +202,7 @@ const tableBody = props => {
 
             return (
               <td colSpan={colspan} rowSpan={rowspan} key={colindex}>
-                {CellData}
+                {cellData}
               </td>
             )
           })
