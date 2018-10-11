@@ -19,12 +19,11 @@
 table.overview td {
   font-size: 1rem;
   font-weight: 700;
-  padding: 0.6rem;
-  padding-left: 4rem;
 }
 table.overview td:first-child {
   color: #747474;
-  padding-left: 0;
+  padding: 0.6rem;
+  padding-right: 5rem;
 }
 .overview button.more-btn {
   text-align: left;

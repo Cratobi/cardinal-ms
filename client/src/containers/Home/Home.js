@@ -1,35 +1,35 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
-import { Link, withRouter } from "react-router-dom"
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Link, withRouter } from 'react-router-dom'
 // eslint-disable-next-line
-import { getIn, toJS } from "immutable"
-import DayPickerInput from "react-day-picker/DayPickerInput"
-import { DateUtils } from "react-day-picker"
-import "react-day-picker/lib/style.css"
-import * as actions from "../../store/actions/index"
-import dateFnsFormat from "date-fns/format"
-import dateFnsParse from "date-fns/parse"
-import { CSSTransition } from "react-transition-group"
-import "./Home.css"
+import { getIn, toJS } from 'immutable'
+import DayPickerInput from 'react-day-picker/DayPickerInput'
+import { DateUtils } from 'react-day-picker'
+import 'react-day-picker/lib/style.css'
+import * as actions from '../../store/actions/index'
+import dateFnsFormat from 'date-fns/format'
+import dateFnsParse from 'date-fns/parse'
+import { CSSTransition } from 'react-transition-group'
+import './Home.css'
 
-import ModalLayout from "../../components/Layout/Modal/Modal"
-import OrderCards from "../Orders/OrderCards"
-import CardLoadingLayout from "../../components/Layout/Loading/CardLoading"
+import ModalLayout from '../../components/Layout/Modal/Modal'
+import OrderCards from '../Orders/OrderCards'
+import CardLoadingLayout from '../../components/Layout/Loading/CardLoading'
 
 const SelectOption = props => <option value={props.value}>{props.name}</option>
 
 class Home extends Component {
   state = {
     draftModal: false,
-    new_buyer: "",
+    new_buyer: '',
     draft_metadata: {
-      buyer: "H1Z1",
-      order_no: "",
+      buyer: '',
+      order_no: '',
       shipment_date: new Date(),
-      style_no: "",
-      item: "",
-      quantity: ""
-    }
+      style_no: '',
+      item: '',
+      quantity: '',
+    },
   }
   componentWillMount() {
     this.props.fetchOrders(null, true)
@@ -143,9 +143,9 @@ class Home extends Component {
                 <label className="form-label">Buyer:</label>
 
                 <select
-                  name="company"
+                  name="buyer"
                   className="form-select"
-                  onChange={this.handleChange}
+                  onChange={this.handleFormChange}
                   defaultValue=""
                 >
                   <option value="" disabled>
@@ -171,7 +171,7 @@ class Home extends Component {
                   format="D/M/YYYY"
                   parseDate={this.parseDate}
                   value={this.state.draft_metadata.shipment_date}
-                  placeholder={`e.g. ${dateFnsFormat(new Date(), "D/M/YYYY")}`}
+                  placeholder={`e.g. ${dateFnsFormat(new Date(), 'D/M/YYYY')}`}
                 />
               </div>
               <div className="form-inline-input">
@@ -233,10 +233,10 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    orders: state.getIn(["order", "orders"]),
-    orders_count: state.getIn(["order", "orders_count"]),
-    buyers: state.getIn(["buyer", "buyers"]),
-    tabledata: state.getIn(["draft", "tabledata"])
+    orders: state.getIn(['order', 'orders']),
+    orders_count: state.getIn(['order', 'orders_count']),
+    buyers: state.getIn(['buyer', 'buyers']),
+    tabledata: state.getIn(['draft', 'tabledata']),
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -246,12 +246,12 @@ const mapDispatchToProps = dispatch => {
     fetchBuyers: () => dispatch(actions.fetchBuyers()),
     resetBuyers: () => dispatch(actions.resetBuyers()),
     sendDraftMetadata: (payload, router) =>
-      dispatch(actions.sendDraftMetadta(payload, router))
+      dispatch(actions.sendDraftMetadta(payload, router)),
   }
 }
 export default withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps
-  )(Home)
+    mapDispatchToProps,
+  )(Home),
 )

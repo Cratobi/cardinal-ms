@@ -21,6 +21,11 @@ const DraftSchema = new mongoose.Schema({
     minlength: 1,
     required: true
   },
+  shipment_date: {
+    type: Number,
+    default: new Date().getTime(),
+    required: true
+  },
   item: {
     type: String,
     trim: true,
@@ -55,6 +60,7 @@ DraftSchema.methods.toJSON = function() {
     "buyer",
     "order_no",
     "style_no",
+    "shipment_date",
     "item",
     "quantity",
     "createdBy",

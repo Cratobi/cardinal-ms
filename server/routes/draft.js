@@ -39,6 +39,7 @@ app.get("/draft/:id", authenticate, (req, res) => {
 // Add Draft
 app.post("/draft", authenticate, (req, res) => {
   const payload = _.pick(req.body, [
+    "shipment_date",
     "buyer",
     "order_no",
     "style_no",
@@ -46,7 +47,7 @@ app.post("/draft", authenticate, (req, res) => {
     "quantity",
     "tabledata"
   ])
-
+  payload.shipment_date = new Date(payload.shipment_date).getTime()
   payload.createdBy = ObjectId(req.userData.id)
   payload.company = req.userData.company
 

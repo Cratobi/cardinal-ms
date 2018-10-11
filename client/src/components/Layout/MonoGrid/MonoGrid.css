@@ -11,7 +11,7 @@
   box-shadow: var(--elevation-0);
   display: flex;
   width: 100%;
-  max-width: 80vw;
+  max-width: 90vw;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
@@ -31,6 +31,8 @@
 
 .custom-card-container-orders .card-header {
   display: flex;
+  width: 100%;
+  padding: 0.5rem 2rem;
   flex-direction: column;
   justify-content: space-between;
   align-self: center;
@@ -40,6 +42,7 @@
   font-weight: 600;
   letter-spacing: 1px;
   display: flex;
+  justify-content: flex-start;
   align-items: center;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
@@ -68,7 +71,7 @@
   text-align: right;
 }
 .custom-card-container-draft .card--header .draft-header-metadata {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 500;
   padding-top: 2rem;
 }
@@ -87,6 +90,62 @@
   display: flex;
   width: 100%;
   justify-content: center;
+}
+
+.draft-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.draft-header table td {
+  vertical-align: middle;
+}
+.extradata_table input.form-input {
+  margin-bottom: 0.5rem;
+}
+/* div.innerTable {
+  width: 0;
+}
+.innerTable .innerTable_input {
+  width: 100%;
+}
+.innerTable input.form-input2 {
+  background-color: red;
+  width: 100% !important;
+} */
+td.half-td {
+  max-width: 5rem;
+}
+input.custom-form-input {
+  width: 100% !important;
+  min-width: 100% !important;
+  background-color: var(--offset-light);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1b1b1b;
+  border-radius: 0.2rem;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  transition: box-shadow var(--transition);
+}
+.custom-form-input:focus {
+  box-shadow: 0 0 0 0.2rem #dddddd;
+}
+table.overview td {
+  font-size: 1rem;
+  font-weight: 700;
+}
+table.overview td:first-child {
+  color: #747474;
+  padding: 0.6rem;
+  padding-right: 5rem;
+}
+input.extradata_table {
+  width: 100%;
+  border: 1px solid #949494;
+  margin: 0;
+  height: 100%;
+  padding: 0.4rem 0.5rem;
 }
 
 @media (max-width: 768px) {

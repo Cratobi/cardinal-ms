@@ -81,7 +81,7 @@ const tableBody = props => {
       {props.tableData
         ? data.map((data, colindex) => {
             // Init
-            let cellData = data.get("cellData")
+            let CellData = data.get("CellData")
             let [
               colspan,
               rowspan,
@@ -130,7 +130,7 @@ const tableBody = props => {
             // Handle editable
             if (props.editability === true && data.get("editable")) {
               // Handle Select element
-              if (data.get("cellType") === "select") {
+              if (data.get("CellDataType") === "select") {
                 // Select array corresponding to table name
 
                 const optionArray = (() => {
@@ -146,14 +146,14 @@ const tableBody = props => {
                   }
                 })()
 
-                cellData = (
+                CellData = (
                   <select
                     className={classname}
                     data-tablename={props.tableName}
                     data-rowindex={rowindex}
                     data-colindex={colindex}
                     onChange={props.changeHandler}
-                    value={data.get("cellData")}
+                    value={data.get("CellData")}
                   >
                     <option value="" />
                     {optionArray.map((data, index) => (
@@ -164,7 +164,7 @@ const tableBody = props => {
               } else {
                 // Handle input element
 
-                cellData = (
+                CellData = (
                   <Fragment>
                     <div className="input-container">
                       {inputPrefix}
@@ -175,9 +175,9 @@ const tableBody = props => {
                         data-colindex={colindex}
                         onChange={props.changeHandler}
                         name={data.get("id")}
-                        type={data.get("cellType")}
-                        title={data.get("cellData")}
-                        value={data.get("cellData")}
+                        type={data.get("CellDataType")}
+                        title={data.get("CellData")}
+                        value={data.get("CellData")}
                       />
                       {inputSuffix}
                     </div>
@@ -185,7 +185,7 @@ const tableBody = props => {
                 )
               }
             } else {
-              cellData = (
+              CellData = (
                 <div
                   className={
                     "filled-txt" + (data.get("id") ? " auto-filled-txt" : "")
@@ -193,7 +193,7 @@ const tableBody = props => {
                   // onWheel={e => props.wheel(e)} // To control horizental scroll by default
                 >
                   {prefix}
-                  {cellData}
+                  {CellData}
                   {suffix}
                 </div>
               )
@@ -202,7 +202,7 @@ const tableBody = props => {
 
             return (
               <td colSpan={colspan} rowSpan={rowspan} key={colindex}>
-                {cellData}
+                {CellData}
               </td>
             )
           })

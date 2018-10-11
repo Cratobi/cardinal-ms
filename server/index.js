@@ -13,7 +13,7 @@ const apis = require("./routes/index") // Api routes
 const app = express() // Express Init
 
 // Middlewares
-// app.use(morgan("dev")) //Logger
+app.use(morgan("dev")) //Logger
 app.use(cors()) // Solve Cross-Origin Restriction
 app.use(bodyParse.json()) //Parse everything to JSON
 
@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
 // })
 
 // Server Config
-const port = process.env.PORT || 80
+const port = process.env.PORT || 3001
 // const port = 3001
 
 app.listen(port, () => {

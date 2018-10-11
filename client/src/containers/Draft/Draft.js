@@ -1,26 +1,26 @@
-import React, { Component, Fragment } from "react"
-import { withRouter } from "react-router-dom"
-import { connect } from "react-redux"
+import React, { Component, Fragment } from 'react'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 // eslint-disable-next-line
-import { get, getIn, toJS } from "immutable"
-import { CSSTransition } from "react-transition-group"
-import * as actions from "../../store/actions/index"
+import { get, getIn, toJS } from 'immutable'
+import { CSSTransition } from 'react-transition-group'
+import * as actions from '../../store/actions/index'
 
-import MonoGridLayout from "../../components/Layout/MonoGrid/MonoGrid"
-import EditableTable from "../EditableTable/EditableTable"
-import LoadingLayout from "../../components/Layout/Loading/Loading"
+import MonoGridLayout from '../../components/Layout/MonoGrid/MonoGrid'
+import EditableTable from '../EditableTable/EditableTable'
+import LoadingLayout from '../../components/Layout/Loading/Loading'
 
 class Draft extends Component {
   componentWillMount() {
     !this.props.metadata && !this.props.match.params.id
-      ? this.props.history.replace({ pathname: "/" })
+      ? this.props.history.replace({ pathname: '/' })
       : this.props.fetchDraft(this.props.match.params.id)
   }
   componentWillUnmount() {
     if (this.props.metadata) {
       const payload = {
-        id: this.props.metadata.get("id"),
-        tabledata: this.props.tabledata.toJS()
+        id: this.props.metadata.get('id'),
+        tabledata: this.props.tabledata.toJS(),
       }
 
       this.props.sendDraftTabledata(payload)
@@ -28,10 +28,10 @@ class Draft extends Component {
     this.props.resetDraft()
   }
   handleSendDraftTabledata = () => {
-    this.props.history.replace({ pathname: "/" })
+    this.props.history.replace({ pathname: '/' })
   }
   handlePublishOrder = () => {
-    this.props.publishOrder(this.props.metadata.get("id"), this.props.history)
+    this.props.publishOrder(this.props.metadata.get('id'), this.props.history)
   }
 
   render() {
@@ -40,13 +40,13 @@ class Draft extends Component {
         CustomCSS="draft"
         header={
           <Fragment>
-            <div className="draft-header-btns">
+            <div className="draft-header-btns p-r-1">
               <button
-                className="btn btn-caution"
+                className="btn btn-caution p-l-1 p-r-1"
                 onClick={() =>
                   this.props.deleteDraft(
-                    this.props.metadata.get("id"),
-                    this.props.history
+                    this.props.metadata.get('id'),
+                    this.props.history,
                   )
                 }
               >
@@ -54,18 +54,137 @@ class Draft extends Component {
                 Delete Draft &nbsp;
               </button>
               <button
-                className="btn btn-dark"
+                className="btn btn-dark p-l-1 p-r-1"
                 onClick={this.handleSendDraftTabledata}
               >
                 <i className="fas fa-inbox p-r" />
                 Save to Draft
               </button>
             </div>
-            <div className="draft-header-metadata">
-              <p>
+
+            <div className="draft-header-metadata m-t-1">
+              <div className="draft-header">
+                <table className="overview">
+                  <tbody>
+                    <tr>
+                      <td>Shipment Date:</td>
+                      <td>
+                        {new Date(
+                          this.props.metadata.get('shipment_date'),
+                        ).toDateString()}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Buyer:</td>
+                      <td>{this.props.metadata.get('buyer')}</td>
+                    </tr>
+                    <tr>
+                      <td>Order no:</td>
+                      <td>{this.props.metadata.get('order_no')}</td>
+                    </tr>
+                    <tr>
+                      <td>Style no:</td>
+                      <td>{this.props.metadata.get('style_no')}</td>
+                    </tr>
+                    <tr>
+                      <td>Item:</td>
+                      <td>{this.props.metadata.get('item')}</td>
+                    </tr>
+                    <tr>
+                      <td>Quantity:</td>
+                      <td>{this.props.metadata.get('quantity')}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table className="card overview extradata_table">
+                  <tbody>
+                    <tr>
+                      <td>Yarn Type:</td>
+                      <td colSpan="2">
+                        {/* <label className="form-label">Order no:</label> */}
+                        <input
+                          type="text"
+                          name="order_no"
+                          className="form-input"
+                          autoComplete="off"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Construction:</td>
+                      <td colSpan="2">
+                        <input
+                          type="text"
+                          name="order_no"
+                          className="form-input"
+                          autoComplete="off"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Weight:</td>
+                      <td colSpan="2">
+                        <input
+                          type="text"
+                          name="order_no"
+                          className="form-input"
+                          autoComplete="off"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>self_fabric_matching_body:</td>
+                      <td colSpan="2">
+                        <input
+                          type="text"
+                          name="order_no"
+                          className="form-input"
+                          autoComplete="off"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Wastage:</td>
+                      <td colSpan="2">
+                        <input
+                          type="text"
+                          name="order_no"
+                          className="form-input"
+                          autoComplete="off"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td />
+                      <th>Chest</th>
+                      <th>Length</th>
+                    </tr>
+                    <tr>
+                      <td>S. Allowance:</td>
+                      <td className="half-td">
+                        <input
+                          type="text"
+                          name="order_no"
+                          className="custom-form-input"
+                          autoComplete="off"
+                        />
+                      </td>
+                      <td className="half-td">
+                        <input
+                          type="text"
+                          name="order_no"
+                          className="custom-form-input"
+                          autoComplete="off"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              {/* <p>
                 <span className="txt-prop">Shipment Date: </span>
                 {this.props.metadata.get("shipment_date")}
-              </p>
+              </p> 
               <p>
                 <span className="txt-prop">Order no: </span>
                 {this.props.metadata.get("order_no")}
@@ -85,7 +204,7 @@ class Draft extends Component {
               <p>
                 <span className="txt-prop">Order no: </span>
                 {this.props.metadata.get("order_no")}
-              </p>
+              </p> */}
             </div>
           </Fragment>
         }
@@ -125,8 +244,8 @@ class Draft extends Component {
 
 const mapStateToProps = state => {
   return {
-    metadata: state.getIn(["draft", "metadata"]),
-    tabledata: state.getIn(["draft", "tabledata"])
+    metadata: state.getIn(['draft', 'metadata']),
+    tabledata: state.getIn(['draft', 'tabledata']),
   }
 }
 
@@ -137,13 +256,13 @@ const mapDispatchToProps = dispatch => {
       dispatch(actions.sendDraftTabledata(payload)),
     publishOrder: (id, router) => dispatch(actions.publishOrder(id, router)),
     deleteDraft: (id, router) => dispatch(actions.deleteDraft(id, router)),
-    resetDraft: () => dispatch(actions.resetDraft())
+    resetDraft: () => dispatch(actions.resetDraft()),
   }
 }
 
 export default withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps
-  )(Draft)
+    mapDispatchToProps,
+  )(Draft),
 )

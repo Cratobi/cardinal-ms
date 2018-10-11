@@ -499,9 +499,8 @@ h6 {
   box-shadow: var(--elevation-2);
 }
 .card-header {
-  font-size: 0.6rem;
-  width: 100%;
-  padding: 2rem;
+  font-size: 1rem;
+  margin: 2rem 0;
 }
 .card-footer {
   width: 100%;
