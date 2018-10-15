@@ -1,12 +1,12 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 // eslint-disable-next-line
-import { get, getIn } from "immutable"
-import * as actions from "../../store/actions/index"
+import { get, getIn } from 'immutable'
+import * as actions from '../../store/actions/index'
 
-import DataTableLayout from "../../components/Layout/DataTable/DataTable"
-import "./EditableTable.css"
-import LoadingLayout from "../../components/Layout/Loading/Loading"
+import DataTableLayout from '../../components/Layout/DataTable/DataTable'
+import './EditableTable.css'
+import LoadingLayout from '../../components/Layout/Loading/Loading'
 
 class Table extends Component {
   tableChangeHandler = e => {
@@ -14,7 +14,7 @@ class Table extends Component {
       rowindex: e.target.dataset.rowindex,
       colindex: e.target.dataset.colindex,
       tablename: e.target.dataset.tablename,
-      value: e.target.value
+      value: e.target.value,
     })
   }
 
@@ -26,13 +26,13 @@ class Table extends Component {
             <DataTableLayout
               editability={true}
               changeHandler={e => this.tableChangeHandler(e)}
-              tableData={this.props.tabledata.get("table_measurments")}
+              tableData={this.props.tabledata.get('table_measurments')}
               wheel={this.wheel}
             />
             <DataTableLayout
               editability={true}
               changeHandler={e => this.tableChangeHandler(e)}
-              tableData={this.props.tabledata.get("table_colourandcompotision")}
+              tableData={this.props.tabledata.get('table_colourandcompotision')}
               wheel={this.wheel}
             />
             <div className="inline-datatable-conatiner">
@@ -40,13 +40,13 @@ class Table extends Component {
                 editability={true}
                 changeHandler={e => this.tableChangeHandler(e)}
                 tableData={this.props.tabledata.get(
-                  "table_fabricfinishprocess"
+                  'table_fabricfinishprocess',
                 )}
               />
               <DataTableLayout
                 editability={true}
                 changeHandler={e => this.tableChangeHandler(e)}
-                tableData={this.props.tabledata.get("table_extrafabric")}
+                tableData={this.props.tabledata.get('table_extrafabric')}
               />
             </div>
             <div className="inline-datatable-conatiner">
@@ -55,24 +55,24 @@ class Table extends Component {
                   editability={true}
                   changeHandler={e => this.tableChangeHandler(e)}
                   tableData={this.props.tabledata.get(
-                    "table_garmentapplication"
+                    'table_garmentapplication',
                   )}
                 />
                 <DataTableLayout
                   editability={true}
                   changeHandler={e => this.tableChangeHandler(e)}
-                  tableData={this.props.tabledata.get("table_accessoriesname")}
+                  tableData={this.props.tabledata.get('table_accessoriesname')}
                 />
               </div>
               <DataTableLayout
                 editability={true}
                 changeHandler={e => this.tableChangeHandler(e)}
-                tableData={this.props.tabledata.get("table_currency")}
+                tableData={this.props.tabledata.get('table_currency')}
               />
               <DataTableLayout
                 editability={true}
                 changeHandler={e => this.tableChangeHandler(e)}
-                tableData={this.props.tabledata.get("table_price")}
+                tableData={this.props.tabledata.get('table_price')}
               />
             </div>
           </div>
@@ -86,11 +86,11 @@ class Table extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onChange: payload => dispatch(actions.onChange(payload))
+    onChange: payload => dispatch(actions.onChange(payload)),
   }
 }
 
 export default connect(
   null,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Table)

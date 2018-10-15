@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import { fromJS, getIn, set, setIn } from 'immutable'
+import { fromJS, toJS, getIn, set, setIn } from 'immutable'
 
 import tabledata from './handlers/tabledataSchema'
 import * as syncHandlers from './handlers/handleStateSync'
@@ -29,9 +29,29 @@ const draftReducer = (state = initialState, action) => {
       const rowindex = +action.payload.rowindex
       const colindex = +action.payload.colindex
       const tablename = action.payload.tablename
+      const name = action.payload.name
       let value = action.payload.value
 
-      if (tablename === 'measurments' && rowindex === 0 && colindex !== 0) {
+      if (tablename === 'extradata') {
+        state = syncHandlers.setExtraData(state, name, value)
+        if (name === 'self_fabric_matching_body') {
+          state = syncHandlers.setR22(state, value)
+        }
+        if (
+          name === 'fabric_weight' ||
+          name === 's_allowance_chest' ||
+          name === 's_allowance_length' ||
+          name === 'wastage'
+        )
+          syncHandlers.loop(
+            1,
+            10,
+            colindex => (state = syncHandlers.setBasic(state, colindex)),
+          )
+
+        return state
+      }
+      if (tablename === 'measurments') {
         state = syncHandlers.setCellData(
           state,
           tablename,
@@ -39,11 +59,16 @@ const draftReducer = (state = initialState, action) => {
           colindex,
           value,
         )
-        state = syncHandlers.composition__CloneSizeHeader(
-          state,
-          colindex,
-          value,
-        )
+        if (rowindex === 0 && colindex !== 0)
+          state = syncHandlers.composition__CloneSizeHeader(
+            state,
+            colindex,
+            value,
+          )
+
+        if (colindex !== 0 && rowindex !== 0)
+          state = syncHandlers.setBasic(state, colindex)
+
         return state
       }
       if (
@@ -64,13 +89,34 @@ const draftReducer = (state = initialState, action) => {
           colindex,
           value,
         )
-        return syncHandlers.composition__SumTotal(
+        state = syncHandlers.composition__SumTotal(
           state,
           rowindex,
           colindex,
           value,
           prev_val,
         )
+        if (colindex > 1 && rowindex > 0) state = syncHandlers.setS22(state)
+
+        return state
+      }
+      if (tablename === 'extrafabric' && 0 <= rowindex <= 6 && colindex === 4) {
+        const prev_val = syncHandlers.getCellData(
+          state,
+          tablename,
+          rowindex,
+          colindex,
+        )
+        state = syncHandlers.setCellData(
+          state,
+          tablename,
+          rowindex,
+          colindex,
+          value,
+        )
+        state = syncHandlers.extrafabric__GTotal(state, value, prev_val)
+
+        return state
       }
       if (
         tablename === 'accessoriesname' &&

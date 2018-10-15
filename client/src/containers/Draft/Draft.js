@@ -8,6 +8,7 @@ import * as actions from '../../store/actions/index'
 
 import MonoGridLayout from '../../components/Layout/MonoGrid/MonoGrid'
 import EditableTable from '../EditableTable/EditableTable'
+import ExtraTable from '../EditableTable/ExtraTable'
 import LoadingLayout from '../../components/Layout/Loading/Loading'
 
 class Draft extends Component {
@@ -96,115 +97,8 @@ class Draft extends Component {
                     </tr>
                   </tbody>
                 </table>
-                <table className="card overview extradata_table">
-                  <tbody>
-                    <tr>
-                      <td>Yarn Type:</td>
-                      <td colSpan="2">
-                        {/* <label className="form-label">Order no:</label> */}
-                        <input
-                          type="text"
-                          name="order_no"
-                          className="form-input"
-                          autoComplete="off"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Construction:</td>
-                      <td colSpan="2">
-                        <input
-                          type="text"
-                          name="order_no"
-                          className="form-input"
-                          autoComplete="off"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Weight:</td>
-                      <td colSpan="2">
-                        <input
-                          type="text"
-                          name="order_no"
-                          className="form-input"
-                          autoComplete="off"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>self_fabric_matching_body:</td>
-                      <td colSpan="2">
-                        <input
-                          type="text"
-                          name="order_no"
-                          className="form-input"
-                          autoComplete="off"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Wastage:</td>
-                      <td colSpan="2">
-                        <input
-                          type="text"
-                          name="order_no"
-                          className="form-input"
-                          autoComplete="off"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td />
-                      <th>Chest</th>
-                      <th>Length</th>
-                    </tr>
-                    <tr>
-                      <td>S. Allowance:</td>
-                      <td className="half-td">
-                        <input
-                          type="text"
-                          name="order_no"
-                          className="custom-form-input"
-                          autoComplete="off"
-                        />
-                      </td>
-                      <td className="half-td">
-                        <input
-                          type="text"
-                          name="order_no"
-                          className="custom-form-input"
-                          autoComplete="off"
-                        />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <ExtraTable editable="true" tabledata={this.props.tabledata} />
               </div>
-              {/* <p>
-                <span className="txt-prop">Shipment Date: </span>
-                {this.props.metadata.get("shipment_date")}
-              </p> 
-              <p>
-                <span className="txt-prop">Order no: </span>
-                {this.props.metadata.get("order_no")}
-              </p>
-              <p>
-                <span className="txt-prop">Style no: </span>
-                {this.props.metadata.get("style_no")}
-              </p>
-              <p>
-                <span className="txt-prop">Item: </span>
-                {this.props.metadata.get("item")}
-              </p>
-              <p>
-                <span className="txt-prop">Quantity: </span>
-                {this.props.metadata.get("quantity")}
-              </p>
-              <p>
-                <span className="txt-prop">Order no: </span>
-                {this.props.metadata.get("order_no")}
-              </p> */}
             </div>
           </Fragment>
         }
@@ -254,6 +148,7 @@ const mapDispatchToProps = dispatch => {
     fetchDraft: id => dispatch(actions.fetchDraft(id)),
     sendDraftTabledata: payload =>
       dispatch(actions.sendDraftTabledata(payload)),
+    onChange: payload => dispatch(actions.onChange(payload)),
     publishOrder: (id, router) => dispatch(actions.publishOrder(id, router)),
     deleteDraft: (id, router) => dispatch(actions.deleteDraft(id, router)),
     resetDraft: () => dispatch(actions.resetDraft()),

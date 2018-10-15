@@ -5,10 +5,11 @@ const tabledataSchema = {
     fabric_weight: '',
     self_fabric_matching_body: '',
     wastage: '',
-    s_allowance: {
-      chest: '',
-      length: '',
-    },
+    s_allowance_chest: '',
+    s_allowance_length: '',
+    R22: null,
+    S22: null,
+    basic: [],
   },
   table_measurments: {
     tablename: 'measurments',
