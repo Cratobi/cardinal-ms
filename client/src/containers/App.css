@@ -269,6 +269,17 @@ h6 {
   background-color: var(--dark-deep);
   box-shadow: 0 0 0 0.2rem #00000036;
 }
+.btn-dark-disabled {
+  background-color: var(--dark-light);
+  color: var(--on-dark-light);
+}
+.btn-dark-disabled:hover {
+  background-color: var(--dark-light);
+}
+.btn-dark-disabled:active {
+  background-color: var(--dark-light);
+  box-shadow: 0 0 0 0.2rem #000000;
+}
 .btn-success {
   background-color: var(--success);
   color: var(--on-success);
@@ -279,6 +290,19 @@ h6 {
 .btn-success:active {
   background-color: var(--success-deep);
   box-shadow: 0 0 0 0.2rem var(--success-transparent);
+}
+.btn-success-disabled {
+  background-color: var(--success-light);
+  color: var(--on-success-light);
+}
+.btn-success-disabled:hover {
+  background-color: var(--success-light);
+  color: var(--on-success-light);
+}
+.btn-success-disabled:active {
+  background-color: var(--success-light);
+  color: var(--on-success-light);
+  box-shadow: 0 0 0 0.0rem var(--success-transparent);
 }
 .btn-caution {
   background-color: var(--caution);
@@ -412,6 +436,9 @@ h6 {
 }
 .flex-j-between {
   justify-content: space-between;
+}
+.flex-self-j-start {
+  justify-self: flex-start;
 }
 .flex-self-j-center {
   justify-self: center;
@@ -612,6 +639,9 @@ main {
 }
 .backdrop-transparent {
   background-color: transparent;
+}
+.backdrop-search {
+  z-index: 2;
 }
 .backdrop-menu {
   z-index: 6;

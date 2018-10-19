@@ -32,7 +32,23 @@ class Draft extends Component {
     this.props.history.replace({ pathname: '/' })
   }
   handlePublishOrder = () => {
-    this.props.publishOrder(this.props.metadata.get('id'), this.props.history)
+    const tabledata = this.props.tabledata.toJS()
+
+    for (
+      let rowindex = 0;
+      rowindex < tabledata.table_date.tablebody.length;
+      rowindex++
+    ) {
+      tabledata.table_date.tablebody[rowindex][1].cellData = new Date(
+        tabledata.table_date.tablebody[rowindex][1].cellData,
+      ).getTime()
+    }
+
+    this.props.publishOrder(
+      this.props.metadata.get('id'),
+      tabledata,
+      this.props.history,
+    )
   }
 
   render() {
@@ -149,7 +165,8 @@ const mapDispatchToProps = dispatch => {
     sendDraftTabledata: payload =>
       dispatch(actions.sendDraftTabledata(payload)),
     onChange: payload => dispatch(actions.onChange(payload)),
-    publishOrder: (id, router) => dispatch(actions.publishOrder(id, router)),
+    publishOrder: (id, tabledata, router) =>
+      dispatch(actions.publishOrder(id, tabledata, router)),
     deleteDraft: (id, router) => dispatch(actions.deleteDraft(id, router)),
     resetDraft: () => dispatch(actions.resetDraft()),
   }

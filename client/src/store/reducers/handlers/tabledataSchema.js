@@ -7,8 +7,6 @@ const tabledataSchema = {
     wastage: '',
     s_allowance_chest: '',
     s_allowance_length: '',
-    R22: null,
-    S22: null,
     basic: [],
   },
   table_measurments: {
@@ -2726,6 +2724,129 @@ const tabledataSchema = {
           editable: false,
           prefix: '$',
           cellType: 'number',
+          cellData: '',
+        },
+      ],
+    ],
+  },
+  table_date: {
+    tablename: 'date',
+    tableheader: null,
+    tablebody: [
+      [
+        {
+          editable: false,
+          cellType: 'text',
+          cellData: 'Yarn Required Date',
+        },
+        {
+          id: 'date_a_1',
+          editable: true,
+          cellType: 'date',
+          cellData: '',
+        },
+      ],
+      [
+        {
+          editable: false,
+          cellType: 'text',
+          cellData: 'Knitting Start Date',
+        },
+        {
+          id: 'date_b_1',
+          editable: true,
+          cellType: 'date',
+          cellData: '',
+        },
+      ],
+      [
+        {
+          editable: false,
+          cellType: 'text',
+          cellData: 'Knitting Close Date',
+        },
+        {
+          id: 'date_c_1',
+          editable: true,
+          cellType: 'date',
+          cellData: '',
+        },
+      ],
+      [
+        {
+          editable: false,
+          cellType: 'text',
+          cellData: 'Batch Received Date',
+        },
+        {
+          id: 'date_d_1',
+          editable: true,
+          cellType: 'date',
+          cellData: '',
+        },
+      ],
+      [
+        {
+          editable: false,
+          cellType: 'text',
+          cellData: 'Batch Delivery Date',
+        },
+        {
+          id: 'date_e_1',
+          editable: true,
+          cellType: 'date',
+          cellData: '',
+        },
+      ],
+      [
+        {
+          editable: false,
+          cellType: 'text',
+          cellData: 'Dyeing Start Date',
+        },
+        {
+          id: 'date_f_1',
+          editable: true,
+          cellType: 'date',
+          cellData: '',
+        },
+      ],
+      [
+        {
+          editable: false,
+          cellType: 'text',
+          cellData: 'Dyeing Close Date',
+        },
+        {
+          id: 'date_g_1',
+          editable: true,
+          cellType: 'date',
+          cellData: '',
+        },
+      ],
+      [
+        {
+          editable: false,
+          cellType: 'text',
+          cellData: 'Finished Fabrics Check Close',
+        },
+        {
+          id: 'date_h_1',
+          editable: true,
+          cellType: 'date',
+          cellData: '',
+        },
+      ],
+      [
+        {
+          editable: false,
+          cellType: 'text',
+          cellData: 'Finished Fabrics Inhouse',
+        },
+        {
+          id: 'date_i_1',
+          editable: true,
+          cellType: 'date',
           cellData: '',
         },
       ],

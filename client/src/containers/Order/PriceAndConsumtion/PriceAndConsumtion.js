@@ -1,6 +1,8 @@
-import React, { Component, Fragment } from "react"
+import React, { Component, Fragment } from 'react'
+// eslint-disable-next-line
+import { getIn } from 'immutable'
 
-import ConsumptionAndPricingLayout from "../../../components/Layout/ConsumptionAndPricing/ConsumptionAndPricing"
+import ConsumptionAndPricingLayout from '../../../components/Layout/ConsumptionAndPricing/ConsumptionAndPricing'
 
 class PriceAndConsumtion extends Component {
   render() {
@@ -10,27 +12,53 @@ class PriceAndConsumtion extends Component {
           <tbody>
             <tr>
               <td>Yarn Type:</td>
-              <td>COMBED COTTON</td>
+              <td colSpan="2">
+                {this.props.tabledata.getIn(['extradata', 'yarn_type'])}
+              </td>
             </tr>
             <tr>
               <td>Construction:</td>
-              <td>100% CTN SINGLE JERSY</td>
+              <td colSpan="2">
+                {this.props.tabledata.getIn(['extradata', 'construction'])}
+              </td>
             </tr>
             <tr>
               <td>Weight:</td>
-              <td>180 GSM</td>
+              <td colSpan="2">
+                {this.props.tabledata.getIn(['extradata', 'fabric_weight'])}
+              </td>
             </tr>
             <tr>
               <td>Self-Fabric:</td>
-              <td>150 Gram</td>
+              <td colSpan="2">
+                {this.props.tabledata.getIn([
+                  'extradata',
+                  'self_fabric_matching_body',
+                ])}
+              </td>
             </tr>
             <tr>
               <td>Wastage:</td>
-              <td>Chest: 5</td>
+              <td colSpan="2">
+                {this.props.tabledata.getIn(['extradata', 'wastage'])}
+              </td>
+            </tr>
+            <tr>
+              <td />
+              <td>Chest</td>
+              <td>Length</td>
             </tr>
             <tr>
               <td>S. Allowance:</td>
-              <td>Length: 10</td>
+              <td>
+                {this.props.tabledata.getIn(['extradata', 's_allowance_chest'])}
+              </td>
+              <td>
+                {this.props.tabledata.getIn([
+                  'extradata',
+                  's_allowance_length',
+                ])}
+              </td>
             </tr>
           </tbody>
         </table>

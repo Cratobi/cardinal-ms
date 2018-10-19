@@ -65,11 +65,11 @@
   font-size: 1rem;
   font-weight: 700;
   padding: 0.6rem;
-  padding-left: 4rem;
+  padding-left: 0;
 }
 .bi-grid article table.extradata tr td:first-child {
   color: #747474;
-  padding-left: 0;
+  padding-left: 4rem;
 }
 
 .bi-grid article .static-table {

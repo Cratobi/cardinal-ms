@@ -1,30 +1,30 @@
-import React, { Component, Fragment } from "react"
-import { connect } from "react-redux"
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 // eslint-disable-next-line
-import { get, getIn } from "immutable"
-import { withRouter } from "react-router-dom"
-import { CSSTransition } from "react-transition-group"
-import * as actions from "../../store/actions/index"
+import { get, getIn } from 'immutable'
+import { withRouter } from 'react-router-dom'
+import { CSSTransition } from 'react-transition-group'
+import * as actions from '../../store/actions/index'
 
-import HeaderLayout from "../../components/Layout/Header/Header"
-import ModalLayout from "../../components/Layout/Modal/Modal"
+import HeaderLayout from '../../components/Layout/Header/Header'
+import ModalLayout from '../../components/Layout/Modal/Modal'
 
 const SelectOption = props => <option value={props.value}>{props.name}</option>
 
 class Header extends Component {
   state = {
     form: {
-      new_company: "",
-      company: "",
-      new_buyer: ""
+      new_company: '',
+      company: '',
+      new_buyer: '',
     },
     accountMenu: false,
     notificationMenu: false,
     searchFocus: false,
     notificationUnread: 5,
-    searchQuery: "",
+    searchQuery: '',
     dashboardModal: false,
-    settingsModal: false
+    settingsModal: false,
   }
   // Menu
   handleSearchChange = e => {
@@ -40,39 +40,39 @@ class Header extends Component {
     state.searchFocus = !state.searchFocus
     this.setState(state)
   }
-  handleMenuAccount = actions => {
-    const state = this.state
-    state.searchFocus = false
-    state.notificationMenu = false
-    state.accountMenu = actions
-    this.setState(state)
+  handleMenuAccount = action => {
+    this.setState({
+      searchFocus: false,
+      notificationMenu: false,
+      accountMenu: action,
+    })
   }
   handleMenuNotification = actions => {
-    const state = this.state
-    state.notificationUnread = 0
-    state.searchFocus = false
-    state.accountMenu = false
-    state.notificationMenu = actions
-    this.setState(state)
+    this.setState({
+      notificationUnread: 0,
+      searchFocus: false,
+      accountMenu: false,
+      notificationMenu: actions,
+    })
   }
   // Modals
   handleModalSettings = action => {
-    const state = this.state
-    state.searchFocus = false
-    state.accountMenu = false
-    state.notificationMenu = false
-    state.settingsModal = action
-    this.setState(state)
+    this.setState({
+      searchFocus: false,
+      accountMenu: false,
+      notificationMenu: false,
+      settingsModal: action,
+    })
   }
   handleModalDashboard = action => {
     this.setState({
       searchFocus: false,
       accountMenu: false,
       notificationMenu: false,
-      dashboardModal: action
+      dashboardModal: action,
     })
-
     this.props.resetCompanies()
+    this.props.fetchCompanies()
   }
   // Forms
   handleFormChange = e => {
@@ -83,16 +83,17 @@ class Header extends Component {
   handleNewCompany = e => {
     e.preventDefault()
 
-    this.props.addCompany({
-      name: this.state.form.new_company
-    })
-
-    this.handleModalControl(false)
+    this.handleModalDashboard(false)
     this.handleMenuAccount(false)
     this.setState({
       form: {
-        new_company: ""
-      }
+        new_company: '',
+        company: '',
+        new_buyer: '',
+      },
+    })
+    this.props.addCompany({
+      name: this.state.form.new_company,
     })
     this.props.fetchCompanies()
   }
@@ -101,16 +102,17 @@ class Header extends Component {
 
     this.props.addBuyer({
       company: this.state.form.company,
-      name: this.state.form.new_buyer
+      name: this.state.form.new_buyer,
     })
 
-    this.handleModalControl(false)
-    this.handleAccountClick()
+    this.handleModalDashboard(false)
+    this.handleMenuAccount(false)
     this.setState({
       form: {
-        company: "",
-        new_buyer: ""
-      }
+        new_company: '',
+        company: '',
+        new_buyer: '',
+      },
     })
   }
 
@@ -127,7 +129,7 @@ class Header extends Component {
           accountMenu={this.state.accountMenu}
           notificationMenu={this.state.notificationMenu}
           notificationUnread={this.state.notificationUnread}
-          backBtn={this.props.history.location.pathname !== "/"}
+          backBtn={this.props.history.location.pathname !== '/'}
           // Handlers
           handleSearchChange={this.handleSearchChange}
           handleSearchFocus={this.handleSearchFocus}
@@ -179,7 +181,7 @@ class Header extends Component {
                   name="name"
                   disabled
                   placeholder="Name"
-                  defaultValue={this.props.userInfo.get("name")}
+                  defaultValue={this.props.userInfo.get('name')}
                 />
               </div>
               <div className="form-inline-input">
@@ -190,7 +192,7 @@ class Header extends Component {
                   name="username"
                   disabled
                   placeholder="Username"
-                  defaultValue={this.props.userInfo.get("username")}
+                  defaultValue={this.props.userInfo.get('username')}
                 />
               </div>
               <div className="m-t-1 m-b-1" />
@@ -208,7 +210,7 @@ class Header extends Component {
           </ModalLayout>
         </CSSTransition>
 
-        {this.props.userInfo.get("power") === "admin" ? (
+        {this.props.userInfo.get('power') === 'admin' ? (
           <CSSTransition
             in={this.state.dashboardModal}
             timeout={500}
@@ -264,7 +266,18 @@ class Header extends Component {
                 <div className="body-content-footer">
                   <input
                     type="submit"
-                    className="btn btn-dark"
+                    className={`btn btn-dark${
+                      this.state.form.new_buyer === '' &&
+                      this.state.form.company === ''
+                        ? ' btn-dark-disabled'
+                        : ''
+                    }`}
+                    disabled={
+                      this.state.form.new_buyer === '' &&
+                      this.state.form.company === ''
+                        ? true
+                        : false
+                    }
                     value="Add Buyer"
                   />
                 </div>
@@ -291,7 +304,12 @@ class Header extends Component {
                 <div className="body-content-footer">
                   <input
                     type="submit"
-                    className="btn btn-dark"
+                    className={`btn btn-dark${
+                      this.state.form.new_company === ''
+                        ? ' btn-dark-disabled'
+                        : ''
+                    }`}
+                    disabled={this.state.form.new_company === '' ? true : false}
                     value=" Add Company"
                   />
                 </div>
@@ -306,9 +324,9 @@ class Header extends Component {
 
 const mapStateToProps = state => {
   return {
-    userInfo: state.getIn(["auth", "userInfo"]),
-    search_result: state.getIn(["order", "search_result"]),
-    companies: state.getIn(["buyer", "companies"])
+    userInfo: state.getIn(['auth', 'userInfo']),
+    search_result: state.getIn(['order', 'search_result']),
+    companies: state.getIn(['buyer', 'companies']),
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -317,13 +335,13 @@ const mapDispatchToProps = dispatch => {
     fetchCompanies: () => dispatch(actions.fetchCompanies()),
     resetCompanies: () => dispatch(actions.resetCompanies()),
     addCompany: payload => dispatch(actions.addCompany(payload)),
-    addBuyer: payload => dispatch(actions.addBuyer(payload))
+    addBuyer: payload => dispatch(actions.addBuyer(payload)),
   }
 }
 
 export default withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps
-  )(Header)
+    mapDispatchToProps,
+  )(Header),
 )

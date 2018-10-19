@@ -5,12 +5,16 @@
   --secondary: #ffffff;
   --on-secondary: #ffffff;
   --dark: #313131;
-  --dark-deep: #1f1f1f;
   --on-dark: #ffffff;
+  --dark-deep: #464646;
+  --dark-light: #525252;
+  --on-dark-light: #8f8f8f;
   --offset-light: #ececec;
   --dark-transparent: #31313185;
   --success: #96e981;
+  --success-light: #c8ecbf;
   --on-success: #236e10;
+  --on-success-light: #709766;
   --success-deep: #84db6e;
   --success-transparent: #8aee7185;
   --caution: #e63f3f;

@@ -1,8 +1,8 @@
-import axios from "axios"
+import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: "http://api.cardinal.com:3001"
-  // baseURL: "https://api.cardinal-ms.herokuapp.com"
+  baseURL: 'http://172.16.0.2:3001',
+  // baseURL: 'http://localhost:3001',
 })
 
 export default instance

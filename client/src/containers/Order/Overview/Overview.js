@@ -17,7 +17,9 @@ class Overview extends Component {
           <tbody>
             <tr>
               <td>Shipment Date:</td>
-              <td>{this.props.order.get('shipment_date')}</td>
+              <td>
+                {new Date(this.props.order.get('shipment_date')).toDateString()}
+              </td>
             </tr>
             <tr>
               <td>Buyer:</td>

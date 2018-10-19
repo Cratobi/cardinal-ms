@@ -1,23 +1,22 @@
-const express = require("express")
-const jwt = require("jsonwebtoken")
-const _ = require("lodash")
+const express = require('express')
+const jwt = require('jsonwebtoken')
+const _ = require('lodash')
 
 // Models
-const { Company } = require("../models/company")
+const { Company } = require('../models/company')
 
 // Middleware
-const { authenticateAdmin } = require("../middleware/authenticateAdmin")
+const { authenticateAdmin } = require('../middleware/authenticateAdmin')
 
 // Express > Router
 const app = express.Router()
 
 // Provide all companys
-app.get("/company", authenticateAdmin, (req, res) => {
+app.get('/company', authenticateAdmin, (req, res) => {
   return Company.fetchCompanies()
     .then(data => {
       const companies = []
       data.map(data => companies.push(data.name))
-
       return res.send(companies)
     })
     .catch(() => {
@@ -26,7 +25,7 @@ app.get("/company", authenticateAdmin, (req, res) => {
 })
 
 // Provide company
-app.get("/company/:id", authenticateAdmin, (req, res) => {
+app.get('/company/:id', authenticateAdmin, (req, res) => {
   const id = req.params.id
 
   return Company.fetchCompany(id)
@@ -39,19 +38,30 @@ app.get("/company/:id", authenticateAdmin, (req, res) => {
 })
 
 // Add Company
-app.post("/company", authenticateAdmin, (req, res) => {
-  const payload = _.pick(req.body, ["name"])
-  const company = new Company(payload)
-  company
-    .save()
-    .then(() => res.send())
-    .catch(err => {
-      res.status(400).send(err)
+app.post('/company', authenticateAdmin, (req, res) => {
+  const payload = _.pick(req.body, ['name'])
+  Company.findOne({ name: payload.name })
+    .then(company => {
+      if (!company) {
+        const company = new Company(payload)
+
+        company
+          .save()
+          .then(() => res.send())
+          .catch(() => {
+            res.status(400).send()
+          })
+      } else {
+        res.status(400).send()
+      }
+    })
+    .catch(() => {
+      res.status(400).send()
     })
 })
 
 // Delete Company
-app.delete("/company/:id", authenticateAdmin, (req, res) => {
+app.delete('/company/:id', authenticateAdmin, (req, res) => {
   const id = req.params.id
 
   return Company.findByIdAndRemove(id)

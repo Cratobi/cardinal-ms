@@ -1,28 +1,28 @@
-import Axios from "../../axios-instance"
-import * as actionTypes from "./actionTypes"
+import Axios from '../../axios-instance'
+import * as actionTypes from './actionTypes'
 
 // Dispatchers
 export const saveCompanies = payload => {
   return {
     type: actionTypes.SAVE_COMPANIES,
-    payload
+    payload,
   }
 }
 export const resetCompanies = payload => {
   return {
     type: actionTypes.RESET_COMPANIES,
-    payload
+    payload,
   }
 }
 export const saveBuyers = payload => {
   return {
     type: actionTypes.SAVE_BUYERS,
-    payload
+    payload,
   }
 }
 export const resetBuyers = () => {
   return {
-    type: actionTypes.RESET_BUYER
+    type: actionTypes.RESET_BUYER,
   }
 }
 
@@ -30,9 +30,9 @@ export const resetBuyers = () => {
 export const addCompany = payload => {
   return () => {
     Axios({
-      method: "post",
+      method: 'post',
       url: `/company`,
-      data: payload
+      data: payload,
     })
       .then(() => {
         fetchCompanies()
@@ -45,9 +45,9 @@ export const addCompany = payload => {
 export const addBuyer = payload => {
   return () => {
     Axios({
-      method: "post",
+      method: 'post',
       url: `/buyer`,
-      data: payload
+      data: payload,
     })
       .then(() => {
         fetchBuyers()
@@ -61,8 +61,8 @@ export const addBuyer = payload => {
 export const fetchCompanies = () => {
   return dispatch => {
     Axios({
-      method: "get",
-      url: `/company`
+      method: 'get',
+      url: `/company`,
     })
       .then(companies => {
         dispatch(saveCompanies(companies.data))
@@ -75,8 +75,8 @@ export const fetchCompanies = () => {
 export const fetchBuyers = () => {
   return dispatch => {
     Axios({
-      method: "get",
-      url: "/buyer"
+      method: 'get',
+      url: '/buyer',
     })
       .then(res => {
         dispatch(saveBuyers(res.data))

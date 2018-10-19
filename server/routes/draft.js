@@ -1,19 +1,19 @@
-const express = require("express")
-const jwt = require("jsonwebtoken")
-const _ = require("lodash")
-const ObjectId = require("mongoose").Types.ObjectId
+const express = require('express')
+const jwt = require('jsonwebtoken')
+const _ = require('lodash')
+const ObjectId = require('mongoose').Types.ObjectId
 
 // Models
-const { Draft } = require("../models/draft")
+const { Draft } = require('../models/draft')
 
 // Middleware
-const { authenticate } = require("../middleware/authenticate")
+const { authenticate } = require('../middleware/authenticate')
 
 // Express > Router
 const app = express.Router()
 
 // Provide all Draft
-app.get("/draft", authenticate, (req, res) => {
+app.get('/draft', authenticate, (req, res) => {
   Draft.fetchDrafts(req.userData.id)
     .then(data => res.send(data))
     .catch(() => {
@@ -22,7 +22,7 @@ app.get("/draft", authenticate, (req, res) => {
 })
 
 // Provide Draft
-app.get("/draft/:id", authenticate, (req, res) => {
+app.get('/draft/:id', authenticate, (req, res) => {
   const id = req.params.id
   const userId = req.userData.id
 
@@ -37,15 +37,14 @@ app.get("/draft/:id", authenticate, (req, res) => {
 })
 
 // Add Draft
-app.post("/draft", authenticate, (req, res) => {
+app.post('/draft', authenticate, (req, res) => {
   const payload = _.pick(req.body, [
-    "shipment_date",
-    "buyer",
-    "order_no",
-    "style_no",
-    "item",
-    "quantity",
-    "tabledata"
+    'shipment_date',
+    'buyer',
+    'order_no',
+    'style_no',
+    'item',
+    'quantity',
   ])
   payload.shipment_date = new Date(payload.shipment_date).getTime()
   payload.createdBy = ObjectId(req.userData.id)
@@ -62,12 +61,12 @@ app.post("/draft", authenticate, (req, res) => {
 })
 
 // Update Draft Tabledata
-app.patch("/draft/:id", authenticate, (req, res) => {
+app.patch('/draft/:id', authenticate, (req, res) => {
   const id = req.params.id
-  const payload = _.pick(req.body, ["tabledata"])
+  const payload = _.pick(req.body, ['tabledata'])
 
   return Draft.findByIdAndUpdate(id, {
-    $set: { tabledata: payload.tabledata }
+    $set: { tabledata: payload.tabledata },
   })
     .then(() => {
       res.send()
@@ -78,7 +77,7 @@ app.patch("/draft/:id", authenticate, (req, res) => {
 })
 
 // Delete Draft
-app.delete("/draft/:id", authenticate, (req, res) => {
+app.delete('/draft/:id', authenticate, (req, res) => {
   const id = req.params.id
 
   return Draft.findByIdAndRemove(id)

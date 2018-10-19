@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 // Schema Declearation
 const CompanySchema = new mongoose.Schema({
@@ -7,15 +7,15 @@ const CompanySchema = new mongoose.Schema({
     minlength: 1,
     trim: true,
     unique: true,
-    required: true
+    required: true,
   },
   buyers: [
     {
       type: String,
       trim: true,
-      minlength: 1
-    }
-  ]
+      minlength: 1,
+    },
+  ],
 })
 
 // ----- Basic Methods ----- //
@@ -37,6 +37,6 @@ CompanySchema.statics.fetchCompany = function(id) {
 }
 
 // Model Declearation
-const Company = mongoose.model("Company", CompanySchema)
+const Company = mongoose.model('Company', CompanySchema)
 
 module.exports = { Company }

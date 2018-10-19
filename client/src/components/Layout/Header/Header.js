@@ -1,14 +1,14 @@
-import React, { Fragment } from "react"
-import { Link } from "react-router-dom"
+import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 // eslint-disable-next-line
-import { get, size } from "immutable"
-import { CSSTransition } from "react-transition-group"
-import "./Header.css"
+import { get, size } from 'immutable'
+import { CSSTransition } from 'react-transition-group'
+import './Header.css'
 
-// import LoadingLayout from "../Loading/Loading"
+import LoadingLayout from '../Loading/Loading'
 const header = props => {
-  let power = props.userInfo.get("power")
-  power = power === "mod" ? "Moderator" : power === "admin" ? "Admin" : "User"
+  let power = props.userInfo.get('power')
+  power = power === 'mod' ? 'Moderator' : power === 'admin' ? 'Admin' : 'User'
 
   return (
     <Fragment>
@@ -50,9 +50,9 @@ const header = props => {
             <span
               onClick={() => props.handleMenuNotification(true)}
               className={`btn btn-custom-notification ${
-                props.notificationUnread !== 0 ? "btn-caution" : ""
+                props.notificationUnread !== 0 ? 'btn-caution' : ''
               } ${
-                props.notificationMenu ? "btn-custom-notification-active" : ""
+                props.notificationMenu ? 'btn-custom-notification-active' : ''
               }`}
             >
               <i className="fas fa-bell" />
@@ -62,13 +62,13 @@ const header = props => {
             <span
               onClick={() => props.handleMenuAccount(!props.accountMenu)}
               className={`btn btn-custom-account m-r ${
-                props.accountMenu ? "btn-custom-account-active" : ""
+                props.accountMenu ? 'btn-custom-account-active' : ''
               }`}
             >
               <span>
                 <i className="fas fa-user" />
-                <span className="hide-s p-l p-r">
-                  {props.userInfo.get("username")}
+                <span className="p-l p-r">
+                  {props.userInfo.get('username')}
                 </span>
               </span>
               <CSSTransition
@@ -85,7 +85,7 @@ const header = props => {
 
       {/* Menus */}
 
-      {/* <CSSTransition
+      <CSSTransition
         in={props.searchEmpty && props.searchFocus ? true : false}
         timeout={500}
         classNames="menu-down"
@@ -95,28 +95,28 @@ const header = props => {
           <span
             className="backdrop backdrop-transparent backdrop-menu"
             onClick={props.handleSearchFocus}
-          /> */}
-      {/* <div className="scrollable">
+          />
+          <div className="scrollable">
             {props.searchResult ? (
               props.searchResult.map((order, index) => (
                 <Link
                   key={index}
-                  to={`order/${order.get("id")}/overview`}
+                  to={`order/${order.get('id')}/overview`}
                   onClick={props.handleSearchFocus}
                   className="search-result"
                 >
-                  {order.get("order_no")}
+                  {order.get('order_no')}
                   <span className="txt-emp txt-small">
-                    {order.get("style_no")}
+                    {order.get('style_no')}
                   </span>
                 </Link>
               ))
             ) : (
               <LoadingLayout />
             )}
-          </div> */}
-      {/* </div>
-      </CSSTransition> */}
+          </div>
+        </div>
+      </CSSTransition>
       {props.accountMenu || props.notificationMenu ? (
         <div
           className="backdrop backdrop-transparent backdrop-menu"
@@ -132,12 +132,12 @@ const header = props => {
         <div className="menu menu-account">
           <div className="user-info-container">
             <div>
-              <div className="txt name">{props.userInfo.get("name")}</div>
+              <div className="txt name">{props.userInfo.get('name')}</div>
               <div className="txt-light p-l">- {power}</div>
             </div>
           </div>
           <div className="footer">
-            {props.userInfo.get("power") === "admin" ? (
+            {props.userInfo.get('power') === 'admin' ? (
               <button
                 className="btn btn-transparent"
                 onClick={() => props.handleModalDashboard(true)}

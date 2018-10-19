@@ -2,26 +2,31 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 // eslint-disable-next-line
-import { getIn, toJS } from 'immutable'
+import { getIn, size } from 'immutable'
 import DayPickerInput from 'react-day-picker/DayPickerInput'
 import { DateUtils } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
-import * as actions from '../../store/actions/index'
 import dateFnsFormat from 'date-fns/format'
 import dateFnsParse from 'date-fns/parse'
+import * as actions from '../../store/actions/index'
 import { CSSTransition } from 'react-transition-group'
 import './Home.css'
 
 import ModalLayout from '../../components/Layout/Modal/Modal'
 import OrderCards from '../Orders/OrderCards'
 import CardLoadingLayout from '../../components/Layout/Loading/CardLoading'
+// import LoadingLayout from '../../components/Layout/Loading/Loading'
 
 const SelectOption = props => <option value={props.value}>{props.name}</option>
 
 class Home extends Component {
   state = {
     draftModal: false,
+    clicked: false,
     new_buyer: '',
+    searchQuery: '',
+    searchFocus: false,
+    formFilled: false,
     draft_metadata: {
       buyer: '',
       order_no: '',
@@ -35,15 +40,22 @@ class Home extends Component {
     this.props.fetchOrders(null, true)
     this.props.fetchBuyers()
   }
-  handleChange = e => {
-    const state = { ...this.state }
-    state[e.target.name] = e.target.value
-    this.setState(state)
+  handleSearchChange = e => {
+    this.setState({ searchQuery: e.target.value })
+    this.props.searchOrder(e.target.value)
+  }
+  handleSearchFocus = action => {
+    this.setState({ clicked: true, searchFocus: action })
   }
   handleFormChange = e => {
     const state = { ...this.state }
     state.draft_metadata[e.target.name] = e.target.value
     this.setState(state)
+    if (Object.values(this.state.draft_metadata).every(val => val !== '')) {
+      this.setState({ formFilled: true })
+    } else {
+      this.setState({ formFilled: false })
+    }
   }
   handleDateChange = date => {
     const state = { ...this.state }
@@ -53,9 +65,12 @@ class Home extends Component {
 
   sendDraftMetadata = e => {
     e.preventDefault()
-    const draft = { ...this.state.draft_metadata }
-    draft.tabledata = this.props.tabledata.toJS()
-    this.props.sendDraftMetadata(draft, this.props.history)
+
+    if (this.state.formFilled) {
+      const draft = { ...this.state.draft_metadata }
+      draft.tabledata = this.props.tabledata.toJS()
+      this.props.sendDraftMetadata(draft, this.props.history)
+    }
   }
   handleOrderModal = action => {
     if (action === true) {
@@ -82,8 +97,59 @@ class Home extends Component {
     return (
       <div className="container home-container">
         <div className="home-mm">
-          <h4>FLAXEN GROUP</h4>
-          <span className="txt-light"> - beta 2.0 - </span>
+          <div className="home-mm-content">
+            <h4>FLAXEN GROUP</h4>
+            <input
+              type="text"
+              className="search-input-home"
+              placeholder="SEARCH"
+              onChange={this.handleSearchChange}
+              onFocus={() => this.handleSearchFocus(true)}
+              // onBlur={
+              //   !this.state.clicked ? () => this.handleSearchFocus(false) : null
+              // }
+              value={this.searchQuery}
+            />
+            {this.state.searchFocus ? (
+              <span
+                className="backdrop backdrop-transparent backdrop-search"
+                onClick={() => this.handleSearchFocus(false)}
+              />
+            ) : null}
+            {this.state.searchFocus ? (
+              <div className="menu-search-home">
+                <div className="scrollable">
+                  {this.props.search_result && this.state.searchQuery !== '' ? (
+                    <div>
+                      {this.props.search_result.map((order, index) => (
+                        <Link
+                          key={index}
+                          to={`order/${order.get('id')}/overview`}
+                          onClick={() => this.handleSearchFocus(false)}
+                          className="search-result"
+                        >
+                          {order.get('order_no')}
+                          <span className="txt-small">
+                            {order.get('style_no')}
+                          </span>
+                        </Link>
+                      ))}
+                      {this.props.search_result.size === 0 ? (
+                        <div className="help-txt">No result :(</div>
+                      ) : null}
+                    </div>
+                  ) : this.state.searchQuery === '' ? (
+                    <div className="help-txt">
+                      Search order or add @ to search style
+                    </div>
+                  ) : (
+                    <div className="help-txt">Searching...</div>
+                  )}
+                </div>
+              </div>
+            ) : null}
+            {/* <span className="txt-light"> - beta 2.0 - </span> */}
+          </div>
         </div>
         <div className="home-cards-header">
           <span className="recent-txt">
@@ -132,7 +198,12 @@ class Home extends Component {
             tittle="ADD ORDER"
             modalState={this.state.draftModal}
             footer={
-              <div onClick={this.sendDraftMetadata} className="btn btn-success">
+              <div
+                onClick={this.sendDraftMetadata}
+                className={`btn btn-success${
+                  !this.state.formFilled ? ' btn-success-disabled' : ''
+                }`}
+              >
                 Create Order
               </div>
             }
@@ -222,7 +293,12 @@ class Home extends Component {
                   value={this.state.draft_metadata.quantity}
                 />
               </div>
-              <input type="submit" className="hidden" value="Create Order" />
+              <input
+                type="submit"
+                className="hidden"
+                disabled={this.state.formFilled ? false : true}
+                value="Create Order"
+              />
             </form>
           </ModalLayout>
         </CSSTransition>
@@ -237,6 +313,7 @@ const mapStateToProps = state => {
     orders_count: state.getIn(['order', 'orders_count']),
     buyers: state.getIn(['buyer', 'buyers']),
     tabledata: state.getIn(['draft', 'tabledata']),
+    search_result: state.getIn(['order', 'search_result']),
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -245,10 +322,12 @@ const mapDispatchToProps = dispatch => {
     resetOrders: () => dispatch(actions.resetOrders()),
     fetchBuyers: () => dispatch(actions.fetchBuyers()),
     resetBuyers: () => dispatch(actions.resetBuyers()),
+    searchOrder: query => dispatch(actions.searchOrder(query)),
     sendDraftMetadata: (payload, router) =>
       dispatch(actions.sendDraftMetadta(payload, router)),
   }
 }
+
 export default withRouter(
   connect(
     mapStateToProps,

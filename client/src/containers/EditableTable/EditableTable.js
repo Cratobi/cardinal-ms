@@ -17,6 +17,15 @@ class Table extends Component {
       value: e.target.value,
     })
   }
+  tableDateChangeHandler = (date, modifiers, e) => {
+    e = e.props
+    this.props.onChange({
+      rowindex: e.rowindex,
+      colindex: e.colindex,
+      tablename: e.tablename,
+      value: date,
+    })
+  }
 
   render() {
     return (
@@ -64,11 +73,20 @@ class Table extends Component {
                   tableData={this.props.tabledata.get('table_accessoriesname')}
                 />
               </div>
-              <DataTableLayout
-                editability={true}
-                changeHandler={e => this.tableChangeHandler(e)}
-                tableData={this.props.tabledata.get('table_currency')}
-              />
+              <div>
+                <DataTableLayout
+                  editability={true}
+                  changeHandler={e => this.tableChangeHandler(e)}
+                  tableData={this.props.tabledata.get('table_currency')}
+                />
+                <DataTableLayout
+                  editability={true}
+                  changeHandler={(day, modifiers, e) =>
+                    this.tableDateChangeHandler(day, modifiers, e)
+                  }
+                  tableData={this.props.tabledata.get('table_date')}
+                />
+              </div>
               <DataTableLayout
                 editability={true}
                 changeHandler={e => this.tableChangeHandler(e)}

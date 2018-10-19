@@ -1,48 +1,26 @@
-require("./db/mongoose") // Database
+require('./db/mongoose')
 
-const express = require("express") // Express Framework
-const subdomain = require("express-subdomain")
-const path = require("path")
-const cors = require("cors") // Top Enable Cross-Origin
-const bodyParse = require("body-parser") // To parse JSON
-const _ = require("lodash") // Utility Library
-var morgan = require("morgan")
+const express = require('express')
+const cors = require('cors')
+const bodyParse = require('body-parser')
+var logger = require('morgan')
 
-const apis = require("./routes/index") // Api routes
-
-const app = express() // Express Init
+const apis = require('./routes/index')
+const app = express()
 
 // Middlewares
-app.use(morgan("dev")) //Logger
-app.use(cors()) // Solve Cross-Origin Restriction
-app.use(bodyParse.json()) //Parse everything to JSON
+app.use(logger('dev'))
+app.use(cors())
+app.use(bodyParse.json())
 
-// Api subdomain
-app.use(subdomain("api", apis))
-
-// var static = "./public/static"
-var public = path.resolve(__dirname, "./public")
-
-app.use(express.static(__dirname + "/public"))
-
-app.get("/", (req, res) => {
-  res.sendFile("index.html", { root: public })
-})
-// const public = path.resolve(__dirname, "public")
-
-// app.use(express.static(public))
-
-// app.get("*", function(req, res) {
-//   res.sendfile(path.resolve(public, "index.html"))
-// })
+app.use(apis)
 
 // Server Config
-const port = process.env.PORT || 3001
-// const port = 3001
+const port = 3002
 
 app.listen(port, () => {
   console.clear()
   console.log(
-    `> Server has started on the port: ${port} \n----------------------------------------`
+    `> Server started and running. PORT: ${port} \n----------------------------------------`,
   )
 })
