@@ -18,7 +18,7 @@ const header = props => {
           <span className="logo">
             <CSSTransition
               in={props.backBtn}
-              timeout={500}
+              timeout={250}
               classNames="slide-right"
               unmountOnExit
             >
@@ -73,7 +73,7 @@ const header = props => {
               </span>
               <CSSTransition
                 in={props.accountMenu}
-                timeout={500}
+                timeout={250}
                 classNames="rotate-180"
               >
                 <i className="fas fa-angle-down" />
@@ -87,7 +87,7 @@ const header = props => {
 
       <CSSTransition
         in={props.searchEmpty && props.searchFocus ? true : false}
-        timeout={500}
+        timeout={250}
         classNames="menu-down"
         unmountOnExit
       >

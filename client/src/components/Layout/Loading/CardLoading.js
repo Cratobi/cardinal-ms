@@ -12,7 +12,7 @@ const Cards = orders => {
 
 const Loading = props => {
   return (
-    <CSSTransition in={true} timeout={500} appear={true} classNames="fade">
+    <CSSTransition in={true} timeout={250} appear={true} classNames="fade">
       <Fragment>{Cards(props.orders)}</Fragment>
     </CSSTransition>
   )

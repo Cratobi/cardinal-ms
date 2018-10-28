@@ -59,6 +59,7 @@ OrderSchema.index({
 OrderSchema.methods.toJSON = function() {
   const order = this
   return _.pick(order, [
+    'id',
     'buyer',
     'order_no',
     'style_no',

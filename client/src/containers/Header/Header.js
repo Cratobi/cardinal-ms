@@ -141,7 +141,7 @@ class Header extends Component {
         {/* Modals */}
         <CSSTransition
           in={this.state.settingsModal}
-          timeout={500}
+          timeout={250}
           classNames="anim-modal"
           unmountOnExit
         >
@@ -213,7 +213,7 @@ class Header extends Component {
         {this.props.userInfo.get('power') === 'admin' ? (
           <CSSTransition
             in={this.state.dashboardModal}
-            timeout={500}
+            timeout={250}
             classNames="anim-modal"
             unmountOnExit
           >

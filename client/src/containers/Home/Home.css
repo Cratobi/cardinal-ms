@@ -1,6 +1,6 @@
 .home-container {
   display: grid;
-  grid-template-rows: auto 3rem 10rem;
+  grid-template-rows: auto 3rem 12.2rem;
   justify-items: stretch;
   align-items: stretch;
   overflow-y: hidden;

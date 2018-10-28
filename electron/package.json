@@ -1,0 +1,20 @@
+{
+  "name": "cardinal",
+  "version": "1.0.0",
+  "description": "Order management software",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "cardinal"
+  ],
+  "author": "Cratobi",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^3.0.6"
+  },
+  "dependencies": {
+    "electron-titlebar": "0.0.3"
+  }
+}

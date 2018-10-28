@@ -116,7 +116,12 @@ class Home extends Component {
                 onClick={() => this.handleSearchFocus(false)}
               />
             ) : null}
-            {this.state.searchFocus ? (
+            <CSSTransition
+              in={this.state.searchFocus}
+              timeout={250}
+              classNames="fade"
+              unmountOnExit
+            >
               <div className="menu-search-home">
                 <div className="scrollable">
                   {this.props.search_result && this.state.searchQuery !== '' ? (
@@ -147,7 +152,7 @@ class Home extends Component {
                   )}
                 </div>
               </div>
-            ) : null}
+            </CSSTransition>
             {/* <span className="txt-light"> - beta 2.0 - </span> */}
           </div>
         </div>
@@ -189,7 +194,7 @@ class Home extends Component {
 
         <CSSTransition
           in={this.state.draftModal}
-          timeout={500}
+          timeout={250}
           classNames="anim-modal"
           unmountOnExit
         >

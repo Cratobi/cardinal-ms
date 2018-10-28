@@ -10,8 +10,13 @@ import MonoGridLayout from '../../components/Layout/MonoGrid/MonoGrid'
 import EditableTable from '../EditableTable/EditableTable'
 import ExtraTable from '../EditableTable/ExtraTable'
 import LoadingLayout from '../../components/Layout/Loading/Loading'
+import Modal from '../../components/Layout/Modal/Modal'
 
 class Draft extends Component {
+  state = {
+    confirmationModalPublish: false,
+    confirmationModalDelete: false,
+  }
   componentWillMount() {
     !this.props.metadata && !this.props.match.params.id
       ? this.props.history.replace({ pathname: '/' })
@@ -50,6 +55,16 @@ class Draft extends Component {
       this.props.history,
     )
   }
+  handleConfirmationModalPublish = action => {
+    const state = this.state
+    state.confirmationModalPublish = action
+    this.setState(state)
+  }
+  handleConfirmationModalDelete = action => {
+    const state = this.state
+    state.confirmationModalDelete = action
+    this.setState(state)
+  }
 
   render() {
     return this.props.metadata ? (
@@ -59,17 +74,50 @@ class Draft extends Component {
           <Fragment>
             <div className="draft-header-btns p-r-1">
               <button
+                onClick={() => this.handleConfirmationModalDelete(true)}
                 className="btn btn-caution p-l-1 p-r-1"
-                onClick={() =>
-                  this.props.deleteDraft(
-                    this.props.metadata.get('id'),
-                    this.props.history,
-                  )
-                }
               >
                 <i className="fas fa-trash p-r" />
                 Delete Draft &nbsp;
               </button>
+              <CSSTransition
+                in={this.state.confirmationModalDelete}
+                timeout={250}
+                classNames="anim-modal"
+                unmountOnExit
+              >
+                <Modal
+                  tittle="DELETE DRAFT"
+                  modalState={this.state.confirmationModalDelete}
+                  handleModal={() => this.handleConfirmationModalDelete(false)}
+                  footer={
+                    <Fragment>
+                      <div
+                        onClick={() =>
+                          this.handleConfirmationModalDelete(false)
+                        }
+                        className="btn btn-light"
+                      >
+                        Cancel
+                      </div>
+                      <div
+                        onClick={() => {
+                          this.props.deleteDraft(
+                            this.props.metadata.get('id'),
+                            this.props.history,
+                          )
+                          return this.handleConfirmationModalDelete(false)
+                        }}
+                        className="btn btn-caution"
+                      >
+                        Confirm Delete
+                      </div>
+                    </Fragment>
+                  }
+                >
+                  Are you sure you want to delete this draft?
+                </Modal>
+              </CSSTransition>
               <button
                 className="btn btn-dark p-l-1 p-r-1"
                 onClick={this.handleSendDraftTabledata}
@@ -122,11 +170,42 @@ class Draft extends Component {
           <Fragment>
             <button
               className="btn btn-success f-r"
-              onClick={this.handlePublishOrder}
+              onClick={() => this.handleConfirmationModalPublish(true)}
             >
               <i className="fas fa-check p-r" />
               Publish Order
             </button>
+
+            <CSSTransition
+              in={this.state.confirmationModalPublish}
+              timeout={250}
+              classNames="anim-modal"
+              unmountOnExit
+            >
+              <Modal
+                tittle="PUBLISH ORDER"
+                modalState={this.state.confirmationModalPublish}
+                handleModal={() => this.handleConfirmationModalPublish(false)}
+                footer={
+                  <Fragment>
+                    <div
+                      onClick={() => this.handleConfirmationModalPublish(false)}
+                      className="btn btn-light"
+                    >
+                      Cancel
+                    </div>
+                    <div
+                      onClick={this.handlePublishOrder}
+                      className="btn btn-success"
+                    >
+                      Confirm Publish
+                    </div>
+                  </Fragment>
+                }
+              >
+                Are you sure you want to delete this draft?
+              </Modal>
+            </CSSTransition>
             <button
               className="btn btn-lighter f-r"
               onClick={this.handleSendDraftTabledata}
@@ -139,7 +218,7 @@ class Draft extends Component {
       >
         <CSSTransition
           in={this.props.tabledata ? true : false}
-          timeout={500}
+          timeout={250}
           classNames="slide-up"
           unmountOnExit
         >

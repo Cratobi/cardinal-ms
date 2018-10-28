@@ -20,7 +20,7 @@ app.get('/company', authenticateAdmin, (req, res) => {
       return res.send(companies)
     })
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 
@@ -33,7 +33,7 @@ app.get('/company/:id', authenticateAdmin, (req, res) => {
       res.send(data)
     })
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 
@@ -49,14 +49,14 @@ app.post('/company', authenticateAdmin, (req, res) => {
           .save()
           .then(() => res.send())
           .catch(() => {
-            res.status(400).send()
+            res.status(250).send()
           })
       } else {
-        res.status(400).send()
+        res.status(250).send()
       }
     })
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 
@@ -69,7 +69,7 @@ app.delete('/company/:id', authenticateAdmin, (req, res) => {
       res.send()
     })
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 

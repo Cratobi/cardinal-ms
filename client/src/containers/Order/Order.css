@@ -59,17 +59,30 @@
   z-index: 0;
 }
 .bi-grid article table.extradata {
+  width: 50%;
   margin-bottom: 2rem;
 }
 .bi-grid article table.extradata td {
   font-size: 1rem;
   font-weight: 700;
   padding: 0.6rem;
-  padding-left: 0;
+  padding-right: 2rem;
+  text-align: right;
+}
+.bi-grid article table.extradata td.header {
+  background-color: #f1f1f1;
+  border: 0.2rem solid #ffffff;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+.bi-grid article table.extradata td.tdata {
+  text-align: center !important;
+  padding: 0;
 }
 .bi-grid article table.extradata tr td:first-child {
   color: #747474;
-  padding-left: 4rem;
+  padding-right: 10rem;
+  text-align: left;
 }
 
 .bi-grid article .static-table {

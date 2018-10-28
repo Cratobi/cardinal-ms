@@ -24,13 +24,13 @@ app.get('/order', authenticate, (req, res) => {
     Order.searchOrders(query, feild)
       .then(data => res.send(data))
       .catch(() => {
-        res.status(400).send()
+        res.status(250).send()
       })
   } else {
     Order.fetchOrders(req.query.page, req.query.recent)
       .then(data => res.send(data))
       .catch(() => {
-        res.status(400).send()
+        res.status(250).send()
       })
   }
 })
@@ -48,7 +48,7 @@ app.get('/order/search', authenticate, (req, res) => {
         res.send(data)
       })
       .catch(() => {
-        res.status(400).send()
+        res.status(250).send()
       })
   } else {
     query = query.substr(1)
@@ -61,7 +61,7 @@ app.get('/order/search', authenticate, (req, res) => {
         res.send(data)
       })
       .catch(() => {
-        res.status(400).send()
+        res.status(250).send()
       })
   }
 })
@@ -71,7 +71,7 @@ app.get('/order/count', authenticate, (req, res) => {
   Order.estimatedDocumentCount()
     .then(count => res.send({ count }))
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 
@@ -84,7 +84,7 @@ app.get('/order/:id', authenticate, (req, res) => {
       res.send(data)
     })
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 
@@ -118,7 +118,7 @@ app.post('/order/:id', authenticate, (req, res) => {
           })
         })
         .catch(err => {
-          res.status(400).send(err)
+          res.status(250).send(err)
         })
     })
     .catch(() => {

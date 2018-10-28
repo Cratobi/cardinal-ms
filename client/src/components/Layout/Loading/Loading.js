@@ -3,7 +3,7 @@ import { CSSTransition } from "react-transition-group"
 
 const Loading = props => {
   return (
-    <CSSTransition in={true} timeout={500} appear={true} classNames="fade">
+    <CSSTransition in={true} timeout={250} appear={true} classNames="fade">
       <h5
         className={"loading txt-center" + props.center ? "loading-center" : ""}
       >

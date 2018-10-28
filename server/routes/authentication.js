@@ -27,16 +27,16 @@ app.post('/auth/signin', (req, res) => {
           res.header('x-auth', token).send({ token })
         }),
       )
-      .catch(() => res.status(400).send())
+      .catch(() => res.status(250).send())
   } else {
-    return res.status(400).send()
+    return res.status(250).send()
   }
 })
 // Sign Out
 app.delete('/auth/signout', authenticate, (req, res) => {
   User.removeToken(req.token)
     .then(() => res.send())
-    .catch(() => res.status(400).send())
+    .catch(() => res.status(250).send())
 })
 
 // Sign Up
@@ -57,7 +57,7 @@ app.post('/auth/signup', (req, res) => {
       res.header('x-auth', token).send()
     })
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 

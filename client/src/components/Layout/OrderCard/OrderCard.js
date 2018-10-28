@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 
 const OrderCard = props => {
   return (
-    <CSSTransition in={true} timeout={500} appear={true} classNames="slide-up">
+    <CSSTransition in={true} timeout={250} appear={true} classNames="slide-up">
       <Link className="order-card anim" to={props.path + props.id}>
         <div className="date">10/03/201</div>
         <div className="mid">

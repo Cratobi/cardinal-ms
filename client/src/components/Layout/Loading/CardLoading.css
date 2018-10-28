@@ -11,7 +11,7 @@
   box-shadow: var(--elevation-0);
   animation-delay: 1s;
   animation: gradientAnimation 2s ease infinite;
-  background-size: 100% 150%;
+  background-size: 100% 250%;
 }
 .loading-order-card:hover {
   box-shadow: var(--elevation-0);

@@ -45,15 +45,15 @@ class PriceAndConsumtion extends Component {
             </tr>
             <tr>
               <td />
-              <td>Chest</td>
-              <td>Length</td>
+              <td className="header">Chest</td>
+              <td className="header">Length</td>
             </tr>
             <tr>
               <td>S. Allowance:</td>
-              <td>
+              <td className="tdata">
                 {this.props.tabledata.getIn(['extradata', 's_allowance_chest'])}
               </td>
-              <td>
+              <td className="tdata">
                 {this.props.tabledata.getIn([
                   'extradata',
                   's_allowance_length',

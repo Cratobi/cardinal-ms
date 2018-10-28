@@ -36,7 +36,7 @@ class Order extends Component {
           <aside className="side-tab">
             <CSSTransition
               in={this.props.order ? true : false}
-              timeout={500}
+              timeout={250}
               classNames="slide-right"
               unmountOnExit
             >
@@ -79,7 +79,7 @@ class Order extends Component {
           </aside>
           <CSSTransition
             in={this.props.order ? true : false}
-            timeout={500}
+            timeout={250}
             classNames="slide-up"
             unmountOnExit
           >

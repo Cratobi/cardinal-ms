@@ -10,7 +10,7 @@ const Signin = props => {
       </div>
       <CSSTransition
         in={props.alert !== "" ? true : false}
-        timeout={500}
+        timeout={250}
         classNames="outside"
         unmountOnExit
       >

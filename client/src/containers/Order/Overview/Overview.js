@@ -39,7 +39,7 @@ class Overview extends Component {
           Show more
           <CSSTransition
             in={this.props.showMore}
-            timeout={500}
+            timeout={250}
             classNames="rotate-180"
           >
             <i
@@ -52,7 +52,7 @@ class Overview extends Component {
 
         <CSSTransition
           in={this.props.showMore}
-          timeout={500}
+          timeout={250}
           classNames="slide-down"
           unmountOnExit
         >

@@ -16,7 +16,7 @@ app.get('/buyer', authenticate, (req, res) => {
   return Company.fetchBuyers(req.userData.company)
     .then(data => res.send(data.buyers))
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 
@@ -36,14 +36,14 @@ app.post('/buyer', authenticateAdmin, (req, res) => {
             res.send()
           })
           .catch(() => {
-            res.status(400).send()
+            res.status(250).send()
           })
       } else {
-        res.status(400).send()
+        res.status(250).send()
       }
     })
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 
@@ -56,7 +56,7 @@ app.delete('/buyer/:id', authenticateAdmin, (req, res) => {
       res.send()
     })
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 

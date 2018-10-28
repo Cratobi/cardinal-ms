@@ -17,7 +17,7 @@ app.get('/draft', authenticate, (req, res) => {
   Draft.fetchDrafts(req.userData.id)
     .then(data => res.send(data))
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 
@@ -32,7 +32,7 @@ app.get('/draft/:id', authenticate, (req, res) => {
       createdBy.equals(userId) ? res.send(draft) : res.status(402).send()
     })
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 
@@ -56,7 +56,7 @@ app.post('/draft', authenticate, (req, res) => {
     .save()
     .then(draft => res.send(draft))
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 
@@ -72,7 +72,7 @@ app.patch('/draft/:id', authenticate, (req, res) => {
       res.send()
     })
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 
@@ -85,7 +85,7 @@ app.delete('/draft/:id', authenticate, (req, res) => {
       res.send()
     })
     .catch(() => {
-      res.status(400).send()
+      res.status(250).send()
     })
 })
 
