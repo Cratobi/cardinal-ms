@@ -1,7 +1,7 @@
-import React from "react"
+import React from 'react'
 
 const MonoGrid = props => {
-  window.location.href = "/"
+  window.location.href = '/'
   return <span>redirecting...</span>
 }
 

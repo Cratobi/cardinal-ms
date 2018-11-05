@@ -11,7 +11,7 @@ function createWindow() {
   win.on('ready-to-show', () => {
     win.maximize()
   })
-  // win.loadFile('index.html')
+  // win.loadFile('public/index.html')
   win.loadURL('http://localhost:3000/')
 
   win.setMenu(null)

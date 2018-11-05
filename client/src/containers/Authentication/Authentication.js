@@ -1,30 +1,30 @@
-import React, { Component } from "react"
-import Axios from "../../axios-auth"
-import Cookie from "js-cookie"
-import browserDetect from "browser-detect"
+import React, { Component } from 'react'
+import Axios from '../../axios-auth'
+import Cookie from 'js-cookie'
+import browserDetect from 'browser-detect'
 
-import SigninLayout from "../../components/Layout/Authentication/Signin"
+import SigninLayout from '../../components/Layout/Authentication/Signin'
 
 class Authentication extends Component {
   state = {
-    alert: "",
+    alert: '',
     form: {
-      username: "",
-      name: "",
-      password: "",
-      signup_password_one: "",
-      signup_password_two: ""
-    }
+      username: '',
+      name: '',
+      password: '',
+      signup_password_one: '',
+      signup_password_two: '',
+    },
   }
   //  This is to solve to asynchronous callback error
   _isMounted = false
 
   componentWillMount() {
-    const token = Cookie.get("x-auth")
+    const token = Cookie.get('x-auth')
 
     if (token) {
       // return window.location.reload(true)
-      return this.props.history.replace({ pathname: "/" })
+      return this.props.history.replace({ pathname: '/' })
     }
   }
   componentDidMount() {
@@ -43,33 +43,33 @@ class Authentication extends Component {
   handleSubmitSignin = e => {
     e.preventDefault()
     const state = { ...this.state }
-    state.alert = ""
+    state.alert = ''
     this.setState(state)
 
-    const token = Cookie.get("x-auth")
+    const token = Cookie.get('x-auth')
     // const browserDetect = browserDetect()
 
-    const access = browserDetect().mobile ? "mobile" : "web"
+    const access = browserDetect().mobile ? 'mobile' : 'web'
     const system = {
       browser: browserDetect().name,
       browser_version: browserDetect().version,
-      os: browserDetect().os
+      os: browserDetect().os,
     }
 
     if (!token) {
-      Axios.post("/auth/signin", {
+      Axios.post('/auth/signin', {
         username: this.state.form.username,
         password: this.state.form.password,
         access,
-        system
+        system,
       })
         .then(res => {
-          Cookie.set("x-auth", res.data.token).then(
-            this.props.history.replace({ pathname: "/reload" })
+          Cookie.set('x-auth', res.data.token).then(
+            this.props.history.replace({ pathname: '/reload' }),
           )
         })
         .catch(() => {
-          state.alert = "Your username or password is wrong!"
+          state.alert = 'Your username or password is wrong!'
           if (this._isMounted) {
             return this.setState(state)
           }
@@ -84,7 +84,7 @@ class Authentication extends Component {
       `mailto:ci.riyadh@gmaiol.com?subject=Forgot Password&body=I've forgotten my password. Can you please reset the it. My username is "${
         this.state.form.username
       }". Thank you.`,
-      "_blank"
+      '_blank',
     )
   }
 

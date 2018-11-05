@@ -5,9 +5,24 @@ import { CSSTransition } from 'react-transition-group'
 import './Overview.css'
 
 class Overview extends Component {
+  handlePrint = () => {
+    window.print()
+  }
+
   render() {
     return (
       <div className="overview">
+        <div className="card-header">
+          <div className="title">{this.props.order.get('order_no')}</div>
+          <button
+            className="btn btn-chip btn-big btn-dark btn-dark-disabled"
+            disabled
+            onClick={this.handlePrint}
+          >
+            <i className="fas fa-print" />
+            <span className="p-l">Print All</span>
+          </button>
+        </div>
         <div className="order-no">{this.props.order.get('order_no')}</div>
         <div className="style-no">
           <i className="fas fa-at" />

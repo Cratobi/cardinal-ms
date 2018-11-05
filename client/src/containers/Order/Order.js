@@ -1,19 +1,20 @@
-import React, { Component, Fragment } from "react"
-import { connect } from "react-redux"
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 // eslint-disable-next-line
-import { get, getIn } from "immutable"
-import { NavLink, Route, Redirect, withRouter } from "react-router-dom"
-import { CSSTransition } from "react-transition-group"
-import * as actions from "../../store/actions"
+import { get, getIn } from 'immutable'
+import { NavLink, Route, Redirect, withRouter } from 'react-router-dom'
+import { CSSTransition } from 'react-transition-group'
+import * as actions from '../../store/actions'
 
-import Overview from "./Overview/Overview"
-import PriceAndConsumtion from "./PriceAndConsumtion/PriceAndConsumtion"
-import LoadingLayout from "../../components/Layout/Loading/Loading"
-import "./Order.css"
+import Overview from './Overview/Overview'
+import PriceAndConsumtion from './PriceAndConsumtion/PriceAndConsumtion'
+import LoadingLayout from '../../components/Layout/Loading/Loading'
+import '../../components/style/DuoGrid.css'
+import './Order.css'
 
 class Order extends Component {
   state = {
-    show_more: false
+    show_more: false,
   }
   componentWillMount() {
     this.props.resetOrder()
@@ -32,7 +33,7 @@ class Order extends Component {
     return (
       <Fragment>
         {!this.props.order ? <LoadingLayout txt /> : null}
-        <main className="container bi-grid">
+        <main className="container duo-grid">
           <aside className="side-tab">
             <CSSTransition
               in={this.props.order ? true : false}
@@ -80,7 +81,7 @@ class Order extends Component {
           <CSSTransition
             in={this.props.order ? true : false}
             timeout={250}
-            classNames="slide-up"
+            classNames="fade"
             unmountOnExit
           >
             <article className="card card-body">
@@ -109,7 +110,7 @@ class Order extends Component {
                 exact
                 render={() => (
                   <PriceAndConsumtion
-                    tabledata={this.props.order.get("tabledata")}
+                    tabledata={this.props.order.get('tabledata')}
                   />
                 )}
               />
@@ -123,20 +124,20 @@ class Order extends Component {
 
 const mapStateToProps = state => {
   return {
-    order: state.getIn(["order", "order"])
+    order: state.getIn(['order', 'order']),
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchOrder: id => dispatch(actions.fetchOrder(id)),
-    resetOrder: () => dispatch(actions.resetOrder())
+    resetOrder: () => dispatch(actions.resetOrder()),
   }
 }
 
 export default withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps
-  )(Order)
+    mapDispatchToProps,
+  )(Order),
 )

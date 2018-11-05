@@ -154,6 +154,9 @@ class Home extends Component {
               </div>
             </CSSTransition>
             {/* <span className="txt-light"> - beta 2.0 - </span> */}
+            <h5>
+              <Link to="dashboard">Dashboard</Link>
+            </h5>
           </div>
         </div>
         <div className="home-cards-header">

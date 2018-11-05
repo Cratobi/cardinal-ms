@@ -6,6 +6,7 @@ const { User } = require('../models/user')
 
 // Middleware
 const { authenticate } = require('../middleware/authenticate')
+const { authenticateAdmin } = require('../middleware/authenticateAdmin')
 
 // Express > Router
 const app = express.Router()
@@ -27,37 +28,40 @@ app.post('/auth/signin', (req, res) => {
           res.header('x-auth', token).send({ token })
         }),
       )
-      .catch(() => res.status(250).send())
+      .catch(() => res.status(400).send())
   } else {
-    return res.status(250).send()
+    return res.status(400).send()
   }
 })
 // Sign Out
 app.delete('/auth/signout', authenticate, (req, res) => {
   User.removeToken(req.token)
     .then(() => res.send())
-    .catch(() => res.status(250).send())
+    .catch(() => res.status(400).send())
 })
 
 // Sign Up
-app.post('/auth/signup', (req, res) => {
+app.post('/auth/signup', authenticateAdmin, (req, res) => {
+  console.log(req.body)
   var body = _.pick(req.body, [
     'name',
     'username',
     'password',
-    'admin',
     'company',
+    'power',
+    'access',
+    'system',
   ])
   var user = new User(body)
 
   user
     .save()
-    .then(() => user.generateAuthToken('web'))
+    .then(() => user.generateAuthToken(body.access, body.system))
     .then(token => {
       res.header('x-auth', token).send()
     })
     .catch(() => {
-      res.status(250).send()
+      res.status(400).send()
     })
 })
 

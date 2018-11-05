@@ -47,6 +47,9 @@ input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   display: none;
 }
+hr {
+  border: 0.5px dashed #d4d4d4;
+}
 .txt-center {
   text-align: center;
 }
@@ -323,6 +326,11 @@ h6 {
 }
 .btn-transparent:active {
   background-color: var(--background-offset-deep) !important;
+}
+.btn-big {
+  font-size: 1.2rem;
+  padding: 0.8rem 1.2rem;
+  margin: 0.2rem;
 }
 .btn-large {
   font-size: 1.2rem;
@@ -851,7 +859,9 @@ input.form-input:disabled {
   color: #777777;
   background-color: #aaaaaa8f;
 }
-
+.warning {
+  color: var(--caution)
+}
 /* Calender */
 .DayPickerInput input {
   font-size: 1rem;
@@ -883,4 +893,7 @@ input.form-input:disabled {
 .DayPickerInput-Overlay .DayPicker-Caption {
   /* color: #ffffff; */
   outline: 0;
+}
+.fit-content {
+  width: fit-content !important;
 }

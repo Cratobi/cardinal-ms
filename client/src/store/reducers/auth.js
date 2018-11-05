@@ -1,17 +1,17 @@
 // eslint-disable-next-line
-import { fromJS, get, set } from "immutable"
+import { fromJS, get, set } from 'immutable'
 
 const initialState = fromJS({
-  userInfo: null
+  userInfo: null,
 })
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "AUTHENTICATE":
-      return state.set("authorization", true)
-    case "SAVEUSER":
-      return state.set("userInfo", fromJS(action.payload))
-    case "USER_LOGOUT":
+    case 'AUTHENTICATE':
+      return state.set('authorization', true)
+    case 'SAVEUSER':
+      return state.set('userInfo', fromJS(action.payload))
+    case 'USER_LOGOUT':
       const { routing } = state
       return (state = { routing })
     default:

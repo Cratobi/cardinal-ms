@@ -84,12 +84,12 @@
 }
 .slide-up-appear {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(10%);
 }
 .slide-up-appear.slide-up-appear-active {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity var(--transition-long), transform var(--transition-long);
+  transition: transform var(--transition-long), opacity var(--transition-long);
 }
 .slide-up-enter {
   opacity: 0;
@@ -97,7 +97,7 @@
 }
 .slide-up-enter.slide-up-enter-active {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(10%);
   transition: transform var(--transition-long), opacity var(--transition-long);
 }
 .slide-up-exit {

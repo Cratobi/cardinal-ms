@@ -1,5 +1,5 @@
 // AUthentication
-export { auth, verifyToken, requestSignin } from "./auth"
+export { auth, addUser, verifyToken, requestSignin } from './auth'
 
 // Buyer & Company
 export {
@@ -8,8 +8,8 @@ export {
   fetchCompanies,
   resetCompanies,
   fetchBuyers,
-  resetBuyers
-} from "./buyer"
+  resetBuyers,
+} from './buyer'
 
 // Order
 export {
@@ -20,8 +20,8 @@ export {
   resetOrders,
   publishOrder,
   searchOrder,
-  resetSearchedResult
-} from "./order"
+  resetSearchedResult,
+} from './order'
 
 // Draft
 export {
@@ -33,5 +33,5 @@ export {
   resetDrafts,
   sendDraftMetadta,
   sendDraftTabledata,
-  deleteDraft
-} from "./draft"
+  deleteDraft,
+} from './draft'

@@ -1,5 +1,5 @@
-import React from "react"
-import "./MonoGrid.css"
+import React from 'react'
+import '../../style/MonoGrid.css'
 
 const MonoGrid = props => {
   return (
@@ -7,12 +7,12 @@ const MonoGrid = props => {
       {!props.emptyTxt ? (
         <div
           className={
-            "slide-up card card-container " +
-            (props.CustomCSS ? "custom-card-container-" + props.CustomCSS : "")
+            'slide-up card card-container ' +
+            (props.CustomCSS ? 'custom-card-container-' + props.CustomCSS : '')
           }
         >
           {props.header ? (
-            <div className="card-header">{props.header}</div>
+            <diva className="card-header">{props.header}</diva>
           ) : null}
           <div className="card-body">{props.children}</div>
           {props.footer ? (

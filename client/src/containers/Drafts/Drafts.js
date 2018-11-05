@@ -1,12 +1,12 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 // eslint-disable-next-line
-import { get, getIn, size } from "immutable"
-import * as actions from "../../store/actions"
+import { get, getIn, size } from 'immutable'
+import * as actions from '../../store/actions'
 
-import MonoGridLayout from "../../components/Layout/MonoGrid/MonoGrid"
-import OrderCardLayout from "./../../components/Layout/OrderCard/OrderCard"
-import LoadingLayout from "../../components/Layout/Loading/Loading"
+import MonoGridLayout from '../../components/Layout/MonoGrid/MonoGrid'
+import OrderCardLayout from './../../components/Layout/OrderCard/OrderCard'
+import LoadingLayout from '../../components/Layout/Loading/Loading'
 
 class Order extends Component {
   componentWillMount() {
@@ -25,17 +25,17 @@ class Order extends Component {
         >
           {this.props.drafts.map(draft => (
             <OrderCardLayout
-              key={draft.get("id")}
-              id={draft.get("id")}
-              buyer={draft.get("buyer")}
-              orderNo={draft.get("order_no")}
-              styleNo={draft.get("style_no")}
+              key={draft.get('id')}
+              id={draft.get('id')}
+              buyer={draft.get('buyer')}
+              orderNo={draft.get('order_no')}
+              styleNo={draft.get('style_no')}
               path="/draft/"
             />
           ))}
         </MonoGridLayout>
       ) : (
-        <MonoGridLayout emptyTxt="There're no orders :(" />
+        <MonoGridLayout emptyTxt="Draft is empty :D" />
       )
     ) : (
       <LoadingLayout txt center />
@@ -45,18 +45,18 @@ class Order extends Component {
 
 const mapStateToProps = state => {
   return {
-    drafts: state.getIn(["draft", "drafts"])
+    drafts: state.getIn(['draft', 'drafts']),
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchDrafts: () => dispatch(actions.fetchDrafts()),
-    resetDrafts: () => dispatch(actions.resetDrafts())
+    resetDrafts: () => dispatch(actions.resetDrafts()),
   }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Order)

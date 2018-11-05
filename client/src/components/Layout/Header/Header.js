@@ -22,7 +22,7 @@ const header = props => {
               classNames="slide-right"
               unmountOnExit
             >
-              <Link to="/" className="btn back-btn">
+              <Link to="/" className="btn btn-caution back-btn">
                 <i className="fas fa-home m-r" />
                 Home
               </Link>

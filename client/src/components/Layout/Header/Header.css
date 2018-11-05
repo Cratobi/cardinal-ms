@@ -17,7 +17,9 @@
 header {
   background-color: var(--background);
   position: fixed;
-  top: 1.8rem;
+  /* Electron */
+  /* top: 1.8rem; */
+  top: 0;
   left: 0;
   width: 100vw;
   height: 3.5rem;
@@ -50,7 +52,6 @@ header {
   display: inline-block;
 }
 .logo .back-btn {
-  color: var(--txt);
   font-weight: 600;
   margin: 0;
   margin-left: -1rem;
@@ -166,7 +167,9 @@ header > .nav-btn {
 .menu {
   background-color: var(--background);
   position: absolute;
-  top: calc(3.5rem + 1.8rem);
+  /* Electron */
+  /* top: calc(3.5rem + 1.8rem); */
+  top: 3.5rem;
   right: 0.5rem;
   padding: 1rem 0;
   padding-top: 0;

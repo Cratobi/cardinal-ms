@@ -1,0 +1,117 @@
+.duo-grid {
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 10rem auto;
+  justify-items: stretch;
+  align-items: stretch;
+  box-sizing: border-box;
+  overflow-x: scroll;
+}
+.duo-grid aside {
+  padding-top: 3.5rem;
+  box-sizing: border-box;
+}
+
+/* --- Side Tabs --- */
+.duo-grid aside ul {
+  position: fixed;
+  float: left;
+  list-style-type: none;
+  padding: 0;
+}
+.duo-grid aside ul a {
+  color: initial;
+  text-decoration: none;
+} 
+.duo-grid aside ul li {
+  font-size: 0.8rem;
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  font-weight: 700;
+  color: #797979;
+  margin: 0.8rem 0;
+  padding: 1rem;
+  border-left: 0.2rem solid transparent;
+  cursor: pointer;
+  transition: background-color var(--transition), border var(--transition);
+}
+.duo-grid aside ul li:hover {
+  background-color: #f5f5f5;
+}
+.duo-grid aside ul li .text {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 12vw;
+  margin-left: 0.8rem;
+  white-space: nowrap;
+}
+.duo-grid aside ul .active li {
+  background-color: #f5f5f5;
+  color: #4e4e4e;
+  border-left: 0.3rem solid #f15858;
+}
+.duo-grid article.card-body {
+  font-size: 1rem;
+  flex-direction: column;
+  padding: 4rem;
+  margin: 2rem 2.5rem;
+  margin-top: 3rem;
+  z-index: 0;
+}
+.duo-grid article .card-header {
+  display: flex;
+  margin: 0;
+  margin-bottom: 2rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.duo-grid article .card-header .title {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+@media (max-width: 768px) {
+  .duo-grid {
+    grid-template-columns: 4rem auto;
+    grid-auto-flow: row;
+  }
+  .duo-grid aside {
+    background-color: #f3f3f3;
+    padding-top: 3.5rem;
+    box-sizing: border-box;
+  }
+  .duo-grid aside ul {
+    background-color: #f3f3f3;
+    height: 100%;
+  }
+  .duo-grid aside ul li .text {
+    right: 2px;
+    display: none;
+  }
+  .duo-grid::-webkit-scrollbar {
+    width: 0;
+  }
+  .duo-grid aside ul a {
+    color: initial;
+    text-decoration: none;
+  }
+  .duo-grid aside ul li {
+    font-size: 1.4rem;
+    border-left: 0.3rem solid transparent;
+  }
+  .duo-grid aside ul .active li {
+    color: #be3a3f;
+  }
+  .duo-grid aside ul .active li:before {
+    display: none;
+  }
+  .duo-grid article.card {
+    width: auto;
+    height: 100%;
+    min-height: fit-content;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: var(--elevation-0);
+  }
+}

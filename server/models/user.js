@@ -1,14 +1,14 @@
-const mongoose = require("mongoose")
-const jwt = require("jsonwebtoken")
-const bcrypt = require("bcryptjs")
-const _ = require("lodash")
+const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
+const _ = require('lodash')
 
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     minlength: 5,
     trim: true,
-    required: true
+    required: true,
   },
   username: {
     type: String,
@@ -16,62 +16,62 @@ const UserSchema = new mongoose.Schema({
     minlength: 5,
     trim: true,
     unique: true,
-    required: true
+    required: true,
   },
   password: {
     type: String,
     minlength: 8,
-    required: true
+    required: true,
   },
   power: {
     type: String,
-    default: "user"
+    default: 'user',
   },
   company: {
     type: String,
     minlength: 1,
-    required: true
+    required: true,
   },
   createdAt: {
     type: Number,
-    default: new Date().getTime()
+    default: new Date().getTime(),
   },
   accessTokens: [
     {
       access: {
         type: String,
-        required: true
+        required: true,
       },
       token: {
         type: String,
-        required: true
+        required: true,
       },
       system: {
         browser: {
-          type: String
+          type: String,
         },
         browser_version: {
-          type: String
+          type: String,
         },
         os: {
-          type: String
-        }
-      }
-    }
-  ]
+          type: String,
+        },
+      },
+    },
+  ],
 })
 
 UserSchema.methods.toJSON = function() {
   const user = this
   const userObject = user.toObject()
 
-  return _.pick(userObject, ["username"])
+  return _.pick(userObject, ['username'])
 }
 
 UserSchema.methods.generateAuthToken = function(access, system) {
   const user = this
   const token = jwt
-    .sign({ _id: user._id.toHexString(), access, system }, "secret")
+    .sign({ _id: user._id.toHexString(), access, system }, 'secret')
     .toString()
 
   user.accessTokens.push({ access, system, token })
@@ -86,8 +86,8 @@ UserSchema.statics.removeToken = function(token) {
 
   return user.update({
     $pull: {
-      accessTokens: { token }
-    }
+      accessTokens: { token },
+    },
   })
 }
 
@@ -96,14 +96,14 @@ UserSchema.statics.findByToken = function(token) {
   let decoded
 
   try {
-    decoded = jwt.verify(token, "secret")
+    decoded = jwt.verify(token, 'secret')
   } catch (e) {
     return Promise.reject()
   }
 
   return User.findOne({
     _id: decoded._id,
-    "accessTokens.token": token
+    'accessTokens.token': token,
     // "accessTokens.access": "web"
   })
 }
@@ -122,10 +122,10 @@ UserSchema.statics.findByCredentials = function(username, password) {
   })
 }
 
-UserSchema.pre("save", function(next) {
+UserSchema.pre('save', function(next) {
   const user = this
 
-  user.isModified("password")
+  user.isModified('password')
     ? bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(user.password, salt, (err, hash) => {
           user.password = hash
@@ -135,6 +135,6 @@ UserSchema.pre("save", function(next) {
     : next()
 })
 
-const User = mongoose.model("User", UserSchema)
+const User = mongoose.model('User', UserSchema)
 
 module.exports = { User }

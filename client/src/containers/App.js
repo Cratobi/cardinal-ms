@@ -19,6 +19,8 @@ import Order from './Order/Order'
 import Orders from './Orders/Orders'
 import Draft from './Draft/Draft'
 import Drafts from './Drafts/Drafts'
+import Dashboard from './Dashboard/Dashboard'
+import Unauthorized from '../components/Layout/Unauthorized/Unauthorized'
 
 const RouteWithHeader = ({ component: Component, ...rest }) => (
   <Fragment>
@@ -41,7 +43,7 @@ class App extends Component {
     return (
       <Fragment>
         {/* For Electron */}
-        <div id="titlebar">
+        {/* <div id="titlebar">
           <button id="full-btn" className="btn btn-windows">
             <i className="ti-layout-slider" />
           </button>
@@ -54,19 +56,26 @@ class App extends Component {
           <button id="close-btn" className="btn btn-windows">
             <span class="ti-close" />
           </button>
-        </div>
+        </div> */}
         <Switch>
           <Route path="/signin" exact component={Authentication} />
-          <Route path="/signup" exact component={Authentication} />
           <Route path="/signout" exact component={Signout} />
           <Route path="/reload" exact component={Reload} />
           <RouteWithHeader path="/" exact component={Home} />
+          <RouteWithHeader
+            path="/unauthorized"
+            exact
+            component={Unauthorized}
+          />
           <RouteWithHeader path="/orders" exact component={Orders} />
+          <RouteWithHeader path="/Dashboard" component={Dashboard} />
           <RouteWithHeader path="/draft" exact component={Drafts} />
           <RouteWithHeader path="/draft/:id" exact component={Draft} />
           <RouteWithHeader path="/order" exact component={Orders} />
           <RouteWithHeader path="/order/:id" component={Order} />
-          <Route>{<div>ops</div>}</Route>
+          <Route>
+            {<h4> 404 Error : The page you are looking for doesn't exist</h4>}
+          </Route>
         </Switch>
       </Fragment>
     )

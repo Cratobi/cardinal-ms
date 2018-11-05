@@ -1,4 +1,5 @@
 import Axios from '../../axios-instance'
+import { ToastStore } from 'react-toasts'
 import * as actionTypes from './actionTypes'
 
 // Dispatchers
@@ -35,10 +36,13 @@ export const addCompany = payload => {
       data: payload,
     })
       .then(() => {
+        ToastStore.success(
+          `A new company named "${payload.name}" has been added".`,
+        )
         fetchCompanies()
       })
       .catch(() => {
-        console.log()
+        ToastStore.error(`Error`, 6000)
       })
   }
 }
@@ -50,10 +54,16 @@ export const addBuyer = payload => {
       data: payload,
     })
       .then(() => {
+        ToastStore.success(
+          `A new buyer named "${payload.name}" has been added in Company "${
+            payload.company
+          }"`,
+          6000,
+        )
         fetchBuyers()
       })
       .catch(() => {
-        console.log()
+        ToastStore.error(`Error`, 6000)
       })
   }
 }
