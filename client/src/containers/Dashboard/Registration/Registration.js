@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { ToastContainer, ToastStore } from 'react-toasts'
 import ReactPasswordStrength from 'react-password-strength'
-import { CSSTransition } from 'react-transition-group'
 
 const SelectOption = props => <option value={props.value}>{props.name}</option>
 
@@ -19,7 +18,12 @@ class Registration extends Component {
             </div>
           </div>
           <hr />
-          <form className="body-content" onSubmit={this.props.handleNewUser}>
+          <form
+            className="body-content"
+            onSubmit={e =>
+              this.props.handleNewUser(e, this.ReactPasswordStrength)
+            }
+          >
             <div className="form-inline-input">
               <label className="form-label">Company:</label>
               <select
@@ -48,7 +52,7 @@ class Registration extends Component {
                 className="form-input"
                 name="newuser_name"
                 placeholder="e.g. Abdul Karim"
-                autoComplete={false}
+                autoComplete="off"
                 onChange={this.props.handleFormChange}
                 value={this.props.state.newuser_name}
               />
@@ -60,7 +64,7 @@ class Registration extends Component {
                 className="form-input"
                 name="newuser_username"
                 placeholder="e.g. abdul.karim"
-                autoComplete={false}
+                autoComplete="off"
                 onChange={this.props.handleFormChange}
                 value={this.props.state.newuser_username}
               />
@@ -69,6 +73,7 @@ class Registration extends Component {
               <label className="form-label">Password:</label>
               <ReactPasswordStrength
                 className="custom-ReactPasswordStrength"
+                ref={ref => (this.ReactPasswordStrength = ref)}
                 minLength={8}
                 minScore={1}
                 scoreWords={['weak', 'okay', 'good', 'strong', 'stronger']}

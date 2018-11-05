@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import { ToastContainer, ToastStore } from 'react-toasts'
-import { CSSTransition } from 'react-transition-group'
 
 const SelectOption = props => <option value={props.value}>{props.name}</option>
 
@@ -72,7 +71,7 @@ class Company extends Component {
               />
             </div>
           </form>
-          <div style={{ marginTop: '1rem' }} />
+          <div style={{ marginTop: '4rem' }} />
           <div className="body-header d-flex flex-j-between flex-a-baseline">
             <h5>Company</h5>
             <div className="btn btn-chip btn-lighter p-r-1 p-l-1">

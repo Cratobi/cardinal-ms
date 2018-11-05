@@ -23,7 +23,6 @@ class Header extends Component {
     searchFocus: false,
     notificationUnread: 5,
     searchQuery: '',
-    dashboardModal: false,
     settingsModal: false,
   }
   // Menu
@@ -64,15 +63,13 @@ class Header extends Component {
       settingsModal: action,
     })
   }
-  handleModalDashboard = action => {
+  handleDashboardLink = () => {
     this.setState({
       searchFocus: false,
       accountMenu: false,
       notificationMenu: false,
-      dashboardModal: action,
     })
-    this.props.resetCompanies()
-    this.props.fetchCompanies()
+    this.props.history.push('/dashboard')
   }
   // Forms
   handleFormChange = e => {
@@ -136,7 +133,7 @@ class Header extends Component {
           handleMenuAccount={this.handleMenuAccount}
           handleMenuNotification={this.handleMenuNotification}
           handleModalSettings={this.handleModalSettings}
-          handleModalDashboard={this.handleModalDashboard}
+          handleDashboardLink={this.handleDashboardLink}
         />
         {/* Modals */}
         <CSSTransition
@@ -209,114 +206,6 @@ class Header extends Component {
             </form>
           </ModalLayout>
         </CSSTransition>
-
-        {this.props.userInfo.get('power') === 'admin' ? (
-          <CSSTransition
-            in={this.state.dashboardModal}
-            timeout={250}
-            classNames="anim-modal"
-            unmountOnExit
-          >
-            {/* CONTROL PANNEL MODAL */}
-            <ModalLayout
-              tittle="DASHBOARD"
-              handleModal={this.handleModalDashboard}
-            >
-              <div className="body-header d-flex flex-j-between flex-a-baseline">
-                <span className="txt txt-ligher">Buyer</span>
-                <div className="btn btn-round btn-transparent">
-                  <i className="fas fa-sliders-h" />
-                </div>
-              </div>
-              <form className="body-content" onSubmit={this.handleNewBuyer}>
-                <div className="form-inline-input">
-                  <label className="form-label">Buyer Name:</label>
-                  <input
-                    type="text"
-                    className="form-input"
-                    name="new_buyer"
-                    placeholder="e.g. JBC"
-                    onChange={this.handleFormChange}
-                    value={this.state.form.new_buyer}
-                  />
-                </div>
-                <div className="form-inline-input">
-                  <label className="form-label">Buyer Company:</label>
-                  <select
-                    name="company"
-                    className="form-select"
-                    onChange={this.handleFormChange}
-                    placeholder="e.g. JBC"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>
-                      Choose Company
-                    </option>
-                    {this.props.companies ? (
-                      this.props.companies.map((data, index) => (
-                        <SelectOption key={index} value={data} name={data} />
-                      ))
-                    ) : (
-                      <option value="" disabled>
-                        Loading...
-                      </option>
-                    )}
-                  </select>
-                </div>
-                <div className="body-content-footer">
-                  <input
-                    type="submit"
-                    className={`btn btn-dark${
-                      this.state.form.new_buyer === '' &&
-                      this.state.form.company === ''
-                        ? ' btn-dark-disabled'
-                        : ''
-                    }`}
-                    disabled={
-                      this.state.form.new_buyer === '' &&
-                      this.state.form.company === ''
-                        ? true
-                        : false
-                    }
-                    value="Add Buyer"
-                  />
-                </div>
-              </form>
-              <div className="p-t-1 p-b-1 m-t-1" />
-              <div className="body-header d-flex flex-j-between flex-a-baseline">
-                <span className="txt txt-ligher">Company</span>
-                <div className="btn btn-round btn-transparent">
-                  <i className="fas fa-sliders-h" />
-                </div>
-              </div>
-              <form className="body-content" onSubmit={this.handleNewCompany}>
-                <div className="form-inline-input">
-                  <label className="form-label">Company Name:</label>
-                  <input
-                    type="text"
-                    className="form-input"
-                    name="new_company"
-                    placeholder="e.g. H1Z1"
-                    onChange={this.handleFormChange}
-                    value={this.state.form.new_company}
-                  />
-                </div>
-                <div className="body-content-footer">
-                  <input
-                    type="submit"
-                    className={`btn btn-dark${
-                      this.state.form.new_company === ''
-                        ? ' btn-dark-disabled'
-                        : ''
-                    }`}
-                    disabled={this.state.form.new_company === '' ? true : false}
-                    value=" Add Company"
-                  />
-                </div>
-              </form>
-            </ModalLayout>
-          </CSSTransition>
-        ) : null}
       </Fragment>
     ) : null
   }

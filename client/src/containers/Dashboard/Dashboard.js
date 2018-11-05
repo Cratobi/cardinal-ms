@@ -37,12 +37,12 @@ class Dashboard extends Component {
   }
   handleFormPasswordChange = payload => {
     const newObj = {}
+    // console.log(ReactPasswordStrength)
     newObj.newuser_password = payload.password
     newObj.newuser_password_isValid = payload.isValid
     this.setState(newObj)
   }
-
-  handleNewUser = e => {
+  handleNewUser = (e, clearFunc) => {
     e.preventDefault()
 
     this.props.addUser({
@@ -52,7 +52,7 @@ class Dashboard extends Component {
       password: this.state.newuser_password,
       power: this.state.newuser_power,
     })
-
+    clearFunc.clear()
     this.setState({
       newuser_company: '',
       newuser_name: '',
@@ -62,6 +62,7 @@ class Dashboard extends Component {
       newuser_power: 'user',
     })
   }
+
   handleNewCompany = e => {
     e.preventDefault()
 
@@ -147,6 +148,7 @@ class Dashboard extends Component {
                     handleFormChange={this.handleFormChange}
                     handleFormPasswordChange={this.handleFormPasswordChange}
                     handleNewUser={this.handleNewUser}
+                    ReactPasswordStrength2={this.ReactPasswordStrength2}
                     companies={this.props.companies}
                     state={this.state}
                   />

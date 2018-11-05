@@ -140,7 +140,7 @@ const header = props => {
             {props.userInfo.get('power') === 'admin' ? (
               <button
                 className="btn btn-transparent"
-                onClick={() => props.handleModalDashboard(true)}
+                onClick={props.handleDashboardLink}
               >
                 <i className="fas fa-tachometer-alt" />
                 DASHBOARD
