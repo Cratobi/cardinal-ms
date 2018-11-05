@@ -5,7 +5,6 @@ import { get, getIn } from 'immutable'
 import ReactPasswordStrength from 'react-password-strength'
 import { NavLink, Route, Redirect, withRouter } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
-import browserDetect from 'browser-detect'
 import * as actions from '../../store/actions'
 import './Dashboard.css'
 
@@ -37,7 +36,6 @@ class Dashboard extends Component {
     this.setState(newObj)
   }
   handleFormPasswordChange = payload => {
-    console.log(payload)
     const newObj = {}
     newObj.newuser_password = payload.password
     newObj.newuser_password_isValid = payload.isValid
@@ -47,23 +45,13 @@ class Dashboard extends Component {
   handleNewUser = e => {
     e.preventDefault()
 
-    const access = browserDetect().mobile ? 'mobile' : 'web'
-    const system = {
-      browser: browserDetect().name,
-      browser_version: browserDetect().version,
-      os: browserDetect().os,
-    }
-
     this.props.addUser({
       company: this.state.newuser_company,
       name: this.state.newuser_name,
       username: this.state.newuser_username,
       password: this.state.newuser_password,
       power: this.state.newuser_power,
-      access,
-      system,
     })
-    ReactPasswordStrength.clear()
 
     this.setState({
       newuser_company: '',

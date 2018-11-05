@@ -34,12 +34,14 @@ export const addUser = payload => {
       url: `/auth/signup`,
       data: payload,
     })
-      .then(() => {
+      .then(res => {
+        const userData = res.data
+
         ToastStore.success(
-          `A new user of name "${payload.name}" as username "${
-            payload.username
-          }" in Company "${payload.company}"`,
-          6000,
+          `A new user of name "${userData.name}" as username "${
+            userData.username
+          }" in Company "${userData.company} as a "${userData.power}"`,
+          8000,
         )
       })
       .catch(() => {

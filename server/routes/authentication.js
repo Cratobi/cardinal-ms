@@ -49,16 +49,13 @@ app.post('/auth/signup', authenticateAdmin, (req, res) => {
     'password',
     'company',
     'power',
-    'access',
-    'system',
   ])
   var user = new User(body)
 
   user
     .save()
-    .then(() => user.generateAuthToken(body.access, body.system))
-    .then(token => {
-      res.header('x-auth', token).send()
+    .then(user => {
+      res.send(user)
     })
     .catch(() => {
       res.status(400).send()
