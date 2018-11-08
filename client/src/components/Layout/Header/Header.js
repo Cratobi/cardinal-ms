@@ -22,15 +22,18 @@ const header = props => {
               classNames="slide-right"
               unmountOnExit
             >
-              <Link to="/" className="btn btn-caution back-btn">
+              <Link
+                to="/"
+                style={{ position: 'absolute' }}
+                className="btn btn-caution back-btn"
+              >
                 <i className="fas fa-home m-r" />
-                Home
               </Link>
             </CSSTransition>
-            <span className="logo-txt">
+            <Link to="/" className="logo-txt">
               <span className="hide-l">CMS</span>
               <span className="hide-s">CARDINAL</span>
-            </span>
+            </Link>
           </span>
           {/* Search Input */}
           {/* <span className="search">
@@ -48,7 +51,11 @@ const header = props => {
           {/* Right Buttons */}
           <span className="nav-btn">
             <span
-              onClick={() => props.handleMenuNotification(true)}
+              onClick={() =>
+                props.handleMenuNotification(() =>
+                  props.handleMenuAccount(!props.notificationMenu),
+                )
+              }
               className={`btn btn-custom-notification ${
                 props.notificationUnread !== 0 ? 'btn-caution' : ''
               } ${
@@ -65,9 +72,9 @@ const header = props => {
                 props.accountMenu ? 'btn-custom-account-active' : ''
               }`}
             >
-              <span>
+              <span className="btn-custom-account-btn">
                 <i className="fas fa-user" />
-                <span className="p-l p-r">
+                <span className="p-l p-r hide-s">
                   {props.userInfo.get('username')}
                 </span>
               </span>
@@ -76,7 +83,7 @@ const header = props => {
                 timeout={250}
                 classNames="rotate-180"
               >
-                <i className="fas fa-angle-down" />
+                <i className="fas fa-angle-down hide-s" />
               </CSSTransition>
             </span>
           </span>

@@ -17,7 +17,7 @@ class PriceAndConsumtion extends Component {
           <div className="card-header">
             <div className="title">Price & Consumtion</div>
             <button
-              className="btn btn-chip btn-big btn-dark"
+              className="btn btn-chip btn-dark p-l-1 p-r-1"
               onClick={this.handlePrint}
             >
               <i className="fas fa-print" />

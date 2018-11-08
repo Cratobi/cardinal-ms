@@ -12,8 +12,6 @@ class Authentication extends Component {
       username: '',
       name: '',
       password: '',
-      signup_password_one: '',
-      signup_password_two: '',
     },
   }
   //  This is to solve to asynchronous callback error
@@ -69,7 +67,9 @@ class Authentication extends Component {
           )
         })
         .catch(() => {
+          const state = { ...this.state }
           state.alert = 'Your username or password is wrong!'
+          state.form.password = ''
           if (this._isMounted) {
             return this.setState(state)
           }

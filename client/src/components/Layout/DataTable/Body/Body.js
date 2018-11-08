@@ -225,6 +225,30 @@ const tableBody = props => {
                     )}`}
                   />
                 )
+              } else if (data.get('cellType') === 'checkbox') {
+                cellData = (
+                  // <input
+                  //   type="checkbox"
+                  //   data-tablename={props.tableName}
+                  //   data-rowindex={rowindex}
+                  //   data-colindex={colindex}
+                  //   onChange={props.changeHandler}
+                  //   value={data.get('cellData')}
+                  //   checked={data.get('cellData') === 'Yes' ? true : false}
+                  // />
+                  <select
+                    className={classname}
+                    data-tablename={props.tableName}
+                    data-rowindex={rowindex}
+                    data-colindex={colindex}
+                    onChange={props.changeHandler}
+                    value={data.get('cellData')}
+                  >
+                    <option value="" disabled />
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                )
               }
             } else {
               if (data.get('cellType') === 'date' && cellData !== '') {

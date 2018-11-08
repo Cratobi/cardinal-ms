@@ -1,16 +1,18 @@
-const express = require('express')
-const jwt = require('jsonwebtoken')
-const _ = require('lodash')
+import Router from 'express'
+import _ from 'lodash'
+import mongoose from 'mongoose'
+// const ObjectId = mongoose.Types.ObjectId
+
 const ObjectId = require('mongoose').Types.ObjectId
 
 // Models
-const { Draft } = require('../models/draft')
+import Draft from '../models/draft'
 
 // Middleware
-const { authenticate } = require('../middleware/authenticate')
+import authenticate from '../middleware/authenticate'
 
 // Express > Router
-const app = express.Router()
+const app = Router()
 
 // Provide all Draft
 app.get('/draft', authenticate, (req, res) => {
@@ -50,14 +52,12 @@ app.post('/draft', authenticate, (req, res) => {
   payload.createdBy = ObjectId(req.userData.id)
   payload.company = req.userData.company
 
-  draft = new Draft(payload)
+  let draft = new Draft(payload)
 
   draft
     .save()
     .then(draft => res.send(draft))
-    .catch(() => {
-      res.status(250).send()
-    })
+    .catch(() => res.status(250).send())
 })
 
 // Update Draft Tabledata
@@ -89,4 +89,4 @@ app.delete('/draft/:id', authenticate, (req, res) => {
     })
 })
 
-module.exports = app
+export default app

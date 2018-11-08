@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const _ = require('lodash')
+import mongoose from 'mongoose'
+import _ from 'lodash'
 
 const Schema = mongoose.Schema
 
@@ -81,4 +81,4 @@ DraftSchema.statics.fetchDraft = function(id) {
 
 const Draft = mongoose.model('Draft', DraftSchema)
 
-module.exports = { Draft }
+export default Draft

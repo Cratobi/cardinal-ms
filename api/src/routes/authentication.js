@@ -1,19 +1,19 @@
-const express = require('express')
-const _ = require('lodash')
+import Router from 'express'
+import _ from 'lodash'
 
 // Model
-const { User } = require('../models/user')
+import User from '../models/user'
 
 // Middleware
-const { authenticate } = require('../middleware/authenticate')
-const { authenticateAdmin } = require('../middleware/authenticateAdmin')
+import authenticate from '../middleware/authenticate'
+import authenticateAdmin from '../middleware/authenticateAdmin'
 
 // Express > Router
-const app = express.Router()
+const app = Router()
 
 // Varify Token
 app.get('/', (req, res) => {
-  res.send('Working')
+  res.send('Hello there :]')
 })
 app.get('/auth', authenticate, (req, res) => {
   res.send(req.userData)
@@ -43,14 +43,14 @@ app.delete('/auth/signout', authenticate, (req, res) => {
 // Sign Up
 app.post('/auth/signup', authenticateAdmin, (req, res) => {
   console.log(req.body)
-  var body = _.pick(req.body, [
+  const body = _.pick(req.body, [
     'name',
     'username',
     'password',
     'company',
     'power',
   ])
-  var user = new User(body)
+  let user = new User(body)
 
   user
     .save()
@@ -62,4 +62,4 @@ app.post('/auth/signup', authenticateAdmin, (req, res) => {
     })
 })
 
-module.exports = app
+export default app

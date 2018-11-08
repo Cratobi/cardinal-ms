@@ -1,16 +1,15 @@
-const express = require('express')
-const jwt = require('jsonwebtoken')
-const _ = require('lodash')
+import Router from 'express'
+import _ from 'lodash'
 
 // Models
-const { Order } = require('../models/order')
-const { Draft } = require('../models/draft')
+import Order from '../models/order'
+import Draft from '../models/draft'
 
 // Middleware
-const { authenticate } = require('../middleware/authenticate')
+import authenticate from '../middleware/authenticate'
 
 // Express > Router
-const app = express.Router()
+const app = Router()
 
 // Provide all Orders
 app.get('/order', authenticate, (req, res) => {
@@ -126,4 +125,4 @@ app.post('/order/:id', authenticate, (req, res) => {
     })
 })
 
-module.exports = app
+export default app

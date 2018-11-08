@@ -1,5 +1,5 @@
-import React, { Fragment } from "react"
-import { CSSTransition } from "react-transition-group"
+import React, { Fragment } from 'react'
+import { CSSTransition } from 'react-transition-group'
 
 const Signin = props => {
   return (
@@ -9,7 +9,7 @@ const Signin = props => {
         <div className="txt-title">FLAXEN GROUP</div>
       </div>
       <CSSTransition
-        in={props.alert !== "" ? true : false}
+        in={props.alert !== '' ? true : false}
         timeout={250}
         classNames="outside"
         unmountOnExit

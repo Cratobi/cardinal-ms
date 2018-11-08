@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import { fromJS, toJS, getIn, set, setIn } from 'immutable'
+import { fromJS, set } from 'immutable'
 
 import tabledata from './handlers/tabledataSchema'
 import * as syncHandlers from './handlers/handleStateSync'
@@ -71,6 +71,21 @@ const draftReducer = (state = initialState, action) => {
 
         return state
       }
+      // if (tablename === 'fabricfinishprocess' && colindex === 1) {
+      //   if (value === 'No') {
+      //     value = 'Yes'
+      //   } else if (value === 'Yes') {
+      //     value = 'No'
+      //   }
+
+      //   state = syncHandlers.setCellData(
+      //     state,
+      //     tablename,
+      //     rowindex,
+      //     colindex,
+      //     value,
+      //   )
+      // }
       if (
         tablename === 'colourandcompotision' &&
         1 <= rowindex <= 8 &&

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const _ = require('lodash')
+import mongoose from 'mongoose'
+import _ from 'lodash'
 
 const Schema = mongoose.Schema
 
@@ -104,4 +104,4 @@ OrderSchema.statics.fetchOrder = function(id) {
 
 const Order = mongoose.model('Order', OrderSchema)
 
-module.exports = { Order }
+export default Order

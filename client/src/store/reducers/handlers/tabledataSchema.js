@@ -1261,8 +1261,8 @@ const tabledataSchema = {
         {
           id: 'ffp_a_2',
           editable: true,
-          cellType: 'text',
-          cellData: 'Open',
+          cellType: 'checkbox',
+          cellData: 'No',
         },
       ],
       [
@@ -1275,8 +1275,8 @@ const tabledataSchema = {
         {
           id: 'ffp_b_2',
           editable: true,
-          cellType: 'text',
-          cellData: 'YES',
+          cellType: 'checkbox',
+          cellData: 'No',
         },
       ],
       [
@@ -1289,8 +1289,8 @@ const tabledataSchema = {
         {
           id: 'ffp_c_2',
           editable: true,
-          cellType: 'text',
-          cellData: 'YES',
+          cellType: 'checkbox',
+          cellData: 'No',
         },
       ],
       [
@@ -1303,8 +1303,8 @@ const tabledataSchema = {
         {
           id: 'ffp_d_2',
           editable: true,
-          cellType: 'text',
-          cellData: 'PRACH FINISH',
+          cellType: 'checkbox',
+          cellData: 'No',
         },
       ],
       [
@@ -1314,7 +1314,7 @@ const tabledataSchema = {
           cellType: 'select',
           cellData: '',
         },
-        { id: 'ffp_e_2', editable: true, cellType: 'text', cellData: '' },
+        { id: 'ffp_e_2', editable: true, cellType: 'checkbox', cellData: 'No' },
       ],
     ],
   },

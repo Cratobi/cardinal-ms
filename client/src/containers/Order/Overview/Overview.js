@@ -15,7 +15,7 @@ class Overview extends Component {
         <div className="card-header">
           <div className="title">{this.props.order.get('order_no')}</div>
           <button
-            className="btn btn-chip btn-big btn-dark btn-dark-disabled"
+            className="btn btn-chip btn-dark btn-dark-disabled p-l-1 p-r-1"
             disabled
             onClick={this.handlePrint}
           >

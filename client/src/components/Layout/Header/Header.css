@@ -44,11 +44,11 @@ header {
 }
 .logo .logo-txt {
   color: var(--txt);
-  margin-left: 3rem;
   height: 1rem;
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 800;
   margin-left: 2rem;
+  line-height: 1rem;
   display: inline-block;
 }
 .logo .back-btn {
@@ -110,6 +110,9 @@ input.search-input::placeholder {
   overflow-y: scroll;
 }
 @media (max-width: 768px) {
+.logo .logo-txt {
+  margin-left: 1.8rem;
+}
   .search-menu {
     min-width: 100vw;
     max-width: initial;
@@ -169,7 +172,7 @@ header > .nav-btn {
   position: absolute;
   /* Electron */
   /* top: calc(3.5rem + 1.8rem); */
-  top: 3.5rem;
+  top: 3.2rem;
   right: 0.5rem;
   padding: 1rem 0;
   padding-top: 0;
@@ -184,6 +187,7 @@ header > .nav-btn {
 }
 .menu-account .user-info-container {
   background-color: #f8f8f8;
+  /* background: blue; */
   padding: 1.5rem;
   padding-bottom: 2rem;
 }
@@ -236,15 +240,42 @@ header > .nav-btn {
   background-color: transparent;
   box-shadow: none;
 }
-/* @media (max-width: 768px) {
-  .menu-account .footer {
+.btn-custom-account-active .btn-custom-account-btn {
+  padding: 0.5rem;
+  margin: -0.5rem;
+}
+@media (max-width: 768px) {
+.btn-custom-account {
+  margin-right: 0.5rem;
+  width: 2.3rem;
+  padding: 0.5rem 0.5rem;
+  border-left: 0px solid var(--offset-light);
+}
+.btn-custom-account .btn-custom-account-btn {
+  background-color: var(--background-offset);
+  padding: 0.5rem 0.7rem;
+  margin: -0.5rem;
+  border-radius: 99rem;
+}
+.btn-custom-account .btn-custom-account-btn:hover {
+  background-color: var(--background-offset-deep);
+}
+.btn-custom-account .btn-custom-account-btn:active {
+  background-color: var(--background-offset-deep);
+  box-shadow: 0 0 0 0.2rem #00000015;
+}
+.btn-custom-account-active .btn-custom-account-btn {
+  background-color: var(--background-offset-deep);
+  box-shadow: 0 0 0 0.2rem #00000015;
+}
+  /* .menu-account .footer {
     margin-top: 2rem;
     justify-content: center;
   }
   .menu-account .footer .btn {
     background-color: transparent;
-  }
-} */
+  } */
+ }
 
 /* Notification */
 .menu-notification {

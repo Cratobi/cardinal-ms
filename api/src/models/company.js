@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 // Schema Declearation
 const CompanySchema = new mongoose.Schema({
@@ -39,4 +39,4 @@ CompanySchema.statics.fetchCompany = function(id) {
 // Model Declearation
 const Company = mongoose.model('Company', CompanySchema)
 
-module.exports = { Company }
+export default Company

@@ -1,14 +1,14 @@
-const { User } = require("../models/user")
+import User from '../models/user'
 
 const authenticateAdmin = (req, res, next) => {
-  const token = req.header("x-auth")
+  const token = req.header('x-auth')
 
   User.findByToken(token)
     .then(user => {
       if (!user) {
         return Promise.reject()
       }
-      if (user.power !== "admin") {
+      if (user.power !== 'admin') {
         return Promise.reject()
       }
 
@@ -17,7 +17,7 @@ const authenticateAdmin = (req, res, next) => {
         username: user.username,
         name: user.name,
         company: user.company,
-        power: user.power
+        power: user.power,
       }
       next()
     })
@@ -26,4 +26,4 @@ const authenticateAdmin = (req, res, next) => {
     })
 }
 
-module.exports = { authenticateAdmin }
+export default authenticateAdmin

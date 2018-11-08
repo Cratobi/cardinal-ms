@@ -1,7 +1,7 @@
-const { User } = require("../models/user")
+import User from '../models/user'
 
 const authenticate = (req, res, next) => {
-  const token = req.header("x-auth")
+  const token = req.header('x-auth')
 
   User.findByToken(token)
     .then(user => {
@@ -14,7 +14,7 @@ const authenticate = (req, res, next) => {
         username: user.username,
         name: user.name,
         company: user.company,
-        power: user.power
+        power: user.power,
       }
       next()
     })
@@ -23,4 +23,4 @@ const authenticate = (req, res, next) => {
     })
 }
 
-module.exports = { authenticate }
+export default authenticate

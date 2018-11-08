@@ -1,15 +1,15 @@
-const express = require('express')
-const _ = require('lodash')
+import Router from 'express'
+import _ from 'lodash'
 
 // Models
-const { Company } = require('../models/company')
+import Company from '../models/company'
 
 // Middleware
-const { authenticate } = require('../middleware/authenticate')
-const { authenticateAdmin } = require('../middleware/authenticateAdmin')
+import authenticate from '../middleware/authenticate'
+import authenticateAdmin from '../middleware/authenticateAdmin'
 
 // Express > Router
-const app = express.Router()
+const app = Router()
 
 // Provide all buyers
 app.get('/buyer', authenticate, (req, res) => {
@@ -60,4 +60,4 @@ app.delete('/buyer/:id', authenticateAdmin, (req, res) => {
     })
 })
 
-module.exports = app
+export default app
