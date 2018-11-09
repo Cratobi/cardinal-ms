@@ -65,59 +65,51 @@
     width: 0;
     height: 0;
   }
+
+}
+
+.only-print {
+  display: none
 }
 @media only print {
-  .print-single {
-    display: block !important;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
+  .only-print {
+    display: block
   }
-  table.extradata td {
-    font-size: 10px !important;
-    font-weight: 700 !important;
-    padding: 5px !important;
-    padding-right: 10px;
-    text-align: right;
+  .print-body {
+    padding: 10px;
   }
-  .static-table {
-    /* width: calc(100% + 6rem); */
-    width: 100%;
-    margin: 0 !important;
-    border-width: 0;
-    border-radius: 0;
-    padding: 2px !important;
-  }
-  .static-table th {
-    font-size: 10px !important;
-    min-width: 5px;
-    font-weight: 400;
-    /* width: auto; */
-    padding: 5px !important;
-  }
-  .static-table td {
-    font-size: 1px !important;
-    font-weight: 400;
-    min-width: 1px !important;
-    height: 1px !important;
-    /* width: auto; */
-    padding: 1px !important;
-  }
-  .static-table .filled-txt {
-    font-size: 10px !important;
-    height: 1px !important;
-    /* width: auto; */
-    padding: 2px 5px !important;
-  }
-  .span-prefix, .span-suffix {
-    font-size: 10px !important;
+  table.datatable {
+    width: 100% !important;
+    background-color: #6d6d6d !important;
     padding: 0 !important;
+    margin-bottom: 1rem !important;
+    border: 0px solid #000000 !important;
+  }
+  .datatable th {
+      font-size: 11px !important;
+      background-color: #000000 !important;
+      padding: 0 !important;
+      border: 0.2px solid #000000 !important;
+  }
+  .datatable td {
+      color: #000000 !important;
+      font-size: 11px !important;
+      font-weight: 600 !important;
+      min-width: 0.2rem !important;
+      height: 0.1rem !important;
+      padding: 0 !important;
+      border: 0.2px solid #000000 !important;
+      white-space: nowrap !important;
+  }
+  .static-datatable .filled-txt {
+      min-width: inherit !important;
+      min-height: inherit !important;
+      height: inherit !important;
   }
   .span-prefix {
-    padding-right: 2px !important;
-  }
-  .span-suffix {
-    padding-left: 2px !important;
+      color: #252525 !important;
+      font-size: 6px !important;
+      padding-right: 0.2rem !important;
+      font-weight: 600 !important;
   }
 }

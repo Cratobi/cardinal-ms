@@ -1,7 +1,7 @@
 import './db/mongoose'
 import express from 'express'
 import bodyparser from 'body-parser'
-// import cors from 'cors'
+import cors from 'cors'
 // dev-env import
 // if (process.env.NODE_ENV !== 'production') {
 //   import logger from 'morgan'
@@ -16,7 +16,7 @@ const app = express()
 
 // Middlewares
 app.use(bodyparser.json())
-// app.use(cors())
+app.use(cors())
 
 app.use(authentication, company, buyer, draft, order)
 

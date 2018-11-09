@@ -33,6 +33,13 @@ class Order extends Component {
     return (
       <Fragment>
         {!this.props.order ? <LoadingLayout txt /> : null}
+        <div id="print-backdrop" hidden />
+        <div id="print-all" hidden>
+          <h1>All Header</h1>
+          <div id="print-PriceAndConsumtion">
+            <h2>Price And Consumtion</h2>
+          </div>
+        </div>
         <main className="container duo-grid">
           <aside className="side-tab">
             <CSSTransition
@@ -101,6 +108,7 @@ class Order extends Component {
                   <Overview
                     showMore={this.state.show_more}
                     handleToggleMore={this.handleToggleMore}
+                    handlePrint={this.handlePrint}
                     order={this.props.order}
                   />
                 )}
@@ -111,6 +119,7 @@ class Order extends Component {
                 render={() => (
                   <PriceAndConsumtion
                     tabledata={this.props.order.get('tabledata')}
+                    handlePrint={this.handlePrint}
                   />
                 )}
               />

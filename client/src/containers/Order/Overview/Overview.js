@@ -1,32 +1,29 @@
 import React, { Component } from 'react'
 // eslint-disable-next-line
 import { get } from 'immutable'
+
 import { CSSTransition } from 'react-transition-group'
 import './Overview.css'
 
 class Overview extends Component {
-  handlePrint = () => {
-    window.print()
-  }
-
   render() {
     return (
       <div className="overview">
         <div className="card-header">
-          <div className="title">{this.props.order.get('order_no')}</div>
+          <div>
+            <div className="order-no">{this.props.order.get('order_no')}</div>
+            <div className="style-no">
+              <i className="fas fa-at" />
+              {this.props.order.get('style_no')}
+            </div>
+          </div>
           <button
-            className="btn btn-chip btn-dark btn-dark-disabled p-l-1 p-r-1"
-            disabled
-            onClick={this.handlePrint}
+            className="btn btn-chip btn-dark p-l-1 p-r-1"
+            onClick={() => window.print()}
           >
             <i className="fas fa-print" />
             <span className="p-l">Print All</span>
           </button>
-        </div>
-        <div className="order-no">{this.props.order.get('order_no')}</div>
-        <div className="style-no">
-          <i className="fas fa-at" />
-          {this.props.order.get('style_no')}
         </div>
         <table className="overview">
           <tbody>
