@@ -54,7 +54,7 @@ app.post('/auth/signup', authenticateAdmin, async (req, res) => {
     await user.save()
     const data = await User.find()
     return res.send(data)
-  } catch {
+  } catch (err) {
     const err_msg =
       err.response.data === '' ? 'Something went wrong :(' : err.response.data
     res.status(400).send(err_msg)
@@ -65,7 +65,9 @@ app.get('/admin/user', authenticateAdmin, async (req, res) => {
   try {
     const users = await User.find()
     return res.send(users)
-  } catch {
+  } catch (err) {
+    const err_msg =
+      err.response.data === '' ? 'Something went wrong :(' : err.response.data
     return res.status(400).send(err_msg)
   }
 })

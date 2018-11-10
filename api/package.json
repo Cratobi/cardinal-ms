@@ -35,7 +35,7 @@
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
     "mongodb": "^3.1.6",
-    "mongoose": "^5.2.8",
+    "mongoose": "^5.3.11",
     "morgan": "^1.9.1",
     "subdomain": "^1.2.0"
   }
