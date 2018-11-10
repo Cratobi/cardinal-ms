@@ -1,45 +1,46 @@
-import Axios from "../../axios-instance"
-import * as actionTypes from "./actionTypes"
+import Axios from '../../axios-instance'
+import { ToastStore } from 'react-toasts'
+import * as actionTypes from './actionTypes'
 
 // Dispatchers
 
 export const saveDrafts = payload => {
   return {
     type: actionTypes.SAVE_DRAFTS,
-    payload
+    payload,
   }
 }
 export const resetDrafts = () => {
   return {
-    type: actionTypes.RESET_DRAFTS
+    type: actionTypes.RESET_DRAFTS,
   }
 }
 export const saveDraftMetadata = payload => {
   return {
     type: actionTypes.SAVE_DRAFT_METADATA,
-    payload
+    payload,
   }
 }
 export const saveDraftTabledata = payload => {
   return {
     type: actionTypes.SAVE_DRAFT_TABLEDATA,
-    payload
+    payload,
   }
 }
 export const resetDraft = () => {
   return {
-    type: actionTypes.RESET_DRAFT
+    type: actionTypes.RESET_DRAFT,
   }
 }
 export const resetDraftTable = () => {
   return {
-    type: actionTypes.RESET_DRAFT_TABLE
+    type: actionTypes.RESET_DRAFT_TABLE,
   }
 }
 export const syncTables = data => {
   return {
     type: actionTypes.SYNCTABLES,
-    payload: data
+    payload: data,
   }
 }
 
@@ -47,22 +48,26 @@ export const syncTables = data => {
 export const fetchDrafts = () => {
   return dispatch => {
     Axios({
-      method: "get",
-      url: "/draft"
+      method: 'get',
+      url: '/draft',
     })
       .then(payload => {
         dispatch(saveDrafts(payload.data))
       })
-      .catch(() => {
-        console.log()
+      .catch(err => {
+        const err_msg =
+          err.response.data === ''
+            ? 'Something went wrong :('
+            : err.response.data
+        ToastStore.error(`Error: ${err_msg}`, 6000)
       })
   }
 }
 export const fetchDraft = id => {
   return dispatch => {
     Axios({
-      method: "get",
-      url: `/draft/${id}`
+      method: 'get',
+      url: `/draft/${id}`,
     })
       .then(payload => {
         dispatch(saveDraftMetadata(payload.data))
@@ -70,8 +75,12 @@ export const fetchDraft = id => {
           ? dispatch(saveDraftTabledata(payload.data.tabledata))
           : dispatch(resetDraftTable())
       })
-      .catch(() => {
-        console.log()
+      .catch(err => {
+        const err_msg =
+          err.response.data === ''
+            ? 'Something went wrong :('
+            : err.response.data
+        ToastStore.error(`Error: ${err_msg}`, 6000)
       })
   }
 }
@@ -79,16 +88,20 @@ export const fetchDraft = id => {
 export const sendDraftMetadta = (payload, router) => {
   return dispatch => {
     Axios({
-      method: "post",
-      url: "/draft",
-      data: payload
+      method: 'post',
+      url: '/draft',
+      data: payload,
     })
       .then(payload => {
         dispatch(saveDraftMetadata(payload.data))
-        router.replace({ pathname: "/draft/" + payload.data.id })
+        router.replace({ pathname: '/draft/' + payload.data.id })
       })
-      .catch(() => {
-        console.log()
+      .catch(err => {
+        const err_msg =
+          err.response.data === ''
+            ? 'Something went wrong :('
+            : err.response.data
+        ToastStore.error(`Error: ${err_msg}`, 6000)
       })
   }
 }
@@ -96,11 +109,13 @@ export const sendDraftMetadta = (payload, router) => {
 export const sendDraftTabledata = payload => {
   return dispatch => {
     Axios({
-      method: "patch",
+      method: 'patch',
       url: `/draft/${payload.id}`,
-      data: payload
-    }).catch(() => {
-      console.log()
+      data: payload,
+    }).catch(err => {
+      const err_msg =
+        err.response.data === '' ? 'Something went wrong :(' : err.response.data
+      ToastStore.error(`Error: ${err_msg}`, 6000)
     })
   }
 }
@@ -114,17 +129,21 @@ export const onChange = payload => {
 export const deleteDraft = (id, router) => {
   return dispatch => {
     Axios({
-      method: "delete",
+      method: 'delete',
       url: `/draft/${id}`,
-      data: null
+      data: null,
     })
       .then(() => {
         if (router) {
-          router.replace({ pathname: "/" })
+          router.replace({ pathname: '/' })
         }
       })
-      .catch(() => {
-        console.log()
+      .catch(err => {
+        const err_msg =
+          err.response.data === ''
+            ? 'Something went wrong :('
+            : err.response.data
+        ToastStore.error(`Error: ${err_msg}`, 6000)
       })
   }
 }

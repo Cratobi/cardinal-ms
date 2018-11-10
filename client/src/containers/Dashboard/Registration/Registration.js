@@ -1,10 +1,47 @@
 import React, { Component, Fragment } from 'react'
 import { ToastContainer, ToastStore } from 'react-toasts'
 import ReactPasswordStrength from 'react-password-strength'
+import { CSSTransition } from 'react-transition-group'
+
+import ModalLayout from '../../../components/Layout/Modal/Modal'
 
 const SelectOption = props => <option value={props.value}>{props.name}</option>
+const ListItem = props => (
+  <li>
+    <div className="txt">
+      {props.name} &nbsp; <i className="txt-light">({props.username})</i>
+    </div>
+    <button
+      className="btn btn-round btn-caution"
+      onClick={e => {
+        e.preventDefault()
+
+        props.handleUserDelete({
+          id: props.id,
+          name: props.name,
+          username: props.username,
+          company: props.company,
+        })
+      }}
+    >
+      <i className="fas fa-trash" />
+    </button>
+  </li>
+)
 
 class Registration extends Component {
+  state = {
+    modalUser: false,
+  }
+  handleModalUser = action => {
+    this.setState({
+      modalUser: action,
+    })
+  }
+  handleUserDelete = payload => {
+    this.props.deleteUser(payload)
+  }
+
   render() {
     return (
       <Fragment>
@@ -12,7 +49,10 @@ class Registration extends Component {
         <div className="dashboard-card-container">
           <div className="body-header d-flex flex-j-between flex-a-baseline">
             <h5>Register</h5>
-            <div className="btn btn-chip btn-lighter p-r-1 p-l-1">
+            <div
+              className="btn btn-chip btn-lighter p-r-1 p-l-1"
+              onClick={() => this.handleModalUser(true)}
+            >
               <b className="p-r">Manage users</b>
               <i className="fas fa-sliders-h" />
             </div>
@@ -36,7 +76,11 @@ class Registration extends Component {
                 <option value="">Choose Company</option>
                 {this.props.companies ? (
                   this.props.companies.map((data, index) => (
-                    <SelectOption key={index} value={data} name={data} />
+                    <SelectOption
+                      key={index}
+                      value={data.get('name')}
+                      name={data.get('name')}
+                    />
                   ))
                 ) : (
                   <option value="" disabled>
@@ -51,7 +95,7 @@ class Registration extends Component {
                 type="text"
                 className="form-input"
                 name="newuser_name"
-                placeholder="e.g. Abdul Karim"
+                placeholder="e.g. SM Riyadh Hussain Rabbi"
                 autoComplete="off"
                 onChange={this.props.handleFormChange}
                 value={this.props.state.newuser_name}
@@ -128,6 +172,40 @@ class Registration extends Component {
                 value="Register user"
               />
             </div>
+            <CSSTransition
+              in={this.state.modalUser}
+              timeout={250}
+              classNames="anim-modal"
+              unmountOnExit
+            >
+              <ModalLayout tittle="USERS" handleModal={this.handleModalUser}>
+                {this.props.users ? (
+                  this.props.users.map((userInCompany, index) => (
+                    <div className="p-b-1" key={index}>
+                      <label className="item_list_label">
+                        {userInCompany.get('company')}
+                      </label>
+                      <ul className="item_list">
+                        {userInCompany.get('users').map((user, index) => (
+                          <ListItem
+                            key={index}
+                            handleUserDelete={this.handleUserDelete}
+                            id={user.get('_id')}
+                            company={user.get('company')}
+                            username={user.get('username')}
+                            name={user.get('name')}
+                          />
+                        ))}
+                      </ul>
+                    </div>
+                  ))
+                ) : (
+                  <option value="" disabled>
+                    Loading...
+                  </option>
+                )}
+              </ModalLayout>
+            </CSSTransition>
           </form>
         </div>
       </Fragment>

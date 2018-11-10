@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 // eslint-disable-next-line
 import { get, getIn } from 'immutable'
-import ReactPasswordStrength from 'react-password-strength'
 import { NavLink, Route, Redirect, withRouter } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
 import * as actions from '../../store/actions'
@@ -24,9 +23,11 @@ class Dashboard extends Component {
     newuser_power: 'user',
   }
   componentWillMount() {
+    this.props.fetchUser()
     this.props.fetchCompanies()
   }
   componentWillUnmount() {
+    this.props.resetUser()
     this.props.resetCompanies()
   }
 
@@ -61,6 +62,7 @@ class Dashboard extends Component {
       newuser_password_isValid: false,
       newuser_power: 'user',
     })
+    console.log('exe')
   }
 
   handleNewCompany = e => {
@@ -135,7 +137,9 @@ class Dashboard extends Component {
                   <Company
                     handleFormChange={this.handleFormChange}
                     handleNewBuyer={this.handleNewBuyer}
+                    deleteBuyer={this.props.deleteBuyer}
                     handleNewCompany={this.handleNewCompany}
+                    deleteCompany={this.props.deleteCompany}
                     companies={this.props.companies}
                     state={this.state}
                   />
@@ -148,8 +152,9 @@ class Dashboard extends Component {
                     handleFormChange={this.handleFormChange}
                     handleFormPasswordChange={this.handleFormPasswordChange}
                     handleNewUser={this.handleNewUser}
-                    ReactPasswordStrength2={this.ReactPasswordStrength2}
+                    deleteUser={this.props.deleteUser}
                     companies={this.props.companies}
+                    users={this.props.users}
                     state={this.state}
                   />
                 )}
@@ -166,6 +171,7 @@ const mapStateToProps = state => {
   return {
     userInfo: state.getIn(['auth', 'userInfo']),
     companies: state.getIn(['buyer', 'companies']),
+    users: state.getIn(['auth', 'users']),
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -173,8 +179,13 @@ const mapDispatchToProps = dispatch => {
     fetchCompanies: () => dispatch(actions.fetchCompanies()),
     resetCompanies: () => dispatch(actions.resetCompanies()),
     addCompany: payload => dispatch(actions.addCompany(payload)),
+    deleteCompany: id => dispatch(actions.deleteCompany(id)),
     addBuyer: payload => dispatch(actions.addBuyer(payload)),
+    deleteBuyer: payload => dispatch(actions.deleteBuyer(payload)),
+    fetchUser: () => dispatch(actions.fetchUser()),
+    resetUser: () => dispatch(actions.fetchUser()),
     addUser: payload => dispatch(actions.addUser(payload)),
+    deleteUser: payload => dispatch(actions.deleteUser(payload)),
   }
 }
 

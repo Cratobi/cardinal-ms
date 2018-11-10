@@ -28,57 +28,137 @@ export const resetBuyers = () => {
 }
 
 // Middlewares
+export const fetchCompanies = () => {
+  return dispatch => {
+    Axios({
+      method: 'get',
+      url: `/admin/company`,
+    })
+      .then(res => {
+        dispatch(saveCompanies(res.data))
+      })
+      .catch(err => {
+        const err_msg =
+          err.response.data === ''
+            ? 'Something went wrong :('
+            : err.response.data
+        ToastStore.error(`Error: ${err_msg}`, 6000)
+      })
+  }
+}
 export const addCompany = payload => {
-  return () => {
+  return dispatch => {
     Axios({
       method: 'post',
-      url: `/company`,
+      url: `/admin/company`,
       data: payload,
     })
-      .then(() => {
+      .then(res => {
+        ToastStore.success(
+          `A new company named "${payload.name}" has been added.`,
+        )
+        dispatch(saveCompanies(res.data))
+      })
+      .catch(err => {
+        const err_msg =
+          err.response.data === ''
+            ? 'Something went wrong :('
+            : err.response.data
+
+        ToastStore.error(`Error: ${err_msg}`, 6000)
+      })
+  }
+}
+export const editCompany = payload => {
+  return dispatch => {
+    Axios({
+      method: 'patch',
+      url: `/admin/company`,
+      data: payload,
+    })
+      .then(res => {
         ToastStore.success(
           `A new company named "${payload.name}" has been added".`,
         )
-        fetchCompanies()
+        dispatch(saveCompanies(res.data))
       })
-      .catch(() => {
-        ToastStore.error(`Error`, 6000)
+      .catch(err => {
+        const err_msg =
+          err.response.data === ''
+            ? 'Something went wrong :('
+            : err.response.data
+        ToastStore.error(`Error: ${err_msg}`, 6000)
+      })
+  }
+}
+export const deleteCompany = payload => {
+  return dispatch => {
+    Axios({
+      method: 'delete',
+      url: `/admin/company`,
+      data: payload,
+    })
+      .then(res => {
+        ToastStore.success(
+          `The Companny "${payload.company_name}" has been deleted.`,
+        )
+        dispatch(saveCompanies(res.data))
+      })
+      .catch(err => {
+        const err_msg =
+          err.response.data === ''
+            ? 'Something went wrong :('
+            : err.response.data
+        ToastStore.error(`Error: ${err_msg}`, 6000)
+      })
+  }
+}
+export const deleteBuyer = payload => {
+  return dispatch => {
+    Axios({
+      method: 'delete',
+      url: `/admin/buyer`,
+      data: payload,
+    })
+      .then(res => {
+        ToastStore.success(
+          `The Buyer "${payload.buyer_name}" of the company "${
+            payload.company_name
+          }" has been deleted".`,
+        )
+        dispatch(saveCompanies(res.data))
+      })
+      .catch(err => {
+        const err_msg =
+          err.response.data === ''
+            ? 'Something went wrong :('
+            : err.response.data
+        ToastStore.error(`Error: ${err_msg}`, 6000)
       })
   }
 }
 export const addBuyer = payload => {
-  return () => {
+  return dispatch => {
     Axios({
       method: 'post',
-      url: `/buyer`,
+      url: `/admin/buyer`,
       data: payload,
     })
-      .then(() => {
+      .then(res => {
         ToastStore.success(
           `A new buyer named "${payload.name}" has been added in Company "${
             payload.company
           }"`,
           6000,
         )
-        fetchBuyers()
+        dispatch(saveCompanies(res.data))
       })
-      .catch(() => {
-        ToastStore.error(`Error`, 6000)
-      })
-  }
-}
-
-export const fetchCompanies = () => {
-  return dispatch => {
-    Axios({
-      method: 'get',
-      url: `/company`,
-    })
-      .then(companies => {
-        dispatch(saveCompanies(companies.data))
-      })
-      .catch(() => {
-        console.log()
+      .catch(err => {
+        const err_msg =
+          err.response.data === ''
+            ? 'Something went wrong :('
+            : err.response.data
+        ToastStore.error(`Error: ${err_msg}`, 6000)
       })
   }
 }
@@ -91,8 +171,12 @@ export const fetchBuyers = () => {
       .then(res => {
         dispatch(saveBuyers(res.data))
       })
-      .catch(() => {
-        console.log()
+      .catch(err => {
+        const err_msg =
+          err.response.data === ''
+            ? 'Something went wrong :('
+            : err.response.data
+        ToastStore.error(`Error: ${err_msg}`, 6000)
       })
   }
 }

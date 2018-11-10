@@ -41,8 +41,7 @@ app.delete('/auth/signout', authenticate, (req, res) => {
 })
 
 // Sign Up
-app.post('/auth/signup', authenticateAdmin, (req, res) => {
-  console.log(req.body)
+app.post('/auth/signup', authenticateAdmin, async (req, res) => {
   const body = _.pick(req.body, [
     'name',
     'username',
@@ -50,16 +49,55 @@ app.post('/auth/signup', authenticateAdmin, (req, res) => {
     'company',
     'power',
   ])
-  let user = new User(body)
+  try {
+    let user = new User(body)
+    await user.save()
+    const data = await User.find()
+    return res.send(data)
+  } catch {
+    const err_msg =
+      err.response.data === '' ? 'Something went wrong :(' : err.response.data
+    res.status(400).send(err_msg)
+  }
+})
+// Provide all buyers for admin
+app.get('/admin/user', authenticateAdmin, async (req, res) => {
+  try {
+    const users = await User.find()
+    return res.send(users)
+  } catch {
+    return res.status(400).send(err_msg)
+  }
+})
+app.patch('/admin/user', authenticateAdmin, async (req, res) => {
+  const payload = _.pick(req.body, ['id', 'old_buyer_name', 'new_buyer_name'])
 
-  user
-    .save()
-    .then(user => {
-      res.send(user)
-    })
-    .catch(() => {
+  try {
+    await Company.findOneAndUpdate(
+      { _id: ObjectId(payload.id), buyers: payload.old_buyer_name },
+      { $set: { 'buyers.$': payload.new_buyer_name } },
+    )
+    try {
+      const data = await Company.find()
+      return res.send(data)
+    } catch (err) {
       res.status(400).send()
-    })
+    }
+  } catch (err) {
+    res.status(400).send()
+  }
+})
+app.delete('/admin/user', authenticateAdmin, async (req, res) => {
+  console.log(req.body)
+  const payload = _.pick(req.body, ['id'])
+
+  try {
+    await User.findByIdAndRemove(payload.id)
+    const data = await User.find()
+    return res.send(data)
+  } catch (err) {
+    return res.status(400).send()
+  }
 })
 
 export default app

@@ -452,7 +452,7 @@ h7 {
   display: flex;
 }
 .flex-j-start {
-  justify-content: flex-start;
+  justify-content: flex-start !important;
 }
 .flex-j-center {
   justify-content: center;

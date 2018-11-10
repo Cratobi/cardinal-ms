@@ -10,19 +10,6 @@ import authenticateAdmin from '../middleware/authenticateAdmin'
 // Express > Router
 const app = Router()
 
-// Provide all companys
-app.get('/company', authenticateAdmin, (req, res) => {
-  return Company.fetchCompanies()
-    .then(data => {
-      const companies = []
-      data.map(data => companies.push(data.name))
-      return res.send(companies)
-    })
-    .catch(() => {
-      res.status(250).send()
-    })
-})
-
 // Provide company
 app.get('/company/:id', authenticateAdmin, (req, res) => {
   const id = req.params.id
@@ -31,45 +18,90 @@ app.get('/company/:id', authenticateAdmin, (req, res) => {
     .then(data => {
       res.send(data)
     })
-    .catch(() => {
-      res.status(250).send()
+    .catch(err => {
+      const err_msg =
+        err.response.data === '' ? 'Something went wrong :(' : err.response.data
+      res.status(400).send()
     })
+})
+// Provide all compnaies foradmin
+app.get('/admin/company', authenticateAdmin, async (req, res) => {
+  try {
+    let data = await Company.find()
+    data = _.map(data, _.partialRight(_.pick, ['_id', 'name', 'buyers']))
+
+    return res.send(data)
+  } catch (err) {
+    res.status(400).send()
+  }
+})
+app.patch('/admin/company', authenticateAdmin, async (req, res) => {
+  const payload = _.pick(req.body, [
+    'id',
+    'old_company_name',
+    'new_company_name',
+  ])
+
+  try {
+    await Company.findOneAndUpdate(
+      { _id: ObjectId(payload.id) },
+      { $set: { name: payload.new_buyer_name } },
+    )
+    try {
+      const data = await Company.find()
+      return res.send(data)
+    } catch (err) {
+      res.status(400).send()
+    }
+  } catch (err) {
+    res.status(400).send()
+  }
+})
+app.delete('/admin/company', authenticateAdmin, async (req, res) => {
+  const payload = _.pick(req.body, ['id'])
+
+  try {
+    await Company.findByIdAndRemove(payload.id)
+    try {
+      const data = await Company.find()
+      return res.send(data)
+    } catch (err) {
+      res.status(400).send()
+    }
+  } catch (err) {
+    return res.status(400).send()
+  }
 })
 
 // Add Company
-app.post('/company', authenticateAdmin, (req, res) => {
+app.post('/admin/company', authenticateAdmin, async (req, res) => {
   const payload = _.pick(req.body, ['name'])
-  Company.findOne({ name: payload.name })
-    .then(company => {
-      if (!company) {
-        const company = new Company(payload)
 
-        company
-          .save()
-          .then(() => res.send())
-          .catch(() => {
-            res.status(250).send()
-          })
-      } else {
-        res.status(250).send()
-      }
-    })
-    .catch(() => {
-      res.status(250).send()
-    })
+  try {
+    let company = await Company.findOne({ name: payload.name })
+    if (company) throw 'Company already exists'
+
+    company = new Company(payload)
+
+    await company.save()
+    const companies = await Company.find()
+    return res.send(companies)
+  } catch (err) {
+    return res.status(400).send(err)
+  }
 })
 
 // Delete Company
-app.delete('/company/:id', authenticateAdmin, (req, res) => {
+app.delete('/company/:id', authenticateAdmin, async (req, res) => {
   const id = req.params.id
 
-  return Company.findByIdAndRemove(id)
-    .then(() => {
-      res.send()
-    })
-    .catch(() => {
-      res.status(250).send()
-    })
+  try {
+    await Company.findByIdAndRemove(id)
+    const data = await Company.find()
+    return res.send(data)
+  } catch (err) {
+    return res.status(400).send()
+  }
 })
 
 export default app

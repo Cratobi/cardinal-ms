@@ -22,14 +22,14 @@ app.get('/order', authenticate, (req, res) => {
     }
     Order.searchOrders(query, feild)
       .then(data => res.send(data))
-      .catch(() => {
-        res.status(250).send()
+      .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
+        res.status(400).send()
       })
   } else {
     Order.fetchOrders(req.query.page, req.query.recent)
       .then(data => res.send(data))
-      .catch(() => {
-        res.status(250).send()
+      .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
+        res.status(400).send()
       })
   }
 })
@@ -46,8 +46,8 @@ app.get('/order/search', authenticate, (req, res) => {
         )
         res.send(data)
       })
-      .catch(() => {
-        res.status(250).send()
+      .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
+        res.status(400).send()
       })
   } else {
     query = query.substr(1)
@@ -59,8 +59,8 @@ app.get('/order/search', authenticate, (req, res) => {
         )
         res.send(data)
       })
-      .catch(() => {
-        res.status(250).send()
+      .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
+        res.status(400).send()
       })
   }
 })
@@ -69,8 +69,8 @@ app.get('/order/search', authenticate, (req, res) => {
 app.get('/order/count', authenticate, (req, res) => {
   Order.estimatedDocumentCount()
     .then(count => res.send({ count }))
-    .catch(() => {
-      res.status(250).send()
+    .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
+      res.status(400).send()
     })
 })
 
@@ -82,8 +82,8 @@ app.get('/order/:id', authenticate, (req, res) => {
     .then(data => {
       res.send(data)
     })
-    .catch(() => {
-      res.status(250).send()
+    .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
+      res.status(400).send()
     })
 })
 
@@ -117,10 +117,10 @@ app.post('/order/:id', authenticate, (req, res) => {
           })
         })
         .catch(err => {
-          res.status(250).send(err)
+          res.status(400).send(err)
         })
     })
-    .catch(() => {
+    .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
       res.status(404).send()
     })
 })

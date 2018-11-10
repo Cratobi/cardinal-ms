@@ -9,8 +9,6 @@ import * as actions from '../../store/actions/index'
 import HeaderLayout from '../../components/Layout/Header/Header'
 import ModalLayout from '../../components/Layout/Modal/Modal'
 
-const SelectOption = props => <option value={props.value}>{props.name}</option>
-
 class Header extends Component {
   state = {
     form: {

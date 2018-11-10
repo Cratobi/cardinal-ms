@@ -2,6 +2,7 @@
 import { fromJS, get, set } from 'immutable'
 
 const initialState = fromJS({
+  users: null,
   userInfo: null,
 })
 
@@ -11,6 +12,27 @@ const reducer = (state = initialState, action) => {
       return state.set('authorization', true)
     case 'SAVEUSER':
       return state.set('userInfo', fromJS(action.payload))
+    case 'SAVEUSERS':
+      const companies = []
+      action.payload.map(user => {
+        if (companies.every(company => company !== user.company)) {
+          companies.push(user.company)
+        }
+      })
+      const users = []
+      companies.map(function(company) {
+        const usersUnderACompany = []
+        action.payload.map(user => {
+          if (user.company === company) {
+            usersUnderACompany.push(user)
+          }
+        })
+        users.push({
+          company,
+          users: usersUnderACompany,
+        })
+      })
+      return state.set('users', fromJS(users))
     case 'USER_LOGOUT':
       const { routing } = state
       return (state = { routing })

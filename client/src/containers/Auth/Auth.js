@@ -45,7 +45,7 @@ class Auth extends Component {
           this.props.history.replace({ pathname: "/order" })
         )
       })
-      .catch(() => {
+      .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
         const state = { ...this.state }
         state.alert = "Your username or password is wrong!"
         if (this._isMounted) {

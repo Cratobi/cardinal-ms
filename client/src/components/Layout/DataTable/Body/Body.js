@@ -244,7 +244,7 @@ const tableBody = props => {
                     onChange={props.changeHandler}
                     value={data.get('cellData')}
                   >
-                    <option value="" disabled />
+                    <option value="" />
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                   </select>

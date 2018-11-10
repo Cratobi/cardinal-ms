@@ -1,10 +1,20 @@
 // AUthentication
-export { auth, addUser, verifyToken, requestSignin } from './auth'
+export {
+  auth,
+  verifyToken,
+  requestSignin,
+  fetchUser,
+  resetUser,
+  addUser,
+  deleteUser,
+} from './auth'
 
 // Buyer & Company
 export {
   addCompany,
+  deleteCompany,
   addBuyer,
+  deleteBuyer,
   fetchCompanies,
   resetCompanies,
   fetchBuyers,

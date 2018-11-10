@@ -18,8 +18,8 @@ const app = Router()
 app.get('/draft', authenticate, (req, res) => {
   Draft.fetchDrafts(req.userData.id)
     .then(data => res.send(data))
-    .catch(() => {
-      res.status(250).send()
+    .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
+      res.status(400).send()
     })
 })
 
@@ -33,8 +33,8 @@ app.get('/draft/:id', authenticate, (req, res) => {
       const createdBy = draft.createdBy
       createdBy.equals(userId) ? res.send(draft) : res.status(402).send()
     })
-    .catch(() => {
-      res.status(250).send()
+    .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
+      res.status(400).send()
     })
 })
 
@@ -57,7 +57,7 @@ app.post('/draft', authenticate, (req, res) => {
   draft
     .save()
     .then(draft => res.send(draft))
-    .catch(() => res.status(250).send())
+    .catch(() => res.status(400).send())
 })
 
 // Update Draft Tabledata
@@ -71,8 +71,8 @@ app.patch('/draft/:id', authenticate, (req, res) => {
     .then(() => {
       res.send()
     })
-    .catch(() => {
-      res.status(250).send()
+    .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
+      res.status(400).send()
     })
 })
 
@@ -84,8 +84,8 @@ app.delete('/draft/:id', authenticate, (req, res) => {
     .then(() => {
       res.send()
     })
-    .catch(() => {
-      res.status(250).send()
+    .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
+      res.status(400).send()
     })
 })
 

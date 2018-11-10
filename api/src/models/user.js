@@ -65,7 +65,7 @@ UserSchema.methods.toJSON = function() {
   const user = this
   const userObject = user.toObject()
 
-  return _.pick(userObject, ['name', 'username', 'power', 'company'])
+  return _.pick(userObject, ['_id', 'name', 'username', 'power', 'company'])
 }
 
 UserSchema.methods.generateAuthToken = function(access, system) {
@@ -97,7 +97,7 @@ UserSchema.statics.findByToken = function(token) {
 
   try {
     decoded = jwt.verify(token, 'secret')
-  } catch (e) {
+  } catch (err) {
     return Promise.reject()
   }
 

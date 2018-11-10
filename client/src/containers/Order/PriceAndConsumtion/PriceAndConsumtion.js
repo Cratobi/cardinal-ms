@@ -22,12 +22,12 @@ class PriceAndConsumtion extends Component {
   render() {
     return (
       <Fragment>
-        <div className="card-header">
+        <div className="card-header flex-j-start">
           <div className="title">Price & Consumtion</div>
           <ReactToPrint
             bodyClass="print-body"
             trigger={() => (
-              <button className="btn btn-chip btn-dark p-l-1 p-r-1">
+              <button className="btn btn-chip btn-lighter p-l-1 p-r-1 m-l-1">
                 <i className="fas fa-print" />
                 <span className="p-l">Print</span>
               </button>
