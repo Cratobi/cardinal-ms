@@ -169,9 +169,10 @@ export const fetchBuyers = () => {
       url: '/buyer',
     })
       .then(res => {
-        dispatch(saveBuyers(res.data))
+        return dispatch(saveBuyers(res.data))
       })
       .catch(err => {
+        console.log(err)
         const err_msg =
           err.response.data === ''
             ? 'Something went wrong :('

@@ -12,32 +12,33 @@ import authenticateAdmin from '../middleware/authenticateAdmin'
 const app = Router()
 
 // Varify Token
-app.get('/', (req, res) => {
-  res.send('Hello there :]')
-})
-app.get('/auth', authenticate, (req, res) => {
+app.get('/', (req, res) => res.send('Server is working :}'))
+
+app.get('/auth', authenticate, async (req, res) => {
   res.send(req.userData)
 })
 // Sign In
-app.post('/auth/signin', (req, res) => {
+app.post('/auth/signin', async (req, res) => {
   var body = _.pick(req.body, ['username', 'password', 'access', 'system'])
-  if (body.username && body.password) {
-    User.findByCredentials(body.username, body.password)
-      .then(user =>
-        user.generateAuthToken(body.access, body.system).then(token => {
-          res.header('x-auth', token).send({ token })
-        }),
-      )
-      .catch(() => res.status(400).send())
-  } else {
-    return res.status(400).send()
+  try {
+    if (!body.username && !body.password)
+      throw 'Username and Password are required'
+
+    const user = await User.findByCredentials(body.username, body.password)
+    const token = await user.generateAuthToken(body.access, body.system)
+    return res.header('x-auth', token).send({ token })
+  } catch (err) {
+    return res.status(400).send(err)
   }
 })
 // Sign Out
-app.delete('/auth/signout', authenticate, (req, res) => {
-  User.removeToken(req.token)
-    .then(() => res.send())
-    .catch(() => res.status(400).send())
+app.delete('/auth/signout', authenticate, async (req, res) => {
+  try {
+    await User.removeToken(req.token)
+    return res.send()
+  } catch (err) {
+    return res.status(400).send(err)
+  }
 })
 
 // Sign Up
@@ -79,14 +80,10 @@ app.patch('/admin/user', authenticateAdmin, async (req, res) => {
       { _id: ObjectId(payload.id), buyers: payload.old_buyer_name },
       { $set: { 'buyers.$': payload.new_buyer_name } },
     )
-    try {
-      const data = await Company.find()
-      return res.send(data)
-    } catch (err) {
-      res.status(400).send()
-    }
+    const data = await Company.find()
+    return res.send(data)
   } catch (err) {
-    res.status(400).send()
+    res.status(400).send(err)
   }
 })
 app.delete('/admin/user', authenticateAdmin, async (req, res) => {
@@ -98,7 +95,7 @@ app.delete('/admin/user', authenticateAdmin, async (req, res) => {
     const data = await User.find()
     return res.send(data)
   } catch (err) {
-    return res.status(400).send()
+    return res.status(400).send(err)
   }
 })
 

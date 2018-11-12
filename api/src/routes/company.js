@@ -11,18 +11,15 @@ import authenticateAdmin from '../middleware/authenticateAdmin'
 const app = Router()
 
 // Provide company
-app.get('/company/:id', authenticateAdmin, (req, res) => {
+app.get('/company/:id', authenticateAdmin, async (req, res) => {
   const id = req.params.id
+  try {
+    const company = Company.fetchCompany(id)
 
-  return Company.fetchCompany(id)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(err => {
-      const err_msg =
-        err.response.data === '' ? 'Something went wrong :(' : err.response.data
-      res.status(400).send()
-    })
+    return res.send(company)
+  } catch (err) {
+    return res.status(400).send(err)
+  }
 })
 // Provide all compnaies foradmin
 app.get('/admin/company', authenticateAdmin, async (req, res) => {
@@ -32,7 +29,7 @@ app.get('/admin/company', authenticateAdmin, async (req, res) => {
 
     return res.send(data)
   } catch (err) {
-    res.status(400).send()
+    return res.status(400).send(err)
   }
 })
 app.patch('/admin/company', authenticateAdmin, async (req, res) => {
@@ -47,14 +44,11 @@ app.patch('/admin/company', authenticateAdmin, async (req, res) => {
       { _id: ObjectId(payload.id) },
       { $set: { name: payload.new_buyer_name } },
     )
-    try {
-      const data = await Company.find()
-      return res.send(data)
-    } catch (err) {
-      res.status(400).send()
-    }
+    const company = await Company.find()
+
+    return res.send(company)
   } catch (err) {
-    res.status(400).send()
+    return res.status(400).send(err)
   }
 })
 app.delete('/admin/company', authenticateAdmin, async (req, res) => {
@@ -62,14 +56,11 @@ app.delete('/admin/company', authenticateAdmin, async (req, res) => {
 
   try {
     await Company.findByIdAndRemove(payload.id)
-    try {
-      const data = await Company.find()
-      return res.send(data)
-    } catch (err) {
-      res.status(400).send()
-    }
+    const data = await Company.find()
+
+    return res.send(data)
   } catch (err) {
-    return res.status(400).send()
+    return res.status(400).send(err)
   }
 })
 
@@ -82,9 +73,9 @@ app.post('/admin/company', authenticateAdmin, async (req, res) => {
     if (company) throw 'Company already exists'
 
     company = new Company(payload)
-
     await company.save()
     const companies = await Company.find()
+
     return res.send(companies)
   } catch (err) {
     return res.status(400).send(err)
@@ -98,9 +89,10 @@ app.delete('/company/:id', authenticateAdmin, async (req, res) => {
   try {
     await Company.findByIdAndRemove(id)
     const data = await Company.find()
+
     return res.send(data)
   } catch (err) {
-    return res.status(400).send()
+    return res.status(400).send(err)
   }
 })
 

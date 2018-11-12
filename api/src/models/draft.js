@@ -71,7 +71,7 @@ DraftSchema.methods.toJSON = function() {
 
 DraftSchema.statics.fetchDrafts = function(userId) {
   const draft = this
-  return draft.find({ createdBy: userId })
+  return draft.find({ createdBy: userId }).sort({ createdAt: -1 })
 }
 
 DraftSchema.statics.fetchDraft = function(id) {

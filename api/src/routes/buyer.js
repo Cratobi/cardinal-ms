@@ -12,12 +12,13 @@ import authenticateAdmin from '../middleware/authenticateAdmin'
 const app = Router()
 
 // Provide all buyers
-app.get('/buyer', authenticate, (req, res) => {
-  return Company.fetchBuyers(req.userData.company)
-    .then(data => res.send(data.buyers))
-    .catch(() => {
-      res.status(400).send()
-    })
+app.get('/buyer', authenticate, async (req, res) => {
+  try {
+    const company = await Company.fetchBuyers(req.userData.company)
+    return res.send(company.buyers)
+  } catch (err) {
+    return res.status(400).send(err)
+  }
 })
 // Provide all buyers for admin
 app.patch('/admin/buyer', authenticateAdmin, async (req, res) => {
@@ -28,14 +29,10 @@ app.patch('/admin/buyer', authenticateAdmin, async (req, res) => {
       { _id: ObjectId(payload.id), buyers: payload.old_buyer_name },
       { $set: { 'buyers.$': payload.new_buyer_name } },
     )
-    try {
-      const data = await Company.find()
-      return res.send(data)
-    } catch (err) {
-      res.status(400).send()
-    }
+    const data = await Company.find()
+    return res.send(data)
   } catch (err) {
-    res.status(400).send()
+    res.status(400).send(err)
   }
 })
 app.delete('/admin/buyer', authenticateAdmin, async (req, res) => {
@@ -49,7 +46,7 @@ app.delete('/admin/buyer', authenticateAdmin, async (req, res) => {
     const data = await Company.find()
     return res.send(data)
   } catch (err) {
-    res.status(400).send()
+    res.status(400).send(err)
   }
 })
 

@@ -15,31 +15,32 @@ import authenticate from '../middleware/authenticate'
 const app = Router()
 
 // Provide all Draft
-app.get('/draft', authenticate, (req, res) => {
-  Draft.fetchDrafts(req.userData.id)
-    .then(data => res.send(data))
-    .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
-      res.status(400).send()
-    })
+app.get('/draft', authenticate, async (req, res) => {
+  try {
+    const draft = await Draft.fetchDrafts(req.userData.id)
+    return res.send(draft)
+  } catch (err) {
+    return res.status(400).send(err)
+  }
 })
 
 // Provide Draft
-app.get('/draft/:id', authenticate, (req, res) => {
+app.get('/draft/:id', authenticate, async (req, res) => {
   const id = req.params.id
   const userId = req.userData.id
 
-  return Draft.fetchDraft(id)
-    .then(draft => {
-      const createdBy = draft.createdBy
-      createdBy.equals(userId) ? res.send(draft) : res.status(402).send()
-    })
-    .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
-      res.status(400).send()
-    })
+  try {
+    const draft = await Draft.fetchDraft(id)
+    if (!draft.createdBy.equals(userId)) throw 'You are not authorized'
+
+    return res.send(draft)
+  } catch (err) {
+    return res.status(400).send(err)
+  }
 })
 
 // Add Draft
-app.post('/draft', authenticate, (req, res) => {
+app.post('/draft', authenticate, async (req, res) => {
   const payload = _.pick(req.body, [
     'shipment_date',
     'buyer',
@@ -52,41 +53,40 @@ app.post('/draft', authenticate, (req, res) => {
   payload.createdBy = ObjectId(req.userData.id)
   payload.company = req.userData.company
 
-  let draft = new Draft(payload)
+  try {
+    let draft = new Draft(payload)
+    draft = await draft.save()
 
-  draft
-    .save()
-    .then(draft => res.send(draft))
-    .catch(() => res.status(400).send())
+    return res.send(draft)
+  } catch (err) {
+    return res.status(400).send(err)
+  }
 })
 
 // Update Draft Tabledata
-app.patch('/draft/:id', authenticate, (req, res) => {
+app.patch('/draft/:id', authenticate, async (req, res) => {
   const id = req.params.id
   const payload = _.pick(req.body, ['tabledata'])
+  try {
+    await Draft.findByIdAndUpdate(id, {
+      $set: { tabledata: payload.tabledata },
+    })
 
-  return Draft.findByIdAndUpdate(id, {
-    $set: { tabledata: payload.tabledata },
-  })
-    .then(() => {
-      res.send()
-    })
-    .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
-      res.status(400).send()
-    })
+    return res.send()
+  } catch (err) {
+    return res.status(400).send(err)
+  }
 })
 
 // Delete Draft
-app.delete('/draft/:id', authenticate, (req, res) => {
+app.delete('/draft/:id', authenticate, async (req, res) => {
   const id = req.params.id
-
-  return Draft.findByIdAndRemove(id)
-    .then(() => {
-      res.send()
-    })
-    .catch(err => {         const err_msg =           err.response.data === ''             ? 'Something went wrong :('             : err.response.data
-      res.status(400).send()
-    })
+  try {
+    await Draft.findByIdAndRemove(id)
+    return res.send()
+  } catch (err) {
+    return res.status(400).send(err)
+  }
 })
 
 export default app

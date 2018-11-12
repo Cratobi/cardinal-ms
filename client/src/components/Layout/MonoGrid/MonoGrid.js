@@ -12,7 +12,7 @@ const MonoGrid = props => {
           }
         >
           {props.header ? (
-            <diva className="card-header">{props.header}</diva>
+            <div className="card-header">{props.header}</div>
           ) : null}
           <div className="card-body">{props.children}</div>
           {props.footer ? (
