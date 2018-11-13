@@ -1,76 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <title>Cardinal</title>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-  <title>Cardinal</title>
+    <!-- For Electron -->
+    <!-- <link href="themify-icons/themify-icons.css" rel="stylesheet" /> -->
+    <!--
+      <script>
+        (function () {
+          // Retrieve remote BrowserWindow
+          const { BrowserWindow } = require('electron').remote
 
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z"
-    crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6"
-    crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Lato:100,200,250,250,250,600,700,800,900' rel='stylesheet' type='text/css'>
-  <link href="themify-icons/themify-icons.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <!-- For Electron -->
-  <!-- <script>
-    (function () {
-      // Retrieve remote BrowserWindow
-      const { BrowserWindow } = require('electron').remote
+          function init() {
+            // Minimize task
+            document.getElementById("min-btn").addEventListener("click", (e) => {
+              var window = BrowserWindow.getFocusedWindow();
+              window.minimize();
+            });
 
-      function init() {
-        // Minimize task
-        document.getElementById("min-btn").addEventListener("click", (e) => {
-          var window = BrowserWindow.getFocusedWindow();
-          window.minimize();
-        });
+            // Maximize window
+            document.getElementById("max-btn").addEventListener("click", (e) => {
+              var window = BrowserWindow.getFocusedWindow();
+              if (window.isMaximized()) {
+                window.unmaximize();
+              } else {
+                window.maximize();
+              }
+            });
 
-        // Maximize window
-        document.getElementById("max-btn").addEventListener("click", (e) => {
-          var window = BrowserWindow.getFocusedWindow();
-          if (window.isMaximized()) {
-            window.unmaximize();
-          } else {
-            window.maximize();
-          }
-        });
+            // Maximize window
+            document.getElementById("full-btn").addEventListener("click", (e) => {
+              var window = BrowserWindow.getFocusedWindow();
+              if (window.isFullScreen()) {
+                window.setFullScreen(false);
+              } else {
+                window.setFullScreen(true);
+              }
+            });
 
-        // Maximize window
-        document.getElementById("full-btn").addEventListener("click", (e) => {
-          var window = BrowserWindow.getFocusedWindow();
-          if (window.isFullScreen()) {
-            window.setFullScreen(false);
-          } else {
-            window.setFullScreen(true);
-          }
-        });
+            // Close app
+            document.getElementById("close-btn").addEventListener("click", (e) => {
+              var window = BrowserWindow.getFocusedWindow();
+              window.close();
+            });
+          };
 
-        // Close app
-        document.getElementById("close-btn").addEventListener("click", (e) => {
-          var window = BrowserWindow.getFocusedWindow();
-          window.close();
-        });
-      };
+          document.onreadystatechange = () => {
+            if (document.readyState == "complete") {
+              init();
+            }
+          };
+        })();
+      </script>
+    -->
+  </head>
 
-      document.onreadystatechange = () => {
-        if (document.readyState == "complete") {
-          init();
-        }
-      };
-    })();
-  </script> -->
-</head>
-
-<body>
-  <noscript>
-    You need to enable JavaScript to run this app.
-  </noscript>
-  <div id="root"></div>
-</body>
-
+  <body>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
+    <div id="root"></div>
+  </body>
 </html>

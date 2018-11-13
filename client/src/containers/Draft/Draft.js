@@ -161,7 +161,10 @@ class Draft extends Component {
                     </tr>
                   </tbody>
                 </table>
-                <ExtraTable editable="true" tabledata={this.props.tabledata} />
+                <ExtraTable
+                  editability={true}
+                  tabledata={this.props.tabledata}
+                />
               </div>
             </div>
           </Fragment>
@@ -222,7 +225,7 @@ class Draft extends Component {
           classNames="slide-up"
           unmountOnExit
         >
-          <EditableTable editable="true" tabledata={this.props.tabledata} />
+          <EditableTable editability={true} tabledata={this.props.tabledata} />
         </CSSTransition>
       </MonoGridLayout>
     ) : (

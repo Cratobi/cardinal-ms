@@ -2,7 +2,6 @@
   background-color: var(--background);
   display: block;
   /* width: clac(100% - 0.5rem); */
-  width: auto;
   padding: 0.5rem;
   margin-right: -0.5rem;
   margin-left: -0.5rem;
@@ -52,7 +51,7 @@
   padding: 0.3rem;
   display: flex;
   align-items: center;
-  overflow-x: scroll;
+  overflow-x: hidden;
 }
 .custom-card-container-draft
   .card-body
@@ -87,5 +86,15 @@
   }
   .custom-card-container-draft .card-body .editable-table:hover {
     box-shadow: initial;
+  }
+  .extradata_table {
+    width: 100%;
+    overflow: auto;
+  }
+  .extradata_table tbody {
+    width: auto;
+  }
+  .extradata_table td {
+    width: 100% !important;
   }
 }

@@ -92,9 +92,7 @@ html {
   font-size: 14px;
 }
 body {
-  font-family: "Lato";
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
+  font-family: Lato, Sans-Serif;
   font-size: 1rem;
   font-style: normal;
   color: var(--txt);
@@ -518,7 +516,8 @@ h7 {
   margin-top: 3.8rem;
   width: calc(100vw - 0.2rem);
   margin-right: 0.2rem;
-  height: calc(100vh - 3.5rem);
+  /* height: calc(100vh - 3.5rem); */
+  height: 100vh;
   margin-top: 3.5;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -620,7 +619,7 @@ h7 {
   font-weight: 700;
 }
 .txt-thin {
-  font-weight: 500;
+  font-weight: 600;
 }
 .txt-link {
   color: #4f72e6;

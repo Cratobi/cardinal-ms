@@ -51,9 +51,10 @@ a.order-card {
 }
 .order-card > .mid > .style-no {
   text-overflow: ellipsis;
+  font-weight: 600;
   overflow: hidden;
   max-width: 80%;
-  color: #5c5c5c;
+  color: #7a7a7a;
   font-size: 0.7rem;
   letter-spacing: 0.5px;
   align-self: flex-end;

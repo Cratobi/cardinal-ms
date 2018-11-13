@@ -180,6 +180,13 @@ header > .nav-btn {
   box-shadow: var(--elevation-3);
   z-index: 7;
 }
+@media (max-width: 768px) {
+  .menu {
+    width: 100vw !important;
+    right: 0 !important;
+    border-radius: 0 !important;
+  }
+}
 
 /* Account */
 .menu-account {

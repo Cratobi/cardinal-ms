@@ -16,18 +16,21 @@ const reducer = (state = initialState, action) => {
       const companies = []
       action.payload.map(user => {
         if (companies.every(company => company !== user.company)) {
-          companies.push(user.company)
+          return companies.push(user.company)
         }
+        return null
       })
       const users = []
       companies.map(function(company) {
         const usersUnderACompany = []
+
         action.payload.map(user => {
           if (user.company === company) {
             usersUnderACompany.push(user)
           }
+          return null
         })
-        users.push({
+        return users.push({
           company,
           users: usersUnderACompany,
         })
