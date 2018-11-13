@@ -214,7 +214,7 @@ const tabledataSchema = {
         {
           id: 'mes_d_1',
           editable: true,
-          cellType: 'type',
+          cellType: 'text',
           cellData: '1/2 Chest',
         },
         {

@@ -1,13 +1,15 @@
 // eslint-disable-next-line
 import { fromJS, set } from 'immutable'
 
-import tabledata from './handlers/tabledataSchema'
+import CnP_data from './handlers/CnP_data'
+import CnP_data from './handlers/CnP_dataSchema'
 import * as syncHandlers from './handlers/handleStateSync'
 
 const initialState = fromJS({
   drafts: null,
   metadata: null,
-  tabledata,
+  CnP_dataSchema,
+  CnP_data,
 })
 
 const draftReducer = (state = initialState, action) => {

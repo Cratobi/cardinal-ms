@@ -35,7 +35,7 @@
   display: initial;
 }
 .ReactPasswordStrength.is-strength-0 .ReactPasswordStrength-strength-desc, .ReactPasswordStrength.is-strength-1 .ReactPasswordStrength-strength-desc  {
-   background-color: #e9c4be;
+   background-color: #bee9e7;
 }
 .ReactPasswordStrength.is-strength-2 .ReactPasswordStrength-strength-desc, .ReactPasswordStrength.is-strength-3 .ReactPasswordStrength-strength-desc {
   background-color: #cadfec;
@@ -74,6 +74,9 @@ ul.item_list {
   padding-left: 0.5rem;
 }
 @media (max-width: 768px) {
+.card-body {
+  padding: 1.2rem !important;
+}
 ul.item_list {
   min-width: 80vw;
   list-style-type: none;

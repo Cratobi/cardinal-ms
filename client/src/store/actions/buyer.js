@@ -167,17 +167,8 @@ export const fetchBuyers = () => {
     Axios({
       method: 'get',
       url: '/buyer',
+    }).then(res => {
+      return dispatch(saveBuyers(res.data))
     })
-      .then(res => {
-        return dispatch(saveBuyers(res.data))
-      })
-      .catch(err => {
-        console.log(err)
-        const err_msg =
-          err.response.data === ''
-            ? 'Something went wrong :('
-            : err.response.data
-        ToastStore.error(`Error: ${err_msg}`, 6000)
-      })
   }
 }

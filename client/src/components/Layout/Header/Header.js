@@ -52,10 +52,7 @@ const header = props => {
           <span className="nav-btn">
             <span
               onClick={() =>
-                props.handleMenuNotification(() => {
-                  console.log('object')
-                  // return props.handleMenuAccount(!props.notificationMenu)
-                })
+                props.handleMenuNotification(!props.notificationMenu)
               }
               className={`btn btn-custom-notification ${
                 props.notificationUnread !== 0 ? 'btn-caution' : ''

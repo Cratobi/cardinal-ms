@@ -12,6 +12,7 @@ table.datatable {
 }
 .datatable th,
 .datatable td {
+  background-color: #fff;
   border: 1px solid #383838;
   white-space: nowrap;
 }

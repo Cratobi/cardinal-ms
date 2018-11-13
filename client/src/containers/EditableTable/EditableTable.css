@@ -80,8 +80,10 @@
 
 @media (max-width: 768px) {
   .custom-card-container-draft .card-body .editable-table {
-    width: calc(100vw - 0.8rem);
-    border: 0.4rem solid var(--background);
+    background-color: #f0f0f0;
+    width: 100vw;
+    border: 0rem solid var(--background);
+    border-radius: 0;
     box-shadow: none;
   }
   .custom-card-container-draft .card-body .editable-table:hover {
@@ -90,11 +92,25 @@
   .extradata_table {
     width: 100%;
     overflow: auto;
+    border: 0.5rem solid #fff;
   }
   .extradata_table tbody {
     width: auto;
   }
+  .extradata_table th {
+    font-size: 0.8rem !important;
+  }
   .extradata_table td {
+    font-size: 0.8rem !important;
+    width: 100% !important;
+    padding: 0.2rem;
+  }
+  .extradata_table td:first-child {
+    padding: 0 !important;
+  }
+  .extradata_table td input {
+    min-width: 8rem;
+    font-size: 0.8rem !important;
     width: 100% !important;
   }
 }

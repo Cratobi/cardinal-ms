@@ -184,7 +184,16 @@ header > .nav-btn {
   .menu {
     width: 100vw !important;
     right: 0 !important;
+    height: 100vh !important;
     border-radius: 0 !important;
+  }
+  .menu-notification {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    box-shadow: 0 0 1px #000;
+  }
+  .menu-notification .scrollable {
+    max-height: 90vh !important;
   }
 }
 
