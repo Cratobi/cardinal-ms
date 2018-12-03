@@ -10,20 +10,22 @@ const dataTable = props => {
   return (
     <div className="table-container">
       <table
-        className={`datatable ${!props.editability ? 'static-datatable' : ''}`}
+        className={`datatable${!props.editability ? ' static-datatable' : ''}${
+          props.className ? ' ' + props.className : ''
+        }`}
       >
         <thead>
           <tr>
-            <Header headerData={props.tableData.get('tableheader')} />
+            <Header headerData={props.schema.get('tableheader')} />
           </tr>
         </thead>
         <tbody>
           <Body
             changeHandler={props.changeHandler}
             editability={props.editability}
-            tableName={props.tableData.get('tablename')}
-            tableData={props.tableData.get('tablebody')}
-            wheel={props.wheel}
+            tableName={props.schema.get('tablename')}
+            schema={props.schema.get('tablebody')}
+            data={props.data}
           />
         </tbody>
       </table>

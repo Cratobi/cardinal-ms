@@ -6,530 +6,443 @@ import { getIn, setIn } from 'immutable'
 // 2 Dec
 
 const loop = (start, end, Func) => {
-  let i
-  for (i = start; i <= end; i++) {
-    Func(i)
-  }
-  return null
+	let i
+	for (i = start; i <= end; i++) {
+		Func(i)
+	}
+	return null
 }
 const loopFor = (array, Func) => {
-  let i
-  for (i = 0; i <= array.length; i++) {
-    Func(array[i])
-  }
-  return null
+	let i
+	for (i = 0; i <= array.length; i++) {
+		Func(array[i])
+	}
+	return null
 }
 const Round = num => {
-  num = Math.round(num * 100) / 100
-  if (isNaN(num)) num = 0
+	num = Math.round(num * 100) / 100
+	if (isNaN(num)) num = 0
 
-  return num
+	return num
 }
 const toFloat = num => {
-  num = parseFloat(num)
-  if (isNaN(num)) num = 0
+	num = parseFloat(num)
+	if (isNaN(num)) num = 0
 
-  num = Math.round(num * 100) / 100
-  if (isNaN(num)) num = 0
+	num = Math.round(num * 100) / 100
+	if (isNaN(num)) num = 0
 
-  return num
+	return num
 }
 const toFloatRound = num => {
-  num = parseFloat(num)
+	num = parseFloat(num)
 
-  if (isNaN(num)) num = 0
-  num = Math.round(num * 100) / 100
-  if (isNaN(num)) num = 0
+	if (isNaN(num)) num = 0
+	num = Math.round(num * 100) / 100
+	if (isNaN(num)) num = 0
 
-  return num
+	return num
 }
 const NaNChecker = num => {
-  if (isNaN(num)) num = 0
+	if (isNaN(num)) num = 0
 
-  return num
+	return num
 }
 const infinityChecker = num => {
-  if (!isFinite(num)) num = ''
+	if (!isFinite(num)) num = ''
 
-  return num
+	return num
 }
 const emptifier = num => {
-  if (num === 0) num = ''
+	if (num === 0) num = ''
 
-  return num
+	return num
 }
 
 const getCellData = (state, tablename, rowindex, colindex, name) => {
-  let cellData = toFloat(
-    state.getIn([
-      'tabledata',
-      'table_' + tablename,
-      'tablebody',
-      rowindex,
-      colindex,
-      'cellData',
-    ]),
-  )
+	let cellData = toFloat((state = state.getIn(['CnP_data', `table_${tablename}`, rowindex, colindex])))
 
-  return cellData
+	return cellData
 }
 const setCellData = (state, tablename, rowindex, colindex, value, name) => {
-  value = emptifier(value)
+	value = emptifier(value)
 
-  state = state.setIn(
-    [
-      'tabledata',
-      'table_' + tablename,
-      'tablebody',
-      rowindex,
-      colindex,
-      'cellData',
-    ],
-    value,
-  )
-  return state
+	state = state.setIn(['CnP_data', `table_${tablename}`, rowindex, colindex], value)
+	return state
 }
 const getExtraData = (state, name) => {
-  let cellData = toFloat(state.getIn(['tabledata', 'extradata', name]))
+	let cellData = toFloat(state.getIn(['CnP_data', 'extradata', name]))
 
-  return cellData
+	return cellData
 }
 const setExtraData = (state, name, value) => {
-  value = emptifier(value)
-  state = state.setIn(['tabledata', 'extradata', name], value)
+	value = emptifier(value)
+	state = state.setIn(['CnP_data', 'extradata', name], value)
 
-  return state
+	return state
 }
-const getR22 = state => state.getIn(['tabledata', 'extradata', 'R22'])
+const getR22 = state => state.getIn(['CnP_data', 'extradata', 'R22'])
 
 const setR22 = (state, value) => {
-  const SFBM = !value ? getExtraData(state, 'self_fabric_matching_body') : value
-  const compositionTotal = getComposition__Total(state)
-  let R22 = ((compositionTotal / 12) * SFBM) / 1000
+	const SFBM = !value ? getExtraData(state, 'self_fabric_matching_body') : value
+	const compositionTotal = getComposition__Total(state)
+	let R22 = compositionTotal / 12 * SFBM / 1000
 
-  state = state.setIn(['tabledata', 'extradata', 'R22'], R22)
-  state = currency__BodyConsumptionAndLycra(state)
-  state = currency__RibConsumptionAndLycra(state)
-  loopFor([1, 2, 8], rowindex => (state = price__Value(state, rowindex)))
+	state = state.setIn(['CnP_data', 'extradata', 'R22'], R22)
+	state = currency__BodyConsumptionAndLycra(state)
+	state = currency__RibConsumptionAndLycra(state)
+	loopFor([1, 2, 8], rowindex => (state = price__Value(state, rowindex)))
 
-  return state
+	return state
 }
-const getS22 = state => state.getIn(['tabledata', 'extradata', 'S22'])
+const getS22 = state => state.getIn(['CnP_data', 'extradata', 'S22'])
 
 const setS22 = state => {
-  let S22 = 0
-  loop(1, 10, colindex => {
-    const basic = getBasic(state, colindex)
+	let S22 = 0
+	loop(1, 10, colindex => {
+		const basic = getBasic(state, colindex)
 
-    S22 +=
-      (getCellData(state, 'colourandcompotision', 9, colindex) / 12) * basic
-    console.log(
-      basic,
-      (getCellData(state, 'colourandcompotision', 9, colindex) / 12) * basic,
-    )
-    console.log(basic)
-    return S22
-  })
+		S22 += getCellData(state, 'colourandcompotision', 9, colindex) / 12 * basic
+		console.log(basic, getCellData(state, 'colourandcompotision', 9, colindex) / 12 * basic)
+		console.log(basic)
+		return S22
+	})
 
-  state = state.setIn(['tabledata', 'extradata', 'S22'], S22)
+	state = state.setIn(['CnP_data', 'extradata', 'S22'], S22)
 
-  state = extrafabric__GTotal(state, 0, 0)
-  state = price__Value(state, 8)
+	state = extrafabric__GTotal(state, 0, 0)
+	state = price__Value(state, 8)
 
-  return state
+	return state
 }
-const getBasic = (state, colindex) =>
-  state.getIn(['tabledata', 'extradata', 'basic', colindex])
+const getBasic = (state, colindex) => state.getIn(['CnP_data', 'extradata', 'basic', colindex])
 
 const setBasic = (state, colindex) => {
-  const mes_b = getCellData(state, 'measurments', 1, colindex)
-  const mes_c = getCellData(state, 'measurments', 2, colindex)
-  const mes_d = getCellData(state, 'measurments', 3, colindex)
-  const fabric_weight = getExtraData(state, 'fabric_weight')
-  const s_allowance_chest = getExtraData(state, 's_allowance_chest')
-  const s_allowance_length = getExtraData(state, 's_allowance_length')
-  const wastage = getExtraData(state, 'wastage') / 100
+	const mes_b = getCellData(state, 'measurments', 1, colindex)
+	const mes_c = getCellData(state, 'measurments', 2, colindex)
+	const mes_d = getCellData(state, 'measurments', 3, colindex)
+	const fabric_weight = getExtraData(state, 'fabric_weight')
+	const s_allowance_chest = getExtraData(state, 's_allowance_chest')
+	const s_allowance_length = getExtraData(state, 's_allowance_length')
+	const wastage = getExtraData(state, 'wastage') / 100
 
-  const basic =
-    ((mes_b + mes_c + s_allowance_length) *
-      (mes_d + s_allowance_chest) *
-      24 *
-      fabric_weight *
-      (1 + wastage)) /
-    10000000
+	const basic =
+		(mes_b + mes_c + s_allowance_length) *
+		(mes_d + s_allowance_chest) *
+		24 *
+		fabric_weight *
+		(1 + wastage) /
+		10000000
 
-  state = state.setIn(['tabledata', 'extradata', 'basic', colindex], basic)
+	state = state.setIn(['CnP_data', 'extradata', 'basic', colindex], basic)
 
-  return state
+	return state
 }
 
-const updateCellData = (
-  state,
-  tablename,
-  rowindex,
-  colindex,
-  updateFunc,
-  addition,
-) =>
-  state.updateIn(
-    [
-      'tabledata',
-      'table_' + tablename,
-      'tablebody',
-      rowindex,
-      colindex,
-      'cellData',
-    ],
-    old_val => {
-      old_val = toFloat(old_val)
-      if (addition) old_val -= addition
-      let new_val = updateFunc(old_val)
-      if (addition) new_val += addition
+const updateCellData = (state, tablename, rowindex, colindex, updateFunc, addition) =>
+	state.updateIn(['CnP_data', 'table_' + tablename, 'tablebody', rowindex, colindex, 'cellData'], old_val => {
+		old_val = toFloat(old_val)
+		if (addition) old_val -= addition
+		let new_val = updateFunc(old_val)
+		if (addition) new_val += addition
 
-      if (new_val === 0) {
-        new_val = ''
-      }
+		if (new_val === 0) {
+			new_val = ''
+		}
 
-      return new_val
-    },
-  )
+		return new_val
+	})
 
 const addToOldValue = (old_val, value, prev_val) => {
-  prev_val = toFloat(prev_val)
-  value = toFloat(value)
+	prev_val = toFloat(prev_val)
+	value = toFloat(value)
 
-  let new_val = old_val + (value - prev_val)
-  new_val = Round(new_val)
-  return new_val
+	let new_val = old_val + (value - prev_val)
+	new_val = Round(new_val)
+	return new_val
 }
 
 // Some Presets
-const getComposition__Total = state =>
-  getCellData(state, 'colourandcompotision', 9, 11)
+const getComposition__Total = state => getCellData(state, 'colourandcompotision', 9, 11)
 
-const getPrice__Value = (state, rowindex, colindex = 2) =>
-  getCellData(state, 'price', rowindex, colindex)
+const getPrice__Value = (state, rowindex, colindex = 2) => getCellData(state, 'price', rowindex, colindex)
 
-const getPrice__Price = (state, rowindex) =>
-  getCellData(state, 'price', rowindex, 1)
+const getPrice__Price = (state, rowindex) => getCellData(state, 'price', rowindex, 1)
 
 const getGTotal = state => getCellData(state, 'extrafabric', 7, 1)
 
 // Will update "Size" table's header taking value from Measurement Table
-const composition__CloneSizeHeader = (state, colindex, value) => {
-  state = setCellData(state, 'colourandcompotision', 0, colindex + 1, value)
-  return state
-}
+const composition__CloneSizeHeader = (state, colindex, value) =>
+	setCellData(state, 'colourandcompotision', 0, colindex + 1, value)
 
 // Will update "Composition" table's right, bottom and total cells
 const composition__SumTotal = (state, rowindex, colindex, value, prev_val) => {
-  const bottomRowFunc = old_val => addToOldValue(old_val, value, prev_val)
-  const sideRowFunc = old_val => addToOldValue(old_val, value, prev_val)
-  const totalFunc = old_val => addToOldValue(old_val, value, prev_val)
+	const bottomRowFunc = old_val => addToOldValue(old_val, value, prev_val)
+	const sideRowFunc = old_val => addToOldValue(old_val, value, prev_val)
+	const totalFunc = old_val => addToOldValue(old_val, value, prev_val)
 
-  state = updateCellData(
-    state,
-    'colourandcompotision',
-    9,
-    colindex - 1,
-    bottomRowFunc,
-  )
-  state = updateCellData(
-    state,
-    'colourandcompotision',
-    rowindex,
-    12,
-    sideRowFunc,
-  )
-  state = updateCellData(state, 'colourandcompotision', 9, 11, totalFunc)
+	state = updateCellData(state, 'colourandcompotision', 9, colindex - 1, bottomRowFunc)
+	state = updateCellData(state, 'colourandcompotision', rowindex, 12, sideRowFunc)
+	state = updateCellData(state, 'colourandcompotision', 9, 11, totalFunc)
 
-  state = setR22(state)
-  state = currency__BodyConsumptionAndLycra(state)
-  state = currency__RibConsumptionAndLycra(state)
-  loopFor(
-    [9, 10, 11, 12, 13, 14],
-    rowindex => (state = price__Value(state, rowindex)),
-  )
-  state = setS22(state)
-  state = price__PerPcs__All(state)
+	state = setR22(state)
+	state = currency__BodyConsumptionAndLycra(state)
+	state = currency__RibConsumptionAndLycra(state)
+	loopFor([9, 10, 11, 12, 13, 14], rowindex => (state = price__Value(state, rowindex)))
+	state = setS22(state)
+	state = price__PerPcs__All(state)
 
-  return state
+	return state
 }
 
 // accessories__SumPriceTotal
 const accessories__SumPriceTotal = (state, value, prev_val) => {
-  const totalFunc = old_val => addToOldValue(old_val, value, prev_val)
-  state = updateCellData(state, 'accessoriesname', 22, 1, totalFunc)
+	const totalFunc = old_val => addToOldValue(old_val, value, prev_val)
+	state = updateCellData(state, 'accessoriesname', 22, 1, totalFunc)
 
-  return state
+	return state
 }
 
 // G Total
 const extrafabric__GTotal = state => {
-  let gTotal = 0
-  loop(
-    0,
-    6,
-    rowindex => (gTotal += getCellData(state, 'extrafabric', rowindex, 4)),
-  )
-  gTotal += getS22(state)
-  gTotal = Round(gTotal)
+	let gTotal = 0
+	loop(0, 6, rowindex => (gTotal += getCellData(state, 'extrafabric', rowindex, 4)))
+	gTotal += getS22(state)
+	gTotal = Round(gTotal)
 
-  state = setCellData(state, 'extrafabric', 7, 1, gTotal)
-  state = currency__TotalYarn(state)
-  state = currency__BodyConsumptionAndLycra(state)
-  loopFor([1, 5, 7], rowindex => (state = price__Value(state, rowindex)))
+	state = setCellData(state, 'extrafabric', 7, 1, gTotal)
+	state = currency__TotalYarn(state)
+	state = currency__BodyConsumptionAndLycra(state)
+	loopFor([1, 5, 7], rowindex => (state = price__Value(state, rowindex)))
 
-  return state
+	return state
 }
 
 // Will calculate and update "Currency" table's value
 const currency__TotalYarn = state => {
-  const currencyLycraBody = getCellData(state, 'currency', 4, 2)
-  const currencyLycraRib = getCellData(state, 'currency', 5, 2)
+	const currencyLycraBody = getCellData(state, 'currency', 4, 2)
+	const currencyLycraRib = getCellData(state, 'currency', 5, 2)
 
-  const totalYarn = getGTotal(state) - currencyLycraBody - currencyLycraRib
+	const totalYarn = getGTotal(state) - currencyLycraBody - currencyLycraRib
 
-  state = setCellData(
-    state,
-    'currency',
-    1,
-    1,
-    infinityChecker(Round(totalYarn)),
-  )
-  state = price__Value(state, 0)
+	state = setCellData(state, 'currency', 1, 1, infinityChecker(Round(totalYarn)))
+	state = price__Value(state, 0)
 
-  return state
+	return state
 }
 const currency__BodyConsumptionAndLycra = state => {
-  const compositionTotal = getComposition__Total(state)
-  const bodyLycraPercent = getCellData(state, 'currency', 4, 1) / 100
+	const compositionTotal = getComposition__Total(state)
+	const bodyLycraPercent = getCellData(state, 'currency', 4, 1) / 100
 
-  const bodyConsumption =
-    ((getGTotal(state) - getR22(state)) / compositionTotal) * 12
-  const bodyLycra = (compositionTotal / 12) * bodyConsumption * bodyLycraPercent
+	const bodyConsumption = (getGTotal(state) - getR22(state)) / compositionTotal * 12
+	const bodyLycra = compositionTotal / 12 * bodyConsumption * bodyLycraPercent
 
-  state = setCellData(
-    state,
-    'currency',
-    2,
-    1,
-    infinityChecker(Round(bodyConsumption)),
-  )
-  state = setCellData(state, 'currency', 4, 2, Round(bodyLycra))
-  state = currency__TotalYarn(state)
-  state = price__Value(state, 4)
-  state = price__PerPcs(state, 4)
+	state = setCellData(state, 'currency', 2, 1, infinityChecker(Round(bodyConsumption)))
+	state = setCellData(state, 'currency', 4, 2, Round(bodyLycra))
+	state = currency__TotalYarn(state)
+	state = price__Value(state, 4)
+	state = price__PerPcs(state, 4)
 
-  return state
+	return state
 }
 const currency__RibConsumptionAndLycra = state => {
-  const compositionTotal = getComposition__Total(state)
-  const ribLycraPercent = getCellData(state, 'currency', 5, 1) / 100
-  const ribConsumption = (getR22(state) / compositionTotal) * 12
-  const ribLycra = (compositionTotal / 12) * ribConsumption * ribLycraPercent
+	const compositionTotal = getComposition__Total(state)
+	const ribLycraPercent = getCellData(state, 'currency', 5, 1) / 100
+	const ribConsumption = getR22(state) / compositionTotal * 12
+	const ribLycra = compositionTotal / 12 * ribConsumption * ribLycraPercent
 
-  state = setCellData(
-    state,
-    'currency',
-    3,
-    1,
-    infinityChecker(Round(ribConsumption)),
-  )
-  state = setCellData(state, 'currency', 5, 2, Round(ribLycra))
-  state = currency__TotalYarn(state)
-  state = price__Value(state, 4)
-  state = price__PerPcs(state, 4)
+	state = setCellData(state, 'currency', 3, 1, infinityChecker(Round(ribConsumption)))
+	state = setCellData(state, 'currency', 5, 2, Round(ribLycra))
+	state = currency__TotalYarn(state)
+	state = price__Value(state, 4)
+	state = price__PerPcs(state, 4)
 
-  return state
+	return state
 }
 
 // PRICE
 const price__PerPcs = (state, rowindex, colindex = 3) => {
-  const priceValue = getPrice__Value(state, rowindex, colindex - 1)
+	const priceValue = getPrice__Value(state, rowindex, colindex - 1)
 
-  if (rowindex !== 22 && rowindex !== 23 && rowindex !== 24) {
-    const compositionTotal = getComposition__Total(state)
+	if (rowindex !== 22 && rowindex !== 23 && rowindex !== 24) {
+		const compositionTotal = getComposition__Total(state)
 
-    let perPcs = priceValue / compositionTotal
-    perPcs = toFloatRound(perPcs)
-    perPcs = infinityChecker(perPcs)
-    state = setCellData(state, 'price', rowindex, colindex, perPcs)
-    loop(22, 24, rowindex => (state = price__PerPcs(state, rowindex)))
-  } else {
-    const pricePrice = getCellData(state, 'price', rowindex, 1)
-    const pricePerPcsTotal = getCellData(state, 'price', 21, 2)
+		let perPcs = priceValue / compositionTotal
+		perPcs = toFloatRound(perPcs)
+		perPcs = infinityChecker(perPcs)
+		state = setCellData(state, 'price', rowindex, colindex, perPcs)
+		loop(22, 24, rowindex => (state = price__PerPcs(state, rowindex)))
+	} else {
+		const pricePrice = getCellData(state, 'price', rowindex, 1)
+		const pricePerPcsTotal = getCellData(state, 'price', 21, 2)
 
-    let differnece = pricePrice - pricePerPcsTotal
-    differnece = toFloatRound(differnece)
-    state = setCellData(state, 'price', rowindex, 3, differnece)
-    return state
-  }
-  return state
+		let differnece = pricePrice - pricePerPcsTotal
+		differnece = toFloatRound(differnece)
+		state = setCellData(state, 'price', rowindex, 3, differnece)
+		return state
+	}
+	return state
 }
 const price__PerPcs__All = state => {
-  const compositionTotal = getComposition__Total(state)
-  const pricePerPcsTotal = getCellData(state, 'price', 21, 2)
+	const compositionTotal = getComposition__Total(state)
+	const pricePerPcsTotal = getCellData(state, 'price', 21, 2)
 
-  loop(0, 20, rowindex => {
-    const priceValue = getPrice__Value(state, rowindex)
+	loop(0, 20, rowindex => {
+		const priceValue = getPrice__Value(state, rowindex)
 
-    let perPcs = priceValue / compositionTotal
-    perPcs = toFloatRound(perPcs)
-    state = setCellData(state, 'price', rowindex, 3, perPcs)
-  })
+		let perPcs = priceValue / compositionTotal
+		perPcs = toFloatRound(perPcs)
+		state = setCellData(state, 'price', rowindex, 3, perPcs)
+	})
 
-  loop(22, 24, rowindex => {
-    const pricePrice = getCellData(state, 'price', rowindex, 1)
+	loop(22, 24, rowindex => {
+		const pricePrice = getCellData(state, 'price', rowindex, 1)
 
-    let differnece = pricePrice - pricePerPcsTotal
-    differnece = toFloatRound(differnece)
-    state = setCellData(state, 'price', rowindex, 3, differnece)
-    return state
-  })
+		let differnece = pricePrice - pricePerPcsTotal
+		differnece = toFloatRound(differnece)
+		state = setCellData(state, 'price', rowindex, 3, differnece)
+		return state
+	})
 
-  return state
+	return state
 }
 
 // Calculates Particular Values
 const price__Value = (state, rowindex) => {
-  const exchangeRate = getCellData(state, 'currency', 0, 1)
-  const pricePrice = getPrice__Price(state, rowindex)
+	const exchangeRate = getCellData(state, 'currency', 0, 1)
+	const pricePrice = getPrice__Price(state, rowindex)
 
-  let priceValue = 0
+	let priceValue = 0
 
-  switch (rowindex) {
-    case 0:
-      const totalYarn = getCellData(state, 'currency', 1, 1)
-      priceValue = totalYarn * pricePrice
-      break
-    case 1:
-      priceValue =
-        (getGTotal(state) - getR22(state)) * (pricePrice / exchangeRate)
-      break
-    case 2:
-      priceValue = getR22(state) * (pricePrice / exchangeRate)
-      break
-    case 3:
-    case 5:
-      priceValue = getGTotal(state) * (pricePrice / exchangeRate)
-      break
-    case 4:
-      const lycraBody = getCellData(state, 'currency', 4, 2)
-      const lycraRib = getCellData(state, 'currency', 5, 2)
-      priceValue = lycraBody + lycraRib * (pricePrice / exchangeRate)
-      break
-    case 6:
-    case 7:
-      priceValue = pricePrice * (getGTotal(state) / exchangeRate)
-      break
-    case 8:
-      const raqQuantity = getCellData(state, 'currency', 6, 1)
-      priceValue =
-        pricePrice *
-        ((getS22(state) - getR22(state) + raqQuantity) / exchangeRate)
-      break
-    case 9:
-    case 10:
-    case 11:
-    case 12:
-    case 13:
-    case 14:
-    case 15:
-    case 16:
-    case 17:
-    case 18:
-    case 19:
-      const compositionTotal = getComposition__Total(state)
-      priceValue = pricePrice * (compositionTotal / 12)
-      break
+	switch (rowindex) {
+		case 0:
+			const totalYarn = getCellData(state, 'currency', 1, 1)
+			priceValue = totalYarn * pricePrice
+			break
+		case 1:
+			priceValue = (getGTotal(state) - getR22(state)) * (pricePrice / exchangeRate)
+			break
+		case 2:
+			priceValue = getR22(state) * (pricePrice / exchangeRate)
+			break
+		case 3:
+		case 5:
+			priceValue = getGTotal(state) * (pricePrice / exchangeRate)
+			break
+		case 4:
+			const lycraBody = getCellData(state, 'currency', 4, 2)
+			const lycraRib = getCellData(state, 'currency', 5, 2)
+			priceValue = lycraBody + lycraRib * (pricePrice / exchangeRate)
+			break
+		case 6:
+		case 7:
+			priceValue = pricePrice * (getGTotal(state) / exchangeRate)
+			break
+		case 8:
+			const raqQuantity = getCellData(state, 'currency', 6, 1)
+			priceValue = pricePrice * ((getS22(state) - getR22(state) + raqQuantity) / exchangeRate)
+			break
+		case 9:
+		case 10:
+		case 11:
+		case 12:
+		case 13:
+		case 14:
+		case 15:
+		case 16:
+		case 17:
+		case 18:
+		case 19:
+			const compositionTotal = getComposition__Total(state)
+			priceValue = pricePrice * (compositionTotal / 12)
+			break
 
-    // no default
-  }
-  priceValue = Round(priceValue)
-  priceValue = infinityChecker(priceValue)
-  priceValue = emptifier(priceValue)
+		// no default
+	}
+	priceValue = Round(priceValue)
+	priceValue = infinityChecker(priceValue)
+	priceValue = emptifier(priceValue)
 
-  state = setCellData(state, 'price', rowindex, 2, priceValue)
-  state = price_Commotion(state)
-  state = price_Total(state)
+	state = setCellData(state, 'price', rowindex, 2, priceValue)
+	state = price_Commotion(state)
+	state = price_Total(state)
 
-  return state
+	return state
 }
 
 const price_Commotion = state => {
-  const buyingCommotionPercent = getCellData(state, 'price', 20, 1) / 100
+	const buyingCommotionPercent = getCellData(state, 'price', 20, 1) / 100
 
-  let priceValueCommotion = 0
-  loop(0, 19, rowindex => {
-    priceValueCommotion += NaNChecker(getCellData(state, 'price', rowindex, 2))
-  })
+	let priceValueCommotion = 0
+	loop(0, 19, rowindex => {
+		priceValueCommotion += NaNChecker(getCellData(state, 'price', rowindex, 2))
+	})
 
-  priceValueCommotion -= priceValueCommotion * (1 - buyingCommotionPercent)
-  priceValueCommotion = Round(priceValueCommotion)
+	priceValueCommotion -= priceValueCommotion * (1 - buyingCommotionPercent)
+	priceValueCommotion = Round(priceValueCommotion)
 
-  state = setCellData(state, 'price', 20, 2, priceValueCommotion)
-  return state
+	state = setCellData(state, 'price', 20, 2, priceValueCommotion)
+	return state
 }
 
 const price_Total = (state, rowindex) => {
-  let priceValueTotal = 0
+	let priceValueTotal = 0
 
-  loop(0, 20, rowindex => {
-    priceValueTotal += NaNChecker(getCellData(state, 'price', rowindex, 2))
-  })
+	loop(0, 20, rowindex => {
+		priceValueTotal += NaNChecker(getCellData(state, 'price', rowindex, 2))
+	})
 
-  priceValueTotal = Round(priceValueTotal)
-  state = setCellData(state, 'price', 21, 1, priceValueTotal)
-  state = price__PerPcs(state, 21, 2)
+	priceValueTotal = Round(priceValueTotal)
+	state = setCellData(state, 'price', 21, 1, priceValueTotal)
+	state = price__PerPcs(state, 21, 2)
 
-  return state
-  // let per_pcs_total = toFloat(
-  //   state.getIn(['tabledata', 'table_price', 'tablebody', 21, 2, 'cellData']),
-  // )
+	return state
+	// let per_pcs_total = toFloat(
+	//   state.getIn(['CnP_data', 'table_price', 'tablebody', 21, 2, 'cellData']),
+	// )
 
-  // for (let row = 22; row <= 24; row++) {
-  //   let color_price = toFloat(
-  //     state.getIn(
-  //       ['tabledata', 'table_price', 'tablebody', row, 1, 'cellData'],
-  //       per_pcs_total,
-  //     ),
-  //   )
-  //   const color_price_difference = isNaN(color_price)
-  //     ? `(${per_pcs_total})`
-  //     : (color_price - per_pcs_total).toFixed(2)
+	// for (let row = 22; row <= 24; row++) {
+	//   let color_price = toFloat(
+	//     state.getIn(
+	//       ['CnP_data', 'table_price', 'tablebody', row, 1, 'cellData'],
+	//       per_pcs_total,
+	//     ),
+	//   )
+	//   const color_price_difference = isNaN(color_price)
+	//     ? `(${per_pcs_total})`
+	//     : (color_price - per_pcs_total).toFixed(2)
 
-  //   state = state.setIn(
-  //     ['tabledata', 'table_price', 'tablebody', row, 3, 'cellData'],
-  //     color_price_difference,
-  //   )
+	//   state = state.setIn(
+	//     ['CnP_data', 'table_price', 'tablebody', row, 3, 'cellData'],
+	//     color_price_difference,
+	//   )
 
-  // priceValue = Round(priceValue)
-  // priceValue = infinityChecker(priceValue)
-  // priceValue = emptifier(priceValue)
+	// priceValue = Round(priceValue)
+	// priceValue = infinityChecker(priceValue)
+	// priceValue = emptifier(priceValue)
 
-  // state = setCellData(state, 'price', rowindex, 2, priceValue)
-  // return state
+	// state = setCellData(state, 'price', rowindex, 2, priceValue)
+	// return state
 }
 
 export {
-  // additional Fuctions
-  loop,
-  loopFor,
-  // Primary Functions
-  getCellData,
-  setCellData,
-  getExtraData,
-  setExtraData,
-  setR22,
-  setS22,
-  setBasic,
-  composition__CloneSizeHeader,
-  composition__SumTotal,
-  extrafabric__GTotal,
-  accessories__SumPriceTotal,
-  currency__BodyConsumptionAndLycra,
-  currency__RibConsumptionAndLycra,
-  price__PerPcs,
-  price__Value,
+	// additional Fuctions
+	loop,
+	loopFor,
+	// Primary Functions
+	getCellData,
+	setCellData,
+	getExtraData,
+	setExtraData,
+	setR22,
+	setS22,
+	setBasic,
+	composition__CloneSizeHeader,
+	composition__SumTotal,
+	extrafabric__GTotal,
+	accessories__SumPriceTotal,
+	currency__BodyConsumptionAndLycra,
+	currency__RibConsumptionAndLycra,
+	price__PerPcs,
+	price__Value,
 }

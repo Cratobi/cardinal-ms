@@ -26,7 +26,7 @@ class Draft extends Component {
     if (this.props.metadata) {
       const payload = {
         id: this.props.metadata.get('id'),
-        tabledata: this.props.tabledata.toJS(),
+        tabledata: this.props.CnP_data.toJS(),
       }
 
       this.props.sendDraftTabledata(payload)
@@ -37,18 +37,15 @@ class Draft extends Component {
     this.props.history.replace({ pathname: '/' })
   }
   handlePublishOrder = () => {
-    const tabledata = this.props.tabledata.toJS()
-
-    for (
-      let rowindex = 0;
-      rowindex < tabledata.table_date.tablebody.length;
-      rowindex++
-    ) {
-      tabledata.table_date.tablebody[rowindex][1].cellData = new Date(
-        tabledata.table_date.tablebody[rowindex][1].cellData,
-      ).getTime()
-    }
-
+    const tabledata = this.props.CnP_data.toJS()
+    
+    for (let rowindex = 0; rowindex < tabledata.table_date.length; rowindex++) {
+      tabledata.table_date[rowindex][1] = new Date(
+        tabledata.table_date[rowindex][1],
+        ).getTime()
+      }
+      
+      console.log(tabledata)
     this.props.publishOrder(
       this.props.metadata.get('id'),
       tabledata,
@@ -161,10 +158,7 @@ class Draft extends Component {
                     </tr>
                   </tbody>
                 </table>
-                <ExtraTable
-                  editability={true}
-                  tabledata={this.props.tabledata}
-                />
+                <ExtraTable editability={true} data={this.props.CnP_data} />
               </div>
             </div>
           </Fragment>
@@ -220,12 +214,16 @@ class Draft extends Component {
         }
       >
         <CSSTransition
-          in={this.props.tabledata ? true : false}
+          in={this.props.CnP_data ? true : false}
           timeout={250}
           classNames="slide-up"
           unmountOnExit
         >
-          <EditableTable editability={true} tabledata={this.props.tabledata} />
+          <EditableTable
+            editability={true}
+            schema={this.props.CnP_dataSchema}
+            data={this.props.CnP_data}
+          />
         </CSSTransition>
       </MonoGridLayout>
     ) : (
@@ -237,7 +235,8 @@ class Draft extends Component {
 const mapStateToProps = state => {
   return {
     metadata: state.getIn(['draft', 'metadata']),
-    tabledata: state.getIn(['draft', 'tabledata']),
+    CnP_dataSchema: state.getIn(['draft', 'CnP_dataSchema']),
+    CnP_data: state.getIn(['draft', 'CnP_data']),
   }
 }
 

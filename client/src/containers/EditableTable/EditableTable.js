@@ -30,67 +30,74 @@ class Table extends Component {
   render() {
     return (
       <div>
-        {this.props.tabledata ? (
+        {this.props.schema && this.props.data ? (
           <div className="editable-table">
             <DataTableLayout
               editability={true}
               changeHandler={e => this.tableChangeHandler(e)}
-              tableData={this.props.tabledata.get('table_measurments')}
-              wheel={this.wheel}
+              schema={this.props.schema.get('table_measurments')}
+              data={this.props.data.get('table_measurments')}
             />
             <DataTableLayout
               editability={true}
               changeHandler={e => this.tableChangeHandler(e)}
-              tableData={this.props.tabledata.get('table_colourandcompotision')}
-              wheel={this.wheel}
+              schema={this.props.schema.get('table_colourandcompotision')}
+              data={this.props.data.get('table_colourandcompotision')}
             />
             <div className="inline-datatable-conatiner">
               <DataTableLayout
                 editability={true}
                 changeHandler={e => this.tableChangeHandler(e)}
-                tableData={this.props.tabledata.get(
-                  'table_fabricfinishprocess',
-                )}
+                schema={this.props.schema.get('table_fabricfinishprocess')}
+                data={this.props.data.get('table_fabricfinishprocess')}
               />
               <DataTableLayout
                 editability={true}
                 changeHandler={e => this.tableChangeHandler(e)}
-                tableData={this.props.tabledata.get('table_extrafabric')}
+                schema={this.props.schema.get('table_extrafabric')}
+                data={this.props.data.get('table_extrafabric')}
               />
             </div>
             <div className="inline-datatable-conatiner">
               <div>
                 <DataTableLayout
+                  className="td-txt-right"
                   editability={true}
                   changeHandler={e => this.tableChangeHandler(e)}
-                  tableData={this.props.tabledata.get(
-                    'table_garmentapplication',
-                  )}
+                  schema={this.props.schema.get('table_garmentapplication')}
+                  data={this.props.data.get('table_garmentapplication')}
                 />
                 <DataTableLayout
+                  className="td-txt-right"
                   editability={true}
                   changeHandler={e => this.tableChangeHandler(e)}
-                  tableData={this.props.tabledata.get('table_accessoriesname')}
+                  schema={this.props.schema.get('table_accessoriesname')}
+                  data={this.props.data.get('table_accessoriesname')}
                 />
               </div>
               <div>
                 <DataTableLayout
+                  className="td-txt-right"
                   editability={true}
                   changeHandler={e => this.tableChangeHandler(e)}
-                  tableData={this.props.tabledata.get('table_currency')}
+                  schema={this.props.schema.get('table_currency')}
+                  data={this.props.data.get('table_currency')}
                 />
                 <DataTableLayout
                   editability={true}
                   changeHandler={(day, modifiers, e) =>
                     this.tableDateChangeHandler(day, modifiers, e)
                   }
-                  tableData={this.props.tabledata.get('table_date')}
+                  schema={this.props.schema.get('table_date')}
+                  data={this.props.data.get('table_date')}
                 />
               </div>
               <DataTableLayout
+                className="td-txt-right"
                 editability={true}
                 changeHandler={e => this.tableChangeHandler(e)}
-                tableData={this.props.tabledata.get('table_price')}
+                schema={this.props.schema.get('table_price')}
+                data={this.props.data.get('table_price')}
               />
             </div>
           </div>

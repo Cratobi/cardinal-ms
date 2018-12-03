@@ -26,12 +26,16 @@ table.datatable {
 .datatable td {
   font-weight: 800;
   min-width: 5rem;
+  max-width: 8rem;
   width: auto;
   height: 1.8rem;
   padding: 0;
   margin: 0;
   box-sizing: content-box;
 } 
+.td-txt-right td, .td-txt-right input{
+  text-align: right !important;
+}
 
 .filled-txt {
   background-color: var(--background-offset);
@@ -125,11 +129,12 @@ table.datatable td input:focus {
   flex-direction: row-reverse;
   width: 100%;
   margin: 0 !important;
-  height: 1.7rem;
+  height: 1.8rem;
   padding: 0 !important;
 }
 .editable-table .DayPickerInput input {
-  background-color: #ffffff;
+  background-color: transparent;
+  min-width: 5rem;
   width: 100%;
   height: 100% !important;
   padding: 1rem 0.5rem !important;

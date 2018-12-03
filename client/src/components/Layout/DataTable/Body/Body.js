@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 // eslint-disable-next-line
-import { get } from 'immutable'
+import { get, getIn } from 'immutable'
 import DayPickerInput from 'react-day-picker/DayPickerInput'
 import { DateUtils } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
@@ -91,13 +91,12 @@ const tableBody = props => {
     ],
     accessoriesOption: ['Yes', 'No'],
   }
-
-  return props.tableData.map((data, rowindex) => (
+  return props.schema.map((schema, rowindex) => (
     <tr key={rowindex}>
-      {props.tableData
-        ? data.map((data, colindex) => {
+      {props.schema && props.data
+        ? schema.map((schema, colindex) => {
             // Init
-            let cellData = data.get('cellData')
+            let cellData = props.data.getIn([rowindex, colindex])
             let [
               colspan,
               rowspan,
@@ -109,17 +108,17 @@ const tableBody = props => {
             ] = [null]
 
             // Handle colspan or rowspan
-            if (data.get('colspan')) {
-              colspan = data.get('colspan')
+            if (schema.get('colspan')) {
+              colspan = schema.get('colspan')
             }
-            if (data.get('rowspan')) {
-              rowspan = data.get('rowspan')
+            if (schema.get('rowspan')) {
+              rowspan = schema.get('rowspan')
             }
 
             // Handle prefix or suffix
 
-            if (data.get('prefix')) {
-              const sign = data.get('prefix')
+            if (schema.get('prefix')) {
+              const sign = schema.get('prefix')
               prefix = <span className="span-prefix">{sign}</span>
               inputPrefix = (
                 <span
@@ -132,23 +131,27 @@ const tableBody = props => {
               )
               classname = 'input-prefix'
             }
-            if (data.get('suffix')) {
-              suffix = <span className="span-suffix">{data.get('suffix')}</span>
+            if (schema.get('suffix')) {
+              suffix = (
+                <span className="span-suffix">{schema.get('suffix')}</span>
+              )
               inputSuffix = (
-                <span className="span-input-suffix">{data.get('suffix')}</span>
+                <span className="span-input-suffix">
+                  {schema.get('suffix')}
+                </span>
               )
               classname = [classname, 'input-suffix'].join(' ')
             }
-            if (data.get('className')) {
-              return (classname = data.get('className'))
+            if (schema.get('className')) {
+              return (classname = schema.get('className'))
             }
 
             // Handle editable
-            if (props.editability === true && data.get('editable')) {
+            if (props.editability === true && schema.get('editable')) {
               // Handle Select element
               if (
-                data.get('cellType') === 'text' ||
-                data.get('cellType') === 'number'
+                schema.get('cellType') === 'text' ||
+                schema.get('cellType') === 'number'
               ) {
                 // Handle input element
 
@@ -162,19 +165,19 @@ const tableBody = props => {
                         data-rowindex={rowindex}
                         data-colindex={colindex}
                         onChange={props.changeHandler}
-                        name={data.get('id')}
-                        type={data.get('cellType')}
-                        title={data.get('cellData')}
-                        value={data.get('cellData')}
+                        name={schema.get('id')}
+                        type={schema.get('cellType')}
+                        title={cellData}
+                        value={cellData}
                         placeholder={
-                          data.get('cellType') === 'number' ? '0' : '...'
+                          schema.get('cellType') === 'number' ? '0' : '...'
                         }
                       />
                       {inputSuffix}
                     </div>
                   </Fragment>
                 )
-              } else if (data.get('cellType') === 'select') {
+              } else if (schema.get('cellType') === 'select') {
                 // Select array corresponding to table name
 
                 const optionArray = (() => {
@@ -199,15 +202,15 @@ const tableBody = props => {
                     data-rowindex={rowindex}
                     data-colindex={colindex}
                     onChange={props.changeHandler}
-                    value={data.get('cellData')}
+                    value={cellData}
                   >
                     <option value="" />
-                    {optionArray.map((data, index) => (
-                      <SelectOption key={index} value={data} name={data} />
+                    {optionArray.map((schema, index) => (
+                      <SelectOption key={index} value={schema} name={schema} />
                     ))}
                   </select>
                 )
-              } else if (data.get('cellType') === 'date') {
+              } else if (schema.get('cellType') === 'date') {
                 cellData = (
                   <DayPickerInput
                     onDayChange={props.changeHandler}
@@ -218,23 +221,23 @@ const tableBody = props => {
                     formatDate={formatDate}
                     format="D/M/YYYY"
                     parseDate={parseDate}
-                    value={data.get('cellData')}
+                    value={cellData}
                     placeholder={`e.g. ${dateFnsFormat(
                       new Date(),
                       'D/M/YYYY',
                     )}`}
                   />
                 )
-              } else if (data.get('cellType') === 'checkbox') {
+              } else if (schema.get('cellType') === 'checkbox') {
                 cellData = (
                   // <input
                   //   type="checkbox"
-                  //   data-tablename={props.tableName}
-                  //   data-rowindex={rowindex}
-                  //   data-colindex={colindex}
+                  //   schema-tablename={props.tableName}
+                  //   schema-rowindex={rowindex}
+                  //   schema-colindex={colindex}
                   //   onChange={props.changeHandler}
-                  //   value={data.get('cellData')}
-                  //   checked={data.get('cellData') === 'Yes' ? true : false}
+                  //   value={cellData}
+                  //   checked={cellData === 'Yes' ? true : false}
                   // />
                   <select
                     className={classname}
@@ -242,7 +245,7 @@ const tableBody = props => {
                     data-rowindex={rowindex}
                     data-colindex={colindex}
                     onChange={props.changeHandler}
-                    value={data.get('cellData')}
+                    value={cellData}
                   >
                     <option value="" />
                     <option value="Yes">Yes</option>
@@ -251,13 +254,13 @@ const tableBody = props => {
                 )
               }
             } else {
-              if (data.get('cellType') === 'date' && cellData !== '') {
+              if (schema.get('cellType') === 'date' && cellData !== '') {
                 cellData = new Date(cellData).toDateString()
               }
               cellData = (
                 <div
                   className={
-                    'filled-txt' + (data.get('id') ? ' auto-filled-txt' : '')
+                    'filled-txt' + (schema.get('id') ? ' auto-filled-txt' : '')
                   }
                   // onWheel={e => props.wheel(e)} // To control horizental scroll by default
                 >
