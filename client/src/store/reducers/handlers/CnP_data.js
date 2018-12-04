@@ -1,5 +1,5 @@
 const CnP_data = {
-	extradata: ['', '', '', '', '', '', '', '', []],
+	table_extradata: ['', '', '', ['', ''], '', '', '', []],
 	table_measurments: [
 		['Size', '', '', '', '', '', '', '', '', '', ''],
 		['Body length', '', '', '', '', '', '', '', '', ''],

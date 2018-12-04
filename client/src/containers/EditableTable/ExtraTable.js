@@ -11,7 +11,7 @@ class ExtraData extends Component {
 	handleChange = e => {
 		this.props.onChange({
 			tablename: 'extradata',
-			rowindex: 0,
+			rowindex: e.target.dataset.rowindex,
 			colindex: e.target.dataset.colindex,
 			name: e.target.name,
 			value: e.target.value,
@@ -25,14 +25,15 @@ class ExtraData extends Component {
 					<tr>
 						<td>Yarn Type:</td>
 						<td colSpan="2">
+							{/* {console.log(this.props.data.getIn(['table_extradata', 0]))} */}
 							<input
 								type="text"
 								name="yarn_type"
-								data-colindex={1}
+								data-rowindex={0}
 								className="form-input"
 								autoComplete="off"
 								onChange={e => this.handleChange(e)}
-								value={this.props.data.getIn(['extradata', 'yarn_type'])}
+								value={this.props.data.getIn(['table_extradata', 0])}
 							/>
 						</td>
 					</tr>
@@ -42,11 +43,11 @@ class ExtraData extends Component {
 							<input
 								type="text"
 								name="construction"
-								data-colindex={2}
+								data-rowindex={1}
 								className="form-input"
 								autoComplete="off"
 								onChange={e => this.handleChange(e)}
-								value={this.props.data.getIn(['extradata', 'construction'])}
+								value={this.props.data.getIn(['table_extradata', 1])}
 							/>
 						</td>
 					</tr>
@@ -56,35 +57,38 @@ class ExtraData extends Component {
 							<input
 								type="number"
 								name="fabric_weight"
-								data-colindex={3}
+								data-rowindex={2}
 								className="form-input"
 								autoComplete="off"
 								onChange={e => this.handleChange(e)}
-								value={this.props.data.getIn(['extradata', 'fabric_weight'])}
+								value={this.props.data.getIn(['table_extradata', 2])}
 							/>
 						</td>
 					</tr>
 					<tr>
 						<td>
+							{/* {console.log(typeof this.props.data.getIn(['table_extradata', 3, 0]))} */}
 							<input
 								type="text"
 								name="fabric_type"
-								data-colindex={4}
+								data-rowindex={3}
+								data-colindex={0}
 								className="form-input"
 								autoComplete="off"
 								onChange={e => this.handleChange(e)}
-								value={this.props.data.getIn(['extradata', 'self_fabric_matching_body'])}
+								value={this.props.data.getIn(['table_extradata', 3, 0])}
 							/>
 						</td>
 						<td colSpan="2">
 							<input
 								type="number"
 								name="fabric_type_value"
-								data-colindex={5}
+								data-rowindex={3}
+								data-colindex={1}
 								className="form-input"
 								autoComplete="off"
 								onChange={e => this.handleChange(e)}
-								value={this.props.data.getIn(['extradata', 'self_fabric_matching_body'])}
+								value={this.props.data.getIn(['table_extradata', 3, 1])}
 							/>
 						</td>
 					</tr>
@@ -94,11 +98,11 @@ class ExtraData extends Component {
 							<input
 								type="number"
 								name="wastage"
-								data-colindex={6}
+								data-rowindex={4}
 								className="form-input"
 								autoComplete="off"
 								onChange={e => this.handleChange(e)}
-								value={this.props.data.getIn(['extradata', 'wastage'])}
+								value={this.props.data.getIn(['table_extradata', 4])}
 							/>
 						</td>
 					</tr>
@@ -113,32 +117,32 @@ class ExtraData extends Component {
 							<input
 								type="number"
 								name="s_allowance_chest"
-								data-colindex={7}
+								data-rowindex={5}
 								className="custom-form-input"
 								autoComplete="off"
 								onChange={e => this.handleChange(e)}
-								value={this.props.data.getIn(['extradata', 's_allowance_chest'])}
+								value={this.props.data.getIn(['table_extradata', 5])}
 							/>
 						</td>
 						<td className="half-td">
 							<input
 								type="number"
 								name="s_allowance_length"
-								data-colindex={8}
+								data-rowindex={6}
 								className="custom-form-input"
 								autoComplete="off"
 								onChange={e => this.handleChange(e)}
-								value={this.props.data.getIn(['extradata', 's_allowance_length'])}
+								value={this.props.data.getIn(['table_extradata', 6])}
 							/>
 						</td>
 					</tr>
 					<tr>
 						<td>R22:</td>
-						<td className="half-td">{this.props.data.getIn(['extradata', 'R22'])}</td>
+						<td className="half-td">{this.props.data.getIn(['table_extradata', 'R22'])}</td>
 					</tr>
 					<tr>
 						<td>S22:</td>
-						<td className="half-td">{this.props.data.getIn(['extradata', 'S22'])}</td>
+						<td className="half-td">{this.props.data.getIn(['table_extradata', 'S22'])}</td>
 					</tr>
 				</tbody>
 			</table>

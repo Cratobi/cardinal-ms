@@ -44,7 +44,7 @@ const draftReducer = (state = initialState, action) => {
 				// 	name === 's_allowance_length' ||
 				// 	name === 'wastage'
 				// )
-				syncHandlers.loop(1, 10, colindex => (state = syncHandlers.setBasic(state, colindex)))
+				// syncHandlers.loop(1, 10, colindex => (state = syncHandlers.setBasic(state, colindex)))
 
 				return state
 			}

@@ -1,5 +1,5 @@
 const tabledataSchema = {
-	extradata: {
+	table_extradata: {
 		yarn_type: '',
 		construction: '',
 		fabric_weight: '',

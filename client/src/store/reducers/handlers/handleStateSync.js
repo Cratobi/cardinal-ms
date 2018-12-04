@@ -59,15 +59,19 @@ const emptifier = num => {
 	return num
 }
 
-const getCellData = (state, tablename, rowindex, colindex, name) => {
+const getCellData = (state, tablename, rowindex, colindex) => {
 	let cellData = toFloat((state = state.getIn(['CnP_data', `table_${tablename}`, rowindex, colindex])))
 
 	return cellData
 }
-const setCellData = (state, tablename, rowindex, colindex, value, name) => {
+const setCellData = (state, tablename, rowindex, colindex, value) => {
 	value = emptifier(value)
 
-	state = state.setIn(['CnP_data', `table_${tablename}`, rowindex, colindex], value)
+	if (!isNaN(colindex)) {
+		state = state.setIn(['CnP_data', `table_${tablename}`, rowindex, colindex], value)
+	} else {
+		state = state.setIn(['CnP_data', `table_${tablename}`, rowindex], value)
+	}
 	return state
 }
 const getExtraData = (state, name) => {
