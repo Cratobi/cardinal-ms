@@ -8,6 +8,7 @@ import * as actions from '../../store/actions'
 
 import Overview from './Overview/Overview'
 import PriceAndConsumtion from './PriceAndConsumtion/PriceAndConsumtion'
+import WOKnitAndAccess from './WOKnitAndAccess/WOKnitAndAccess'
 import LoadingLayout from '../../components/Layout/Loading/Loading'
 import '../../components/style/DuoGrid.css'
 import './Order.css'
@@ -62,6 +63,12 @@ class Order extends Component {
 										<span className="text">Price & Consumtion</span>
 									</li>
 								</NavLink>
+								<NavLink to={`/order/${this.props.match.params.id}/woknitandaccess`}>
+									<li>
+										<i className="fas fa-hand-holding-usd" />
+										<span className="text">WO-Knit & Access</span>
+									</li>
+								</NavLink>
 								{/* <NavLink
               to={`/order/${this.props.match.params.id}/woknitandaccess`}
             >
@@ -108,6 +115,11 @@ class Order extends Component {
 									tabledata={this.props.order.get('tabledata')}
 									handlePrint={this.handlePrint}
 								/>
+								<WOKnitAndAccess
+									render={path.includes('woknitandaccess')}
+									tabledata={this.props.knit_data}
+									handlePrint={this.handlePrint}
+								/>
 							</article>
 						) : (
 							<LoadingLayout txt />
@@ -122,6 +134,7 @@ class Order extends Component {
 const mapStateToProps = state => {
 	return {
 		order: state.getIn(['order', 'order']),
+		knit_data: state.getIn(['order', 'knit_data']),
 	}
 }
 

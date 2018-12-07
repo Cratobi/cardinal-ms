@@ -1,115 +1,113 @@
-
 .duo-grid article table.extradata {
-  width: 40%;
-  margin-bottom: 2rem;
+	width: 40%;
+	margin-bottom: 2rem;
 }
 .duo-grid article table.extradata td {
-  font-size: 1rem;
-  font-weight: 700;
-  padding: 0.6rem;
-  padding-right: 2rem;
-  text-align: right;
+	font-size: 1rem;
+	font-weight: 700;
+	padding: 0.6rem;
+	padding-right: 2rem;
+	text-align: right;
 }
 .duo-grid article table.extradata td.header {
-  background-color: #f1f1f1;
-  border: 0.2rem solid #ffffff;
-  padding: 0.5rem 1rem;
-  text-align: center;
+	background-color: #f1f1f1;
+	border: 0.2rem solid #ffffff;
+	padding: 0.5rem 1rem;
+	text-align: center;
 }
 .duo-grid article table.extradata td.tdata {
-  text-align: center !important;
-  padding: 0;
+	text-align: center !important;
+	padding: 0;
 }
 .duo-grid article table.extradata tr td:first-child {
-  color: #747474;
-  padding-right: 10rem;
-  text-align: left;
+	color: #747474;
+	padding-right: 10rem;
+	text-align: left;
 }
 .duo-grid article .static-table {
-  width: calc(100% + 6rem);
-  margin: 0 -3rem;
-  border: 0.3rem solid #dfdfdf;
-  border-radius: 0.6rem;
-  padding: 1rem;
-  overflow-x: scroll;
+	width: calc(100% + 6rem);
+	margin: 0 -3rem;
+	border: 0.3rem solid #dfdfdf;
+	border-radius: 0.6rem;
+	padding: 1rem;
+	overflow-x: scroll;
 }
 .duo-grid article .static-table table {
-  min-width: 100%;
+	min-width: 100%;
 }
 .duo-grid article .static-table::-webkit-scrollbar {
-  height: 10px;
+	height: 10px;
 }
 .duo-grid article .static-table::-webkit-scrollbar-track {
-  border-radius: 0.4rem;
+	border-radius: 0.4rem;
 }
 .duo-grid article .static-table::-webkit-scrollbar-thumb {
-  background: #222222;
-  border-radius: 0.4rem;
+	background: #222222;
+	border-radius: 0.4rem;
 }
 .duo-grid article .static-table::-webkit-scrollbar-thumb:active {
-  background: #cecece;
+	background: #cecece;
 }
 .duo-grid article .static-table table .span-suffix {
-  float: right;
-  margin-left: auto;
+	float: right;
+	margin-left: auto;
 }
 @media (max-width: 768px) {
-  .duo-grid article.card-body .static-datatable {
-    font-size: 90% !important;
-  }
-  .duo-grid article .static-table {
-    border-width: 0;
-    margin: 0;
-  }
-  .duo-grid article .static-table::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-
+	.duo-grid article.card-body .static-datatable {
+		font-size: 90% !important;
+	}
+	.duo-grid article .static-table {
+		border-width: 0;
+		margin: 0;
+	}
+	.duo-grid article .static-table::-webkit-scrollbar {
+		width: 0;
+		height: 0;
+	}
 }
 
 .only-print {
-  display: none
+	display: none;
 }
 @media only print {
-  .only-print {
-    display: block
-  }
-  .print-body {
-    padding: 10px;
-  }
-  table.datatable {
-    width: 100% !important;
-    background-color: #6d6d6d !important;
-    padding: 0 !important;
-    margin-bottom: 1rem !important;
-    border: 0px solid #000000 !important;
-  }
-  .datatable th {
-      font-size: 11px !important;
-      background-color: #000000 !important;
-      padding: 0 !important;
-      border: 0.2px solid #000000 !important;
-  }
-  .datatable td {
-      color: #000000 !important;
-      font-size: 11px !important;
-      font-weight: 600 !important;
-      min-width: 0.2rem !important;
-      height: 0.1rem !important;
-      padding: 0 !important;
-      border: 0.2px solid #000000 !important;
-      white-space: nowrap !important;
-  }
-  .static-datatable .filled-txt {
-      min-width: inherit !important;
-      min-height: inherit !important;
-      height: inherit !important;
-  }
-  .span-prefix {
-      color: #252525 !important;
-      font-size: 6px !important;
-      padding-right: 0.2rem !important;
-      font-weight: 600 !important;
-  }
+	.only-print {
+		display: block;
+	}
+	.print-body {
+		padding: 10px;
+	}
+	table.datatable {
+		width: 100% !important;
+		background-color: #6d6d6d !important;
+		padding: 0 !important;
+		margin-bottom: 1rem !important;
+		border: 0px solid #000000 !important;
+	}
+	.datatable th {
+		font-size: 11px !important;
+		background-color: #000000 !important;
+		padding: 0 !important;
+		border: 0.2px solid #000000 !important;
+	}
+	.datatable td {
+		color: #000000 !important;
+		font-size: 11px !important;
+		font-weight: 600 !important;
+		min-width: 0.2rem !important;
+		height: 0.1rem !important;
+		padding: 0 !important;
+		border: 0.2px solid #000000 !important;
+		white-space: nowrap !important;
+	}
+	.static-datatable .filled-txt {
+		min-width: inherit !important;
+		min-height: inherit !important;
+		height: inherit !important;
+	}
+	.span-prefix {
+		color: #252525 !important;
+		font-size: 6px !important;
+		padding-right: 0.2rem !important;
+		font-weight: 600 !important;
+	}
 }

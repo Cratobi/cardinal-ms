@@ -22,8 +22,8 @@ import PricingAndConsumption from '../../../components/Layout/PricingAndConsumpt
 class PriceAndConsumtion extends Component {
 	render() {
 		return (
-			<Fragment>
-				<div className="card-header flex-j-start" style={!this.props.render ? { display: 'none' } : null}>
+			<div style={!this.props.render ? { display: 'none' } : null}>
+				<div className="card-header flex-j-start">
 					<div className="title">Price & Consumtion</div>
 					<ReactToPrint
 						bodyClass="print-body"
@@ -80,7 +80,7 @@ class PriceAndConsumtion extends Component {
 						/> */}
 					</div>
 				</div>
-			</Fragment>
+			</div>
 		)
 	}
 }
