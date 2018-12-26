@@ -57,22 +57,22 @@ const draftReducer = (state = initialState, action) => {
 
 				return state
 			}
-			// // if (tablename === 'fabricfinishprocess' && colindex === 1) {
-			// //   if (value === 'No') {
-			// //     value = 'Yes'
-			// //   } else if (value === 'Yes') {
-			// //     value = 'No'
-			// //   }
+			if (tablename === 'fabricfinishprocess' && colindex === 1) {
+			  if (value === 'No') {
+			    value = 'Yes'
+			  } else if (value === 'Yes') {
+			    value = 'No'
+			  }
 
-			// //   state = syncHandlers.setCellData(
-			// //     state,
-			// //     tablename,
-			// //     rowindex,
-			// //     colindex,
-			// //     value,
-			// //   )
-			// // }
-			if (tablename === 'colourandcompotision' && 1 <= rowindex <= 8 && 2 <= colindex <= 11) {
+			  state = syncHandlers.setCellData(
+			    state,
+			    tablename,
+			    rowindex,
+			    colindex,
+			    value,
+			  )
+			}
+			if (tablename === 'colourandcompotision' && 1 <= rowindex && rowindex <= 8 && 2 <= colindex && colindex <= 11) {
 				const prev_val = syncHandlers.getCellData(state, tablename, rowindex, colindex)
 				state = syncHandlers.setCellData(state, tablename, rowindex, colindex, value)
 				state = syncHandlers.composition__SumTotal(state, rowindex, colindex, value, prev_val)
@@ -87,64 +87,59 @@ const draftReducer = (state = initialState, action) => {
 
 				return state
 			}
-			// if (
-			//   tablename === 'accessoriesname' &&
-			//   0 <= rowindex <= 21 &&
-			//   colindex === 2
-			// ) {
-			//   const prev_val = syncHandlers.getCellData(
-			//     state,
-			//     tablename,
-			//     rowindex,
-			//     colindex,
-			//   )
-			//   state = syncHandlers.setCellData(
-			//     state,
-			//     tablename,
-			//     rowindex,
-			//     colindex,
-			//     value,
-			//   )
-			//   state = syncHandlers.accessories__SumPriceTotal(state, value, prev_val)
+			if (
+			  tablename === 'accessoriesname' &&
+			  0 <= rowindex && rowindex <= 21 &&
+			  colindex === 2
+			) {
+			  const prev_val = syncHandlers.getCellData(
+			    state,
+			    tablename,
+			    rowindex,
+			    colindex,
+			  )
+			  state = syncHandlers.setCellData(
+			    state,
+			    tablename,
+			    rowindex,
+			    colindex,
+			    value,
+			  )
+			  state = syncHandlers.accessories__SumPriceTotal(state, value, prev_val)
 
-			//   return state
-			// }
-			// if (tablename === 'currency') {
-			//   state = syncHandlers.setCellData(
-			//     state,
-			//     tablename,
-			//     rowindex,
-			//     colindex,
-			//     value,
-			//   )
+			  return state
+			}
+			if (tablename === 'currency') {
+			  state = syncHandlers.setCellData(
+			    state,
+			    tablename,
+			    rowindex,
+			    colindex,
+			    value,
+			  )
 
-			//   if (rowindex === 4 || rowindex === 5) {
-			//     state = syncHandlers.currency__BodyConsumptionAndLycra(state)
-			//     state = syncHandlers.currency__RibConsumptionAndLycra(state)
-			//   }
-			//   if (rowindex === 0)
-			//     syncHandlers.loopFor(
-			//       [1, 2, 3, 5, 7, 8],
-			//       rowindex => (state = syncHandlers.price__Value(state, rowindex)),
-			//     )
+			  if (rowindex === 4) state = syncHandlers.currency__BodyConsumptionAndLycra(state)
+			  if (rowindex === 5) state = syncHandlers.currency__RibConsumptionAndLycra(state)
 
-			//   return state
-			// }
-			// if (tablename === 'price') {
-			//   state = syncHandlers.setCellData(
-			//     state,
-			//     tablename,
-			//     rowindex,
-			//     colindex,
-			//     value,
-			//   )
-			//   if (rowindex !== 22 && rowindex !== 23 && rowindex !== 24) {
-			//     state = syncHandlers.price__Value(state, rowindex)
-			//   }
-			//   state = syncHandlers.price__PerPcs(state, rowindex)
+			if (rowindex === 0) syncHandlers.loopFor([1, 2, 3, 5, 7, 8], rowindex => (state = syncHandlers.price__Value(state, rowindex)),)
 
-			//   return state
-			// }
+			  return state
+			}
+			if (tablename === 'price') {
+			  state = syncHandlers.setCellData(
+			    state,
+			    tablename,
+			    rowindex,
+			    colindex,
+			    value,
+			  )
+			  if (rowindex !== 22 && rowindex !== 23 && rowindex !== 24) {
+			    state = syncHandlers.price__Value(state, rowindex)
+			  }
+			  state = syncHandlers.price__PerPcs(state, rowindex)
+
+			  return state
+			}
 			state = syncHandlers.setCellData(state, tablename, rowindex, colindex, value)
 			return state
 		default:
