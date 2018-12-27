@@ -1,5 +1,8 @@
 import Router from 'express'
 import _ from 'lodash'
+import { Types } from 'mongoose'
+
+const ObjectId = Types.ObjectId
 
 // Models
 import Company from '../models/company'
@@ -11,7 +14,7 @@ import authenticateAdmin from '../middleware/authenticateAdmin'
 const app = Router()
 
 // Provide company
-app.get('/company/:id', authenticateAdmin, async (req, res) => {
+app.get('/api/company/:id', authenticateAdmin, async (req, res) => {
   const id = req.params.id
   try {
     const company = Company.fetchCompany(id)
@@ -22,7 +25,7 @@ app.get('/company/:id', authenticateAdmin, async (req, res) => {
   }
 })
 // Provide all compnaies foradmin
-app.get('/admin/company', authenticateAdmin, async (req, res) => {
+app.get('/api/admin/company', authenticateAdmin, async (req, res) => {
   try {
     let data = await Company.find()
     data = _.map(data, _.partialRight(_.pick, ['_id', 'name', 'buyers']))
@@ -32,18 +35,11 @@ app.get('/admin/company', authenticateAdmin, async (req, res) => {
     return res.status(400).send(err)
   }
 })
-app.patch('/admin/company', authenticateAdmin, async (req, res) => {
-  const payload = _.pick(req.body, [
-    'id',
-    'old_company_name',
-    'new_company_name',
-  ])
+app.patch('/api/admin/company', authenticateAdmin, async (req, res) => {
+  const payload = _.pick(req.body, ['id', 'old_company_name', 'new_company_name'])
 
   try {
-    await Company.findOneAndUpdate(
-      { _id: ObjectId(payload.id) },
-      { $set: { name: payload.new_buyer_name } },
-    )
+    await Company.findOneAndUpdate({ _id: ObjectId(payload.id) }, { $set: { name: payload.new_buyer_name } })
     const company = await Company.find()
 
     return res.send(company)
@@ -51,7 +47,7 @@ app.patch('/admin/company', authenticateAdmin, async (req, res) => {
     return res.status(400).send(err)
   }
 })
-app.delete('/admin/company', authenticateAdmin, async (req, res) => {
+app.delete('/api/admin/company', authenticateAdmin, async (req, res) => {
   const payload = _.pick(req.body, ['id'])
 
   try {
@@ -65,7 +61,7 @@ app.delete('/admin/company', authenticateAdmin, async (req, res) => {
 })
 
 // Add Company
-app.post('/admin/company', authenticateAdmin, async (req, res) => {
+app.post('/api/admin/company', authenticateAdmin, async (req, res) => {
   const payload = _.pick(req.body, ['name'])
 
   try {
@@ -83,7 +79,7 @@ app.post('/admin/company', authenticateAdmin, async (req, res) => {
 })
 
 // Delete Company
-app.delete('/company/:id', authenticateAdmin, async (req, res) => {
+app.delete('/api/company/:id', authenticateAdmin, async (req, res) => {
   const id = req.params.id
 
   try {

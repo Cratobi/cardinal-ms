@@ -68,10 +68,10 @@ UserSchema.methods.toJSON = function() {
   return _.pick(userObject, ['_id', 'name', 'username', 'power', 'company'])
 }
 
-UserSchema.methods.generateAuthToken = function(access="unknown", system="unknown") {
+UserSchema.methods.generateAuthToken = function(access, system) {
   const user = this
   const token = jwt
-    .sign({ _id: user._id.toHexString(), access, system }, process.env.SALT)
+    .sign({ _id: user._id.toHexString(), access, system }, 'secret')
     .toString()
 
   user.accessTokens.push({ access, system, token })

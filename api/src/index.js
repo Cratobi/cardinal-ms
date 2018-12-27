@@ -1,16 +1,17 @@
 import './db/mongoose'
-import dotenv from 'dotenv'
 import express from 'express'
 import bodyparser from 'body-parser'
 import cors from 'cors'
+// dev-env import
+// if (process.env.NODE_ENV !== 'production') {
+//   import logger from 'morgan'
+// }
 
 import authentication from './routes/authentication'
 import company from './routes/company'
 import buyer from './routes/buyer'
 import order from './routes/order'
 import draft from './routes/draft'
-
-dotenv.load();
 const app = express()
 
 // Middlewares
