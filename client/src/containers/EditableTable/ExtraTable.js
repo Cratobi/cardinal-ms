@@ -14,7 +14,7 @@ class ExtraData extends Component {
 			rowindex: e.target.dataset.rowindex,
 			colindex: e.target.dataset.colindex,
 			name: e.target.name,
-			value: e.target.value,
+			value: e.target.value
 		})
 	}
 
@@ -138,11 +138,15 @@ class ExtraData extends Component {
 					</tr>
 					<tr>
 						<td>R22:</td>
-						<td className="half-td">{this.props.data.getIn(['table_extradata', 'R22'])}</td>
+						<td className="half-td">{this.props.data.getIn(['table_extradata', 7, 0])}</td>
 					</tr>
 					<tr>
 						<td>S22:</td>
-						<td className="half-td">{this.props.data.getIn(['table_extradata', 'S22'])}</td>
+						<td className="half-td">{this.props.data.getIn(['table_extradata', 7, 1])}</td>
+					</tr>
+					<tr>
+						<td>Basic</td>
+						<td className="half-td">{this.props.data.getIn(['table_extradata', 8, 0])}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -154,7 +158,7 @@ class ExtraData extends Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onChange: payload => dispatch(actions.onChange(payload)),
+		onChange: payload => dispatch(actions.onChange(payload))
 	}
 }
 

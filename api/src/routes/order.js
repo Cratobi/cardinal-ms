@@ -61,7 +61,7 @@ app.get('/api/order/count', authenticate, async (req, res) => {
 })
 
 // Provide Order
-app.get('/order/:id', authenticate, async (req, res) => {
+app.get('/api/order/:id', authenticate, async (req, res) => {
   const id = req.params.id
   try {
     const order = await Order.fetchOrder(id)
