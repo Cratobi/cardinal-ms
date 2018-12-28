@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { get, getIn, size } from 'immutable'
 import { NavLink, Route, Redirect, withRouter } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
+import ReactToPrint from 'react-to-print'
 import * as actions from '../../store/actions'
 
 import Overview from './Overview/Overview'
@@ -13,9 +14,15 @@ import LoadingLayout from '../../components/Layout/Loading/Loading'
 import '../../components/style/DuoGrid.css'
 import './Order.css'
 
+class PrintWrapper extends React.Component {
+	render() {
+		return this.props.children
+	}
+}
+
 class Order extends Component {
 	state = {
-		show_more: false,
+		show_more : false
 	}
 	componentWillMount() {
 		this.props.resetOrder()
@@ -35,92 +42,79 @@ class Order extends Component {
 		return (
 			<Fragment>
 				{!this.props.order ? <LoadingLayout txt /> : null}
-				<div id="print-backdrop" hidden />
-				<div id="print-all" hidden>
+				<div id='print-backdrop' hidden />
+				<div id='print-all' hidden>
 					<h1>All Header</h1>
-					<div id="print-PriceAndConsumtion">
+					<div id='print-PriceAndConsumtion'>
 						<h2>Price And Consumtion</h2>
 					</div>
 				</div>
-				<main className="container duo-grid">
-					<aside className="side-tab">
-						<CSSTransition
-							in={this.props.order ? true : false}
-							timeout={250}
-							classNames="slide-right"
-							unmountOnExit
-						>
+				<main className='container duo-grid'>
+					<aside className='side-tab'>
+						<CSSTransition in={this.props.order ? true : false} timeout={250} classNames='slide-right' unmountOnExit>
 							<ul>
-								<NavLink activeClassName="active" to={`/order/${this.props.match.params.id}/overview`}>
+								<NavLink activeClassName='active' to={`/order/${this.props.match.params.id}/overview`}>
 									<li>
-										<i className="fas fa-chart-area" />
-										<span className="text">Overview</span>
+										<i className='fas fa-chart-area' />
+										<span className='text'>Overview</span>
 									</li>
 								</NavLink>
 								<NavLink to={`/order/${this.props.match.params.id}/priceandconsumtion`}>
 									<li>
-										<i className="fas fa-hand-holding-usd" />
-										<span className="text">Price & Consumtion</span>
+										<i className='fas fa-hand-holding-usd' />
+										<span className='text'>Price & Consumtion</span>
 									</li>
 								</NavLink>
 								<NavLink to={`/order/${this.props.match.params.id}/woknitandaccess`}>
 									<li>
-										<i className="fas fa-hand-holding-usd" />
-										<span className="text">WO-Knit & Access</span>
+										<i className='fas fa-mitten' />
+										<span className='text'>WO-Knit & Access</span>
 									</li>
 								</NavLink>
-								{/* <NavLink
-              to={`/order/${this.props.match.params.id}/woknitandaccess`}
-            >
-              <li>
-                <i className="fas fa-tshirt" />
-                <span className="text">WO-Knit & Access</span>
-              </li>
-            </NavLink>
-            <NavLink
-              to={`/order/${this.props.match.params.id}/knittingprogram`}
-            >
-              <li>
-                <i className="fas fa-industry" />
-                <span className="text">Knitting Program</span>
-              </li>
-            </NavLink> */}
 							</ul>
 						</CSSTransition>
 					</aside>
 					<CSSTransition
 						in={this.props.order && this.props.order.size ? true : false}
 						timeout={250}
-						classNames="fade"
+						classNames='fade'
 						unmountOnExit
 					>
 						{this.props.order ? (
-							<article className="card card-body">
+							<Fragment>
 								<Route
-									path="/order/:id"
+									path='/order/:id'
 									exact
-									render={() => (
-										<Redirect exact to={`/order/${this.props.match.params.id}/overview`} />
-									)}
+									render={() => <Redirect exact to={`/order/${this.props.match.params.id}/overview`} />}
 								/>
-								<Overview
-									render={path.includes('overview')}
-									showMore={this.state.show_more}
-									handleToggleMore={this.handleToggleMore}
-									handlePrint={this.handlePrint}
-									order={this.props.order}
-								/>
-								<PriceAndConsumtion
-									render={path.includes('priceandconsumtion')}
-									tabledata={this.props.order.get('tabledata')}
-									handlePrint={this.handlePrint}
-								/>
-								<WOKnitAndAccess
-									render={path.includes('woknitandaccess')}
-									tabledata={this.props.knit_data}
-									handlePrint={this.handlePrint}
-								/>
-							</article>
+								<PrintWrapper ref={(el) => (this.componentRef = el)}>
+									<article className='card card-body'>
+										<Overview
+											render={path.includes('overview')}
+											showMore={this.state.show_more}
+											handleToggleMore={this.handleToggleMore}
+											printBtn={
+												<ReactToPrint
+													bodyClass='print-body'
+													trigger={() => (
+														<button className='btn btn-chip btn-dark p-l-1 p-r-1 m-l-1'>
+															<i className='fas fa-print' />
+															<span className='p-l'>Print All</span>
+														</button>
+													)}
+													content={() => this.componentRef}
+												/>
+											}
+											order={this.props.order}
+										/>
+										<PriceAndConsumtion
+											render={path.includes('priceandconsumtion')}
+											tabledata={this.props.order.get('tabledata')}
+										/>
+										<WOKnitAndAccess render={path.includes('woknitandaccess')} tabledata={this.props.knit_data} />
+									</article>
+								</PrintWrapper>
+							</Fragment>
 						) : (
 							<LoadingLayout txt />
 						)}
@@ -131,17 +125,17 @@ class Order extends Component {
 	}
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
 	return {
-		order: state.getIn(['order', 'order']),
-		knit_data: state.getIn(['order', 'knit_data']),
+		order     : state.getIn([ 'order', 'order' ]),
+		knit_data : state.getIn([ 'order', 'knit_data' ])
 	}
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
 	return {
-		fetchOrder: id => dispatch(actions.fetchOrder(id)),
-		resetOrder: () => dispatch(actions.resetOrder()),
+		fetchOrder : (id) => dispatch(actions.fetchOrder(id)),
+		resetOrder : () => dispatch(actions.resetOrder())
 	}
 }
 

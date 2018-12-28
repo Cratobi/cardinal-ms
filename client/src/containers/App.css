@@ -475,7 +475,7 @@ h7 {
 	align-items: baseline;
 }
 .flex-a-start {
-	align-items: flex-start;
+	align-items: flex-start !important;
 }
 .flex-a-end {
 	align-items: flex-end;
