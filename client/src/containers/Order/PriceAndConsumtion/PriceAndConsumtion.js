@@ -22,8 +22,8 @@ class PrintWrapper extends React.Component {
 class PriceAndConsumtion extends Component {
 	render() {
 		return (
-			<div className={!this.props.render ? 'only-print' : null}>
-				<div className='card-header flex-j-start'>
+			<div className={`print-page print-break${!this.props.render ? ' only-print' : ''}`}>
+				<div className='card-header flex-j-start only-display'>
 					<div className='title'>Price & Consumtion</div>
 					<ReactToPrint
 						bodyClass='print-body'

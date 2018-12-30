@@ -21,7 +21,7 @@ class PrintWrapper extends React.Component {
 class WOKnitAndAccess extends Component {
 	render() {
 		return (
-			<div className={!this.props.render ? 'only-print' : null}>
+			<div className={`print-break${!this.props.render ? ' only-print' : ''}`}>
 				<div className='card-header flex-j-start'>
 					<div className='title'>WO-Knit & Access</div>
 					<ReactToPrint

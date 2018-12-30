@@ -8,7 +8,7 @@ import './Overview.css'
 class Overview extends Component {
 	render() {
 		return (
-			<div className={`overview${!this.props.render ? ' only-print' : ''}`}>
+			<div className={`overview print-page${!this.props.render ? ' only-print' : ''}`}>
 				<div className='card-header flex-j-start flex-a-start'>
 					<div>
 						<div className='order-no'>{this.props.order.get('order_no')}</div>

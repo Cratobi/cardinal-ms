@@ -87,33 +87,35 @@ class Order extends Component {
 									exact
 									render={() => <Redirect exact to={`/order/${this.props.match.params.id}/overview`} />}
 								/>
-								<PrintWrapper ref={(el) => (this.componentRef = el)}>
-									<article className='card card-body'>
-										<Overview
-											render={path.includes('overview')}
-											showMore={this.state.show_more}
-											handleToggleMore={this.handleToggleMore}
-											printBtn={
-												<ReactToPrint
-													bodyClass='print-body'
-													trigger={() => (
-														<button className='btn btn-chip btn-dark p-l-1 p-r-1 m-l-1'>
-															<i className='fas fa-print' />
-															<span className='p-l'>Print All</span>
-														</button>
-													)}
-													content={() => this.componentRef}
-												/>
-											}
-											order={this.props.order}
-										/>
-										<PriceAndConsumtion
-											render={path.includes('priceandconsumtion')}
-											tabledata={this.props.order.get('tabledata')}
-										/>
-										<WOKnitAndAccess render={path.includes('woknitandaccess')} tabledata={this.props.knit_data} />
-									</article>
-								</PrintWrapper>
+								<article className='card card-body'>
+									<PrintWrapper ref={(el) => (this.componentRef = el)}>
+										<div>
+											<Overview
+												render={path.includes('overview')}
+												showMore={this.state.show_more}
+												handleToggleMore={this.handleToggleMore}
+												printBtn={
+													<ReactToPrint
+														bodyClass='print-body'
+														trigger={() => (
+															<button className='btn btn-chip btn-dark only-display p-l-1 p-r-1 m-l-1'>
+																<i className='fas fa-print' />
+																<span className='p-l'>Print All</span>
+															</button>
+														)}
+														content={() => this.componentRef}
+													/>
+												}
+												order={this.props.order}
+											/>
+											<PriceAndConsumtion
+												render={path.includes('priceandconsumtion')}
+												tabledata={this.props.order.get('tabledata')}
+											/>
+											<WOKnitAndAccess render={path.includes('woknitandaccess')} tabledata={this.props.knit_data} />
+										</div>
+									</PrintWrapper>
+								</article>
 							</Fragment>
 						) : (
 							<LoadingLayout txt />

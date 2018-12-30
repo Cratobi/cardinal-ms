@@ -21,7 +21,3 @@
 .duo-grid .static-datatable::-webkit-scrollbar-thumb:active {
   background: #161616;
 } */
-.static-datatable .filled-txt {
-  font-size: 80% !important;
-  background-color: var(--background) !important;
-}
