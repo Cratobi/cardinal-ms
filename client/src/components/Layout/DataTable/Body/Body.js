@@ -228,8 +228,8 @@ const tableBody = (props) => {
 								}
 								parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 								cellData = parts.join('.')
+								cellData = Math.round(cellData * 100) / 100
 							}
-							// cellData = (Math.round(cellData * 100) / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 						}
 						cellData = (
 							<div
