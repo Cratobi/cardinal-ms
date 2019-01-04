@@ -100,7 +100,7 @@ class Order extends Component {
 														trigger={() => (
 															<button className='btn btn-chip btn-dark only-display p-l-1 p-r-1 m-l-1'>
 																<i className='fas fa-print' />
-																<span className='p-l'>Print All</span>
+																<span className='p-l'>Print</span>
 															</button>
 														)}
 														content={() => this.componentRef}

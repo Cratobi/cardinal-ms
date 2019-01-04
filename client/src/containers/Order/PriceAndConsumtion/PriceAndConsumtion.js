@@ -25,7 +25,7 @@ class PriceAndConsumtion extends Component {
 			<div className={`print-page print-break${!this.props.render ? ' only-print' : ''}`}>
 				<div className='card-header flex-j-start only-display'>
 					<div className='title'>Price & Consumtion</div>
-					<ReactToPrint
+					{/* <ReactToPrint
 						bodyClass='print-body'
 						trigger={() => (
 							<button className='btn btn-chip btn-lighter p-l-1 p-r-1 m-l-1'>
@@ -34,7 +34,7 @@ class PriceAndConsumtion extends Component {
 							</button>
 						)}
 						content={() => this.componentRef}
-					/>
+					/> */}
 				</div>
 				<div className='print-single'>
 					<table className='extradata'>
