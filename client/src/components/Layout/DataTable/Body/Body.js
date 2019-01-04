@@ -218,19 +218,17 @@ const tableBody = (props) => {
 						if (schema.get('cellType') === 'date' && cellData !== '') {
 							cellData = new Date(cellData).toDateString()
 						}
-						if (schema.get('cellType') === 'number' && cellData !== '') {
-							if (cellData !== undefined) {
-								cellData = Math.round(cellData * 100) / 100
+						if (schema.get('cellType') === 'number' && cellData !== '' && cellData !== undefined) {
+							cellData = Math.round(cellData * 100) / 100
 
-								let parts
-								if (typeof cellData === 'number') {
-									parts = cellData.toString().split('.')
-								} else if (typeof cellData === 'string') {
-									parts = cellData.split('.')
-								}
-								parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-								cellData = parts.join('.')
+							let parts
+							if (typeof cellData === 'number') {
+								parts = cellData.toString().split('.')
+							} else if (typeof cellData === 'string') {
+								parts = cellData.split('.')
 							}
+							parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+							cellData = parts.join('.')
 						}
 						cellData = (
 							<div className={'filled-txt' + (schema.get('id') ? ' auto-filled-txt' : '')}>
