@@ -220,6 +220,8 @@ const tableBody = (props) => {
 						}
 						if (schema.get('cellType') === 'number' && cellData !== '') {
 							if (cellData !== undefined) {
+								cellData = Math.round(cellData * 100) / 100
+
 								let parts
 								if (typeof cellData === 'number') {
 									parts = cellData.toString().split('.')
@@ -228,14 +230,10 @@ const tableBody = (props) => {
 								}
 								parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 								cellData = parts.join('.')
-								cellData = Math.round(cellData * 100) / 100
 							}
 						}
 						cellData = (
-							<div
-								className={'filled-txt' + (schema.get('id') ? ' auto-filled-txt' : '')}
-								// onWheel={e => props.wheel(e)} // To control horizental scroll by default
-							>
+							<div className={'filled-txt' + (schema.get('id') ? ' auto-filled-txt' : '')}>
 								{prefix}
 								{cellData}
 								{suffix}
