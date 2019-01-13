@@ -1,9 +1,10 @@
 // eslint-disable-next-line
 import { fromJS, set } from 'immutable'
 
-import CnP_data from './handlers/CnP_data'
-import CnP_dataSchema from './handlers/CnP_dataSchema'
-import * as syncHandlers from './handlers/handleStateSync'
+import CnP_data from './helpers/dataMaps/CnP_data'
+import CnP_dataSchema from './helpers/schemas/CnP_dataSchema'
+
+import * as syncHandlers from './helpers/handlers/handleStateSync'
 
 const initialState = fromJS({
 	drafts         : null,

@@ -10,6 +10,7 @@ import * as actions from '../../store/actions'
 import Overview from './Overview/Overview'
 import PriceAndConsumtion from './PriceAndConsumtion/PriceAndConsumtion'
 import WOKnitAndAccess from './WOKnitAndAccess/WOKnitAndAccess'
+import GarmentApps from './GarmentApps/GarmentApps'
 import LoadingLayout from '../../components/Layout/Loading/Loading'
 import '../../components/style/DuoGrid.css'
 import './Order.css'
@@ -71,6 +72,12 @@ class Order extends Component {
 										<span className='text'>WO-Knit & Access</span>
 									</li>
 								</NavLink>
+								<NavLink to={`/order/${this.props.match.params.id}/garmentapps`}>
+									<li>
+										<i className='fas fa-tshirt' />
+										<span className='text'>Garment Application</span>
+									</li>
+								</NavLink>
 							</ul>
 						</CSSTransition>
 					</aside>
@@ -113,6 +120,7 @@ class Order extends Component {
 												tabledata={this.props.order.get('tabledata')}
 											/>
 											<WOKnitAndAccess render={path.includes('woknitandaccess')} tabledata={this.props.knit_data} />
+											<GarmentApps render={path.includes('woknitandaccess')} tabledata={this.props.knit_data} />
 										</div>
 									</PrintWrapper>
 								</article>
