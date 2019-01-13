@@ -21,11 +21,9 @@ app.use(cors())
 app.use(authentication, company, buyer, draft, order)
 
 // Server Config
-const port = 3001
+const port = 8080
 
 app.listen(port, () => {
-  console.clear()
-  console.log(
-    `> Server started and running on port: ${port} \n----------------------------------------`,
-  )
+	console.clear()
+	console.log(`> Server started and running on port: ${port} \n----------------------------------------`)
 })

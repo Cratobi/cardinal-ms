@@ -5,75 +5,12 @@ import knit_schema from './handlers/Knit_schema'
 import knitData from './handlers/KnitData'
 
 const initialState = fromJS({
-	search_result: null,
-	order: null,
-	orders_count: null,
-	orders: null,
+	search_result : null,
+	order         : null,
+	orders_count  : null,
+	orders        : null,
 	knit_schema,
-	knit_data: null,
-	knit_data2: {
-		table_items: [
-			['Item/Description ', 'Colour', 'Fabrics Composition', 'Size', '', '', '', 'Total Fabrics'],
-			['', '', '', '', '', '', '', '', '', ''],
-
-			['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['TOTAL', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-		],
-		table_fabricfinishprocess: [['', ''], ['', ''], ['', ''], ['', ''], ['', '']],
-		table_quantity: [[''], ['']],
-
-		table_extrafabric: [
-			['', '', '', '', ''],
-			['', '', '', '', ''],
-			['', '', '', '', ''],
-			['', '', '', '', ''],
-			['', '', '', '', ''],
-			['', '', '', '', ''],
-			['', '', '', '', ''],
-			[''],
-		],
-		table_rawitems: [
-			['Item/Description ', 'Colour', 'Fabrics Composition', 'Size', 'Total Fabrics'],
-			['', '', '', '', '', '', '', '', '', ''],
-
-			['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-			['TOTAL', '', '', '', '', '', '', '', '', '', '', ''],
-		],
-		table_fabricsl: [
-			['', '', '', '', '', '', ''],
-			['', '', '', '', '', '', ''],
-			['', '', '', '', '', '', ''],
-			['', '', '', '', '', '', ''],
-			['', '', '', '', '', '', ''],
-			['', '', '', '', '', '', ''],
-		],
-
-		table_date: [
-			['Yarn Required Date', ''],
-			['Knitting Start Date', ''],
-			['Knitting Close Date', ''],
-			['Batch Received Date', ''],
-			['Batch Delivery Date', ''],
-			['Dyeing Start Date', ''],
-			['Dyeing Close Date', ''],
-			['Finished Fabrics Check Close', ''],
-			['Finished Fabrics Inhouse', ''],
-		],
-	},
+	knit_data     : null
 })
 
 const orderReducer = (state = initialState, action) => {
@@ -86,7 +23,7 @@ const orderReducer = (state = initialState, action) => {
 			state = state.set('orders_count', initialState.get('orders_count'))
 			return state.set('orders', initialState.get('orders'))
 		case 'ADD_ORDERS':
-			return state.update('orders', orders => orders.concat(fromJS(action.payload)))
+			return state.update('orders', (orders) => orders.concat(fromJS(action.payload)))
 		case 'SAVE_ORDER':
 			const knit_data = knitData(action.payload)
 			state = state.set('knit_data', fromJS(knit_data))
