@@ -120,7 +120,7 @@ class Order extends Component {
 												tabledata={this.props.order.get('tabledata')}
 											/>
 											<WOKnitAndAccess render={path.includes('woknitandaccess')} tabledata={this.props.knit_data} />
-											<GarmentApps render={path.includes('woknitandaccess')} tabledata={this.props.knit_data} />
+											<GarmentApps render={path.includes('garmentapps')} tabledata={this.props.garment_data} />
 										</div>
 									</PrintWrapper>
 								</article>
@@ -137,8 +137,9 @@ class Order extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		order     : state.getIn([ 'order', 'order' ]),
-		knit_data : state.getIn([ 'order', 'knit_data' ])
+		order        : state.getIn([ 'order', 'order' ]),
+		knit_data    : state.getIn([ 'order', 'knit_data' ]),
+		garment_data : state.getIn([ 'order', 'garment_data' ])
 	}
 }
 

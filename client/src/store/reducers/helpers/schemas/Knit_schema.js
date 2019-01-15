@@ -33,43 +33,43 @@ const KnitSchema = {
 			],
 			[
 				{
-					cellType : 'number',
+					cellType : 'text',
 					cellData : ''
 				},
 				{
-					cellType : 'number',
+					cellType : 'text',
 					cellData : ''
 				},
 				{
-					cellType : 'number',
+					cellType : 'text',
 					cellData : ''
 				},
 				{
-					cellType : 'number',
+					cellType : 'text',
 					cellData : ''
 				},
 				{
-					cellType : 'number',
+					cellType : 'text',
 					cellData : ''
 				},
 				{
-					cellType : 'number',
+					cellType : 'text',
 					cellData : ''
 				},
 				{
-					cellType : 'number',
+					cellType : 'text',
 					cellData : ''
 				},
 				{
-					cellType : 'number',
+					cellType : 'text',
 					cellData : ''
 				},
 				{
-					cellType : 'number',
+					cellType : 'text',
 					cellData : ''
 				},
 				{
-					cellType : 'number',
+					cellType : 'text',
 					cellData : ''
 				}
 			],

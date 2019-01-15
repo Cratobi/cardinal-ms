@@ -38,7 +38,7 @@ class GarmentApps extends Component {
 				<div className='print-single'>
 					<div className='static-table'>
 						<PrintWrapper ref={(el) => (this.componentRef = el)}>
-							<GarmentAppsLayout schema={this.props.knit_schema} data={this.props.tabledata} />
+							<GarmentAppsLayout schema={this.props.garment_schema} data={this.props.tabledata} />
 						</PrintWrapper>
 					</div>
 				</div>
@@ -49,7 +49,7 @@ class GarmentApps extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		knit_schema : state.getIn([ 'order', 'knit_schema' ])
+		garment_schema : state.getIn([ 'order', 'garment_schema' ])
 	}
 }
 
